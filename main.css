@@ -296,23 +296,25 @@
   .hero-text {
     position: absolute;
     z-index: 2;
-    bottom: 12vh;
-    left: 24px;
-    right: 24px;
+    bottom: 10vh;
+    left: 20px;
+    right: 20px;
     max-width: 540px;
-    display: flex; flex-direction: column; gap: 16px;
+    display: flex; flex-direction: column; gap: 14px;
     color: var(--ivory);
   }
   .hero-text .eyebrow { color: rgba(250,248,244,0.78); }
   .hero-title {
     font-family: var(--font-display); font-weight: 500;
-    font-size: 36px; line-height: 1.18; letter-spacing: 0.02em;
+    font-size: clamp(26px, 7.5vw, 36px); line-height: 1.18; letter-spacing: 0.02em;
     color: var(--ivory); max-width: 540px;
+    overflow-wrap: break-word; hyphens: auto;
   }
   .hero-subline {
     font-family: var(--font-editorial); font-weight: 400;
     font-size: 15px; line-height: 1.65; color: rgba(250,248,244,0.92);
     max-width: 380px;
+    overflow-wrap: break-word;
   }
   /* CTA hero retiré · descendu en fin de Section I "Pourquoi Sumba" et en sticky bottom-right */
   /* CTA inline en fin de section Pourquoi Sumba · variante cartouche au sol (non-flottante) */
