@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /capital-partners/data-room/
+Disallow: /capital-partners/access-request/
+
+Sitemap: https://pasola.fr/sitemap.xml

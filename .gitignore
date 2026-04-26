@@ -1,0 +1,40 @@
+# PASOLA · pasola.fr · .gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editors
+.vscode/
+.idea/
+*.sublime-*
+
+# Node (si build futur)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Cloudflare
+.wrangler/
+.dev.vars
+
+# Logs
+logs/
+*.log
+
+# Archives temporaires
+*.zip
+*.tar.gz

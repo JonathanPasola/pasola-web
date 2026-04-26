@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 110" aria-label="PASOLA Signature Estate">
+  <!-- INTERIM — not illustrator-grade. Geometry corrigée v2 : biseau 22° (spec brief v1: 18-28°).
+       À substituer par emblème production dès livraison par illustrateur commissionné. -->
+  <line x1="12" y1="92" x2="188" y2="92" stroke="#1A2C3D" stroke-width="1.25" fill="none"/>
+  <path fill="#1A2C3D" d="M 86 92 L 90 44.12 L 120 32 L 128 92 Z"/>
+</svg>
