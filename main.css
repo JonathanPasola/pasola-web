@@ -1,17 +1,5 @@
 /* ============================================================
    PASOLA · pasola.fr · main stylesheet · v2 mobile-first
-   ============================================================
-   Discipline mobile-first canonique.
-   - Toutes les valeurs par défaut calibrées pour 320px (iPhone SE)
-     puis testent jusqu'à 430px (iPhone Pro Max).
-   - Une seule breakpoint visible : @media (min-width: 769px) pour
-     desktop overrides. Tablet portrait reste en mode mobile —
-     cohérent avec la philosophie "mobile is canonical".
-   - Plus de vh sur positions critiques (instable iOS) → svh ou px.
-   - clamp() sur tous les titres pour scaler entre 320px et 769px.
-   - overflow-wrap: break-word systématique.
-   - Carrousel pattern Aman : tile à 84%, image carrée 1:1, progress
-     bar Terra Rossa centrée sous le track.
    ============================================================ */
 
 :root {
@@ -31,15 +19,12 @@
   --font-editorial: 'Cormorant Garamond', Georgia, serif;
   --font-functional: 'Outfit', system-ui, sans-serif;
 
-  /* Padding latéral cohérent — un seul système, mobile à desktop */
   --pad-x: 20px;
 
-  /* Échelle d'espacement vertical — mobile-first, scaling propre */
   --pad-tight-y: 56px;
   --pad-default-y: 72px;
   --pad-generous-y: 96px;
 
-  /* Mesure de prose (line-length editorial) */
   --measure: 600px;
 }
 
@@ -62,7 +47,6 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; background: none; border: none; }
 img, svg, video { display: block; max-width: 100%; height: auto; }
 
-/* Wrapping discipline — aucun mot ne déborde, même les longs ("Beachfront", "Spotlight") */
 h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; hyphens: auto; }
 p { overflow-wrap: break-word; }
 
@@ -79,9 +63,6 @@ p { overflow-wrap: break-word; }
 }
 .skip-link:focus { top: 0; }
 
-/* ============================================================
-   HEADER · grille 3 colonnes, progressif au scroll
-   ============================================================ */
 .site-header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   padding: 16px var(--pad-x) 14px;
@@ -150,7 +131,7 @@ p { overflow-wrap: break-word; }
   font-family: var(--font-functional); font-size: 11px;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--indigo);
-  display: none; /* Caché mobile, affiché desktop */
+  display: none;
 }
 
 .lang-switch {
@@ -174,9 +155,6 @@ p { overflow-wrap: break-word; }
   .site-header, .brand-lockup, .brand-emblem, .brand-wordmark { transition: none; }
 }
 
-/* ============================================================
-   MOBILE NAV OVERLAY
-   ============================================================ */
 .nav-overlay {
   position: fixed; inset: 0; z-index: 40;
   background: var(--ivory);
@@ -198,17 +176,12 @@ p { overflow-wrap: break-word; }
   color: var(--indigo); font-weight: 500;
 }
 
-/* ============================================================
-   LAYOUT GLOBAL
-   ============================================================ */
 main { padding-top: 0; }
 
 section {
   padding: var(--pad-default-y) var(--pad-x);
 }
-/* Sections-clés respirent davantage */
 .lieu, .vision { padding: var(--pad-generous-y) var(--pad-x); }
-/* Sections-listes plus serrées */
 .videos { padding: var(--pad-tight-y) var(--pad-x); }
 
 .container { max-width: 720px; margin: 0 auto; }
@@ -226,19 +199,12 @@ section {
   font-weight: 400; display: block; margin-bottom: 24px;
 }
 
-/* ============================================================
-   HERO · vidéo encadrée, immersive mobile
-   ============================================================
-   Mobile : pleine hauteur (svh stable iOS), padding latéral réduit.
-   Pas de combat aspect-ratio + min-height — flex: 1 suffit.
-   Texte positionné en absolute mais avec bottom px (pas vh).
-   ============================================================ */
 .hero {
   padding: 78px 12px 22px;
   background: var(--ivory);
   display: flex; flex-direction: column;
-  min-height: 100svh; /* svh = small viewport height, stable Safari iOS */
-  min-height: 100vh;  /* fallback pour Chrome desktop si svh non-supporté */
+  min-height: 100svh;
+  min-height: 100vh;
 }
 .hero-video-frame {
   position: relative;
@@ -271,23 +237,27 @@ section {
 .hero-text {
   position: absolute;
   z-index: 2;
-  bottom: 64px;        /* px fixe — stable Safari iOS, ne bouge pas avec la barre URL */
-  left: 18px;
-  right: 18px;
-  display: flex; flex-direction: column; gap: 12px;
+  bottom: 64px;
+  left: 16px;
+  right: 16px;
+  max-width: 100%;
+  display: flex; flex-direction: column; gap: 10px;
   color: var(--ivory);
 }
 .hero-text .eyebrow { color: rgba(250,248,244,0.78); }
 .hero-title {
   font-family: var(--font-display); font-weight: 500;
-  font-size: clamp(24px, 7vw, 34px);
-  line-height: 1.18; letter-spacing: 0.02em;
+  font-size: clamp(22px, 6.4vw, 32px);
+  line-height: 1.2; letter-spacing: 0.015em;
   color: var(--ivory);
+  max-width: 100%;
 }
 .hero-subline {
   font-family: var(--font-editorial); font-weight: 400;
-  font-size: 15px; line-height: 1.6;
+  font-size: clamp(14px, 4vw, 16px);
+  line-height: 1.55;
   color: rgba(250,248,244,0.92);
+  max-width: 100%;
 }
 
 .sound-toggle {
@@ -337,15 +307,12 @@ section {
   padding-left: 0.14em;
 }
 
-/* ============================================================
-   MEDIA FRAME · photo cinematic full-bleed
-   ============================================================ */
 .media-frame {
   position: relative;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  aspect-ratio: 4 / 3;        /* mobile : ratio plus haut, plus immersif */
+  aspect-ratio: 4 / 3;
   max-height: 70svh;
   background: var(--indigo);
   border-top: 0.5px solid var(--rule);
@@ -389,9 +356,6 @@ section {
   display: block; margin-top: 6px;
 }
 
-/* ============================================================
-   MEDIA SLOT · placeholder photo (Section Lieu)
-   ============================================================ */
 .media-slot {
   border: 0.5px dashed rgba(26, 44, 61, 0.3);
   background: rgba(26, 44, 61, 0.04);
@@ -402,9 +366,6 @@ section {
   display: flex; align-items: center; justify-content: center;
 }
 
-/* ============================================================
-   SECTIONS ÉDITORIALES · titres communs
-   ============================================================ */
 .lieu .section-title,
 .spirit .section-title,
 .zones-intro .section-title,
@@ -445,7 +406,6 @@ section {
   color: var(--muted); line-height: 1.5;
 }
 
-/* CTA inline en fin de section · cartouche au sol */
 .section-cta {
   position: relative;
   display: inline-block;
@@ -487,9 +447,6 @@ section {
   border-color: var(--terra);
 }
 
-/* ============================================================
-   FILET DIVIDER
-   ============================================================ */
 .filet-divider {
   display: flex; align-items: center; justify-content: center;
   padding: 32px var(--pad-x);
@@ -500,9 +457,6 @@ section {
   background: rgba(139, 74, 46, 0.45);
 }
 
-/* ============================================================
-   ZONES WRAP · Section IV Résidences (intro + carrousel)
-   ============================================================ */
 .zones-wrap {
   padding: 0 var(--pad-x) var(--pad-default-y);
 }
@@ -511,28 +465,17 @@ section {
   margin-bottom: 40px;
 }
 
-/* ============================================================
-   AMAN CAROUSEL · pattern Aman Resorts
-   ============================================================
-   - tile à 84% du viewport (bord du suivant visible ~16%)
-   - image carrée 1:1 (demande explicite Jonathan)
-   - vidéos restent en 16:9 (ne se mettent pas en carré)
-   - progress bar Terra Rossa centrée 240px max-width
-   - desktop : grid 3 colonnes, progress bar masquée
-   ============================================================ */
 .aman-carousel {
   position: relative;
 }
 .aman-carousel-track {
   display: flex;
-  gap: 14px;
+  gap: 16px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-padding-left: var(--pad-x);
   padding: 2px var(--pad-x) 8px;
-  /* Margin négatif pour que le track commence au bord du viewport tout en
-     laissant la section parent gérer son padding visuel */
   margin: 0 calc(-1 * var(--pad-x));
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -540,14 +483,10 @@ section {
 .aman-carousel-track::-webkit-scrollbar { display: none; }
 
 .aman-card {
-  flex: 0 0 84%;
+  flex: 0 0 86%;
   scroll-snap-align: start;
   display: flex; flex-direction: column;
   min-width: 0;
-  /* Pattern Aman · les cartes inactives sont blanchies par un voile ivoire
-     semi-transparent. État par défaut = inactif. La classe .is-active est
-     ajoutée par main.js (IntersectionObserver) sur la carte centrée dans
-     le viewport. Transition fluide quand on swipe. */
   position: relative;
   transition: opacity 360ms ease;
 }
@@ -555,7 +494,7 @@ section {
   content: "";
   position: absolute; inset: 0;
   background: var(--ivory);
-  opacity: 0.55;
+  opacity: 0.5;
   pointer-events: none;
   transition: opacity 360ms ease;
   z-index: 2;
@@ -568,7 +507,6 @@ section {
   .aman-card::after { transition: none; }
 }
 
-/* Image carrée — demande Jonathan, pattern Aman */
 .aman-card-media {
   aspect-ratio: 1 / 1;
   background: rgba(26,44,61,0.04);
@@ -581,7 +519,6 @@ section {
   border-style: solid;
   border-color: rgba(26,44,61,0.12);
 }
-/* Vidéos : ratio 16:9 préservé */
 .aman-card-media-video {
   aspect-ratio: 16 / 9;
   border-style: solid;
@@ -673,9 +610,8 @@ section {
   margin: 14px 0 0;
 }
 
-/* Variante éditoriale (Sections II Esprit et III Vision) — image + caption italique */
 .aman-card-editorial .aman-card-media {
-  aspect-ratio: 1 / 1; /* carré aussi en éditorial pour cohérence */
+  aspect-ratio: 1 / 1;
 }
 .aman-card-editorial-caption {
   font-family: var(--font-editorial);
@@ -693,28 +629,50 @@ section {
   font-weight: 400;
 }
 
-/* Progress bar Terra Rossa — pattern Aman, sub-pixel discret */
-.aman-progress {
-  width: 80%; max-width: 240px;
-  height: 0.5px;
-  background: rgba(139, 74, 46, 0.12);
+/* Indicateur de slide active · carrés Terra Rossa cliquables (un par slide).
+   Pattern lapidaire cohérent avec l'identité PASOLA — pas de cercles, des carrés.
+   Le carré actif est plein et légèrement agrandi. Les autres en outline.
+   Sur desktop (≥769px), les carrousels deviennent des grilles, donc plus
+   de scroll horizontal et les dots sont masqués (rien à indiquer). */
+.aman-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   margin: 28px auto 0;
-  position: relative;
+  padding: 4px 0;
+  min-height: 16px;
 }
-.aman-progress-fill {
-  position: absolute; top: 0; left: 0;
-  height: 100%; width: 0%;
+.aman-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  background: transparent;
+  border: 0.5px solid var(--terra);
+  border-radius: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 220ms ease, transform 220ms ease,
+              border-color 220ms ease, opacity 220ms ease;
+  opacity: 0.55;
+}
+.aman-dot:hover, .aman-dot:focus-visible {
+  opacity: 0.85;
+  outline: none;
+}
+.aman-dot:focus-visible {
+  outline: 1px solid var(--terra);
+  outline-offset: 3px;
+}
+.aman-dot.is-active {
   background: var(--terra);
-  opacity: 0.65;
-  transition: width 200ms ease-out;
+  transform: scale(1.3);
+  opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {
-  .aman-progress-fill { transition: none; }
+  .aman-dot { transition: none; }
 }
 
-/* ============================================================
-   VISION · section éditoriale centrée
-   ============================================================ */
 .vision .container {
   max-width: 720px;
   text-align: center;
@@ -760,9 +718,6 @@ section {
 }
 .vision-body p:last-child { margin-bottom: 0; }
 
-/* ============================================================
-   PRESS FEATURED · bandeau Night Indigo
-   ============================================================ */
 .press-featured {
   background: var(--indigo);
   color: var(--ivory);
@@ -796,24 +751,14 @@ section {
 }
 .press-featured-title em { font-style: italic; font-weight: 400; }
 
-/* Press Featured · auto-scroll continu seamless (pattern Aesop / The Row).
-   .press-featured-grid devient le viewport masqué (overflow hidden).
-   .press-featured-track est le ruban qui défile, contenant les cartes
-   originales + leurs duplicatas (clonés via JS, voir main.js).
-   Animation linear 60s par cycle → contemplatif, pas distrayant.
-   Pause au hover/focus/touch. Honore prefers-reduced-motion. */
 .press-featured-grid {
   position: relative;
   overflow: hidden;
-  /* Pas de mask-fade · pattern Aman = bords nets, le mouvement continu suffit
-     à signaler la continuité (un fade rongerait le contenu des cartes). */
 }
 .press-featured-track {
   display: flex;
   gap: 28px;
   width: max-content;
-  /* --marquee-end pilote la fin de translation : -50% - (gap/2)
-     Recalibré au breakpoint desktop via override. */
   --marquee-end: calc(-50% - 14px);
   animation: pasola-press-marquee 60s linear infinite;
   will-change: transform;
@@ -886,9 +831,6 @@ section {
   transform: translateX(4px);
 }
 
-/* ============================================================
-   CONTACT FORM
-   ============================================================ */
 .form { display: flex; flex-direction: column; gap: 24px; }
 .form-field { display: flex; flex-direction: column; gap: 9px; }
 .form-label {
@@ -928,7 +870,7 @@ section {
 }
 .form-input, .form-textarea {
   font-family: var(--font-editorial);
-  font-size: 16px; /* 16px iOS = pas de zoom auto au focus */
+  font-size: 16px;
   line-height: 1.5;
   color: var(--indigo);
   padding: 12px 14px;
@@ -960,9 +902,6 @@ section {
   color: var(--muted); margin-top: 12px; line-height: 1.5;
 }
 
-/* ============================================================
-   FOOTER · inspiration Singita
-   ============================================================ */
 .site-footer {
   background: var(--indigo);
   color: var(--ivory);
@@ -1026,7 +965,7 @@ section {
 }
 .newsletter-input {
   font-family: var(--font-editorial);
-  font-size: 16px; /* 16px iOS = pas de zoom */
+  font-size: 16px;
   color: var(--ivory);
   padding: 10px 0;
   background: transparent; border: none;
@@ -1063,7 +1002,6 @@ section {
   background: var(--sand); color: var(--indigo);
 }
 
-/* Footer grid (3 colonnes thématiques — empilées mobile) */
 .footer-grid {
   display: flex; flex-direction: column; gap: 32px;
   margin-bottom: 40px; padding-bottom: 40px;
@@ -1091,7 +1029,6 @@ section {
   opacity: 1; color: var(--sand);
 }
 
-/* Contact block */
 .footer-contact {
   margin-bottom: 32px; padding-bottom: 28px;
   border-bottom: 0.5px solid rgba(250,248,244,0.15);
@@ -1141,7 +1078,6 @@ section {
 .footer-contact-all a { color: inherit; text-decoration: none; }
 .footer-contact-all a:hover { opacity: 0.7; }
 
-/* Social pictos · base + footer override */
 .social-row {
   display: flex; gap: 14px; align-items: center;
   flex-wrap: wrap;
@@ -1178,7 +1114,6 @@ section {
   background: var(--sand); border-color: var(--sand); color: var(--indigo);
 }
 
-/* Spotify embed */
 .footer-soundtrack {
   margin-top: 28px;
   max-width: 520px;
@@ -1198,7 +1133,6 @@ section {
   background: transparent;
 }
 
-/* Meta bottom */
 .footer-rule {
   height: 0.5px;
   background: rgba(250,248,244,0.15);
@@ -1225,9 +1159,6 @@ section {
   color: rgba(250,248,244,0.3);
 }
 
-/* ============================================================
-   FLOATING CTA · Variante "Plus simple" — Cormorant italic + flèche
-   ============================================================ */
 .floating-cta {
   position: fixed; bottom: 14px; right: 14px; z-index: 45;
   display: inline-flex; align-items: center; gap: 6px;
@@ -1253,7 +1184,6 @@ section {
 .floating-cta:hover .arrow, .floating-cta:focus .arrow {
   transform: translateX(3px);
 }
-/* Variante sur fond sombre — activée par JS quand survol section indigo */
 .floating-cta--on-dark {
   color: var(--ivory);
   text-shadow: 0 1px 4px rgba(26, 44, 61, 0.85),
@@ -1261,9 +1191,6 @@ section {
 }
 .floating-cta--on-dark:hover, .floating-cta--on-dark:focus { color: var(--sand); }
 
-/* ============================================================
-   REVEAL ON SCROLL — fade discret, sans translate
-   ============================================================ */
 .reveal {
   opacity: 0;
   transition: opacity 800ms ease;
@@ -1274,14 +1201,6 @@ section {
   html { scroll-behavior: auto; }
 }
 
-/* ============================================================
-   ============================================================
-   DESKTOP OVERRIDES — @media (min-width: 769px)
-   ============================================================
-   Une seule breakpoint visible. Tablet portrait reste mobile.
-   ============================================================
-   ============================================================ */
-
 @media (min-width: 769px) {
   :root {
     --pad-x: 48px;
@@ -1290,7 +1209,6 @@ section {
     --pad-generous-y: 128px;
   }
 
-  /* Header */
   .site-header { padding: 24px var(--pad-x) 20px; gap: 12px; }
   .site-header.is-scrolled { padding: 12px var(--pad-x); }
   .brand-emblem { width: 40px; height: 22px; }
@@ -1301,18 +1219,15 @@ section {
   .site-header.is-scrolled .brand-lockup { gap: 9px; }
   .nav-toggle-label { display: inline; }
 
-  /* Nav overlay */
   .nav-overlay { padding: 120px 48px 48px; }
   .nav-overlay ul { gap: 22px; }
   .nav-overlay a { font-size: 24px; }
 
-  /* Layout global */
   section { padding: var(--pad-default-y) var(--pad-x); }
   .lieu, .vision { padding: var(--pad-generous-y) var(--pad-x); }
   .videos { padding: var(--pad-tight-y) var(--pad-x); }
   .container { max-width: 760px; }
 
-  /* Hero */
   .hero { padding: 100px 16px 28px; }
   .hero-video-frame {
     aspect-ratio: 16 / 9;
@@ -1339,7 +1254,6 @@ section {
   .hero-tagline-wrap { padding: 20px 0 4px; }
   .hero-tagline { font-size: 15px; }
 
-  /* Media frame · 21:9 cinematic desktop */
   .media-frame {
     aspect-ratio: 21 / 9;
     max-height: 78vh;
@@ -1354,7 +1268,6 @@ section {
     margin-top: 8px;
   }
 
-  /* Section titles desktop · large */
   .lieu .section-title, .spirit .section-title,
   .zones-intro .section-title, .videos .section-title,
   .contact .section-title {
@@ -1366,13 +1279,10 @@ section {
   .zones-intro .lede, .videos .lede, .contact .lede,
   .spirit .lede { font-size: 20px; }
 
-  /* CTA cartouche desktop · padding généreux */
   .section-cta { padding: 16px 32px; letter-spacing: 0.32em; }
 
-  /* Filet desktop */
   .filet-divider { padding: 48px var(--pad-x); }
 
-  /* Carousel · bascule en grille, no scroll, progress masqué */
   .aman-carousel-track {
     display: grid;
     grid-template-columns: repeat(var(--cols, 3), 1fr);
@@ -1385,19 +1295,16 @@ section {
     flex: initial;
     scroll-snap-align: none;
   }
-  /* Desktop · plus de blanchiment, toutes les cartes sont \u00e9galement nettes en grille */
   .aman-card::after { display: none; }
   .aman-card-title { font-size: clamp(22px, 2.5vw, 26px); }
   .aman-card-body { font-size: 15.5px; }
-  .aman-progress { display: none; }
+  .aman-dots { display: none; }
 
-  /* Vision · titre plus grand desktop */
   .vision .container { max-width: 840px; }
   .vision-head { margin-bottom: 52px; }
   .vision-title { font-size: clamp(30px, 3.6vw, 38px); line-height: 1.16; }
   .vision-rule { width: 520px; max-width: 80%; margin: 0 auto 56px; }
 
-  /* Press featured · 3 colonnes */
   .press-featured { padding: 96px 0 104px; }
   .press-featured-inner { padding: 0 32px; }
   .press-featured-intro { margin-bottom: 72px; }
@@ -1406,8 +1313,6 @@ section {
     margin-bottom: 24px;
   }
   .press-featured-title { font-size: clamp(36px, 4.5vw, 48px); }
-  /* Desktop · marquee track avec gap plus généreux et cartes plus larges.
-     Pas de retour en grille — l'auto-scroll fonctionne aux deux tailles. */
   .press-featured-track {
     gap: 48px;
     --marquee-end: calc(-50% - 24px);
@@ -1420,18 +1325,15 @@ section {
   .press-featured-quote { font-size: 17px; }
   .press-featured-desc { font-size: 15px; }
 
-  /* Floating CTA desktop */
   .floating-cta {
     bottom: 28px; right: 28px;
     padding: 10px 14px; font-size: 16px; gap: 8px;
   }
   .floating-cta .arrow { font-size: 13px; }
 
-  /* Social pictos */
   .social-picto { width: 38px; height: 38px; }
   .social-picto svg { width: 16px; height: 16px; }
 
-  /* Footer */
   .site-footer { padding: 88px var(--pad-x) 48px; }
   .footer-brand { margin-bottom: 48px; padding-bottom: 36px; }
   .footer-wordmark { font-size: 21px; }
@@ -1468,6 +1370,5 @@ section {
     flex-direction: row; justify-content: space-between; align-items: center;
   }
 
-  /* Form desktop · max-width contenu */
   .form { max-width: 560px; }
 }

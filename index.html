@@ -66,9 +66,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<!-- C-01 audit AMAN-grade · preload des webfonts critiques pour éliminer le FOUT.
-     Cormorant 400 regular + italic (typographie body principale).
-     Outfit 400 (eyebrows, boutons). Cinzel chargé via stylesheet standard car non-critique above-fold. -->
 <link rel="preload" as="font" type="font/woff2" crossorigin
       href="https://fonts.gstatic.com/s/cormorantgaramond/v16/co3YmX5slCNuHLi8bLeY9MK7whWMhyjornFLsS6V7w.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin
@@ -84,7 +81,6 @@
 
 <a class="skip-link" href="#main">Aller au contenu principal</a>
 
-<!-- ===== SVG sprite inline (critical above-the-fold) ===== -->
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
 <defs>
 <symbol id="pasola-emblem-full" viewBox="0 0 200 110">
@@ -99,7 +95,6 @@
 </defs>
 </svg>
 
-<!-- ===== Header ===== -->
 <header class="site-header" role="banner">
 
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Ouvrir le menu">
@@ -122,7 +117,6 @@
 
 </header>
 
-<!-- ===== Mobile nav overlay ===== -->
 <nav class="nav-overlay" id="primary-nav" aria-hidden="true" aria-label="Navigation principale">
 <ul>
 <li><a href="#pourquoi">Pourquoi Sumba</a></li>
@@ -138,17 +132,10 @@
 
 <main id="main">
 
-<!-- ================= HERO · vidéo encadrée ================= -->
 <section class="hero" aria-labelledby="hero-title">
 
 <div class="hero-video-frame">
 
-<!-- VIDÉO · hostée sur Cloudinary.
-     Cloud : ds85vc2ul · Asset : PASOLA_Sumba_Teaser_2MB_1_khhaxy
-     Transforms appliquées : q_auto (quality auto), f_auto (format auto WebM/MP4 selon navigateur),
-     w_1920 (cap 1920px largeur pour éviter 4K inutile sur mobile).
-     Le poster est auto-généré par Cloudinary à partir de la même ressource (frame ~2s).
-     Autoplay muet (contrainte Chrome) + loop. Bouton son active la musique à la demande. -->
 <video class="hero-video"
        id="hero-video"
        autoplay muted loop playsinline
@@ -172,13 +159,10 @@
 </svg>
 </button>
 
-<!-- BANDE-SON · audio séparé pour contourner la contrainte autoplay (vidéo reste muette).
-     Même pattern et même fichier que pasola.fr actuel. Loop, preload metadata seulement. -->
 <audio id="bg-music" loop preload="metadata" aria-hidden="true">
 <source src="https://pasola.fr/bg-music.mp3" type="audio/mpeg" />
 </audio>
 
-<!-- PROGRESS INDICATOR · spec brand book v1.1 (Terra Rossa, trait 1pt, width 42%) -->
 <div class="hero-progress" aria-hidden="true">
 <div class="hero-progress-fill" id="hero-progress-fill"></div>
 </div>
@@ -191,9 +175,6 @@
 
 </section>
 
-<!-- Après hero : respiration sans séparateur -->
-
-<!-- ================= I · POURQUOI SUMBA ================= -->
 <section class="lieu reveal" id="pourquoi" aria-labelledby="pourquoi-title">
 <div class="container">
 <span class="section-mark">I · Pourquoi Sumba</span>
@@ -203,7 +184,6 @@
 <p>L'île se distingue par ce qu'elle n'a pas vu. Pas de transformation touristique massive, pas de ruée hôtelière. Son littoral, ses traditions tiennent encore leur place : la Pasola équestre, la tradition lapidaire, les tissages hinggi.</p>
 <p>Sur cette côte, le domaine s'étend sur quinze hectares. La présente phase en occupe environ la moitié — vingt-et-une résidences freehold, distribuées sur trois zones paysagères distinctes. Le reste du territoire relève d'un programme indépendant, hors du périmètre de cette phase.</p>
 </div>
-<!-- PLACEHOLDER · média : remplacer par photo côte sud-ouest -->
 <div class="media-slot" aria-hidden="true">
 <span class="eyebrow" style="color:var(--muted)">Photographie · côte sud-ouest</span>
 </div>
@@ -212,10 +192,8 @@
 </div>
 </section>
 
-<!-- FILET — transition discrète entre sections du même mouvement (le lieu et sa culture) -->
 <div class="filet-divider" aria-hidden="true"></div>
 
-<!-- ================= II · L'ESPRIT DE SUMBA ================= -->
 <section class="spirit reveal" id="esprit" aria-labelledby="esprit-title">
 <div class="container">
 <span class="section-mark">II · L'esprit de Sumba</span>
@@ -227,7 +205,6 @@
 </div>
 </div>
 
-<!-- PHOTO · héritage sumbanais, format cinematic full-bleed (même langage que hero vidéo) -->
 <figure class="media-frame">
 <img src="https://pasola.fr/spirit-heritage.jpg" alt="Pasola — cavalier · Sumba, Indonésie" loading="lazy" />
 <figcaption class="media-frame-caption">
@@ -236,7 +213,6 @@ Pasola · Sumba, Indonésie
 </figcaption>
 </figure>
 
-<!-- CARROUSEL ÉDITORIAL · 3 cartes complémentaires pour enrichir le récit Esprit -->
 <div class="container">
 <div class="aman-carousel" style="margin-top: 56px;">
 <div class="aman-carousel-track" id="esprit-track" style="--cols: 3">
@@ -273,19 +249,14 @@ Les toitures coniques des maisons sumbanaises, signatures du paysage bâti.
 
 </div>
 
-<div class="aman-progress" aria-hidden="true">
-<div class="aman-progress-fill" id="esprit-progress-fill"></div>
-</div>
+<div class="aman-dots" data-track="esprit-track" aria-hidden="true"></div>
 </div>
 </div>
 
 </section>
 
-<!-- FILET -->
 <div class="filet-divider" aria-hidden="true"></div>
 
-<!-- ================= III · NOTRE VISION · OUR VISION ================= -->
-<!-- Structure : en-tête éditorial centré (titre bilingue + meta + filet), portrait fondateurs (placeholder en attente de l'image), body narratif -->
 <section class="vision reveal" id="vision" aria-labelledby="vision-title">
 <div class="container">
 
@@ -297,7 +268,6 @@ Les toitures coniques des maisons sumbanaises, signatures du paysage bâti.
 </div>
 </div>
 
-<!-- PORTRAIT FONDATEURS · format cinematic full-bleed (même langage que hero vidéo et Esprit) -->
 <figure class="media-frame">
 <img src="https://pasola.fr/editorial-photo.jpg" alt="Jennifer &amp; Jonathan Beraud — Founders, PASOLA Signature Estate" loading="lazy" />
 <figcaption class="media-frame-caption">
@@ -313,7 +283,6 @@ Jennifer &amp; Jonathan Beraud · Fondateurs
 <p>Sumba n'est pas une trouvaille. C'est la réponse à une question longue — où tenir, pour qui, et dans quel rapport au lieu. Sur la côte sud-ouest, sur quinze hectares tenus ensemble, PASOLA Signature Estate est ce que cette conviction prend comme forme.</p>
 </div>
 
-<!-- CARROUSEL ÉDITORIAL · 3 cartes complémentaires pour enrichir le récit Vision -->
 <div class="aman-carousel" style="margin-top: 64px;">
 <div class="aman-carousel-track" id="vision-track" style="--cols: 3">
 
@@ -349,18 +318,14 @@ Conversations et collaborations avec les savoirs de l'île.
 
 </div>
 
-<div class="aman-progress" aria-hidden="true">
-<div class="aman-progress-fill" id="vision-progress-fill"></div>
-</div>
+<div class="aman-dots" data-track="vision-track" aria-hidden="true"></div>
 </div>
 
 </div>
 </section>
 
-<!-- Filet — transition entre Vision et Résidences -->
 <div class="filet-divider" aria-hidden="true"></div>
 
-<!-- ================= IV · LES RÉSIDENCES · carrousel AMAN ================= -->
 <section class="zones-wrap reveal" id="residences" aria-labelledby="residences-title">
 <div class="container">
 
@@ -369,10 +334,6 @@ Conversations et collaborations avec les savoirs de l'île.
 <h2 class="section-title" id="residences-title">Trois rapports<br/>au paysage.</h2>
 <p class="lede">Vingt-et-une résidences, distribuées sur trois zones paysagères distinctes de la côte sud-ouest de Sumba.</p>
 </div>
-
-<!-- NOTE · Altitudes et orientations : estimations de terrain sur la base du point Google Earth
-     fixé à la baie (0,4 m au niveau de la mer, heading 54° ENE, tilt 60°).
-     À CONFIRMER par lecture directe Google Earth sur chaque parcelle. -->
 
 <div class="aman-carousel">
 <div class="aman-carousel-track" id="residences-track" style="--cols: 3">
@@ -424,18 +385,14 @@ Conversations et collaborations avec les savoirs de l'île.
 
 </div>
 
-<div class="aman-progress" aria-hidden="true">
-<div class="aman-progress-fill" id="residences-progress-fill"></div>
-</div>
+<div class="aman-dots" data-track="residences-track" aria-hidden="true"></div>
 </div>
 
 </div>
 </section>
 
-<!-- Filet — transition entre Résidences et Regards -->
 <div class="filet-divider" aria-hidden="true"></div>
 
-<!-- ================= V · VIDEO FROM OUR FRIENDS · carrousel AMAN ================= -->
 <section class="videos reveal" id="regards" aria-labelledby="regards-title">
 <div class="container">
 <span class="section-mark">V · Video from our friends</span>
@@ -473,18 +430,12 @@ Conversations et collaborations avec les savoirs de l'île.
 
 </div>
 
-<div class="aman-progress" aria-hidden="true">
-<div class="aman-progress-fill" id="videos-progress-fill"></div>
-</div>
+<div class="aman-dots" data-track="videos-track" aria-hidden="true"></div>
 </div>
 
 </div>
 </section>
 
-<!-- Respiration · le contraste Ivory → Night Indigo sert lui-même de transition, pas de filet -->
-
-<!-- ================= VI · GROWING INTERNATIONAL SPOTLIGHT · bandeau Night Indigo ================= -->
-<!-- NOTE · section pleine largeur (hors .container) pour que le fond Indigo déborde les marges -->
 <section class="press-featured reveal" id="voisinages" aria-labelledby="voisinages-title">
 <div class="press-featured-inner">
 
@@ -495,7 +446,6 @@ Conversations et collaborations avec les savoirs de l'île.
 
 <div class="press-featured-grid">
 
-<!-- Vogue -->
 <article class="press-featured-card">
 <h3 class="press-featured-name">Vogue</h3>
 <div class="press-featured-rule"></div>
@@ -507,10 +457,6 @@ Conversations et collaborations avec les savoirs de l'île.
 </a>
 </article>
 
-<!-- Condé Nast Traveler -->
-<!-- FLAG BRAND-ADVISOR · le terme "Marapu" est en liste d'interdits (brand book v1.1).
-     Le texte est repris verbatim de pasola.fr existant. Reconciliation à prévoir :
-     alternative brand-safe possible → "preserves the island's extraordinary ancestral cultural heritage" -->
 <article class="press-featured-card">
 <h3 class="press-featured-name">Condé Nast <em>Traveler</em></h3>
 <div class="press-featured-rule"></div>
@@ -522,7 +468,6 @@ Conversations et collaborations avec les savoirs de l'île.
 </a>
 </article>
 
-<!-- National Geographic -->
 <article class="press-featured-card">
 <h3 class="press-featured-name">National <em>Geographic</em></h3>
 <div class="press-featured-rule"></div>
@@ -538,9 +483,6 @@ Conversations et collaborations avec les savoirs de l'île.
 </div>
 </section>
 
-<!-- Respiration · transition Night Indigo → Ivory sans filet -->
-
-<!-- ================= CONTACT / ENTAMER LA CONVERSATION ================= -->
 <section class="contact reveal" id="contact" aria-labelledby="contact-title">
 <div class="container">
 <span class="section-mark">VII · Entamer la conversation</span>
@@ -605,19 +547,15 @@ Conversations et collaborations avec les savoirs de l'île.
 
 </main>
 
-<!-- ================= FOOTER ================= -->
 <footer class="site-footer" role="contentinfo">
 <div class="footer-inner">
 
-<!-- Brand band -->
 <div class="footer-brand">
 <svg class="footer-emblem" width="72" height="40" viewBox="0 0 200 110" style="--cut:var(--indigo)" aria-hidden="true"><use href="#pasola-emblem-full"/></svg>
 <div class="footer-wordmark">PASOLA</div>
 <div class="footer-tagline">Signature Estate · Sumba</div>
 </div>
 
-<!-- Newsletter band -->
-<!-- PLACEHOLDER · brancher sur EmailJS ou service newsletter (Brevo, Mailchimp, MailerLite) -->
 <div class="footer-newsletter">
 <h3 class="footer-newsletter-title">Rester en contact</h3>
 <p class="footer-newsletter-desc">Quelques nouvelles ponctuelles sur l'avancée du domaine, les rendez-vous, les regards éditoriaux. Liste restreinte, rythme mesuré.</p>
@@ -642,7 +580,6 @@ Conversations et collaborations avec les savoirs de l'île.
 </form>
 </div>
 
-<!-- 3-column thematic grid -->
 <div class="footer-grid">
 
 <div class="footer-col">
@@ -679,7 +616,6 @@ Conversations et collaborations avec les savoirs de l'île.
 
 </div>
 
-<!-- Contact block -->
 <div class="footer-contact">
 <p class="footer-contact-line"><span class="footer-contact-label">E.</span><a href="mailto:contact@pasola.fr?subject=Contact%20PASOLA%20Signature%20Estate">contact@pasola.fr</a></p>
 <p class="footer-contact-line"><span class="footer-contact-label">P.</span><a href="mailto:press@pasola.fr?subject=Press%20PASOLA%20Signature%20Estate">press@pasola.fr</a></p>
@@ -687,7 +623,6 @@ Conversations et collaborations avec les savoirs de l'île.
 <p class="footer-contact-all"><a href="#contact">Voir tous les contacts →</a></p>
 </div>
 
-<!-- Social pictos row · PASOLA comptes actifs + placeholders inactifs -->
 <div class="social-row">
 
 <a class="social-picto" href="https://www.instagram.com/pasola.signature.estate/" target="_blank" rel="noopener noreferrer" aria-label="Instagram · pasola.signature.estate">
@@ -714,7 +649,6 @@ Conversations et collaborations avec les savoirs de l'île.
 </svg>
 </a>
 
-<!-- Pictos INACTIFS · plateformes futures, volontairement désactivées visuellement tant qu'aucun compte réel n'existe -->
 <span class="social-picto is-inactive" aria-label="YouTube · à venir" title="À venir">
 <svg viewBox="0 0 24 24" aria-hidden="true">
 <rect x="3" y="6.5" width="18" height="11" rx="2.5"/>
@@ -731,7 +665,6 @@ Conversations et collaborations avec les savoirs de l'île.
 
 </div>
 
-<!-- Spotify · la bande-son, embed compact en thème dark pour fond Night Indigo -->
 <div class="footer-soundtrack">
 <span class="footer-soundtrack-label">La bande-son · une playlist qui accompagne les journées du domaine</span>
 <div class="footer-soundtrack-embed">
@@ -746,10 +679,8 @@ Conversations et collaborations avec les savoirs de l'île.
 </div>
 </div>
 
-<!-- Footer rule -->
 <div class="footer-rule" aria-hidden="true"></div>
 
-<!-- Meta bottom — copyright, legal, language -->
 <div class="footer-meta">
 <span>© 2026 PASOLA Signature Estate · Sumba, Indonésie</span>
 <div class="footer-legal">
@@ -769,9 +700,6 @@ Conversations et collaborations avec les savoirs de l'île.
 </div>
 </footer>
 
-<!-- ================= FLOATING CTA · Variante 04 "Plus simple" ================= -->
-<!-- Cormorant italic + flèche, sans encadrement. Halo text-shadow ivoire pour lisibilité.
-     URL Calendly conservée · ajuster le mois au besoin ou passer en /30min sans paramètre. -->
 <a class="floating-cta"
    href="https://calendly.com/jonathan-beraud-pasola/30min?month=2026-04"
    target="_blank"
@@ -780,7 +708,6 @@ Conversations et collaborations avec les savoirs de l'île.
 Demander le dossier <span class="arrow" aria-hidden="true">→</span>
 </a>
 
-<!-- ================= JS MINIMAL ================= -->
 <script src="/main.js" defer></script>
 
 </body>

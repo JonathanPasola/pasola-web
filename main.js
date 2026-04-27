@@ -28,7 +28,7 @@
     if (e.key === 'Escape') setNavOpen(false);
   });
 
-  // Header progressif · rétraction au scroll
+  // Header progressif
   var header = document.querySelector('.site-header');
   var scrollThreshold = 32;
   var scrollTicking = false;
@@ -48,7 +48,7 @@
 
   updateHeader();
 
-  // Reveal on scroll (IntersectionObserver, zero dep)
+  // Reveal on scroll
   var reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function(entries) {
@@ -64,8 +64,7 @@
     reveals.forEach(function(el) { el.classList.add('is-visible'); });
   }
 
-  // Sound toggle — active/désactive la bande-son ambiante PASOLA (audio séparé,
-  // même pattern que pasola.fr actuel). La vidéo reste muette en permanence.
+  // Sound toggle
   var video = document.getElementById('hero-video');
   var soundBtn = document.getElementById('sound-toggle');
   var bgMusic = document.getElementById('bg-music');
@@ -84,16 +83,14 @@
   if (bgMusic && soundBtn) {
     soundBtn.addEventListener('click', function() {
       if (bgMusic.paused) {
-        // Activer la bande-son
         var playPromise = bgMusic.play();
         if (playPromise && playPromise.catch) {
-          playPromise.catch(function() { /* autoplay bloqué silencieusement */ });
+          playPromise.catch(function() {});
         }
         soundBtn.setAttribute('aria-pressed', 'true');
         soundBtn.setAttribute('aria-label', 'Couper la bande-son');
         soundBtn.innerHTML = iconOn;
       } else {
-        // Couper la bande-son
         bgMusic.pause();
         soundBtn.setAttribute('aria-pressed', 'false');
         soundBtn.setAttribute('aria-label', 'Activer la bande-son');
@@ -102,7 +99,7 @@
     });
   }
 
-  // Progress indicator hero · suit la lecture vidéo (spec brand book v1.1)
+  // Hero progress
   var progressFill = document.getElementById('hero-progress-fill');
   if (video && progressFill) {
     video.addEventListener('timeupdate', function() {
@@ -111,58 +108,93 @@
         progressFill.style.width = pct + '%';
       }
     });
-    // Reset à zéro à chaque boucle (loop attribut)
     video.addEventListener('seeked', function() {
       if (video.currentTime < 0.1) progressFill.style.width = '0%';
     });
   }
 
-  // Carrousels AMAN · progress bar Terra suit le scroll horizontal de chaque track
-  function initCarouselProgress(trackId, fillId) {
+  // Carrousels AMAN · système de carrés indicateurs (dots).
+  // Génère un carré par carte sous chaque carrousel mobile, ajoute
+  // is-active à la carte centrale détectée par IntersectionObserver
+  // (root = track), et permet le clic sur un carré pour scroller vers
+  // la carte correspondante. Sur desktop le track devient une grille
+  // (sans scroll) et le CSS masque les dots — l'observer continue
+  // mais sans effet visuel puisque le voile blanc est aussi désactivé.
+  function initCarouselDots(trackId) {
     var track = document.getElementById(trackId);
-    var fill = document.getElementById(fillId);
-    if (!track || !fill) return;
-    var ticking = false;
-    function update() {
-      var max = track.scrollWidth - track.clientWidth;
-      if (max <= 1) {
-        fill.style.width = '100%';
-        return;
-      }
-      var pct = Math.min(100, Math.max(0, (track.scrollLeft / max) * 100));
-      fill.style.width = pct + '%';
-    }
-    track.addEventListener('scroll', function() {
-      if (!ticking) {
-        window.requestAnimationFrame(function() {
-          update();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-    // Init + recalcul sur resize (bascule mobile/desktop)
-    update();
-    window.addEventListener('resize', update, { passive: true });
-  }
-  initCarouselProgress('residences-track', 'residences-progress-fill');
-  initCarouselProgress('videos-track', 'videos-progress-fill');
-  initCarouselProgress('esprit-track', 'esprit-progress-fill');
-  initCarouselProgress('vision-track', 'vision-progress-fill');
+    if (!track) return;
+    var cards = track.querySelectorAll('.aman-card');
+    if (!cards.length) return;
 
-  // D-02 · Floating CTA "Plus simple" (variante 04) · apparait après que le hero passe.
-  // Détection automatique du fond pour inverser la lisibilité sur sections indigo.
+    // Première carte active par défaut (sinon toutes les cartes restent
+    // voilées au chargement avant que l'observer ne déclenche)
+    cards[0].classList.add('is-active');
+
+    // Générer un carré par carte dans le conteneur .aman-dots associé
+    var dotsContainer = document.querySelector('.aman-dots[data-track="' + trackId + '"]');
+    var dots = [];
+    if (dotsContainer) {
+      // Vider d'abord (au cas où le script s'exécute deux fois)
+      dotsContainer.innerHTML = '';
+      Array.prototype.forEach.call(cards, function(card, idx) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'aman-dot' + (idx === 0 ? ' is-active' : '');
+        dot.setAttribute('aria-label', 'Aller à la diapositive ' + (idx + 1));
+        dot.addEventListener('click', function() {
+          var cardEl = cards[idx];
+          // Calcul du scroll cible · tient compte du scroll-padding-left du track
+          var trackStyle = window.getComputedStyle(track);
+          var padX = parseInt(trackStyle.paddingLeft, 10) || 0;
+          var target = cardEl.offsetLeft - track.offsetLeft - padX;
+          if (track.scrollTo) {
+            track.scrollTo({ left: target, behavior: 'smooth' });
+          } else {
+            track.scrollLeft = target;
+          }
+        });
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+      });
+    }
+
+    // IntersectionObserver · détecte la carte centrée dans le viewport du track
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+            var idx = Array.prototype.indexOf.call(cards, entry.target);
+            if (idx < 0) return;
+            Array.prototype.forEach.call(cards, function(c, i) {
+              c.classList.toggle('is-active', i === idx);
+            });
+            dots.forEach(function(d, i) {
+              d.classList.toggle('is-active', i === idx);
+            });
+          }
+        });
+      }, {
+        root: track,
+        threshold: [0.55, 0.7, 0.85]
+      });
+      Array.prototype.forEach.call(cards, function(card) { io.observe(card); });
+    }
+  }
+  initCarouselDots('residences-track');
+  initCarouselDots('videos-track');
+  initCarouselDots('esprit-track');
+  initCarouselDots('vision-track');
+
+  // Floating CTA
   var floatingCta = document.querySelector('.floating-cta');
   var heroSection = document.querySelector('.hero');
   var darkSections = document.querySelectorAll('.press-featured, .site-footer, .media-frame');
 
   if (floatingCta && heroSection && 'IntersectionObserver' in window) {
-    // Initial state · invisible
     floatingCta.style.opacity = '0';
     floatingCta.style.pointerEvents = 'none';
     floatingCta.style.transition = 'opacity 320ms ease, color 240ms ease';
 
-    // Visibility observer · apparait après hero
     var stickyObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -176,8 +208,6 @@
     }, { threshold: 0.15 });
     stickyObserver.observe(heroSection);
 
-    // Détection fond sombre · toggle --on-dark si une section indigo couvre
-    // la zone du bouton. Throttle via rAF pour rester smooth au scroll.
     var rafPending = false;
     function checkDarkBackground() {
       var ctaRect = floatingCta.getBoundingClientRect();
@@ -201,17 +231,5 @@
     window.addEventListener('resize', onScrollOrResize, { passive: true });
     checkDarkBackground();
   }
-
-  // Contact form — wiring EmailJS (à activer après config)
-  // Décommenter et renseigner les IDs EmailJS pour activer.
-  /*
-  var form = document.getElementById('contact-form');
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    emailjs.sendForm('service_xxx', 'template_xxx', form)
-      .then(function() { window.location.href = '/merci/'; })
-      .catch(function(err) { console.error(err); alert('Envoi impossible, merci de réessayer.'); });
-  });
-  */
 
 })();
