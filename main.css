@@ -1922,35 +1922,108 @@ section {
 }
 
 /* ──────────────────────────────────────────────────────────────────
-   Hero · alignement large-desktop (Solution C, ≥ 1281px uniquement)
+   ALIGNEMENT UNIFIÉ HERO ↔ SECTIONS (≥ 1280px)
    ──────────────────────────────────────────────────────────────────
-   Au-delà de 1280px, le hero respirait en `left: 6vw` alors que les
-   sections étaient cappées à `max-width: 1280px + padding 96`. Cela
-   créait un désalignement croissant (jusqu'à +565px à 2560).
+   Cible : à 1280 viewport, tout (titre/eyebrow du hero + titres et
+   contenus de toutes les sections) commence pile au bord gauche de
+   la vidéo (x=16px). Au-delà de 1280, la vidéo devient bord-à-bord
+   (x=0), mais le contenu textuel reste figé à la position 1280 et
+   centré sur l'écran.
 
-   Cette règle borne le hero sur la même grille canonique que les
-   sections dès qu'on dépasse 1280px de viewport :
-   - max-width 1280 + padding 96 (= 48 .lieu-split + 48 .container)
-   - le video-frame reste full-bleed bord-à-bord (padding .hero=0)
+   Mécanisme : container partagé .pasola-grid-content basé sur
+   max-width 1248px (= 1280 - 16*2) + margin auto. Quand viewport ≥
+   1280, les marges latérales se créent automatiquement par centrage.
+   Quand viewport = 1280 exact, le contenu touche le bord à 16px de
+   chaque côté grâce au padding du parent .hero / section.
 
-   ≤ 1280px : aucun changement par rapport à l'état preview Cloudflare
-   actuel (le bloc @media (min-width: 769px) ci-dessus reste seul actif).
-
-   Référence pattern : Aman / Mareterra / Singita — visuel libre,
-   éditorial sur grille fixe.
+   Référence pattern : Aman / Mareterra / Singita — la vidéo seule
+   respire bord-à-bord sur grand écran ; le contenu éditorial reste
+   sur la grille fixe de la maquette canonique.
    ────────────────────────────────────────────────────────────────── */
-@media (min-width: 1281px) {
-  .hero { padding-left: 0; padding-right: 0; }
+@media (min-width: 1280px) {
+  /* Hero text : cadré sur grille 1248. À 1280 viewport, max-width 1248 + margin
+     auto = 16px de marge automatique de chaque côté = pile au bord vidéo. */
   .hero-text {
     left: 50%;
     right: auto;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 1280px;
-    padding: 0 96px;
+    max-width: 1248px;
+    padding: 0;
     box-sizing: border-box;
-    /* La contrainte de longueur du texte vient de .hero-title (max-width 640)
-       et .hero-subline (max-width 440), pas du wrapper qui ne définit que la
-       grille de positionnement. */
+  }
+
+  /* Sections : neutraliser le padding-x des wrappers .spirit / .vision /
+     .videos / section générique pour que les containers internes pilotent
+     seuls le centrage via max-width 1248 + margin auto. */
+  section,
+  .spirit,
+  .vision,
+  .videos,
+  .lieu,
+  .zones-wrap,
+  .contact {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Section I (lieu-split) */
+  .lieu-split {
+    max-width: 1248px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lieu > .container,
+  .lieu .lieu-text > .container {
+    padding: 0;
+  }
+  .lieu > .container {
+    max-width: 1248px;
+  }
+
+  /* Sections II / III / IV / V wrappers principaux */
+  .spirit > .container,
+  .vision > .container,
+  .videos > .container,
+  .zones-wrap > .container,
+  .contact > .container {
+    max-width: 1248px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Section presse (sur fond indigo, garde son fond bord-à-bord) */
+  .press-featured-inner {
+    max-width: 1248px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Footer — même grille pour cohérence */
+  .site-footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .site-footer .footer-inner {
+    max-width: 1248px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
+
+/* Hero · vidéo full-bleed bord-à-bord SEULEMENT au-delà de 1280.
+   À 1280 viewport exact, .hero conserve son padding 16px (= état preview
+   Cloudflare préservé). À partir de 1281, le padding latéral est neutralisé
+   pour laisser .hero-video-frame s'étendre jusqu'aux bords du viewport. */
+@media (min-width: 1281px) {
+  .hero { padding-left: 0; padding-right: 0; }
+}
+
+/* À 1280 viewport, max-width 1248 centré = marges 16px de chaque côté
+   exactement = bord vidéo. Au-delà de 1280, le centrage par margin auto
+   maintient le contenu sur la grille fixe alors que la vidéo file
+   bord-à-bord (à partir de 1281). Vérifié : (1280 - 1248) / 2 = 16. */
+
