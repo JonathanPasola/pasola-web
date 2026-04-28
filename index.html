@@ -126,13 +126,25 @@
 
 </header>
 
+<div class="nav-backdrop" aria-hidden="true"></div>
+
 <nav class="nav-overlay" id="primary-nav" aria-hidden="true" aria-label="Navigation principale">
+
+<button class="nav-close" type="button" aria-label="Fermer le menu">
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="0.75" stroke-linecap="round"/>
+</svg>
+</button>
+
+<div class="nav-overlay-inner">
+
 <div class="nav-overlay-lang" role="group" aria-label="Langue">
 <a href="/" aria-current="true">FR</a>
 <span class="nav-overlay-lang-sep" aria-hidden="true">·</span>
 <a href="/en/">EN</a>
 </div>
-<ul>
+
+<ul class="nav-overlay-primary">
 <li><a href="#pourquoi">Pourquoi Sumba</a></li>
 <li><a href="#esprit">L'esprit de Sumba</a></li>
 <li><a href="#vision">Notre vision</a></li>
@@ -142,6 +154,20 @@
 <li><a href="#contact">Entamer la conversation</a></li>
 <li><a href="/capital-partners/">Capital Partners</a></li>
 </ul>
+
+<ul class="nav-overlay-secondary">
+<li><a href="/a-propos/">À propos de PASOLA</a></li>
+<li><a href="/presse/">Dossier de presse</a></li>
+<li><a href="/carrieres/">Carrières</a></li>
+</ul>
+
+<div class="nav-overlay-cta-group">
+<a class="nav-overlay-cta" href="/register/">Register</a>
+<a class="nav-overlay-cta" href="#contact">Demander le dossier</a>
+</div>
+
+</div>
+
 </nav>
 
 <main id="main">

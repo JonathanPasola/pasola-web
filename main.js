@@ -7,18 +7,29 @@
   // Mobile nav toggle
   var toggle = document.querySelector('.nav-toggle');
   var overlay = document.getElementById('primary-nav');
+  var backdrop = document.querySelector('.nav-backdrop');
+  var closeBtn = overlay ? overlay.querySelector('.nav-close') : null;
   var body = document.body;
 
   function setNavOpen(open) {
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
-    body.style.overflow = open ? 'hidden' : '';
+    if (backdrop) backdrop.setAttribute('data-open', open ? 'true' : 'false');
+    body.classList.toggle('nav-open', open);
   }
 
   toggle.addEventListener('click', function() {
     var open = toggle.getAttribute('aria-expanded') === 'true';
     setNavOpen(!open);
   });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() { setNavOpen(false); });
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', function() { setNavOpen(false); });
+  }
 
   overlay.addEventListener('click', function(e) {
     if (e.target.tagName === 'A') setNavOpen(false);

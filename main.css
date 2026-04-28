@@ -30,6 +30,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+body.nav-open { overflow: hidden; }
 body {
   background: var(--bg);
   color: var(--text-primary);
@@ -212,25 +213,137 @@ p { overflow-wrap: break-word; }
   .site-header, .brand-lockup, .brand-emblem, .brand-wordmark { transition: none; }
 }
 
-.nav-overlay {
-  position: fixed; inset: 0; z-index: 40;
-  background: var(--ivory);
-  padding: 88px var(--pad-x) 32px;
+/* ============================================================
+   Menu burger overlay · pattern Aman / Singita
+   ----------------------------------------------------------------
+   Mobile : 95% width avec 5% du fond visible à droite
+   Desktop : 95% width pareil + ombre portée gauche pour profondeur
+   Scroll vertical activé. Croix X discrète sticky en haut à droite.
+   3 sections : primary nav · secondary nav · CTA group.
+   Body scroll lock via .nav-open class (gérée en JS).
+   Backdrop sombre semi-transparent dim le contenu derrière.
+   ============================================================ */
+.nav-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(26,44,61,0.45);
+  z-index: 55;
   opacity: 0; pointer-events: none;
-  transition: opacity 240ms ease;
-  display: flex; flex-direction: column;
+  transition: opacity 280ms ease;
+}
+.nav-backdrop[data-open="true"] {
+  opacity: 1; pointer-events: auto;
+}
+
+.nav-overlay {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 95%;
+  z-index: 60;
+  background: var(--ivory);
+  opacity: 0; pointer-events: none;
+  transform: translateX(20px);
+  transition: opacity 280ms ease, transform 280ms ease;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: -4px 0 28px rgba(26,44,61,0.06);
 }
-.nav-overlay[aria-hidden="false"] { opacity: 1; pointer-events: auto; }
-.nav-overlay ul {
-  list-style: none;
-  display: flex; flex-direction: column; gap: 18px;
-  margin-top: 16px;
+.nav-overlay[aria-hidden="false"] {
+  opacity: 1; pointer-events: auto; transform: translateX(0);
 }
-.nav-overlay a {
+
+.nav-close {
+  position: sticky;
+  top: 0; left: 100%;
+  width: max-content;
+  margin-left: auto;
+  z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ivory); border: 0;
+  padding: 18px var(--pad-x);
+  cursor: pointer;
+  color: var(--indigo);
+  transition: color 200ms ease;
+}
+.nav-close:hover, .nav-close:focus { color: var(--terra); }
+.nav-close svg { width: 22px; height: 22px; display: block; }
+
+.nav-overlay-inner {
+  display: flex; flex-direction: column;
+  padding: 8px var(--pad-x) 56px;
+  max-width: 600px;
+  margin-top: -56px;
+}
+
+.nav-overlay-primary,
+.nav-overlay-secondary {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column;
+}
+
+.nav-overlay-primary {
+  gap: 18px;
+  margin-bottom: 40px;
+}
+.nav-overlay-primary li a {
   font-family: var(--font-display);
-  font-size: 19px; letter-spacing: 0.08em;
-  color: var(--indigo); font-weight: 500;
+  font-size: 19px; letter-spacing: 0.04em;
+  color: var(--indigo); font-weight: 400;
+  text-decoration: none;
+  display: inline-block;
+  transition: color 200ms ease;
+}
+.nav-overlay-primary li a:hover,
+.nav-overlay-primary li a:focus { color: var(--terra); }
+
+.nav-overlay-secondary {
+  gap: 14px;
+  padding-top: 32px;
+  margin-bottom: 48px;
+  border-top: 0.5px solid rgba(26,44,61,0.15);
+}
+.nav-overlay-secondary li a {
+  font-family: var(--font-editorial);
+  font-size: 15.5px; color: var(--dusk);
+  font-style: italic;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+.nav-overlay-secondary li a:hover,
+.nav-overlay-secondary li a:focus { color: var(--indigo); }
+
+.nav-overlay-cta-group {
+  display: flex; flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+.nav-overlay-cta {
+  position: relative;
+  display: inline-block;
+  padding: 14px 26px;
+  background: transparent;
+  color: var(--indigo);
+  font-family: var(--font-functional);
+  font-size: 11px; letter-spacing: 0.28em;
+  text-transform: uppercase; font-weight: 400;
+  border: 0.5px solid var(--indigo);
+  text-decoration: none;
+  white-space: nowrap;
+  text-align: center;
+  --btn-mask: var(--ivory);
+  transition: color 280ms ease, border-color 280ms ease;
+}
+.nav-overlay-cta::before,
+.nav-overlay-cta::after {
+  content: "";
+  position: absolute;
+  top: 7px; bottom: 7px;
+  width: 1.5px;
+  background: var(--btn-mask);
+}
+.nav-overlay-cta::before { left: -0.75px; }
+.nav-overlay-cta::after  { right: -0.75px; }
+.nav-overlay-cta:hover, .nav-overlay-cta:focus {
+  color: var(--terra); border-color: var(--terra);
 }
 
 main { padding-top: 0; }
@@ -463,6 +576,18 @@ section {
   color: var(--muted); line-height: 1.5;
 }
 
+/* ============================================================
+   Boutons CTA · système unifié
+   ----------------------------------------------------------------
+   Pattern signature PASOLA · 4 coins L visibles
+   Mécanisme : border 0.5px sur les 4 côtés + 2 pseudo-elements
+   verticaux qui MASQUENT le milieu des bords gauche/droite avec
+   la couleur du fond derrière le bouton (--btn-mask).
+   Résultat visuel : 4 angles en L aux 4 coins, avec un "trou"
+   au milieu de chaque bord vertical.
+   Variants : light (sur fond ivory) et on-dark (sur fond indigo).
+   ============================================================ */
+
 .section-cta {
   position: relative;
   display: inline-block;
@@ -473,34 +598,24 @@ section {
   font-family: var(--font-functional);
   font-size: 11px; letter-spacing: 0.28em;
   text-transform: uppercase; font-weight: 400;
-  border-top: 0.5px solid var(--indigo);
-  border-bottom: 0.5px solid var(--indigo);
-  border-left: 0; border-right: 0;
+  border: 0.5px solid var(--indigo);
   cursor: pointer; text-decoration: none;
+  white-space: nowrap;
+  --btn-mask: var(--ivory);
   transition: color 280ms ease, border-color 280ms ease;
 }
 .section-cta::before,
 .section-cta::after {
-  content: ""; position: absolute;
-  width: 7px; height: 7px;
-  border-style: solid; border-color: var(--indigo);
-  transition: border-color 280ms ease;
+  content: "";
+  position: absolute;
+  top: 7px; bottom: 7px;
+  width: 1.5px;
+  background: var(--btn-mask);
 }
-.section-cta::before {
-  top: -0.5px; left: -0.5px;
-  border-width: 0.5px 0 0 0.5px;
-}
-.section-cta::after {
-  bottom: -0.5px; right: -0.5px;
-  border-width: 0 0.5px 0.5px 0;
-}
+.section-cta::before { left: -0.75px; }
+.section-cta::after  { right: -0.75px; }
 .section-cta:hover, .section-cta:focus {
   color: var(--terra);
-  border-top-color: var(--terra);
-  border-bottom-color: var(--terra);
-}
-.section-cta:hover::before, .section-cta:hover::after,
-.section-cta:focus::before, .section-cta:focus::after {
   border-color: var(--terra);
 }
 
@@ -1060,14 +1175,33 @@ section {
 }
 .form-submit {
   align-self: flex-start; margin-top: 6px;
-  padding: 13px 28px;
-  background: var(--indigo); color: var(--ivory);
+  position: relative;
+  display: inline-block;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--indigo);
   font-family: var(--font-functional);
-  font-size: 11px; letter-spacing: 0.22em;
+  font-size: 11px; letter-spacing: 0.28em;
   text-transform: uppercase; font-weight: 400;
-  transition: background 180ms ease;
+  border: 0.5px solid var(--indigo);
+  cursor: pointer;
+  white-space: nowrap;
+  --btn-mask: var(--ivory);
+  transition: color 280ms ease, border-color 280ms ease;
 }
-.form-submit:hover, .form-submit:focus { background: var(--terra); }
+.form-submit::before,
+.form-submit::after {
+  content: "";
+  position: absolute;
+  top: 7px; bottom: 7px;
+  width: 1.5px;
+  background: var(--btn-mask);
+}
+.form-submit::before { left: -0.75px; }
+.form-submit::after  { right: -0.75px; }
+.form-submit:hover, .form-submit:focus {
+  color: var(--terra); border-color: var(--terra);
+}
 .form-note {
   font-family: var(--font-editorial);
   font-style: italic; font-size: 13px;
@@ -1162,16 +1296,32 @@ section {
 }
 .newsletter-submit {
   align-self: flex-start; margin-top: 6px;
-  padding: 11px 24px;
-  background: var(--terra); color: var(--ivory);
+  position: relative;
+  display: inline-block;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--ivory);
   font-family: var(--font-functional);
-  font-size: 11px; letter-spacing: 0.22em;
+  font-size: 11px; letter-spacing: 0.28em;
   text-transform: uppercase; font-weight: 400;
-  border: none; cursor: pointer;
-  transition: background 180ms ease;
+  border: 0.5px solid var(--ivory);
+  cursor: pointer;
+  white-space: nowrap;
+  --btn-mask: var(--indigo);
+  transition: color 280ms ease, border-color 280ms ease;
 }
+.newsletter-submit::before,
+.newsletter-submit::after {
+  content: "";
+  position: absolute;
+  top: 7px; bottom: 7px;
+  width: 1.5px;
+  background: var(--btn-mask);
+}
+.newsletter-submit::before { left: -0.75px; }
+.newsletter-submit::after  { right: -0.75px; }
 .newsletter-submit:hover, .newsletter-submit:focus {
-  background: var(--sand); color: var(--indigo);
+  color: var(--sand); border-color: var(--sand);
 }
 
 .footer-grid {
@@ -1395,7 +1545,9 @@ section {
      Mont Kiara). Sur desktop il est juste légèrement plus grand. */
   .header-left { gap: 18px; }
   .header-left .lang-switch { display: flex; }
-  .nav-overlay-lang { display: none; }
+  /* Plus de display:none sur nav-overlay-lang en desktop —
+     le menu burger couvre le header quand il est ouvert,
+     donc FR/EN doit rester accessible dedans aussi. */
   .header-cta-register {
     font-size: 11.5px;
     letter-spacing: 0.32em;
@@ -1406,6 +1558,38 @@ section {
     max-width: 180px;
     padding: 8px 0;
   }
+
+  /* Menu burger desktop · grid 2 cols (nav à gauche, CTA à droite)
+     pattern Aman desktop. Garde 95% width comme mobile pour cohérence.
+     FR/EN reste en haut gauche (pattern Aman/Singita), CTA verticalement
+     centré dans la colonne droite. */
+  .nav-overlay-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    column-gap: 80px;
+    padding: 8px 64px 80px;
+    max-width: 1100px;
+    margin-top: -56px;
+  }
+  .nav-overlay-lang {
+    grid-column: 1; grid-row: 1;
+    margin-bottom: 28px;
+  }
+  .nav-overlay-primary {
+    grid-column: 1; grid-row: 2;
+    margin-bottom: 0;
+  }
+  .nav-overlay-primary li a { font-size: 26px; }
+  .nav-overlay-secondary {
+    grid-column: 1; grid-row: 3;
+    margin-bottom: 0;
+  }
+  .nav-overlay-cta-group {
+    grid-column: 2; grid-row: 1 / span 3;
+    align-self: center;
+  }
+  .nav-close { padding: 28px 48px; }
 
   .nav-overlay { padding: 120px 48px 48px; }
   .nav-overlay ul { gap: 22px; }
