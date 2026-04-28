@@ -355,7 +355,10 @@ main { padding-top: 0; }
 section {
   padding: var(--pad-default-y) var(--pad-x);
 }
-.lieu, .vision { padding: var(--pad-generous-y) var(--pad-x); }
+.lieu { padding: var(--pad-generous-y) 0; }
+.lieu > .container,
+.lieu .lieu-text > .container { padding: 0 var(--pad-x); }
+.vision { padding: var(--pad-generous-y) var(--pad-x); }
 .videos { padding: var(--pad-tight-y) var(--pad-x); }
 
 .container { max-width: 720px; margin: 0 auto; }
@@ -540,6 +543,42 @@ section {
   display: flex; align-items: center; justify-content: center;
 }
 
+/* Section I · Pourquoi Sumba · pattern "Explore the World of Aman".
+   Mobile : tout empilé verticalement (texte → photo → caption → CTA).
+   Desktop : split 2 cols (texte gauche · photo + caption + CTA droite)
+   alignés sur les bords de la vidéo hero. */
+.lieu-split {
+  display: flex; flex-direction: column;
+  gap: 36px;
+  margin-top: 32px;
+}
+.lieu-text {
+  /* container interne hérite du padding via .container */
+}
+.lieu-media {
+  display: flex; flex-direction: column;
+  gap: 20px;
+  padding: 0 var(--pad-x);
+}
+.lieu-media-frame {
+  aspect-ratio: 4 / 3;
+  background: rgba(26, 44, 61, 0.04);
+  border: 0.5px dashed rgba(26, 44, 61, 0.3);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.lieu-media-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.lieu-media-caption {
+  font-family: var(--font-editorial);
+  font-style: italic; font-size: 14px;
+  color: var(--muted); line-height: 1.5;
+  margin: 0;
+}
+
 .lieu .section-title,
 .spirit .section-title,
 .zones-intro .section-title,
@@ -572,12 +611,6 @@ section {
   line-height: 1.6; color: var(--indigo);
   margin-bottom: 28px;
   max-width: var(--measure);
-}
-
-.lieu .media-caption {
-  font-family: var(--font-editorial);
-  font-style: italic; font-size: 14px;
-  color: var(--muted); line-height: 1.5;
 }
 
 /* ============================================================
@@ -887,6 +920,35 @@ section {
   letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--dusk); margin-top: 6px;
   font-weight: 400;
+}
+
+/* Variant card feature · pattern Aman "Seasonal Experiences".
+   Hiérarchie : photo carrée → eyebrow uppercase ("01 · Pasola")
+   → titre serif → description courte → lien "Découvrir".
+   Utilisé dans sections II (esprit) et III (vision). */
+.aman-card-feature .aman-card-media {
+  aspect-ratio: 1 / 1;
+}
+.aman-card-feature .aman-card-eyebrow {
+  margin: 18px 0 10px;
+}
+.aman-card-feature-title {
+  font-family: var(--font-editorial);
+  font-size: clamp(20px, 5.2vw, 23px);
+  font-weight: 400; line-height: 1.22;
+  color: var(--indigo);
+  margin: 0 0 12px;
+  letter-spacing: 0.01em;
+}
+.aman-card-feature-desc {
+  font-family: var(--font-editorial);
+  font-size: 15px; line-height: 1.6;
+  color: var(--indigo);
+  margin: 0 0 18px;
+  flex: 1;
+}
+.aman-card-feature .aman-card-link {
+  align-self: flex-start;
 }
 
 /* Indicateur de slide active · track-bar à la Aman, couleurs PASOLA.
@@ -1633,9 +1695,38 @@ section {
   }
 
   section { padding: var(--pad-default-y) var(--pad-x); }
-  .lieu, .vision { padding: var(--pad-generous-y) var(--pad-x); }
+  .lieu { padding: var(--pad-generous-y) 0; }
+  .lieu > .container,
+  .lieu .lieu-text > .container { padding: 0 var(--pad-x); }
+  .vision { padding: var(--pad-generous-y) var(--pad-x); }
   .videos { padding: var(--pad-tight-y) var(--pad-x); }
   .container { max-width: 760px; }
+
+  /* Section I desktop · split 2 cols texte gauche / photo droite.
+     Aligné sur les paddings du hero (16px → mais on garde --pad-x:48
+     du body pour cohérence avec les autres sections). */
+  .lieu-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    max-width: 1280px;
+    margin: 40px auto 0;
+    padding: 0 var(--pad-x);
+  }
+  /* Variante B · photo first · ordre inversé en desktop aussi
+     (photo à gauche, texte à droite, pour préserver la cohérence
+     visuelle avec le mobile photo-first) */
+  .lieu-split-photo-first .lieu-media { order: 1; }
+  .lieu-split-photo-first .lieu-text { order: 2; }
+  .lieu-text > .container { padding: 0; max-width: none; }
+  .lieu-media { padding: 0; }
+  .lieu-media-frame { aspect-ratio: 4 / 5; }
+  /* Le .lieu container du titre reste centré (top de section) */
+  .lieu > .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 
   .hero { padding: 100px 16px 28px; }
   .hero-video-frame {
@@ -1715,6 +1806,44 @@ section {
   .vision-head { margin-bottom: 52px; }
   .vision-title { font-size: clamp(30px, 3.6vw, 38px); line-height: 1.16; }
   .vision-rule { width: 520px; max-width: 80%; margin: 0 auto 56px; }
+
+  /* Sections II + III · sur desktop, aligner header (eyebrow + titre
+     + lede / vision-body) à gauche au lieu du centrage mobile.
+     Le bord gauche du container correspond au bord gauche de la
+     grille des cards en dessous, donc tout s'aligne visuellement
+     avec la vidéo hero. Le container reste à max-width 760px par
+     défaut, on le rend full-width pour qu'il s'étende jusqu'à la
+     grille puis on contraint le contenu par max-width interne. */
+  .spirit > .container,
+  .vision > .container {
+    max-width: none;
+    margin: 0;
+    text-align: left;
+  }
+  .spirit > .container .section-mark,
+  .vision .vision-head .section-mark {
+    text-align: left;
+  }
+  .spirit > .container .section-title,
+  .spirit > .container .lede,
+  .vision-title,
+  .vision-meta {
+    max-width: 760px;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+  .vision-meta { margin-bottom: 28px; }
+  .vision-rule {
+    width: 520px;
+    max-width: 100%;
+    margin: 0 0 56px;
+  }
+  .vision-body {
+    max-width: 760px;
+    margin: 0;
+    text-align: left;
+  }
 
   .press-featured { padding: 96px 0 104px; }
   .press-featured-inner { padding: 0 32px; }
