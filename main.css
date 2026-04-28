@@ -1714,11 +1714,13 @@ section {
     margin: 40px auto 0;
     padding: 0 var(--pad-x);
   }
-  /* Variante B · photo first · ordre inversé en desktop aussi
-     (photo à gauche, texte à droite, pour préserver la cohérence
-     visuelle avec le mobile photo-first) */
-  .lieu-split-photo-first .lieu-media { order: 1; }
-  .lieu-split-photo-first .lieu-text { order: 2; }
+  /* Desktop · texte à gauche, photo à droite (cible v2 04272026).
+     Mobile reste photo-first (DOM order media → text donne empilement
+     photo → caption → texte verticalement). NB: nom de classe
+     `.lieu-split-photo-first` désormais sémantiquement obsolète,
+     à reconsidérer dans un cleanup ultérieur. */
+  .lieu-split-photo-first .lieu-media { order: 2; }
+  .lieu-split-photo-first .lieu-text  { order: 1; }
   .lieu-text > .container { padding: 0; max-width: none; }
   .lieu-media { padding: 0; }
   .lieu-media-frame { aspect-ratio: 4 / 5; }
@@ -1916,5 +1918,39 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px 22px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Hero · alignement large-desktop (Solution C, ≥ 1281px uniquement)
+   ──────────────────────────────────────────────────────────────────
+   Au-delà de 1280px, le hero respirait en `left: 6vw` alors que les
+   sections étaient cappées à `max-width: 1280px + padding 96`. Cela
+   créait un désalignement croissant (jusqu'à +565px à 2560).
+
+   Cette règle borne le hero sur la même grille canonique que les
+   sections dès qu'on dépasse 1280px de viewport :
+   - max-width 1280 + padding 96 (= 48 .lieu-split + 48 .container)
+   - le video-frame reste full-bleed bord-à-bord (padding .hero=0)
+
+   ≤ 1280px : aucun changement par rapport à l'état preview Cloudflare
+   actuel (le bloc @media (min-width: 769px) ci-dessus reste seul actif).
+
+   Référence pattern : Aman / Mareterra / Singita — visuel libre,
+   éditorial sur grille fixe.
+   ────────────────────────────────────────────────────────────────── */
+@media (min-width: 1281px) {
+  .hero { padding-left: 0; padding-right: 0; }
+  .hero-text {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1280px;
+    padding: 0 96px;
+    box-sizing: border-box;
+    /* La contrainte de longueur du texte vient de .hero-title (max-width 640)
+       et .hero-subline (max-width 440), pas du wrapper qui ne définit que la
+       grille de positionnement. */
   }
 }
