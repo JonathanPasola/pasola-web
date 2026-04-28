@@ -1002,6 +1002,9 @@ section {
 
 .form { display: flex; flex-direction: column; gap: 24px; }
 .form-field { display: flex; flex-direction: column; gap: 9px; }
+/* Wrapper pour grouper deux champs côte à côte sur desktop
+   (Prénom + Nom). Sur mobile, les deux champs s'empilent. */
+.form-row-double { display: contents; }
 .form-label {
   font-family: var(--font-functional);
   font-size: 11px; letter-spacing: 0.22em;
@@ -1561,4 +1564,9 @@ section {
   }
 
   .form { max-width: 560px; }
+  .form-row-double {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 22px;
+  }
 }

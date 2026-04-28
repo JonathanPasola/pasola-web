@@ -97,17 +97,16 @@
 
 <header class="site-header" role="banner">
 
-<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Ouvrir le menu">
-<span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span></span>
-<span class="nav-toggle-label">Menu</span>
-</button>
-
-<a class="brand-lockup" href="/" aria-label="PASOLA Signature Estate, accueil">
-<svg class="brand-emblem" width="32" height="18" viewBox="0 0 200 110" style="--cut: var(--ivory)" aria-hidden="true"><use href="#pasola-emblem-full"/></svg>
-<span class="brand-wordmark">PASOLA</span>
-</a>
-
-<div class="header-right">
+<!--
+  Bloc gauche · état non-logé (par défaut) ↓
+  Quand l'auth Supabase sera branchée :
+    - JS doit détecter l'état logé (cookie/localStorage/Supabase session)
+    - Si logé : remplacer .header-cta-register par <span class="header-user-name">{prénom}</span>
+    - Sinon : laisser tel quel
+  Le wrapper .header-left contient toujours [CTA/prénom] + [lang-switch].
+-->
+<div class="header-left">
+<a class="header-cta-register" href="/register/" data-state="non-logged">Register</a>
 <div class="lang-switch" role="group" aria-label="Langue">
 <a href="/" aria-current="true">FR</a>
 <span class="lang-switch-sep" aria-hidden="true">·</span>
@@ -115,9 +114,24 @@
 </div>
 </div>
 
+<a class="brand-lockup" href="/" aria-label="PASOLA Signature Estate, accueil">
+<svg class="brand-emblem" width="32" height="18" viewBox="0 0 200 110" style="--cut: var(--ivory)" aria-hidden="true"><use href="#pasola-emblem-full"/></svg>
+<span class="brand-wordmark">PASOLA</span>
+</a>
+
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Ouvrir le menu">
+<span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+<span class="nav-toggle-label">Menu</span>
+</button>
+
 </header>
 
 <nav class="nav-overlay" id="primary-nav" aria-hidden="true" aria-label="Navigation principale">
+<div class="nav-overlay-lang" role="group" aria-label="Langue">
+<a href="/" aria-current="true">FR</a>
+<span class="nav-overlay-lang-sep" aria-hidden="true">·</span>
+<a href="/en/">EN</a>
+</div>
 <ul>
 <li><a href="#pourquoi">Pourquoi Sumba</a></li>
 <li><a href="#esprit">L'esprit de Sumba</a></li>
@@ -533,9 +547,16 @@ Conversations et collaborations avec les savoirs de l'île.
 </div>
 </fieldset>
 
+<div class="form-row-double">
 <div class="form-field">
-<label class="form-label" for="field-name">Nom</label>
-<input class="form-input" type="text" id="field-name" name="name" required autocomplete="name" />
+<label class="form-label" for="field-firstname">Prénom</label>
+<input class="form-input" type="text" id="field-firstname" name="firstname" required autocomplete="given-name" />
+</div>
+
+<div class="form-field">
+<label class="form-label" for="field-lastname">Nom</label>
+<input class="form-input" type="text" id="field-lastname" name="lastname" required autocomplete="family-name" />
+</div>
 </div>
 
 <div class="form-field">
