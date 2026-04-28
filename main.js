@@ -184,6 +184,7 @@
   initCarouselTrackBar('videos-track');
   initCarouselTrackBar('esprit-track');
   initCarouselTrackBar('vision-track');
+  initCarouselTrackBar('press-track');
 
   // Floating CTA
   var floatingCta = document.querySelector('.floating-cta');

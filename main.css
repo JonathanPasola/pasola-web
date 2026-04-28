@@ -758,82 +758,107 @@ section {
 
 .press-featured-grid {
   position: relative;
-  overflow: hidden;
 }
-.press-featured-track {
+
+/* Variant des aman-cards pour la section presse sur fond indigo.
+   Le voile blanc (.aman-card::after) du pattern de base est conçu pour
+   fond ivoire — sur indigo il créerait un effet bizarre. On l'override
+   en supprimant le pseudo-element et en utilisant l'opacity directe sur
+   la carte pour distinguer active/inactive. La bordure 0.5px sand 25%
+   donne aux cartes l'identification visuelle qui manquait dans la
+   version marquee. */
+.aman-card-press {
+  /* Override le voile ivoire du pattern de base */
+  opacity: 0.35;
+  transition: opacity 360ms ease;
+  /* Carte = bloc encadré sur fond indigo */
+  border: 0.5px solid rgba(199, 165, 116, 0.22);
+  background: transparent;
+  padding: 28px 24px;
+  /* Hauteur uniforme pour éviter le sautillement entre cartes */
+  min-height: 0;
+}
+.aman-card-press::after {
+  /* Désactive le voile ::after du pattern de base */
+  display: none;
+}
+.aman-card-press.is-active {
+  opacity: 1;
+}
+.aman-card-press-head {
+  /* Bloc top : nom du média + lien Read The Article empilés.
+     Pattern Cereal/Kinfolk éditorial, gap minimal entre titre et lien
+     pour qu'ils soient lus comme un seul bloc d'attribution. */
   display: flex;
-  gap: 28px;
-  width: max-content;
-  --marquee-end: calc(-50% - 14px);
-  animation: pasola-press-marquee 60s linear infinite;
-  will-change: transform;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
 }
-.press-featured-track:hover,
-.press-featured-track:focus-within,
-.press-featured-track:active {
-  animation-play-state: paused;
-}
-@keyframes pasola-press-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(var(--marquee-end)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .press-featured-track {
-    animation: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-  }
-}
-.press-featured-card {
-  flex: 0 0 84vw;
-  max-width: 360px;
-  display: flex; flex-direction: column;
-}
-.press-featured-name {
+.aman-card-press-name {
   font-family: var(--font-editorial);
   font-size: clamp(20px, 5.4vw, 24px);
-  font-weight: 400; color: var(--ivory);
-  margin: 0 0 16px;
-  letter-spacing: 0.005em; line-height: 1.2;
-}
-.press-featured-name em { font-style: italic; font-weight: 400; }
-.press-featured-rule {
-  height: 1px;
-  background: rgba(250, 248, 244, 0.2);
-  margin-bottom: 22px;
-}
-.press-featured-quote {
-  font-family: var(--font-editorial);
-  font-style: italic;
-  font-size: 16px; line-height: 1.5;
+  font-weight: 400;
   color: var(--ivory);
-  margin: 0 0 20px; font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.005em;
+  line-height: 1.2;
 }
-.press-featured-desc {
-  font-family: var(--font-editorial);
-  font-size: 14.5px; line-height: 1.65;
-  color: rgba(250, 248, 244, 0.6);
-  margin: 0 0 24px;
-  flex: 1;
+.aman-card-press-name em {
+  font-style: italic;
+  font-weight: 400;
 }
-.press-featured-link {
+.aman-card-press-link {
   font-family: var(--font-functional);
-  font-size: 11px; letter-spacing: 0.24em;
-  text-transform: uppercase; color: var(--sand);
-  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sand);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   text-decoration: none;
-  transition: color 180ms ease, gap 180ms ease;
   align-self: flex-start;
+  transition: color 180ms ease, gap 180ms ease;
 }
-.press-featured-link-arrow {
+.aman-card-press-arrow {
   display: inline-block;
   transition: transform 180ms ease;
 }
-.press-featured-link:hover, .press-featured-link:focus { color: var(--ivory); }
-.press-featured-link:hover .press-featured-link-arrow,
-.press-featured-link:focus .press-featured-link-arrow {
-  transform: translateX(4px);
+.aman-card-press-link:hover,
+.aman-card-press-link:focus {
+  color: var(--ivory);
+}
+.aman-card-press-link:hover .aman-card-press-arrow,
+.aman-card-press-link:focus .aman-card-press-arrow {
+  transform: translateX(3px);
+}
+.aman-card-press-rule {
+  height: 0.5px;
+  background: rgba(250, 248, 244, 0.18);
+  margin-bottom: 20px;
+}
+.aman-card-press-quote {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ivory);
+  margin: 0 0 16px;
+  font-weight: 400;
+}
+.aman-card-press-desc {
+  font-family: var(--font-editorial);
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(250, 248, 244, 0.62);
+  margin: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aman-card-press,
+  .aman-card-press-link,
+  .aman-card-press-arrow {
+    transition: none;
+  }
 }
 
 .form { display: flex; flex-direction: column; gap: 24px; }
@@ -1318,17 +1343,18 @@ section {
     margin-bottom: 24px;
   }
   .press-featured-title { font-size: clamp(36px, 4.5vw, 48px); }
-  .press-featured-track {
-    gap: 48px;
-    --marquee-end: calc(-50% - 24px);
+  /* En desktop, l'aman-carousel-track devient une grille via la règle
+     générique au-dessus. Les cartes presse adoptent les mêmes 3 colonnes
+     que les autres carrousels (--cols: 3 défini dans le HTML).
+     L'opacity par défaut (0.35) est désactivée — toutes visibles
+     simultanément en grille puisqu'il n'y a plus de notion d'active. */
+  .aman-card-press {
+    padding: 32px 28px;
+    opacity: 1;
   }
-  .press-featured-card {
-    flex: 0 0 360px;
-    max-width: 360px;
-  }
-  .press-featured-name { font-size: clamp(24px, 2.6vw, 28px); }
-  .press-featured-quote { font-size: 17px; }
-  .press-featured-desc { font-size: 15px; }
+  .aman-card-press-name { font-size: clamp(24px, 2.6vw, 28px); }
+  .aman-card-press-quote { font-size: 17px; }
+  .aman-card-press-desc { font-size: 15px; }
 
   .floating-cta {
     bottom: 28px; right: 28px;
