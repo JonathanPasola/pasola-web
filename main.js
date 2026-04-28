@@ -113,14 +113,14 @@
     });
   }
 
-  // Carrousels AMAN · système de carrés indicateurs (dots).
-  // Génère un carré par carte sous chaque carrousel mobile, ajoute
+  // Carrousels AMAN · système de track-bar (référence Aman avec couleurs PASOLA).
+  // Génère un segment par carte sous chaque carrousel mobile, ajoute
   // is-active à la carte centrale détectée par IntersectionObserver
-  // (root = track), et permet le clic sur un carré pour scroller vers
+  // (root = track), et permet le clic sur un segment pour scroller vers
   // la carte correspondante. Sur desktop le track devient une grille
-  // (sans scroll) et le CSS masque les dots — l'observer continue
+  // (sans scroll) et le CSS masque la track-bar — l'observer continue
   // mais sans effet visuel puisque le voile blanc est aussi désactivé.
-  function initCarouselDots(trackId) {
+  function initCarouselTrackBar(trackId) {
     var track = document.getElementById(trackId);
     if (!track) return;
     var cards = track.querySelectorAll('.aman-card');
@@ -130,18 +130,18 @@
     // voilées au chargement avant que l'observer ne déclenche)
     cards[0].classList.add('is-active');
 
-    // Générer un carré par carte dans le conteneur .aman-dots associé
-    var dotsContainer = document.querySelector('.aman-dots[data-track="' + trackId + '"]');
-    var dots = [];
-    if (dotsContainer) {
+    // Générer un segment par carte dans le conteneur .aman-track-bar associé
+    var trackBar = document.querySelector('.aman-track-bar[data-track="' + trackId + '"]');
+    var segments = [];
+    if (trackBar) {
       // Vider d'abord (au cas où le script s'exécute deux fois)
-      dotsContainer.innerHTML = '';
+      trackBar.innerHTML = '';
       Array.prototype.forEach.call(cards, function(card, idx) {
-        var dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'aman-dot' + (idx === 0 ? ' is-active' : '');
-        dot.setAttribute('aria-label', 'Aller à la diapositive ' + (idx + 1));
-        dot.addEventListener('click', function() {
+        var seg = document.createElement('button');
+        seg.type = 'button';
+        seg.className = 'aman-track-segment' + (idx === 0 ? ' is-active' : '');
+        seg.setAttribute('aria-label', 'Aller à la diapositive ' + (idx + 1));
+        seg.addEventListener('click', function() {
           var cardEl = cards[idx];
           // Calcul du scroll cible · tient compte du scroll-padding-left du track
           var trackStyle = window.getComputedStyle(track);
@@ -153,8 +153,8 @@
             track.scrollLeft = target;
           }
         });
-        dotsContainer.appendChild(dot);
-        dots.push(dot);
+        trackBar.appendChild(seg);
+        segments.push(seg);
       });
     }
 
@@ -168,8 +168,8 @@
             Array.prototype.forEach.call(cards, function(c, i) {
               c.classList.toggle('is-active', i === idx);
             });
-            dots.forEach(function(d, i) {
-              d.classList.toggle('is-active', i === idx);
+            segments.forEach(function(s, i) {
+              s.classList.toggle('is-active', i === idx);
             });
           }
         });
@@ -180,10 +180,10 @@
       Array.prototype.forEach.call(cards, function(card) { io.observe(card); });
     }
   }
-  initCarouselDots('residences-track');
-  initCarouselDots('videos-track');
-  initCarouselDots('esprit-track');
-  initCarouselDots('vision-track');
+  initCarouselTrackBar('residences-track');
+  initCarouselTrackBar('videos-track');
+  initCarouselTrackBar('esprit-track');
+  initCarouselTrackBar('vision-track');
 
   // Floating CTA
   var floatingCta = document.querySelector('.floating-cta');
