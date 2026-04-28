@@ -83,9 +83,66 @@ p { overflow-wrap: break-word; }
   border-bottom-color: var(--rule);
 }
 
-.header-right {
-  justify-self: end;
-  display: flex; align-items: center; gap: 14px;
+.header-left {
+  justify-self: start;
+  display: flex; align-items: center; gap: 10px;
+  min-width: 0;
+}
+/* Sur mobile, FR/EN bouge dans le menu burger pour gagner de la place
+   au profit du wordmark central. Sur desktop il revient à côté de
+   Register (override dans le @media min-width: 769px). */
+.header-left .lang-switch { display: none; }
+.nav-overlay-lang {
+  display: flex; align-items: center; gap: 7px;
+  margin-bottom: 24px;
+  font-family: var(--font-functional);
+  font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; font-weight: 400;
+}
+.nav-overlay-lang a {
+  color: var(--dusk);
+  transition: color 180ms ease;
+  padding-bottom: 3px;
+  border-bottom: 0.5px solid transparent;
+}
+.nav-overlay-lang a:hover, .nav-overlay-lang a:focus { color: var(--indigo); }
+.nav-overlay-lang a[aria-current="true"] {
+  color: var(--indigo);
+  border-bottom-color: var(--indigo);
+}
+.nav-overlay-lang-sep { color: rgba(26,44,61,0.3); }
+.header-cta-register {
+  font-family: var(--font-functional);
+  font-size: 10.5px; letter-spacing: 0.28em;
+  text-transform: uppercase; font-weight: 300;
+  color: var(--indigo);
+  padding: 6px 0;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 200ms ease;
+}
+.header-cta-register:hover,
+.header-cta-register:focus {
+  opacity: 0.6;
+}
+/* Variante état logé · prénom à la place du CTA Register.
+   Discret, italique fin, juste pour signaler "on sait qui tu es"
+   sans mettre le prénom en avant. Taille calibrée pour que les
+   prénoms composés standards (Jean-François, Marie-Charlotte)
+   tiennent sur 320px sans débordement. Ellipsis comme dernier
+   filet pour les cas vraiment exceptionnels (>16 caractères).
+   À activer en JS quand l'auth Supabase sera branchée :
+   <span class="header-user-name">Jean-François</span> */
+.header-user-name {
+  font-family: var(--font-editorial);
+  font-style: italic; font-size: 11px;
+  color: var(--indigo); font-weight: 400;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  padding: 6px 0;
 }
 .brand-lockup {
   justify-self: center;
@@ -105,15 +162,15 @@ p { overflow-wrap: break-word; }
 
 .brand-wordmark {
   font-family: var(--font-display);
-  font-size: 15px; letter-spacing: 0.32em;
+  font-size: 16px; letter-spacing: 0.36em;
   color: var(--indigo); font-weight: 400;
-  padding-left: 0.32em; line-height: 1;
+  padding-left: 0.36em; line-height: 1;
   transition: font-size 320ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.site-header.is-scrolled .brand-wordmark { font-size: 12px; }
+.site-header.is-scrolled .brand-wordmark { font-size: 13px; }
 
 .nav-toggle {
-  justify-self: start;
+  justify-self: end;
   display: flex; align-items: center; gap: 8px;
   padding: 6px 0; color: var(--indigo);
 }
@@ -1325,11 +1382,27 @@ section {
   .site-header.is-scrolled { padding: 12px var(--pad-x); }
   .brand-emblem { width: 40px; height: 22px; }
   .site-header.is-scrolled .brand-emblem { width: 26px; height: 14px; }
-  .brand-wordmark { font-size: 21px; }
-  .site-header.is-scrolled .brand-wordmark { font-size: 13px; }
+  .brand-wordmark { font-size: 23px; letter-spacing: 0.38em; padding-left: 0.38em; }
+  .site-header.is-scrolled .brand-wordmark { font-size: 14px; }
   .brand-lockup { gap: 13px; }
   .site-header.is-scrolled .brand-lockup { gap: 9px; }
   .nav-toggle-label { display: inline; }
+
+  /* Desktop · le Register reste un lien fin sans bordure (pattern Wolo
+     Mont Kiara). Sur desktop il est juste légèrement plus grand. */
+  .header-left { gap: 18px; }
+  .header-left .lang-switch { display: flex; }
+  .nav-overlay-lang { display: none; }
+  .header-cta-register {
+    font-size: 11.5px;
+    letter-spacing: 0.32em;
+    padding: 8px 0;
+  }
+  .header-user-name {
+    font-size: 13px;
+    max-width: 180px;
+    padding: 8px 0;
+  }
 
   .nav-overlay { padding: 120px 48px 48px; }
   .nav-overlay ul { gap: 22px; }
