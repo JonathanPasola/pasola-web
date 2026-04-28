@@ -1938,21 +1938,21 @@ section {
    ================================================================== */
 @media (min-width: 1281px) {
   /* Hero · video avec marges 40px de chaque cote (jamais bord-a-bord) */
-  .hero { padding-left: 40px; padding-right: 40px; }
+  .hero { padding-left: 24px; padding-right: 24px; }
   .hero-text {
-    left: 40px; right: 40px;
+    left: 24px; right: 24px;
     transform: none; width: auto; max-width: none;
     padding: 0; box-sizing: border-box;
   }
 
   /* Toutes les sections · marges 40px identiques au hero */
   section, .spirit, .vision, .videos, .lieu, .zones-wrap, .contact {
-    padding-left: 40px; padding-right: 40px;
+    padding-left: 24px; padding-right: 24px;
   }
 
   /* Section I split · pleine largeur entre les marges du parent .lieu.
      Photo droite s'etend jusqu'a viewport-40, alignee au bord video. */
-  .lieu-split { max-width: none; padding: 0; margin: 40px 0 0; }
+  .lieu-split { max-width: none; padding: 0; margin: 24px 0 0; }
   .lieu > .container, .lieu .lieu-text > .container { padding: 0; }
   .lieu > .container { max-width: none; margin: 0; }
 
@@ -1968,11 +1968,11 @@ section {
 
   /* Section presse · fond indigo bord-a-bord, contenu sur la grille 40px */
   .press-featured-inner {
-    max-width: none; padding-left: 40px; padding-right: 40px;
+    max-width: none; padding-left: 24px; padding-right: 24px;
   }
 
   /* Footer · meme grille 40px que tout le site */
-  .site-footer { padding-left: 40px; padding-right: 40px; }
+  .site-footer { padding-left: 24px; padding-right: 24px; }
   .site-footer .footer-inner { max-width: none; padding-left: 0; padding-right: 0; }
 }
 
