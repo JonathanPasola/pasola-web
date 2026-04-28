@@ -519,13 +519,7 @@ section {
   border-style: solid;
   border-color: rgba(26,44,61,0.12);
 }
-.aman-card-media-video {
-  aspect-ratio: 16 / 9;
-  border-style: solid;
-  border-color: rgba(26,44,61,0.12);
-}
-.aman-card-media img,
-.aman-card-media iframe {
+.aman-card-media img {
   width: 100%; height: 100%;
   object-fit: cover;
   border: 0;
@@ -608,6 +602,94 @@ section {
   text-transform: uppercase; color: var(--dusk);
   font-weight: 400;
   margin: 14px 0 0;
+}
+
+/* Variant des aman-cards pour les vidéos · pattern vignette + bouton play
+   au lieu d'iframe YouTube. Bénéfices : performant (image légère vs iframe
+   complète), respecte la privacy (pas de tracking YouTube avant clic),
+   et contourne les restrictions d'embed côté créateur du film. Le clic
+   ouvre la vidéo sur YouTube en nouvel onglet. */
+.aman-card-video-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--indigo);
+  border: 0.5px solid rgba(26, 44, 61, 0.12);
+  text-decoration: none;
+}
+.aman-card-video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+.aman-card-video-thumb:hover img,
+.aman-card-video-thumb:focus-visible img {
+  opacity: 0.92;
+  transform: scale(1.02);
+}
+.aman-card-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(250, 248, 244, 0.92);
+  color: var(--indigo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 200ms ease, background 200ms ease;
+}
+.aman-card-video-thumb:hover .aman-card-video-play,
+.aman-card-video-thumb:focus-visible .aman-card-video-play {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: var(--ivory);
+}
+.aman-card-video-play svg {
+  width: 18px;
+  height: 18px;
+  /* Compensation visuelle du triangle (centre optique vs géométrique) */
+  margin-left: 2px;
+}
+.aman-card-video-meta {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.aman-card-video-name {
+  font-family: var(--font-editorial);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--indigo);
+  letter-spacing: 0.005em;
+  align-self: flex-start;
+  border-bottom: 0.5px solid rgba(26, 44, 61, 0.25);
+  padding-bottom: 2px;
+  transition: opacity 180ms ease, border-color 180ms ease;
+  text-decoration: none;
+}
+.aman-card-video-name:hover,
+.aman-card-video-name:focus {
+  opacity: 0.7;
+  border-bottom-color: var(--terra);
+}
+.aman-card-video-desc {
+  font-family: var(--font-editorial);
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aman-card-video-thumb img,
+  .aman-card-video-play,
+  .aman-card-video-name { transition: none; }
 }
 
 .aman-card-editorial .aman-card-media {
@@ -1328,6 +1410,10 @@ section {
   .aman-card::after { display: none; }
   .aman-card-title { font-size: clamp(22px, 2.5vw, 26px); }
   .aman-card-body { font-size: 15.5px; }
+  .aman-card-video-play { width: 64px; height: 64px; }
+  .aman-card-video-play svg { width: 22px; height: 22px; }
+  .aman-card-video-name { font-size: 20px; }
+  .aman-card-video-desc { font-size: 14.5px; }
   .aman-track-bar { display: none; }
 
   .vision .container { max-width: 840px; }
