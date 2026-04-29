@@ -1823,6 +1823,43 @@ section {
   .aman-card-video-desc { font-size: 14.5px; }
   .aman-track-bar { display: none; }
 
+  /* Section II · carousel asymetrique scrollable (cible v1 04282026).
+     Override le grid generique : le track redevient flex avec scroll
+     horizontal, card 1 (feature wide) prend 2/3 du viewport, cards
+     2 et 3 prennent 1/3 du viewport chacune. Total = 4/3 viewport,
+     donc card 3 deborde a droite et l'utilisateur scrolle pour la
+     decouvrir (vrai carousel). Scroll-snap stoppe sur chaque card.
+     Cross-browser : flex + scroll-snap + scrollbar hide supportes
+     sur Chrome / Safari / Firefox / Edge modernes. */
+  .spirit .aman-carousel-track {
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+    padding: 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .spirit .aman-carousel-track::-webkit-scrollbar { display: none; }
+  /* Card 1 (feature wide) · 2/3 viewport */
+  .spirit .aman-carousel-track > .aman-card:first-child {
+    flex: 0 0 calc(66vw - 32px);
+    scroll-snap-align: start;
+  }
+  /* Cards 2 et 3 · 1/3 viewport chacune */
+  .spirit .aman-carousel-track > .aman-card:not(:first-child) {
+    flex: 0 0 calc(33vw - 16px);
+    scroll-snap-align: start;
+  }
+  /* Reactiver le voile cards inactives + track-bar segments
+     pour ce carousel desktop */
+  .spirit .aman-card::after { display: block; }
+  .spirit .aman-track-bar { display: flex; }
+
   .vision .container { max-width: 840px; }
   .vision-head { margin-bottom: 52px; }
   .vision-title { font-size: clamp(30px, 3.6vw, 38px); line-height: 1.16; }
