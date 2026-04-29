@@ -1194,8 +1194,16 @@ section {
 .form-field { display: flex; flex-direction: column; gap: 9px; }
 /* Mobile : wrappers transparents, les enfants deviennent items du form
    (flex column avec gap 24px), empilement vertical naturel preserve.
-   Desktop : ces wrappers deviennent des colonnes via grid (chantier 6). */
+   Desktop : ces wrappers deviennent des colonnes via grid (chantier 6).
+   Refactor 04292026 : submit deplace dans col-left (sous radios) et
+   prenom/nom dans col-right (au-dessus email). En mobile, l'ordre DOM
+   resultant serait radios → submit → prenom/nom → email → message → note,
+   qui n'est pas l'ordre logique. CSS order force submit en position 4 et
+   note en position 5 → flux mobile : radios → prenom/nom → email →
+   message → submit → note (= comportement initial preserve). */
 .contact-col-left, .contact-col-right { display: contents; }
+#contact-form .form-submit { order: 4; }
+#contact-form .form-note { order: 5; }
 /* Wrapper pour grouper deux champs côte à côte sur desktop
    (Prénom + Nom). Sur mobile, les deux champs s'empilent. */
 .form-row-double { display: contents; }
