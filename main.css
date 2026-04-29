@@ -1000,13 +1000,18 @@ section {
   .aman-track-segment { transition: none; }
 }
 
+/* Section III · Notre vision.
+   Sprint 3 (04292026) : carousel placé au-dessus du texte dans le HTML.
+   Le container hérite donc d'un margin-top pour respirer sous le carousel.
+   Alignement gauche dès le mobile (cohérence avec rendu desktop). */
 .vision .container {
-  max-width: 720px;
-  text-align: center;
+  max-width: none;
+  text-align: left;
+  margin-top: 56px;
 }
 .vision-head { margin-bottom: 40px; }
 .vision .section-mark {
-  text-align: center;
+  text-align: left;
   margin-bottom: 24px;
 }
 .vision-title {
@@ -1025,16 +1030,17 @@ section {
   font-size: 10.5px; letter-spacing: 0.26em;
   text-transform: uppercase; color: var(--dusk);
   font-weight: 400; margin-bottom: 28px;
+  text-align: left;
 }
 .vision-rule {
   width: 80%; max-width: 520px;
   height: 0.5px;
   background: rgba(26, 44, 61, 0.35);
-  margin: 0 auto 40px;
+  margin: 0 0 40px;
 }
 .vision-body {
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   text-align: left;
 }
 .vision-body p {
@@ -1860,6 +1866,42 @@ section {
   .spirit .aman-card::after { display: block; }
   .spirit .aman-track-bar { display: flex; }
 
+  /* Section III · carousel asymetrique scrollable (Sprint 3 04292026).
+     Meme principe que .spirit, mais l'image 1 passe en aspect-ratio 2/1
+     (paysage) pour caler sa hauteur sur les images 2 et 3 carrees.
+     Math : (66vw - 32px) / 2 = 33vw - 16px = pile la largeur des cards 2/3.
+     Cross-browser : flex + scroll-snap + scrollbar hide + aspect-ratio
+     supportes sur Chrome / Safari / Firefox / Edge modernes. */
+  .vision .aman-carousel-track {
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+    padding: 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .vision .aman-carousel-track::-webkit-scrollbar { display: none; }
+  /* Card 1 · 2/3 viewport, image paysage 2:1 */
+  .vision .aman-carousel-track > .aman-card:first-child {
+    flex: 0 0 calc(66vw - 32px);
+    scroll-snap-align: start;
+  }
+  .vision .aman-carousel-track > .aman-card:first-child .aman-card-media {
+    aspect-ratio: 2 / 1;
+  }
+  /* Cards 2 et 3 · 1/3 viewport chacune, image carree 1:1 (defaut) */
+  .vision .aman-carousel-track > .aman-card:not(:first-child) {
+    flex: 0 0 calc(33vw - 16px);
+    scroll-snap-align: start;
+  }
+  .vision .aman-card::after { display: block; }
+  .vision .aman-track-bar { display: flex; }
+
   .vision .container { max-width: 840px; }
   .vision-head { margin-bottom: 52px; }
   .vision-title { font-size: clamp(30px, 3.6vw, 38px); line-height: 1.16; }
@@ -1878,6 +1920,8 @@ section {
     margin: 0;
     text-align: left;
   }
+  /* Section III desktop · espace entre carousel (au-dessus) et texte */
+  .vision > .container { margin-top: 56px; }
   .spirit > .container .section-mark,
   .vision .vision-head .section-mark {
     text-align: left;
