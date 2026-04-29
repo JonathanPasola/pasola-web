@@ -163,49 +163,76 @@
           } else {
             track.scrollLeft = target;
           }
+          // Force is-active immediate sur l'idx cible (couvre le cas
+          // ou le scrollMax sature et empeche le pick auto de bien picker).
+          if (track._pasolaForceActive) track._pasolaForceActive(idx);
         });
         trackBar.appendChild(seg);
         segments.push(seg);
       });
     }
 
-    // IntersectionObserver · détecte la carte centrée dans le viewport du track.
-    // Bug fix 04292026 : sur desktop avec carousel asymetrique (66vw + 33vw + 33vw),
-    // 2 cards passent simultanement le seuil 0.55 a l'init. Le code precedent
-    // appliquait toggle dans un forEach, donc la derniere entry gagnait
-    // (card 2 active au lieu de card 1). Fix : recalculer le ratio de TOUTES
-    // les cards et garder la plus visible (>0.55), tie-break naturel sur la
-    // plus a gauche (premiere a atteindre le ratio max dans la boucle).
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function() {
-        var trackRect = track.getBoundingClientRect();
-        var bestIdx = -1;
-        var bestRatio = 0.55;
-        Array.prototype.forEach.call(cards, function(card, i) {
-          var rect = card.getBoundingClientRect();
-          var visLeft = Math.max(rect.left, trackRect.left);
-          var visRight = Math.min(rect.right, trackRect.right);
-          var visW = Math.max(0, visRight - visLeft);
-          var ratio = rect.width > 0 ? visW / rect.width : 0;
-          if (ratio > bestRatio) {
-            bestRatio = ratio;
-            bestIdx = i;
-          }
-        });
-        if (bestIdx >= 0) {
-          Array.prototype.forEach.call(cards, function(c, i) {
-            c.classList.toggle('is-active', i === bestIdx);
-          });
-          segments.forEach(function(s, i) {
-            s.classList.toggle('is-active', i === bestIdx);
-          });
-        }
-      }, {
-        root: track,
-        threshold: [0.55, 0.7, 0.85]
+    // Detection de la card active · strategie scroll-based.
+    // Bug fix 04292026 v2 : la version ratio-based (v1) gardait card N-1
+    // active quand on scroll au max, parce que cards N-1 et N etaient
+    // toutes deux a 100% et la boucle prenait la premiere. Idem au retour
+    // a 0, l'observer pouvait ne pas refire.
+    // Strategie v2 : scrollLeft est la source de verite.
+    //  - si scrollLeft est au max (cards finales saturees), derniere card active
+    //  - sinon, card dont offsetLeft est le plus proche de scrollLeft
+    // Cette logique fonctionne identiquement sur mobile (cards 86vw) et
+    // desktop (carousel asymetrique 66vw + 33vw + 33vw).
+    // Note : sur desktop avec pattern asymetrique, le scrollMax peut etre
+    // plus petit que offsetLeft de card N-2, donc le click sur seg N-2
+    // saturerait au max et le pick auto renverrait card N-1. Solution :
+    // un flag isClicking bloque le pick auto pendant le smooth scroll, et
+    // le click force is-active immediatement sur l'idx cible.
+    function pickActiveIdx() {
+      var sl = track.scrollLeft;
+      var maxSl = track.scrollWidth - track.clientWidth;
+      if (maxSl > 1 && sl >= maxSl - 1) return cards.length - 1;
+      var bestIdx = 0;
+      var bestDist = Infinity;
+      Array.prototype.forEach.call(cards, function(c, i) {
+        var off = c.offsetLeft - track.offsetLeft;
+        var d = Math.abs(off - sl);
+        if (d < bestDist) { bestDist = d; bestIdx = i; }
       });
-      Array.prototype.forEach.call(cards, function(card) { io.observe(card); });
+      return bestIdx;
     }
+    function applyActive(idx) {
+      Array.prototype.forEach.call(cards, function(c, i) {
+        c.classList.toggle('is-active', i === idx);
+      });
+      segments.forEach(function(s, i) {
+        s.classList.toggle('is-active', i === idx);
+      });
+    }
+    // Sync sur scroll du track (fonctionne meme quand l'IntersectionObserver
+    // ne fire pas, et reactif au click sur segments via l'animation smooth).
+    // Le flag isClicking protege l'is-active force par le click handler
+    // pendant la duree du smooth scroll.
+    var rafActive = false;
+    var isClicking = false;
+    var clickTimer = null;
+    function onTrackScroll() {
+      if (rafActive || isClicking) return;
+      rafActive = true;
+      window.requestAnimationFrame(function() {
+        applyActive(pickActiveIdx());
+        rafActive = false;
+      });
+    }
+    track.addEventListener('scroll', onTrackScroll, { passive: true });
+    // Premiere application apres init (DOM pose, scroll potentiellement = 0)
+    applyActive(pickActiveIdx());
+    // Expose la primitive pour le click handler (qui force is-active immediate)
+    track._pasolaForceActive = function(idx) {
+      applyActive(idx);
+      isClicking = true;
+      clearTimeout(clickTimer);
+      clickTimer = setTimeout(function() { isClicking = false; }, 600);
+    };
   }
   initCarouselTrackBar('residences-track');
   initCarouselTrackBar('videos-track');
