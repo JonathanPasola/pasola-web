@@ -2037,25 +2037,25 @@ section {
      sans scroll en desktop, on passe le .container en grid 2 cols.
      Le <form> recoit display:contents pour que ses enfants directs
      (.contact-col-left et .contact-col-right) deviennent items du grid
-     parent. Le titre + lede restent en col 1 au-dessus du contexte.
+     parent.
      Mobile : .contact-col-left/right en display:contents (transparents),
      l'empilement vertical naturel du .form (flex column) reste preserve.
-     Refactor 04292026 v2 (Jonathan) :
-      - cellule (mark, col droite) videe avec "." → col droite commence
-        a la hauteur du titre, rien au-dessus
-      - align-items default stretch + margin-top:auto sur .form-submit
-        et .form-note → CTA et note pousses en bas de leurs colonnes
-        respectives, alignes verticalement. */
+     Refactor 04292026 v3 (Jonathan) :
+      - cellules (mark, col droite) ET (title, col droite) videes avec "."
+        → col droite commence a la hauteur de la lede ("Le dossier complet
+        de l'estate..."), pas du titre. Hierarchie editoriale Aman :
+        titre dominant en row 1, lede + form alignes en sous-niveau. */
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "mark   .    "
-      "title  right"
+      "title  .    "
       "lede   right"
       "left   right";
     column-gap: 80px;
     row-gap: 0;
+    align-items: start;
   }
   .contact-grid > .section-mark { grid-area: mark; }
   .contact-grid > .section-title { grid-area: title; }
@@ -2069,8 +2069,6 @@ section {
     grid-area: right;
     display: flex; flex-direction: column; gap: 24px;
   }
-  .contact-col-left .form-submit { margin-top: auto; }
-  .contact-col-right .form-note { margin-top: auto; }
   /* Override le max-width:560px sur .form en desktop quand on est en grid */
   .contact-grid > #contact-form,
   .contact-grid .form { max-width: none; }
