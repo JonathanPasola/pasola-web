@@ -1717,39 +1717,39 @@ section {
     /* Ratio editorial Aman · texte 42% / photo 58%, photo dominante.
        Grid 2 rows : row 1 = photo + texte (mêmes hauteurs), row 2 = caption seule.
        display: contents sur .lieu-media permet aux enfants (frame + caption)
-       de devenir grid items directs du .lieu-split. Resultat : le bas du CTA
-       (en bas de .lieu-text qui occupe row 1) = bas de la photo (qui occupe
-       row 1 colonne 2), la caption tombant proprement en row 2 sous la photo.
+       de devenir grid items directs du .lieu-split.
+       Chantier 5 (04292026) : align-items: start (au lieu de stretch) + photo
+       en height: 100% sans aspect-ratio fixe. Resultat : la hauteur de row 1
+       est determinee par le contenu naturel du .lieu-text (titre + body + CTA),
+       et la photo s'etire pour caler son bas au bas du CTA.
        Cross-browser : display: contents supporte sur Chrome/Safari/Firefox/Edge. */
     grid-template-columns: 5fr 7fr;
     grid-template-rows: auto auto;
     column-gap: 80px;
     row-gap: 20px;
-    align-items: stretch;
+    align-items: start;
     max-width: 1280px;
     margin: 40px auto 0;
     padding: 0 var(--pad-x);
   }
   .lieu-media { display: contents; }
-  .lieu-split-photo-first .lieu-media-frame { grid-column: 2; grid-row: 1; }
+  .lieu-split-photo-first .lieu-media-frame {
+    grid-column: 2; grid-row: 1;
+    /* Plus d'aspect-ratio fixe : la photo s'etire a la hauteur du row 1
+       (= hauteur naturelle du texte + CTA), bas alignant pile au bas du CTA. */
+    aspect-ratio: auto;
+    height: 100%;
+  }
   .lieu-split-photo-first .lieu-media-caption { grid-column: 2; grid-row: 2; }
   .lieu-split-photo-first .lieu-text { grid-column: 1; grid-row: 1; }
   /* Desktop · texte à gauche (col 1), photo à droite (col 2) avec
      caption en row 2 sous la photo. La grille gere l'ordre via
      grid-column/grid-row, plus besoin de order:.
      Mobile reste photo-first via DOM order naturel + flex column. */
-  /* Flex column sur .lieu-text et son .container pour pousser le
-     section-cta en bas. .body prend l'espace restant via flex:1,
-     ce qui aligne naturellement le bas du CTA sur le bas de la
-     colonne photo (cible v3 04282026). */
-  .lieu-text { display: flex; flex-direction: column; }
   .lieu-text > .container {
     padding: 0; max-width: none;
-    display: flex; flex-direction: column; flex: 1;
   }
-  .lieu-text .body { flex: 1; }
   .lieu-media { padding: 0; }
-  .lieu-media-frame { aspect-ratio: 4 / 5; }
   /* Le .lieu container du titre reste centré (top de section) */
   .lieu > .container {
     max-width: 1280px;
