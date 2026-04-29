@@ -581,6 +581,7 @@ section {
 
 .lieu .section-title,
 .spirit .section-title,
+.vision .section-title,
 .zones-intro .section-title,
 .videos .section-title,
 .contact .section-title {
@@ -1001,13 +1002,13 @@ section {
 }
 
 /* Section III · Notre vision.
-   Sprint 3 (04292026) : carousel placé au-dessus du texte dans le HTML.
-   Le container hérite donc d'un margin-top pour respirer sous le carousel.
-   Alignement gauche dès le mobile (cohérence avec rendu desktop). */
+   Sprint 3 (04292026) : alignement gauche dès le mobile (cohérence avec
+   rendu desktop). Carousel placé sous le texte (ordre original maintenu),
+   espace via style="margin-top: 56px" inline sur .aman-carousel (cohérent
+   avec le pattern de .spirit). */
 .vision .container {
   max-width: none;
   text-align: left;
-  margin-top: 56px;
 }
 .vision-head { margin-bottom: 40px; }
 .vision .section-mark {
@@ -1796,6 +1797,7 @@ section {
   }
 
   .lieu .section-title, .spirit .section-title,
+  .vision .section-title,
   .zones-intro .section-title, .videos .section-title,
   .contact .section-title {
     font-size: clamp(36px, 4.5vw, 46px);
@@ -1920,15 +1922,13 @@ section {
     margin: 0;
     text-align: left;
   }
-  /* Section III desktop · espace entre carousel (au-dessus) et texte */
-  .vision > .container { margin-top: 56px; }
   .spirit > .container .section-mark,
   .vision .vision-head .section-mark {
     text-align: left;
   }
   .spirit > .container .section-title,
   .spirit > .container .lede,
-  .vision-title,
+  .vision .section-title,
   .vision-meta {
     max-width: 760px;
     margin-left: 0;
