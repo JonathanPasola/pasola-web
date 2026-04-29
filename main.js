@@ -169,21 +169,37 @@
       });
     }
 
-    // IntersectionObserver · détecte la carte centrée dans le viewport du track
+    // IntersectionObserver · détecte la carte centrée dans le viewport du track.
+    // Bug fix 04292026 : sur desktop avec carousel asymetrique (66vw + 33vw + 33vw),
+    // 2 cards passent simultanement le seuil 0.55 a l'init. Le code precedent
+    // appliquait toggle dans un forEach, donc la derniere entry gagnait
+    // (card 2 active au lieu de card 1). Fix : recalculer le ratio de TOUTES
+    // les cards et garder la plus visible (>0.55), tie-break naturel sur la
+    // plus a gauche (premiere a atteindre le ratio max dans la boucle).
     if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
-            var idx = Array.prototype.indexOf.call(cards, entry.target);
-            if (idx < 0) return;
-            Array.prototype.forEach.call(cards, function(c, i) {
-              c.classList.toggle('is-active', i === idx);
-            });
-            segments.forEach(function(s, i) {
-              s.classList.toggle('is-active', i === idx);
-            });
+      var io = new IntersectionObserver(function() {
+        var trackRect = track.getBoundingClientRect();
+        var bestIdx = -1;
+        var bestRatio = 0.55;
+        Array.prototype.forEach.call(cards, function(card, i) {
+          var rect = card.getBoundingClientRect();
+          var visLeft = Math.max(rect.left, trackRect.left);
+          var visRight = Math.min(rect.right, trackRect.right);
+          var visW = Math.max(0, visRight - visLeft);
+          var ratio = rect.width > 0 ? visW / rect.width : 0;
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestIdx = i;
           }
         });
+        if (bestIdx >= 0) {
+          Array.prototype.forEach.call(cards, function(c, i) {
+            c.classList.toggle('is-active', i === bestIdx);
+          });
+          segments.forEach(function(s, i) {
+            s.classList.toggle('is-active', i === bestIdx);
+          });
+        }
       }, {
         root: track,
         threshold: [0.55, 0.7, 0.85]
