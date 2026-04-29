@@ -1713,22 +1713,41 @@ section {
   .videos { padding: var(--pad-tight-y) var(--pad-x); }
   .container { max-width: 760px; }
 
-  /* Section I desktop · empilement vertical identique au mobile
-     (chantier 04292026, principe "Titre + Texte + Photo empile partout").
-     Ordre HTML : photo + caption (.lieu-media) puis texte + CTA (.lieu-text).
-     Plus de grid 2-cols, retour au flex column de base. Marges laterales
-     gerees par .lieu-media (mobile padding-x deja present) et
-     .lieu-text > .container, pas de padding-x sur .lieu-split (eviterait
-     le double padding). Texte aligne a gauche (max-width 760) comme
-     dans Sections II/III, photo plus large mais alignee sur le meme bord
-     gauche. */
+  /* Section I desktop · EXCEPTION au principe d'empilement vertical.
+     Layout 2 cols : texte+CTA gauche (1/3) / photo+caption droite (2/3).
+     (Decision Jonathan 04292026 : Section I garde un traitement editorial
+     specifique, les autres sections II-VI restent empilees verticalement.)
+     Mecanique :
+      - grid 2 rows · row 1 = texte + photo aux memes hauteurs
+                     · row 2 = caption seule sous la photo
+      - .lieu-media en display:contents pour que ses enfants (frame +
+        caption) deviennent grid items directs du .lieu-split
+      - photo en height:100% + aspect-ratio:auto : s'adapte a la hauteur
+        du row 1 (= hauteur naturelle du texte + CTA), bas alignant
+        pile au bas du CTA
+      - mobile inchange (DOM order naturel : photo puis texte, flex column)
+     Cross-browser : display: contents supporte Chrome/Safari/Firefox/Edge. */
   .lieu-split {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto;
+    column-gap: 60px;
+    row-gap: 20px;
+    align-items: start;
     max-width: 1280px;
     margin: 40px auto 0;
+    padding: 0 var(--pad-x);
   }
-  .lieu .lieu-text > .container {
-    margin-left: 0;
-    margin-right: 0;
+  .lieu-media { display: contents; }
+  .lieu-split-photo-first .lieu-media-frame {
+    grid-column: 2; grid-row: 1;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+  .lieu-split-photo-first .lieu-media-caption { grid-column: 2; grid-row: 2; }
+  .lieu-split-photo-first .lieu-text { grid-column: 1; grid-row: 1; }
+  .lieu-text > .container {
+    padding: 0; max-width: none;
   }
   .lieu > .container {
     max-width: 1280px;
