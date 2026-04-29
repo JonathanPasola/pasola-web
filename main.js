@@ -243,6 +243,7 @@
   // Floating CTA
   var floatingCta = document.querySelector('.floating-cta');
   var heroSection = document.querySelector('.hero');
+  var footerContactBlock = document.querySelector('.footer-contact');
   var darkSections = document.querySelectorAll('.press-featured, .site-footer, .media-frame');
 
   if (floatingCta && heroSection && 'IntersectionObserver' in window) {
@@ -250,18 +251,37 @@
     floatingCta.style.pointerEvents = 'none';
     floatingCta.style.transition = 'opacity 320ms ease, color 240ms ease';
 
-    var stickyObserver = new IntersectionObserver(function(entries) {
+    // Etat combine · CTA cache si hero visible OU bloc footer-contact visible.
+    // Sprint 4 (04292026) : le CTA reste visible sur tout le scroll mais
+    // disparait quand l'utilisateur atteint le bloc .footer-contact du footer
+    // (la zone qui contient deja contact@/press@/calendly + "Voir tous les
+    // contacts"). Le CTA y devient redondant. Le style du CTA reste inchange,
+    // seule sa visibilite est gouvernee.
+    var heroVisible = true;
+    var footerContactVisible = false;
+    function updateCtaVisibility() {
+      var hide = heroVisible || footerContactVisible;
+      floatingCta.style.opacity = hide ? '0' : '1';
+      floatingCta.style.pointerEvents = hide ? 'none' : 'auto';
+    }
+
+    var heroObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          floatingCta.style.opacity = '0';
-          floatingCta.style.pointerEvents = 'none';
-        } else {
-          floatingCta.style.opacity = '1';
-          floatingCta.style.pointerEvents = 'auto';
-        }
+        heroVisible = entry.isIntersecting;
       });
+      updateCtaVisibility();
     }, { threshold: 0.15 });
-    stickyObserver.observe(heroSection);
+    heroObserver.observe(heroSection);
+
+    if (footerContactBlock) {
+      var footerObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          footerContactVisible = entry.isIntersecting;
+        });
+        updateCtaVisibility();
+      }, { threshold: 0.05 });
+      footerObserver.observe(footerContactBlock);
+    }
 
     var rafPending = false;
     function checkDarkBackground() {
