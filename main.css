@@ -1754,7 +1754,7 @@ section {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: auto auto;
-    column-gap: 60px;
+    column-gap: 32px;
     row-gap: 20px;
     align-items: start;
     max-width: 1280px;
@@ -1766,8 +1766,14 @@ section {
     grid-column: 2; grid-row: 1;
     aspect-ratio: auto;
     height: 100%;
+    width: calc(100% + var(--pad-x));
+    margin-right: calc(-1 * var(--pad-x));
   }
-  .lieu-split-photo-first .lieu-media-caption { grid-column: 2; grid-row: 2; }
+  .lieu-split-photo-first .lieu-media-caption {
+    grid-column: 2; grid-row: 2;
+    margin-right: calc(-1 * var(--pad-x));
+    padding-right: var(--pad-x);
+  }
   .lieu-split-photo-first .lieu-text { grid-column: 1; grid-row: 1; }
   .lieu-text > .container {
     padding: 0; max-width: none;
