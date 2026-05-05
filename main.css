@@ -987,14 +987,22 @@ section {
 }
 
 /* Variant card text · pattern Aman "Seasonal Experiences" col 1.
-   Card sans image, contient mark + titre + lede. Sert d'intro
-   éditoriale au carousel, alignée en colonne avec les cards image. */
+   Card sans image, contient le titre + lede (mark séparé au-dessus).
+   IMPORTANT : padding 0 et margin 0 forcés pour que le bord gauche
+   du H2 et du lede soit STRICTEMENT le même que le bord gauche du
+   mark "II · L'esprit de Sumba" qui est dans .spirit > .container. */
 .aman-card-text {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 12px;
-  padding-top: 6px;
+  padding: 6px 0 0 0;
+  margin: 0;
+}
+.aman-card-text > * {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  text-indent: 0 !important;
 }
 .aman-card-text .section-mark {
   margin: 0;
