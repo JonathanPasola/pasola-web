@@ -368,7 +368,7 @@ p { overflow-wrap: break-word; }
 main { padding-top: 0; }
 
 section {
-  padding: var(--pad-default-y) var(--pad-x);
+  padding: var(--pad-default-y) var(--section-pad-x);
 }
 .lieu { padding: var(--pad-generous-y) 0; }
 .lieu > .container,
@@ -688,7 +688,7 @@ section {
 
 .filet-divider {
   display: flex; align-items: center; justify-content: center;
-  padding: 18px var(--pad-x);
+  padding: 18px var(--section-pad-x);
 }
 .filet-divider::before {
   content: ""; display: block;
@@ -697,7 +697,7 @@ section {
 }
 
 .zones-wrap {
-  padding: 0 var(--pad-x) var(--pad-default-y);
+  padding: 0 var(--section-pad-x) var(--pad-default-y);
 }
 .zones-intro {
   display: flex; flex-direction: column; gap: 12px;
@@ -713,9 +713,9 @@ section {
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: var(--pad-x);
-  padding: 2px var(--pad-x) 8px;
-  margin: 0 calc(-1 * var(--pad-x));
+  scroll-padding-left: var(--section-pad-x);
+  padding: 2px 0 8px var(--section-pad-x);
+  margin: 0;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -2004,7 +2004,7 @@ section {
   .zones-intro .lede, .videos .lede, .contact .lede,
   .spirit .lede { font-size: 20px; }
 
-  .filet-divider { padding: 28px var(--pad-x); }
+  .filet-divider { padding: 28px var(--section-pad-x); }
 
   .aman-carousel-track {
     display: grid;
