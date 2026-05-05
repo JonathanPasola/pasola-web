@@ -62,42 +62,43 @@ figure { margin: 0 !important; padding: 0 !important; }
 
 /* RÈGLE D'ALIGNEMENT FORCÉE — 24px desktop / 12px mobile pour TOUS les
    éléments alignés au bord gauche/droit du viewport. Mesuré pixel-perfect
-   via Playwright le 2026-05-05 sur 1440x900. À NE PAS MODIFIER. */
-.lieu-mark,
-.lieu-split,
-.spirit-mark,
-.vision-mark,
-.vision-paper,
-.aman-carousel-track {
+   via Playwright le 2026-05-05 sur 1440x900. À NE PAS MODIFIER.
+
+   STRATÉGIE : le padding-x est appliqué UNIQUEMENT sur la <section> parente
+   (.lieu, .spirit, .vision). Tous les enfants ont padding-left/right = 0.
+   Comme box-sizing: border-box est global, cela évite le cumul de paddings
+   entre niveaux qui créait x=48 au lieu de x=24. */
+
+/* Sections : padding-x 24 desktop / 12 mobile sur la section ELLE-MÊME */
+.lieu, .spirit, .vision {
   padding-left: var(--section-pad-x) !important;
   padding-right: var(--section-pad-x) !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  max-width: none !important;
 }
 
-/* Carousels et contenus à l'intérieur d'une section déjà à --section-pad-x :
-   les enfants doivent commencer à 0 dans leur parent (pas re-ajouter
-   --section-pad-x sinon cumul = 48px observé en sortie Playwright).
-   Force tout l'intérieur des sections II et III à n'avoir aucun padding-left
-   parasite — le parent direct gère déjà l'alignement gauche. */
-.spirit > .aman-carousel,
-.vision-paper > * {
+/* Tous les enfants directs et leurs descendants : padding-left/right = 0
+   pour ne pas re-additionner au padding du parent. Le bord gauche/droit
+   du viewport est déjà géré par la section parente. */
+.lieu > *,
+.lieu > * > *,
+.spirit > *,
+.spirit > * > *,
+.spirit > * > * > *,
+.spirit > * > * > * > *,
+.vision > *,
+.vision > * > *,
+.vision > * > * > *,
+.vision > * > * > * > * {
   padding-left: 0 !important;
   padding-right: 0 !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
-.aman-card-text,
-.aman-card-text > *,
-.vision-paper-head,
-.vision-paper-head > *,
-.vision-body,
-.vision-feature,
-.vision-feature-frame,
-.vision-feature-caption {
-  padding-left: 0 !important;
+
+/* Garantir que la section a max-width none (pas de centrage) */
+.lieu, .spirit, .vision {
+  max-width: none !important;
   margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* Mark de section II "II · L'esprit de Sumba" — aligné au padding-x
