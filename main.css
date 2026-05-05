@@ -1907,9 +1907,16 @@ section {
      .aman-card-feature image (Pasola, Hinggi, Architecture). Toutes les cards
      font ~28vw, gap 16px. Total ~117vw → card 4 (Architecture) coupée à ~50%
      à droite avec voile blanchi. Cards 1-3 entièrement visibles sans voile. */
+  /* RÈGLE D'ALIGNEMENT GAUCHE GLOBALE (Sprint 05052026 — référence section I)
+     Tous les éléments de section (mark, container, carousel-track) doivent
+     commencer au même x du viewport, calé sur le pattern de .lieu-mark :
+     max-width 1280px centré + padding 0 var(--pad-x).
+     - viewport < 1280px : padding-x du bord
+     - viewport ≥ 1280px : (100vw - 1280px)/2 + padding-x
+     Ne PAS modifier sans demande explicite. */
   .spirit > .container {
-    max-width: none;
-    margin: 0;
+    max-width: 1280px;
+    margin: 0 auto;
     padding-left: var(--pad-x);
     padding-right: var(--pad-x);
   }
@@ -1920,8 +1927,8 @@ section {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-padding-left: var(--pad-x);
-    padding-left: var(--pad-x);
+    scroll-padding-left: max(var(--pad-x), calc((100vw - 1280px) / 2 + var(--pad-x)));
+    padding-left: max(var(--pad-x), calc((100vw - 1280px) / 2 + var(--pad-x)));
     padding-right: 0;
     margin: 0;
     -webkit-overflow-scrolling: touch;
