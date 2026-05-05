@@ -60,6 +60,25 @@ img, svg, video { display: block; max-width: 100%; height: auto; }
    alignées au padding gauche de leur parent. */
 figure { margin: 0 !important; padding: 0 !important; }
 
+/* RÈGLE D'ALIGNEMENT FORCÉE — 16px gauche/droite pour TOUS les éléments
+   alignés au bord de section. Override toute autre règle CSS qui pourrait
+   créer un décalage parasite. Mesuré pixel-perfect via Playwright (Sprint
+   05052026). À NE PAS MODIFIER sans demande explicite de Jonathan. */
+.lieu-mark,
+.lieu-split,
+.spirit-mark,
+.spirit > .container,
+.spirit .aman-carousel-track,
+.vision-mark,
+.vision-paper,
+.aman-carousel-track {
+  padding-left: var(--section-pad-x) !important;
+  padding-right: var(--section-pad-x) !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: none !important;
+}
+
 /* Mark de section II "II · L'esprit de Sumba" — aligné au padding-x
    de la vidéo hero, jamais centré ni avec max-width parasite. */
 .spirit-mark {
