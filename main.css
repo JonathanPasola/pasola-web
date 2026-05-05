@@ -1175,10 +1175,15 @@ section {
   background: var(--terra);
   margin: 0;
 }
-/* Photo "une de journal" sous le header — image pleine largeur du paper
-   avec caption italique en pied. Pattern édito Aman / Singita / Patina. */
+/* Split layout vision (Sprint 05052026 v6) — photo 2/3 gauche + texte 1/3 droite
+   sur desktop. Mobile : empilage flex column normal. */
+.vision-split {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 28px;
+}
 .vision-feature {
-  margin: 28px 0 32px;
   padding: 0;
 }
 .vision-feature-frame {
@@ -1191,14 +1196,6 @@ section {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-}
-.vision-feature-caption {
-  font-family: var(--font-editorial);
-  font-style: italic;
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: var(--muted);
-  margin: 12px 0 0;
 }
 .vision-body {
   max-width: 720px;
@@ -2232,32 +2229,54 @@ section {
     text-align: left;
   }
 
-  /* Section III · esprit "tribune éditoriale" desktop (Sprint 05052026 v5).
-     Bio fondateurs en 2 colonnes côte à côte, signature pleine largeur. */
+  /* Section III · pattern "une de journal" Option B (Sprint 05052026 v7) :
+     - Header (Meta + Titre H2 + Byline + Filet) en pleine largeur EN HAUT
+       avec titre H2 majestueux (32-44px)
+     - Split en dessous : photo 2/3 gauche + body texte 1/3 droite
+     - Bio + signature en pleine largeur sous le split */
   .vision-paper-head {
-    max-width: 760px;
+    max-width: 1100px;
     margin-bottom: 36px;
   }
   .vision-paper-head .section-title {
-    font-size: clamp(32px, 3.4vw, 44px);
-    line-height: 1.16;
+    font-size: clamp(34px, 3.6vw, 48px);
+    line-height: 1.14;
+  }
+  .vision-split {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    align-items: start;
+    margin-top: 0;
+  }
+  .vision-split .vision-feature {
+    height: 100%;
+  }
+  .vision-split .vision-feature-frame {
+    height: 100%;
+    aspect-ratio: auto;
+    min-height: 540px;
+  }
+  .vision-split .vision-body {
+    max-width: none;
+    margin-top: 0;
   }
   .vision-bio {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    margin-top: 44px;
+    margin-top: 56px;
   }
   .vision-pullquote {
-    margin: 40px 0;
-    padding-left: 28px;
+    margin: 24px 0;
+    padding-left: 22px;
   }
   .vision-pullquote p {
-    font-size: clamp(20px, 2.4vw, 24px) !important;
+    font-size: clamp(15px, 1.2vw, 17px) !important;
   }
   .vision-dropcap {
-    font-size: 68px;
-    margin: 6px 12px -2px 0;
+    font-size: 56px;
+    margin: 4px 10px -2px 0;
   }
 
   .press-featured { padding: 96px 0 104px; }
