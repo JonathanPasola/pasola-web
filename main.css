@@ -1048,51 +1048,141 @@ section {
    rendu desktop). Carousel placé sous le texte (ordre original maintenu),
    espace via style="margin-top: 56px" inline sur .aman-carousel (cohérent
    avec le pattern de .spirit). */
-.vision .container {
-  max-width: none;
-  text-align: left;
-}
-.vision-head { margin-bottom: 40px; }
-.vision .section-mark {
-  text-align: left;
+/* Section III · "Notre vision" — esprit page de journal / tribune éditoriale.
+   Pattern : header (meta, titre, byline, filet) → body (drop cap, paragraphes,
+   pull quote, bio fondateurs 2 cols, signature). Alignement gauche calé sur la
+   référence .lieu-mark (max-width 1280px + padding-x). Colonne de lecture
+   limitée à 720px pour le confort éditorial. */
+.vision-mark {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
   margin-bottom: 24px;
 }
-.vision-title {
-  font-family: var(--font-editorial);
-  font-weight: 400;
-  font-size: clamp(22px, 5.8vw, 26px);
-  line-height: 1.2;
-  letter-spacing: 0.005em;
-  color: var(--indigo);
-  margin: 0 auto 20px;
-  max-width: 680px;
+.vision-paper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
 }
-.vision-title em { font-style: italic; font-weight: 400; }
-.vision-meta {
+.vision-paper-head {
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+.vision-meta-line {
   font-family: var(--font-functional);
-  font-size: 10.5px; letter-spacing: 0.26em;
+  font-size: 10.5px; letter-spacing: 0.24em;
   text-transform: uppercase; color: var(--dusk);
-  font-weight: 400; margin-bottom: 28px;
-  text-align: left;
+  font-weight: 400;
+  margin-bottom: 18px;
+}
+.vision-paper-head .section-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(26px, 6.4vw, 32px);
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  color: var(--indigo);
+  margin: 0 0 16px;
+}
+.vision-paper-head .section-title em {
+  font-family: var(--font-editorial);
+  font-style: italic; font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.vision-byline {
+  font-family: var(--font-editorial);
+  font-style: italic; font-size: 14px;
+  color: var(--dusk); line-height: 1.5;
+  margin-bottom: 22px;
 }
 .vision-rule {
-  width: 80%; max-width: 520px;
+  width: 56px;
   height: 0.5px;
-  background: rgba(26, 44, 61, 0.35);
-  margin: 0 0 40px;
+  background: var(--terra);
+  margin: 0;
 }
 .vision-body {
-  max-width: none;
-  margin: 0;
-  text-align: left;
+  max-width: 720px;
+  margin: 32px 0 0;
 }
 .vision-body p {
   font-family: var(--font-editorial);
-  font-size: 16px; line-height: 1.7;
+  font-size: 16px; line-height: 1.75;
   color: var(--indigo);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .vision-body p:last-child { margin-bottom: 0; }
+.vision-lead {
+  font-size: 17px !important;
+}
+.vision-dropcap {
+  font-family: var(--font-display);
+  font-size: 56px; line-height: 0.9;
+  color: var(--indigo);
+  float: left;
+  margin: 4px 10px -2px 0;
+  letter-spacing: 0.02em;
+}
+.vision-pullquote {
+  margin: 32px 0;
+  padding: 0 0 0 22px;
+  border-left: 1.5px solid var(--terra);
+}
+.vision-pullquote p {
+  font-family: var(--font-editorial);
+  font-style: italic; font-weight: 400;
+  font-size: clamp(17px, 4.4vw, 20px) !important;
+  line-height: 1.5;
+  color: var(--indigo);
+  margin: 0 !important;
+}
+.vision-bio {
+  margin: 36px 0 0;
+  display: flex; flex-direction: column;
+  gap: 28px;
+}
+.vision-bio-item {
+  border-top: 0.5px solid rgba(26, 44, 61, 0.18);
+  padding-top: 18px;
+}
+.vision-bio-name {
+  font-family: var(--font-display);
+  font-size: 16px; font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--indigo);
+  margin: 0 0 6px;
+}
+.vision-bio-role {
+  font-family: var(--font-functional);
+  font-size: 10.5px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--dusk);
+  font-weight: 400;
+  margin: 0 0 10px !important;
+}
+.vision-bio-text {
+  font-family: var(--font-editorial);
+  font-size: 15px; line-height: 1.6;
+  color: var(--indigo);
+  margin: 0 !important;
+}
+.vision-signature {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 0.5px solid rgba(26, 44, 61, 0.18);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.vision-signature-name {
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--indigo);
+}
+.vision-signature-place {
+  font-family: var(--font-functional);
+  font-size: 10.5px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--dusk);
+}
 
 .press-featured {
   background: var(--indigo);
@@ -2040,8 +2130,36 @@ section {
   }
   .vision-body {
     max-width: 760px;
-    margin: 0;
+    margin: 32px 0 0;
     text-align: left;
+  }
+
+  /* Section III · esprit "tribune éditoriale" desktop (Sprint 05052026 v5).
+     Bio fondateurs en 2 colonnes côte à côte, signature pleine largeur. */
+  .vision-paper-head {
+    max-width: 760px;
+    margin-bottom: 36px;
+  }
+  .vision-paper-head .section-title {
+    font-size: clamp(32px, 3.4vw, 44px);
+    line-height: 1.16;
+  }
+  .vision-bio {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 44px;
+  }
+  .vision-pullquote {
+    margin: 40px 0;
+    padding-left: 28px;
+  }
+  .vision-pullquote p {
+    font-size: clamp(20px, 2.4vw, 24px) !important;
+  }
+  .vision-dropcap {
+    font-size: 68px;
+    margin: 6px 12px -2px 0;
   }
 
   .press-featured { padding: 96px 0 104px; }
