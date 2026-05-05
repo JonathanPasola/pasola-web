@@ -60,6 +60,50 @@ img, svg, video { display: block; max-width: 100%; height: auto; }
    alignées au padding gauche de leur parent. */
 figure { margin: 0 !important; padding: 0 !important; }
 
+/* RÈGLE UNIVERSELLE TAILLE TITRES H2 (Sprint 05052026) — TOUS les
+   .section-title du site (sauf .hero-title) doivent avoir EXACTEMENT
+   la même taille, calée sur celle de "Trois gestes, une île." (section II).
+   Mobile : clamp(22px, 5.6vw, 26px). Desktop : clamp(28px, 3vw, 34px).
+   À NE PAS MODIFIER sans demande explicite. */
+.section-title:not(.hero-title) {
+  font-size: clamp(22px, 5.6vw, 26px) !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.06em !important;
+}
+@media (min-width: 769px) {
+  .section-title:not(.hero-title) {
+    font-size: clamp(28px, 3vw, 34px) !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* Section IV "Les résidences" - pattern Aman "The World of Aman"
+   (Sprint 05052026 v8) :
+   - Mark "IV · Les résidences" à gauche (x=24, comme les autres sections)
+   - Titre H2 "Trois rapports au paysage." CENTRÉ
+   - Lede CENTRÉ
+   - 3 cards égales en grid 3 cols (pas de carousel scrollable) */
+.zones-mark {
+  /* Hérite du padding-x via .zones-wrap parent (--section-pad-x) */
+  margin-bottom: 24px;
+}
+.zones-intro-centered {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 32px;
+}
+.zones-intro-centered .section-title {
+  margin-bottom: 16px;
+}
+.zones-intro-centered .lede {
+  margin: 0 auto;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: clamp(14px, 4vw, 16px);
+  color: var(--dusk);
+  line-height: 1.55;
+}
+
 /* RÈGLE D'ALIGNEMENT FORCÉE — 24px desktop / 12px mobile pour TOUS les
    éléments alignés au bord gauche/droit du viewport. Mesuré pixel-perfect
    via Playwright le 2026-05-05 sur 1440x900. À NE PAS MODIFIER.
@@ -754,6 +798,24 @@ section {
 .zones-intro {
   display: flex; flex-direction: column; gap: 12px;
   margin-bottom: 40px;
+}
+
+/* Section IV desktop · Grid 3 cards égales (pas de scroll) — pattern Aman.
+   Mobile garde le carousel scrollable horizontal par défaut. */
+@media (min-width: 769px) {
+  .zones-track {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 32px !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    padding: 0 !important;
+  }
+  .zones-track > .aman-card {
+    flex: initial !important;
+    scroll-snap-align: none !important;
+  }
+  .zones-wrap .aman-track-bar { display: none !important; }
 }
 
 .aman-carousel {
