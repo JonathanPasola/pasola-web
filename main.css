@@ -1288,7 +1288,7 @@ section {
 }
 .vision-pullquote {
   margin: 32px 0;
-  padding: 0 0 0 22px;
+  padding: 0 0 0 32px;
   border-left: 1.5px solid var(--terra);
 }
 .vision-pullquote p {
@@ -2335,11 +2335,11 @@ section {
     margin-top: 56px;
   }
   .vision-pullquote {
-    margin: 24px 0;
-    padding-left: 22px;
+    margin: 28px 0;
+    padding-left: 32px;
   }
   .vision-pullquote p {
-    font-size: clamp(15px, 1.2vw, 17px) !important;
+    font-size: clamp(18px, 1.6vw, 22px) !important;
   }
   .vision-dropcap {
     font-size: 56px;
