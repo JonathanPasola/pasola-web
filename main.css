@@ -718,7 +718,10 @@ section {
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-padding-left: var(--section-pad-x);
-  padding: 2px 0 8px var(--section-pad-x);
+  /* padding-x = --section-pad-x DES DEUX CÔTÉS pour respecter la marge
+     droite calée sur la vidéo hero. La dernière card s'arrête au padding
+     droit, ce qui crée une marge visuelle cohérente avec le reste du site. */
+  padding: 2px var(--section-pad-x) 8px;
   margin: 0;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -2058,7 +2061,7 @@ section {
     scroll-snap-type: x mandatory;
     scroll-padding-left: var(--section-pad-x);
     padding-left: var(--section-pad-x);
-    padding-right: 0;
+    padding-right: var(--section-pad-x);
     margin: 0;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
