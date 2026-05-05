@@ -1890,11 +1890,11 @@ section {
   .aman-card-video-desc { font-size: 14.5px; }
   .aman-track-bar { display: none; }
 
-  /* Section II · 4 cards asymétriques scrollable desktop (Sprint 05052026).
-     Card 1 (Pasola feature wide) prend ~42vw, cards 2-4 (Lapidaire,
-     Architecture, Hinggi) prennent ~22vw chacune. Total ~110vw → la
-     card 4 est coupée à moitié à droite, l'utilisateur scrolle pour
-     la découvrir (effet "il y en a plus" Aman Seasonal Experiences). */
+  /* Section II · "Seasonal Experiences" pattern Aman (Sprint 05052026 v2).
+     Card 1 (.aman-card-text : mark + titre + lede) prend ~38vw, cards 2-4
+     (.aman-card-feature image : Pasola, Hinggi, Architecture) prennent
+     ~25vw chacune. Total ~113vw → card 4 (Architecture) coupée à ~50% à
+     droite, l'utilisateur scrolle pour la découvrir. */
   .spirit .aman-carousel-track {
     display: flex;
     grid-template-columns: none;
@@ -1902,27 +1902,35 @@ section {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-padding-left: 0;
-    padding: 0;
+    scroll-padding-left: var(--pad-x);
+    padding-left: var(--pad-x);
+    padding-right: 0;
     margin: 0;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
   .spirit .aman-carousel-track::-webkit-scrollbar { display: none; }
-  /* Card 1 (Pasola feature wide) · ~42vw */
+  /* Card 1 (.aman-card-text feature wide) · ~38vw */
   .spirit .aman-carousel-track > .aman-card:first-child {
-    flex: 0 0 calc(42vw - 12px);
+    flex: 0 0 calc(38vw - 12px);
     scroll-snap-align: start;
+    max-width: 480px;
   }
-  /* Card 1 · image paysage 2:1 calée sur la hauteur des images 2-4 carrées.
-     Math : (42vw - 12px) / 2 = 21vw - 6px ≈ largeur des cards 2-4. */
-  .spirit .aman-carousel-track > .aman-card:first-child .aman-card-media {
-    aspect-ratio: 2 / 1;
-  }
-  /* Cards 2, 3, 4 · ~22vw chacune */
+  /* Cards 2, 3, 4 (.aman-card-feature) · ~25vw chacune */
   .spirit .aman-carousel-track > .aman-card:not(:first-child) {
-    flex: 0 0 calc(22vw - 12px);
+    flex: 0 0 calc(25vw - 12px);
     scroll-snap-align: start;
+  }
+  /* Card-text desktop : padding adapté au 38vw */
+  .spirit .aman-card-text {
+    padding: 8px 24px 0 0;
+  }
+  .spirit .aman-card-text .section-title {
+    font-size: clamp(28px, 3.2vw, 36px);
+    line-height: 1.2;
+  }
+  .spirit .aman-card-text .lede {
+    font-size: clamp(15px, 1.2vw, 17px);
   }
   /* Réactiver le voile cards inactives + track-bar segments
      pour ce carousel desktop scrollable */
