@@ -21,9 +21,11 @@
 
   --pad-x: 20px;
 
-  --pad-tight-y: 56px;
-  --pad-default-y: 72px;
-  --pad-generous-y: 96px;
+  /* Inter-section vertical paddings · resserrés style Aman (Sprint 05052026).
+     Aman.com utilise des inter-sections de ~40-60px mobile / 60-80px desktop. */
+  --pad-tight-y: 40px;
+  --pad-default-y: 56px;
+  --pad-generous-y: 72px;
 
   --measure: 600px;
 }
@@ -672,7 +674,7 @@ section {
 
 .filet-divider {
   display: flex; align-items: center; justify-content: center;
-  padding: 32px var(--pad-x);
+  padding: 18px var(--pad-x);
 }
 .filet-divider::before {
   content: ""; display: block;
@@ -1661,9 +1663,9 @@ section {
 @media (min-width: 769px) {
   :root {
     --pad-x: 48px;
-    --pad-tight-y: 80px;
-    --pad-default-y: 112px;
-    --pad-generous-y: 128px;
+    --pad-tight-y: 56px;
+    --pad-default-y: 72px;
+    --pad-generous-y: 88px;
   }
 
   .site-header { padding: 24px var(--pad-x) 20px; gap: 12px; }
@@ -1877,7 +1879,7 @@ section {
   .zones-intro .lede, .videos .lede, .contact .lede,
   .spirit .lede { font-size: 20px; }
 
-  .filet-divider { padding: 48px var(--pad-x); }
+  .filet-divider { padding: 28px var(--pad-x); }
 
   .aman-carousel-track {
     display: grid;
