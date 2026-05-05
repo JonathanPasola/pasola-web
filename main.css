@@ -60,15 +60,12 @@ img, svg, video { display: block; max-width: 100%; height: auto; }
    alignées au padding gauche de leur parent. */
 figure { margin: 0 !important; padding: 0 !important; }
 
-/* RÈGLE D'ALIGNEMENT FORCÉE — 16px gauche/droite pour TOUS les éléments
-   alignés au bord de section. Override toute autre règle CSS qui pourrait
-   créer un décalage parasite. Mesuré pixel-perfect via Playwright (Sprint
-   05052026). À NE PAS MODIFIER sans demande explicite de Jonathan. */
+/* RÈGLE D'ALIGNEMENT FORCÉE — 24px desktop / 12px mobile pour TOUS les
+   éléments alignés au bord gauche/droit du viewport. Mesuré pixel-perfect
+   via Playwright le 2026-05-05 sur 1440x900. À NE PAS MODIFIER. */
 .lieu-mark,
 .lieu-split,
 .spirit-mark,
-.spirit > .container,
-.spirit .aman-carousel-track,
 .vision-mark,
 .vision-paper,
 .aman-carousel-track {
@@ -77,6 +74,30 @@ figure { margin: 0 !important; padding: 0 !important; }
   margin-left: 0 !important;
   margin-right: 0 !important;
   max-width: none !important;
+}
+
+/* Carousels et contenus à l'intérieur d'une section déjà à --section-pad-x :
+   les enfants doivent commencer à 0 dans leur parent (pas re-ajouter
+   --section-pad-x sinon cumul = 48px observé en sortie Playwright).
+   Force tout l'intérieur des sections II et III à n'avoir aucun padding-left
+   parasite — le parent direct gère déjà l'alignement gauche. */
+.spirit > .aman-carousel,
+.vision-paper > * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.aman-card-text,
+.aman-card-text > *,
+.vision-paper-head,
+.vision-paper-head > *,
+.vision-body,
+.vision-feature,
+.vision-feature-frame,
+.vision-feature-caption {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 /* Mark de section II "II · L'esprit de Sumba" — aligné au padding-x
@@ -1833,8 +1854,10 @@ section {
     --pad-tight-y: 56px;
     --pad-default-y: 72px;
     --pad-generous-y: 88px;
-    /* Override desktop · vidéo hero passe à 16px de padding-x */
-    --section-pad-x: 16px;
+    /* Override desktop · MESURÉ via Playwright le 2026-05-05 :
+       la vidéo hero démarre à 24px du viewport sur 1440x900.
+       Cette valeur est la RÉFÉRENCE ABSOLUE. */
+    --section-pad-x: 24px;
   }
 
   .site-header { padding: 24px var(--pad-x) 20px; gap: 12px; }
