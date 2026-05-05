@@ -1772,13 +1772,10 @@ section {
     grid-column: 2; grid-row: 1 / span 3;
     aspect-ratio: auto;
     height: 100%;
-    width: calc(100% + var(--pad-x));
-    margin-right: calc(-1 * var(--pad-x));
+    width: 100%;
   }
   .lieu-split-photo-first .lieu-media-caption {
     grid-column: 2; grid-row: 4;
-    margin-right: calc(-1 * var(--pad-x));
-    padding-right: var(--pad-x);
     align-self: center;
   }
   .lieu-text > .container {
