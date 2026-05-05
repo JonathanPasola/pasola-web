@@ -27,6 +27,12 @@
   --pad-default-y: 56px;
   --pad-generous-y: 72px;
 
+  /* Référence d'alignement gauche · CALÉE SUR LA VIDÉO HERO (.hero padding-x).
+     Mobile : 12px, desktop : 16px. Toutes les sections doivent utiliser
+     --section-pad-x pour leur padding-left/right (jamais var(--pad-x) ni
+     un max-width: 1280px centré). Cette variable EST la règle d'alignement. */
+  --section-pad-x: 12px;
+
   --measure: 600px;
 }
 
@@ -366,9 +372,10 @@ section {
 }
 .lieu { padding: var(--pad-generous-y) 0; }
 .lieu > .container,
-.lieu .lieu-text > .container { padding: 0 var(--pad-x); }
-.vision { padding: var(--pad-generous-y) var(--pad-x); }
-.videos { padding: var(--pad-tight-y) var(--pad-x); }
+.lieu .lieu-text > .container { padding: 0 var(--section-pad-x); }
+.spirit { padding: var(--pad-default-y) 0; }
+.vision { padding: var(--pad-generous-y) 0; }
+.videos { padding: var(--pad-tight-y) var(--section-pad-x); }
 
 .container { max-width: 720px; margin: 0 auto; }
 
@@ -1061,15 +1068,12 @@ section {
    référence .lieu-mark (max-width 1280px + padding-x). Colonne de lecture
    limitée à 720px pour le confort éditorial. */
 .vision-mark {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 var(--pad-x);
-  margin-bottom: 24px;
+  margin: 0 0 24px;
+  padding: 0 var(--section-pad-x);
 }
 .vision-paper {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 var(--pad-x);
+  margin: 0;
+  padding: 0 var(--section-pad-x);
 }
 .vision-paper-head {
   max-width: 720px;
@@ -1107,6 +1111,30 @@ section {
   height: 0.5px;
   background: var(--terra);
   margin: 0;
+}
+/* Photo "une de journal" sous le header — image pleine largeur du paper
+   avec caption italique en pied. Pattern édito Aman / Singita / Patina. */
+.vision-feature {
+  margin: 28px 0 32px;
+}
+.vision-feature-frame {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: rgba(26, 44, 61, 0.04);
+  border: 0.5px solid rgba(26, 44, 61, 0.08);
+}
+.vision-feature-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.vision-feature-caption {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 12px 0 0;
 }
 .vision-body {
   max-width: 720px;
@@ -1763,6 +1791,8 @@ section {
     --pad-tight-y: 56px;
     --pad-default-y: 72px;
     --pad-generous-y: 88px;
+    /* Override desktop · vidéo hero passe à 16px de padding-x */
+    --section-pad-x: 16px;
   }
 
   .site-header { padding: 24px var(--pad-x) 20px; gap: 12px; }
@@ -1856,12 +1886,13 @@ section {
     align-self: center;
   }
 
-  section { padding: var(--pad-default-y) var(--pad-x); }
+  section { padding: var(--pad-default-y) 0; }
   .lieu { padding: var(--pad-generous-y) 0; }
   .lieu > .container,
-  .lieu .lieu-text > .container { padding: 0 var(--pad-x); }
-  .vision { padding: var(--pad-generous-y) var(--pad-x); }
-  .videos { padding: var(--pad-tight-y) var(--pad-x); }
+  .lieu .lieu-text > .container { padding: 0 var(--section-pad-x); }
+  .spirit { padding: var(--pad-default-y) 0; }
+  .vision { padding: var(--pad-generous-y) 0; }
+  .videos { padding: var(--pad-tight-y) var(--section-pad-x); }
   .container { max-width: 760px; }
 
   /* Section I desktop · EXCEPTION au principe d'empilement vertical.
@@ -1885,9 +1916,8 @@ section {
     column-gap: 32px;
     row-gap: 20px;
     align-items: start;
-    max-width: 1280px;
-    margin: 40px auto 0;
-    padding: 0 var(--pad-x);
+    margin: 40px 0 0;
+    padding: 0 var(--section-pad-x);
   }
   .lieu-media { display: contents; }
   .lieu-split-photo-first .lieu-text { display: contents; }
@@ -1909,12 +1939,10 @@ section {
     align-self: center;
   }
   /* Container du mark "I · Pourquoi Sumba" au-dessus du grid,
-     aligné gauche au padding-x du viewport (= position du grid). */
+     aligné gauche EXACTEMENT comme la vidéo hero (--section-pad-x). */
   .lieu .lieu-mark {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 var(--pad-x);
-    margin-bottom: 24px;
+    margin: 0 0 24px;
+    padding: 0 var(--section-pad-x);
   }
   .lieu-text > .container {
     padding: 0; max-width: none;
@@ -2006,18 +2034,15 @@ section {
      .aman-card-feature image (Pasola, Hinggi, Architecture). Toutes les cards
      font ~28vw, gap 16px. Total ~117vw → card 4 (Architecture) coupée à ~50%
      à droite avec voile blanchi. Cards 1-3 entièrement visibles sans voile. */
-  /* RÈGLE D'ALIGNEMENT GAUCHE GLOBALE (Sprint 05052026 — référence section I)
-     Tous les éléments de section (mark, container, carousel-track) doivent
-     commencer au même x du viewport, calé sur le pattern de .lieu-mark :
-     max-width 1280px centré + padding 0 var(--pad-x).
-     - viewport < 1280px : padding-x du bord
-     - viewport ≥ 1280px : (100vw - 1280px)/2 + padding-x
-     Ne PAS modifier sans demande explicite. */
+  /* RÈGLE D'ALIGNEMENT GAUCHE GLOBALE — calée sur la vidéo hero (--section-pad-x).
+     Mobile : 12px, desktop : 16px. Tout ce qui est aligné sur le bord gauche
+     d'une section doit utiliser var(--section-pad-x), JAMAIS var(--pad-x) ni
+     un max-width 1280px centré. Cette règle est non-négociable et ne doit pas
+     être modifiée sans demande explicite. */
   .spirit > .container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding-left: var(--pad-x);
-    padding-right: var(--pad-x);
+    margin: 0;
+    padding-left: var(--section-pad-x);
+    padding-right: var(--section-pad-x);
   }
   .spirit .aman-carousel-track {
     display: flex;
@@ -2026,8 +2051,8 @@ section {
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    scroll-padding-left: max(var(--pad-x), calc((100vw - 1280px) / 2 + var(--pad-x)));
-    padding-left: max(var(--pad-x), calc((100vw - 1280px) / 2 + var(--pad-x)));
+    scroll-padding-left: var(--section-pad-x);
+    padding-left: var(--section-pad-x);
     padding-right: 0;
     margin: 0;
     -webkit-overflow-scrolling: touch;
