@@ -2412,11 +2412,22 @@ section {
   .newsletter-consent { grid-column: span 2; }
   .newsletter-submit { grid-column: span 2; justify-self: start; }
 
+  /* Footer — 3 cards (L'estate / L'engagement / À propos) centrées
+     horizontalement (Sprint 05052026). Grid 3 cols égales, max-width
+     limité pour resserrer le bloc et le centrer dans le footer. */
   .footer-grid {
-    flex-direction: row; justify-content: space-between;
-    gap: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
   }
-  .footer-col { flex: 1; }
+  .footer-col {
+    flex: initial;
+    text-align: left;
+  }
 
   .footer-contact {
     flex-direction: row; flex-wrap: wrap;
