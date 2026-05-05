@@ -55,6 +55,10 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; background: none; border: none; }
 img, svg, video { display: block; max-width: 100%; height: auto; }
+/* Reset margin du <figure> (default browser = 1em 40px) qui décalerait
+   les photos vers la droite. Toutes les figures du site doivent être
+   alignées au padding gauche de leur parent. */
+figure { margin: 0; padding: 0; }
 
 h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; hyphens: auto; }
 p { overflow-wrap: break-word; }
@@ -1116,6 +1120,7 @@ section {
    avec caption italique en pied. Pattern édito Aman / Singita / Patina. */
 .vision-feature {
   margin: 28px 0 32px;
+  padding: 0;
 }
 .vision-feature-frame {
   aspect-ratio: 16 / 10;
