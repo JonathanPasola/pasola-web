@@ -58,7 +58,14 @@ img, svg, video { display: block; max-width: 100%; height: auto; }
 /* Reset margin du <figure> (default browser = 1em 40px) qui décalerait
    les photos vers la droite. Toutes les figures du site doivent être
    alignées au padding gauche de leur parent. */
-figure { margin: 0; padding: 0; }
+figure { margin: 0 !important; padding: 0 !important; }
+
+/* Mark de section II "II · L'esprit de Sumba" — aligné au padding-x
+   de la vidéo hero, jamais centré ni avec max-width parasite. */
+.spirit-mark {
+  padding: 0 var(--section-pad-x);
+  margin-bottom: 24px;
+}
 
 h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; hyphens: auto; }
 p { overflow-wrap: break-word; }
@@ -2055,7 +2062,7 @@ section {
      d'une section doit utiliser var(--section-pad-x), JAMAIS var(--pad-x) ni
      un max-width 1280px centré. Cette règle est non-négociable et ne doit pas
      être modifiée sans demande explicite. */
-  .spirit > .container {
+  .spirit-mark {
     margin: 0;
     padding-left: var(--section-pad-x);
     padding-right: var(--section-pad-x);
