@@ -73,7 +73,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin
       href="https://fonts.gstatic.com/s/outfit/v11/QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC1O4a0E5FiGW0RuA.woff2" />
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@400&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="/main.css" />
 </head>
@@ -85,12 +85,38 @@
 <defs>
 <symbol id="pasola-emblem-full" viewBox="0 0 200 110">
 <line x1="12" y1="92" x2="188" y2="92" stroke="currentColor" stroke-width="1.25" fill="none" vector-effect="non-scaling-stroke"/>
-<path fill="currentColor" d="M 86 92 L 90 44.12 L 120 32 L 128 92 Z"/>
-<rect fill="var(--cut,#FAF8F4)" x="88.51" y="61.10" width="35.49" height="1.8"/>
+<path fill="currentColor" d="M86 92 L90 48 L120 28 L128 92 Z"/>
+<rect fill="var(--cut,#FAF8F4)" x="89" y="61" width="37" height="1.8"/>
 </symbol>
 <symbol id="pasola-emblem-simple" viewBox="0 0 200 110">
 <line x1="12" y1="92" x2="188" y2="92" stroke="currentColor" stroke-width="1.25" fill="none" vector-effect="non-scaling-stroke"/>
-<path fill="currentColor" d="M 86 92 L 90 44.12 L 120 32 L 128 92 Z"/>
+<path fill="currentColor" d="M86 92 L90 48 L120 28 L128 92 Z"/>
+</symbol>
+<symbol id="pasola-cartouche" viewBox="0 0 80 130">
+<g stroke="currentColor" stroke-width="0.8" fill="none" vector-effect="non-scaling-stroke">
+<rect x="10" y="10" width="60" height="110"/>
+<line x1="10" y1="26" x2="70" y2="26"/>
+<line x1="10" y1="30" x2="70" y2="30"/>
+<path d="M 40 48 L 55 65 L 40 82 L 25 65 Z"/>
+<path d="M 40 55 L 48 65 L 40 75 L 32 65 Z"/>
+<line x1="10" y1="100" x2="70" y2="100"/>
+<line x1="10" y1="104" x2="70" y2="104"/>
+</g>
+</symbol>
+<symbol id="pasola-frise" viewBox="0 0 400 40" preserveAspectRatio="none">
+<g stroke="currentColor" stroke-width="0.7" fill="none" vector-effect="non-scaling-stroke">
+<line x1="0" y1="14" x2="400" y2="14"/><line x1="0" y1="17" x2="400" y2="17"/>
+<path d="M 25 11 L 31 20 L 25 29 L 19 20 Z"/>
+<path d="M 65 11 L 71 20 L 65 29 L 59 20 Z"/>
+<path d="M 105 11 L 111 20 L 105 29 L 99 20 Z"/>
+<path d="M 145 11 L 151 20 L 145 29 L 139 20 Z"/>
+<path d="M 185 11 L 191 20 L 185 29 L 179 20 Z"/>
+<path d="M 225 11 L 231 20 L 225 29 L 219 20 Z"/>
+<path d="M 265 11 L 271 20 L 265 29 L 259 20 Z"/>
+<path d="M 305 11 L 311 20 L 305 29 L 299 20 Z"/>
+<path d="M 345 11 L 351 20 L 345 29 L 339 20 Z"/>
+<line x1="0" y1="23" x2="400" y2="23"/><line x1="0" y1="26" x2="400" y2="26"/>
+</g>
 </symbol>
 </defs>
 </svg>
@@ -115,7 +141,7 @@
 </div>
 
 <a class="brand-lockup" href="/" aria-label="PASOLA Signature Estate, accueil">
-<svg class="brand-emblem" width="32" height="18" viewBox="0 0 200 110" style="--cut: var(--ivory)" aria-hidden="true"><use href="#pasola-emblem-full"/></svg>
+<svg class="brand-emblem" width="32" height="18" viewBox="0 0 200 110" style="--cut: var(--ivory)" aria-hidden="true"><use href="#pasola-emblem-simple"/></svg>
 <span class="brand-wordmark">PASOLA</span>
 </a>
 
