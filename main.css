@@ -963,6 +963,35 @@ section {
   align-self: flex-start;
 }
 
+/* Variant card text · pattern Aman "Seasonal Experiences" col 1.
+   Card sans image, contient mark + titre + lede. Sert d'intro
+   éditoriale au carousel, alignée en colonne avec les cards image. */
+.aman-card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-top: 6px;
+}
+.aman-card-text .section-mark {
+  margin: 0;
+}
+.aman-card-text .section-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 5.6vw, 26px);
+  font-weight: 500; letter-spacing: 0.06em;
+  line-height: 1.22; color: var(--indigo);
+  margin: 0;
+}
+.aman-card-text .lede {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6; color: var(--indigo);
+  margin: 0;
+  max-width: none;
+}
+
 /* Indicateur de slide active · track-bar à la Aman, couleurs PASOLA.
    Fine ligne horizontale segmentée par slide ; segment actif Terra
    Rossa à peine plus dense. Sur desktop (≥769px), les carrousels
@@ -1861,48 +1890,28 @@ section {
   .aman-card-video-desc { font-size: 14.5px; }
   .aman-track-bar { display: none; }
 
-  /* Section II · carousel asymetrique scrollable (cible v1 04282026).
-     Override le grid generique : le track redevient flex avec scroll
-     horizontal, card 1 (feature wide) prend 2/3 du viewport, cards
-     2 et 3 prennent 1/3 du viewport chacune. Total = 4/3 viewport,
-     donc card 3 deborde a droite et l'utilisateur scrolle pour la
-     decouvrir (vrai carousel). Scroll-snap stoppe sur chaque card.
-     Cross-browser : flex + scroll-snap + scrollbar hide supportes
-     sur Chrome / Safari / Firefox / Edge modernes. */
+  /* Section II · "Seasonal Experiences" pattern Aman (Sprint 05052026).
+     4 cards égales sur desktop : col 1 = card-text (mark + titre + lede),
+     cols 2-4 = cards image (Pasola, Lapidaire, Architecture).
+     Grid 4 cols, padding gauche/droite via padding du carousel parent.
+     Mobile : flex scrollable inchangé (le track redevient flex en mobile-first). */
   .spirit .aman-carousel-track {
-    display: flex;
-    grid-template-columns: none;
-    gap: 16px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: 0;
-    padding: 0;
-    margin: 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    overflow: visible;
+    scroll-snap-type: none;
+    padding: 0 var(--pad-x);
+    margin: 0 auto;
+    max-width: 1400px;
   }
-  .spirit .aman-carousel-track::-webkit-scrollbar { display: none; }
-  /* Card 1 (feature wide) · 2/3 viewport */
-  .spirit .aman-carousel-track > .aman-card:first-child {
-    flex: 0 0 calc(66vw - 32px);
-    scroll-snap-align: start;
+  .spirit .aman-carousel-track > .aman-card {
+    flex: initial;
+    scroll-snap-align: none;
   }
-  /* Card 1 · image paysage 2:1 calee sur la hauteur des images 2 et 3
-     carrees (Sprint chantier-3 04292026, replique du pattern .vision).
-     Math : (66vw - 32px) / 2 = 33vw - 16px = pile la largeur des cards 2/3. */
-  .spirit .aman-carousel-track > .aman-card:first-child .aman-card-media {
-    aspect-ratio: 2 / 1;
-  }
-  /* Cards 2 et 3 · 1/3 viewport chacune */
-  .spirit .aman-carousel-track > .aman-card:not(:first-child) {
-    flex: 0 0 calc(33vw - 16px);
-    scroll-snap-align: start;
-  }
-  /* Reactiver le voile cards inactives + track-bar segments
-     pour ce carousel desktop */
-  .spirit .aman-card::after { display: block; }
-  .spirit .aman-track-bar { display: flex; }
+  /* Désactiver le voile cards inactives + track-bar segments en grid */
+  .spirit .aman-card::after { display: none; }
+  .spirit .aman-track-bar { display: none; }
 
   /* Section III · carousel asymetrique scrollable (Sprint 3 04292026).
      Meme principe que .spirit, mais l'image 1 passe en aspect-ratio 2/1
