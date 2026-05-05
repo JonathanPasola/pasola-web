@@ -1793,19 +1793,29 @@ section {
   .lieu-media { display: contents; }
   .lieu-split-photo-first .lieu-text { display: contents; }
   .lieu-split-photo-first .lieu-text > .container { display: contents; }
-  .lieu-split-photo-first .section-mark { grid-column: 1; grid-row: 1; }
-  .lieu-split-photo-first .section-title { grid-column: 1; grid-row: 2; margin-bottom: 0; }
-  .lieu-split-photo-first .body { grid-column: 1; grid-row: 3; }
-  .lieu-split-photo-first .section-cta { grid-column: 1; grid-row: 4; align-self: center; margin-top: 0; }
+  /* Mark sorti dans un container .lieu-mark au-dessus du grid (Sprint 05052026 v4).
+     Le grid couvre maintenant : title (row 1) + body (row 2) + cta+caption (row 3).
+     Vidéo couvre rows 1-2 (= titre + body). */
+  .lieu-split-photo-first .section-title { grid-column: 1; grid-row: 1; margin-bottom: 0; }
+  .lieu-split-photo-first .body { grid-column: 1; grid-row: 2; }
+  .lieu-split-photo-first .section-cta { grid-column: 1; grid-row: 3; align-self: center; margin-top: 0; }
   .lieu-split-photo-first .lieu-media-frame {
-    grid-column: 2; grid-row: 1 / span 3;
+    grid-column: 2; grid-row: 1 / span 2;
     aspect-ratio: auto;
     height: 100%;
     width: 100%;
   }
   .lieu-split-photo-first .lieu-media-caption {
-    grid-column: 2; grid-row: 4;
+    grid-column: 2; grid-row: 3;
     align-self: center;
+  }
+  /* Container du mark "I · Pourquoi Sumba" au-dessus du grid,
+     aligné gauche au padding-x du viewport (= position du grid). */
+  .lieu .lieu-mark {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--pad-x);
+    margin-bottom: 24px;
   }
   .lieu-text > .container {
     padding: 0; max-width: none;
