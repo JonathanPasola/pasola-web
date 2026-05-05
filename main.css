@@ -754,21 +754,17 @@ section {
    Variants : light (sur fond ivory) et on-dark (sur fond indigo).
    ============================================================ */
 
-/* Contact section · lede + CTA submit alignés horizontalement (sur la même row).
-   Lede prend la place naturelle, CTA aligné à droite ou à côté. */
-.contact-intro-row {
+/* Contact section · CTA submit (col-left) et form-note (col-right) alignés
+   horizontalement EN BAS de leurs colonnes respectives. Les deux colonnes
+   sont en flex column avec margin-top: auto sur le dernier élément pour
+   le pousser en bas. */
+.contact-col-left, .contact-col-right {
   display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 32px;
+  flex-direction: column;
 }
-.contact-intro-row .lede {
-  flex: 1;
-  margin: 0;
-}
-.contact-intro-row .form-submit {
-  flex-shrink: 0;
-  margin: 0;
+.contact-col-left .form-submit,
+.contact-col-right .form-note {
+  margin-top: auto;
 }
 
 .section-cta {
@@ -2412,22 +2408,24 @@ section {
   .newsletter-consent { grid-column: span 2; }
   .newsletter-submit { grid-column: span 2; justify-self: start; }
 
-  /* Footer — 3 cards (L'estate / L'engagement / À propos) centrées
-     horizontalement (Sprint 05052026). Grid 3 cols égales, max-width
-     limité pour resserrer le bloc et le centrer dans le footer. */
+  /* Footer — 3 cards alignées comme la vidéo hero (24px gauche / 24px droite),
+     pleine largeur viewport - 48px (Sprint 05052026 v2).
+     Card 1 (L'estate)     : text-align left
+     Card 2 (L'engagement) : text-align center
+     Card 3 (À propos)     : text-align right */
   .footer-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 64px;
-    max-width: 920px;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
+    gap: 56px;
+    max-width: none;
+    margin: 0;
   }
   .footer-col {
     flex: initial;
-    text-align: left;
   }
+  .footer-col:nth-child(1) { text-align: left; }
+  .footer-col:nth-child(2) { text-align: center; }
+  .footer-col:nth-child(3) { text-align: right; }
 
   .footer-contact {
     flex-direction: row; flex-wrap: wrap;
