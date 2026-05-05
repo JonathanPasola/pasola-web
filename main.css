@@ -60,15 +60,20 @@ img, svg, video { display: block; max-width: 100%; height: auto; }
    alignées au padding gauche de leur parent. */
 figure { margin: 0 !important; padding: 0 !important; }
 
-/* RÈGLE UNIVERSELLE TAILLE TITRES H2 (Sprint 05052026) — TOUS les
+/* RÈGLE UNIVERSELLE TAILLE + TYPO TITRES H2 (Sprint 05052026) — TOUS les
    .section-title du site (sauf .hero-title) doivent avoir EXACTEMENT
-   la même taille, calée sur celle de "Trois gestes, une île." (section II).
+   la même taille ET la même typo, calées sur celle de "Trois gestes,
+   une île." (section II).
+   Font : Cinzel (var(--font-display)).
    Mobile : clamp(22px, 5.6vw, 26px). Desktop : clamp(28px, 3vw, 34px).
    À NE PAS MODIFIER sans demande explicite. */
 .section-title:not(.hero-title) {
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
   font-size: clamp(22px, 5.6vw, 26px) !important;
   line-height: 1.2 !important;
   letter-spacing: 0.06em !important;
+  color: var(--indigo) !important;
 }
 @media (min-width: 769px) {
   .section-title:not(.hero-title) {
