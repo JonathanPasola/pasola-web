@@ -754,6 +754,23 @@ section {
    Variants : light (sur fond ivory) et on-dark (sur fond indigo).
    ============================================================ */
 
+/* Contact section · lede + CTA submit alignés horizontalement (sur la même row).
+   Lede prend la place naturelle, CTA aligné à droite ou à côté. */
+.contact-intro-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.contact-intro-row .lede {
+  flex: 1;
+  margin: 0;
+}
+.contact-intro-row .form-submit {
+  flex-shrink: 0;
+  margin: 0;
+}
+
 .section-cta {
   position: relative;
   display: inline-block;
