@@ -1890,28 +1890,44 @@ section {
   .aman-card-video-desc { font-size: 14.5px; }
   .aman-track-bar { display: none; }
 
-  /* Section II · "Seasonal Experiences" pattern Aman (Sprint 05052026).
-     4 cards égales sur desktop : col 1 = card-text (mark + titre + lede),
-     cols 2-4 = cards image (Pasola, Lapidaire, Architecture).
-     Grid 4 cols, padding gauche/droite via padding du carousel parent.
-     Mobile : flex scrollable inchangé (le track redevient flex en mobile-first). */
+  /* Section II · 4 cards asymétriques scrollable desktop (Sprint 05052026).
+     Card 1 (Pasola feature wide) prend ~42vw, cards 2-4 (Lapidaire,
+     Architecture, Hinggi) prennent ~22vw chacune. Total ~110vw → la
+     card 4 est coupée à moitié à droite, l'utilisateur scrolle pour
+     la découvrir (effet "il y en a plus" Aman Seasonal Experiences). */
   .spirit .aman-carousel-track {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-    overflow: visible;
-    scroll-snap-type: none;
-    padding: 0 var(--pad-x);
-    margin: 0 auto;
-    max-width: 1400px;
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+    padding: 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
-  .spirit .aman-carousel-track > .aman-card {
-    flex: initial;
-    scroll-snap-align: none;
+  .spirit .aman-carousel-track::-webkit-scrollbar { display: none; }
+  /* Card 1 (Pasola feature wide) · ~42vw */
+  .spirit .aman-carousel-track > .aman-card:first-child {
+    flex: 0 0 calc(42vw - 12px);
+    scroll-snap-align: start;
   }
-  /* Désactiver le voile cards inactives + track-bar segments en grid */
-  .spirit .aman-card::after { display: none; }
-  .spirit .aman-track-bar { display: none; }
+  /* Card 1 · image paysage 2:1 calée sur la hauteur des images 2-4 carrées.
+     Math : (42vw - 12px) / 2 = 21vw - 6px ≈ largeur des cards 2-4. */
+  .spirit .aman-carousel-track > .aman-card:first-child .aman-card-media {
+    aspect-ratio: 2 / 1;
+  }
+  /* Cards 2, 3, 4 · ~22vw chacune */
+  .spirit .aman-carousel-track > .aman-card:not(:first-child) {
+    flex: 0 0 calc(22vw - 12px);
+    scroll-snap-align: start;
+  }
+  /* Réactiver le voile cards inactives + track-bar segments
+     pour ce carousel desktop scrollable */
+  .spirit .aman-card::after { display: block; }
+  .spirit .aman-track-bar { display: flex; }
 
   /* Section III · carousel asymetrique scrollable (Sprint 3 04292026).
      Meme principe que .spirit, mais l'image 1 passe en aspect-ratio 2/1
