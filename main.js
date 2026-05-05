@@ -236,9 +236,39 @@
   }
   initCarouselTrackBar('residences-track');
   initCarouselTrackBar('videos-track');
-  initCarouselTrackBar('esprit-track');
   initCarouselTrackBar('vision-track');
   initCarouselTrackBar('press-track');
+
+  // Section II "L'esprit de Sumba" · système custom de fade par intersection.
+  // Au lieu d'une seule card "is-active" (logique standard initCarouselTrackBar),
+  // toutes les cards entièrement visibles dans le viewport horizontal du track
+  // reçoivent .is-active (= sans voile). Les cards partiellement visibles
+  // (coupées à droite ou à gauche par le scroll) n'ont PAS .is-active
+  // (= voile blanchi). Permet de slider sans laisser une card visible avec
+  // un voile résiduel — le voile suit dynamiquement la card coupée.
+  function initSpiritIntersectionFade() {
+    var track = document.getElementById('esprit-track');
+    if (!track) return;
+    var cards = track.querySelectorAll('.aman-card');
+    if (!cards.length) return;
+    if (!('IntersectionObserver' in window)) {
+      // Fallback : toutes les cards is-active
+      Array.prototype.forEach.call(cards, function(c) { c.classList.add('is-active'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        // Seuil 0.95 = considérée "entièrement visible" si ≥ 95%
+        // (tolérance pour les bords de viewport, le scroll-snap, etc.)
+        entry.target.classList.toggle('is-active', entry.intersectionRatio >= 0.95);
+      });
+    }, {
+      root: track,
+      threshold: [0, 0.5, 0.85, 0.95, 1]
+    });
+    Array.prototype.forEach.call(cards, function(c) { observer.observe(c); });
+  }
+  initSpiritIntersectionFade();
 
   // Floating CTA
   var floatingCta = document.querySelector('.floating-cta');
