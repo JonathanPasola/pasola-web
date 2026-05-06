@@ -458,6 +458,82 @@
     });
   }
 
+  // Newsletter form (footer "Stay in touch" / "Rester en contact")
+  // Utilise EmailJS avec un template dédié newsletter (à créer côté dashboard).
+  var newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    var NEWSLETTER_SERVICE = 'service_4auog2l';
+    var NEWSLETTER_TEMPLATE = 'template_newsletter';   // ⚠️ À créer dans EmailJS dashboard
+    var newsletterIsEn = document.documentElement.lang === 'en';
+    var nlI18n = newsletterIsEn ? {
+      sending: 'Subscribing…',
+      success: 'Thank you. You will receive PASOLA news shortly.',
+      error:   'An error occurred. Please try again or write to contact@pasola.fr.'
+    } : {
+      sending: 'Inscription…',
+      success: 'Merci. Vous recevrez prochainement les nouvelles de PASOLA.',
+      error:   'Une erreur est survenue. Merci de réessayer ou d\'écrire à contact@pasola.fr.'
+    };
+
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (typeof emailjs === 'undefined') {
+        alert(nlI18n.error);
+        return;
+      }
+      // Init EmailJS si pas déjà fait (au cas où le contact form n'a pas été chargé)
+      if (!window.__emailjsInit) {
+        emailjs.init({ publicKey: 'e2XFcMgnmluDpaOFi' });
+        window.__emailjsInit = true;
+      }
+
+      var nlBtn = newsletterForm.querySelector('.newsletter-submit');
+      var nlOriginalLabel = nlBtn.textContent;
+      nlBtn.disabled = true;
+      nlBtn.textContent = nlI18n.sending;
+
+      var nlFirstname = (newsletterForm.firstname && newsletterForm.firstname.value || '').trim();
+      var nlLastname  = (newsletterForm.lastname  && newsletterForm.lastname.value  || '').trim();
+      var nlEmail     = (newsletterForm.email     && newsletterForm.email.value     || '').trim();
+      var nlFullname  = (nlFirstname + ' ' + nlLastname).trim();
+
+      var nlParams = {
+        firstname: nlFirstname,
+        lastname: nlLastname,
+        email: nlEmail,
+        from_name: nlFullname,
+        from_email: nlEmail,
+        user_name: nlFullname,
+        user_email: nlEmail,
+        name: nlFullname,
+        reply_to: nlEmail,
+        to_email: 'contact@pasola.fr',
+        source: 'newsletter-footer'
+      };
+
+      emailjs.send(NEWSLETTER_SERVICE, NEWSLETTER_TEMPLATE, nlParams).then(
+        function() {
+          // Replace form contents with success message inline
+          var feedbackEl = document.createElement('p');
+          feedbackEl.className = 'newsletter-feedback';
+          feedbackEl.textContent = nlI18n.success;
+          feedbackEl.style.cssText = 'font-family:var(--font-editorial);font-style:italic;font-size:15px;color:var(--ivory);text-align:center;margin-top:12px;line-height:1.5;';
+          newsletterForm.appendChild(feedbackEl);
+          newsletterForm.reset();
+          nlBtn.disabled = true;
+          nlBtn.textContent = newsletterIsEn ? 'Subscribed' : 'Inscrit';
+        },
+        function(err) {
+          alert(nlI18n.error);
+          nlBtn.disabled = false;
+          nlBtn.textContent = nlOriginalLabel;
+          // eslint-disable-next-line no-console
+          console.error('Newsletter EmailJS error', err);
+        }
+      );
+    });
+  }
+
   // Lang switch — poser un cookie quand l'utilisateur choisit manuellement
   // sa langue. Le middleware géo-IP (functions/_middleware.js) lit ce cookie
   // pour respecter le choix manuel et ne pas re-rediriger.
