@@ -2447,20 +2447,9 @@ section {
   .footer-contact {
     flex-direction: row; flex-wrap: wrap;
     align-items: center; gap: 32px;
-    justify-content: center;          /* CONTACT / PRESS / RDV centrés horizontalement */
-    position: relative;
-    padding-top: 28px;                /* égalise avec padding-bottom: 28px → texte centré entre les 2 séparateurs */
   }
-  .footer-rule + .footer-contact { padding-top: 28px; }
-  .footer-rule { margin-bottom: 0; }   /* tout l'espace haut vient du padding-top de .footer-contact */
   .footer-contact-line { font-size: 20px; }
-  .footer-contact-all {
-    position: absolute;               /* VOIR TOUS LES CONTACTS à droite, hors du flux */
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0;
-  }
+  .footer-contact-all { margin: 0 0 0 auto; }   /* VOIR TOUS LES CONTACTS poussé à droite */
 
   .footer-meta {
     flex-direction: row; justify-content: space-between; align-items: center;
