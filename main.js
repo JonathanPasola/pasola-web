@@ -421,16 +421,14 @@
 
       emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailParams).then(
         function() {
-          // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks)
-          // L'utilisateur reste dans la section VII et peut continuer la visite.
+          // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks).
+          // On RETIRE le form du DOM (pas seulement hidden) car le CSS desktop
+          // force display: grid sur #contact-form qui override l'attribut hidden.
           var thanks = document.getElementById('contact-thanks');
           if (thanks) {
-            contactForm.hidden = true;
-            thanks.hidden = false;
-            // Reset le form en arrière-plan (au cas où l'utilisateur recharge)
             contactForm.reset();
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalLabel;
+            contactForm.remove();
+            thanks.hidden = false;
             // Scroll doux vers le bloc merci pour qu'il soit visible
             thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
           } else {
