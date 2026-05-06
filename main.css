@@ -2447,7 +2447,9 @@ section {
   .footer-contact {
     flex-direction: row; flex-wrap: wrap;
     align-items: center; gap: 32px;
+    padding-bottom: 22px;             /* recentrage vertical : 22px haut / 22px bas (était 16/28) — total 44px inchangé */
   }
+  .footer-rule { margin-bottom: 22px; }  /* idem : équilibre l'espace au-dessus du texte avec celui en dessous */
   .footer-contact-line { font-size: 20px; }
   .footer-contact-all { margin: 0 0 0 auto; }   /* VOIR TOUS LES CONTACTS poussé à droite */
 
