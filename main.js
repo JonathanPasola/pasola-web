@@ -388,12 +388,27 @@
 
       emailjs.sendForm(EMAILJS_SERVICE, EMAILJS_TEMPLATE, contactForm).then(
         function() {
-          feedback.textContent = i18n.success;
-          feedback.className = 'form-feedback is-success';
-          feedback.hidden = false;
-          contactForm.reset();
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalLabel;
+          // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks)
+          // L'utilisateur reste dans la section VII et peut continuer la visite.
+          var thanks = document.getElementById('contact-thanks');
+          if (thanks) {
+            contactForm.hidden = true;
+            thanks.hidden = false;
+            // Reset le form en arrière-plan (au cas où l'utilisateur recharge)
+            contactForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+            // Scroll doux vers le bloc merci pour qu'il soit visible
+            thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            // Fallback : si .contact-thanks n'existe pas, message inline
+            feedback.textContent = i18n.success;
+            feedback.className = 'form-feedback is-success';
+            feedback.hidden = false;
+            contactForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+          }
         },
         function(err) {
           feedback.textContent = i18n.error;

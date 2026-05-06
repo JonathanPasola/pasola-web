@@ -1620,6 +1620,53 @@ section {
   color: var(--muted); margin-top: 12px; line-height: 1.5;
 }
 
+/* Section VII · Emblème de signature au-dessus du marker.
+   Brand book PASOLA : >= 48px → version FULL avec strate.
+   Centré pour évoquer un blason éditorial avant le moment d'engagement. */
+.contact-emblem {
+  display: block;
+  margin: 0 auto 32px;
+  color: var(--indigo);
+  width: 102px; height: 56px;
+}
+
+/* Section VII · Bloc remerciement (Pattern C) — remplace le form après envoi.
+   L'utilisateur reste dans la section, peut continuer la visite. */
+.contact-thanks {
+  text-align: center;
+  padding: 40px 0 32px;
+}
+.contact-thanks-emblem {
+  display: block;
+  margin: 0 auto 32px;
+  color: var(--indigo);
+  width: 145px; height: 80px;
+}
+.contact-thanks-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 7vw, 52px);
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  color: var(--indigo);
+  margin-bottom: 18px;
+}
+.contact-thanks-lead {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: clamp(18px, 4.5vw, 24px);
+  color: var(--indigo);
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+.contact-thanks-body {
+  font-family: var(--font-editorial);
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
 /* Feedback affiché après envoi du form de contact (Section VII) */
 .form-feedback {
   font-family: var(--font-editorial);
@@ -2511,13 +2558,16 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "mark  mark "
-      "title title"
-      "form  form ";
+      "emblem emblem"
+      "mark   mark  "
+      "title  title "
+      "form   form  ";
     row-gap: 0;
   }
+  .contact-grid > .contact-emblem { grid-area: emblem; }
   .contact-grid > .section-mark { grid-area: mark; }
   .contact-grid > .section-title { grid-area: title; }
+  .contact-grid > #contact-thanks { grid-area: form; }   /* prend la place du form après envoi */
   .contact-grid > #contact-form {
     grid-area: form;
     display: grid;
