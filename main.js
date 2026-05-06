@@ -424,10 +424,14 @@
           // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks).
           // On RETIRE le form du DOM (pas seulement hidden) car le CSS desktop
           // force display: grid sur #contact-form qui override l'attribut hidden.
+          // On supprime AUSSI le petit emblème de signature (.contact-emblem) en
+          // haut, car le bloc thanks a déjà son propre emblème grand → évite le double.
           var thanks = document.getElementById('contact-thanks');
           if (thanks) {
             contactForm.reset();
             contactForm.remove();
+            var topEmblem = document.querySelector('.contact-grid > .contact-emblem');
+            if (topEmblem) topEmblem.remove();
             thanks.hidden = false;
             // Scroll doux vers le bloc merci pour qu'il soit visible
             thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
