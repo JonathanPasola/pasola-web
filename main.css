@@ -2329,7 +2329,7 @@ section {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 48px;
-    align-items: start;
+    align-items: stretch;     /* photo s'étire à la hauteur du body texte */
     margin-top: 0;
   }
   .vision-split .vision-feature {
@@ -2338,7 +2338,8 @@ section {
   .vision-split .vision-feature-frame {
     height: 100%;
     aspect-ratio: auto;
-    min-height: 540px;
+    /* min-height retiré : la photo prend EXACTEMENT la hauteur
+       du bloc texte (4 paragraphes + pull quote), pas plus. */
   }
   .vision-split .vision-body {
     max-width: none;
