@@ -386,7 +386,40 @@
       feedback.hidden = true;
       feedback.className = 'form-feedback';
 
-      emailjs.sendForm(EMAILJS_SERVICE, EMAILJS_TEMPLATE, contactForm).then(
+      // Construction des paramètres avec ALIAS pour compatibilité avec
+      // n'importe quel schéma de variables côté template EmailJS
+      // ({{firstname}}, {{from_name}}, {{user_name}}, {{name}}, etc.)
+      var firstname = (contactForm.firstname && contactForm.firstname.value || '').trim();
+      var lastname  = (contactForm.lastname  && contactForm.lastname.value  || '').trim();
+      var emailVal  = (contactForm.email     && contactForm.email.value     || '').trim();
+      var profile   = (contactForm.profile   && contactForm.profile.value   || '');
+      var msg       = (contactForm.message   && contactForm.message.value   || '');
+      var fullname  = (firstname + ' ' + lastname).trim();
+      var profileLabel = ({
+        'private-buyer': 'Acquéreur privé',
+        'family-office': 'Family office · Capital Partners',
+        'media': 'Presse · Éditorial'
+      })[profile] || profile;
+
+      var emailParams = {
+        // Variables originales
+        firstname: firstname,
+        lastname: lastname,
+        email: emailVal,
+        profile: profileLabel,
+        profile_value: profile,
+        message: msg,
+        // Alias pour compat avec templates EmailJS standards
+        from_name: fullname,
+        from_email: emailVal,
+        user_name: fullname,
+        user_email: emailVal,
+        name: fullname,
+        reply_to: emailVal,
+        to_email: 'contact@pasola.fr'
+      };
+
+      emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailParams).then(
         function() {
           // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks)
           // L'utilisateur reste dans la section VII et peut continuer la visite.
