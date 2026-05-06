@@ -2826,3 +2826,34 @@ section {
   color: var(--dusk);
   font-weight: 500;
 }
+
+/* Bouton croix de fermeture sur les pages légales — retour à la home */
+.legal-close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ivory);
+  border: 0.5px solid rgba(26, 44, 61, 0.18);
+  border-radius: 50%;
+  color: var(--indigo);
+  text-decoration: none;
+  z-index: 100;
+  transition: background-color 200ms, color 200ms, border-color 200ms;
+}
+.legal-close:hover, .legal-close:focus {
+  background: var(--indigo);
+  color: var(--ivory);
+  border-color: var(--indigo);
+}
+.legal-close svg {
+  width: 16px; height: 16px;
+}
+@media (min-width: 769px) {
+  .legal-close {
+    top: 32px; right: 32px;
+    width: 48px; height: 48px;
+  }
+  .legal-close svg { width: 18px; height: 18px; }
+}
