@@ -337,4 +337,18 @@
     checkDarkBackground();
   }
 
+  // Lang switch — poser un cookie quand l'utilisateur choisit manuellement
+  // sa langue. Le middleware géo-IP (functions/_middleware.js) lit ce cookie
+  // pour respecter le choix manuel et ne pas re-rediriger.
+  // Cookie : pasola-lang=fr|en, durée 1 an, path=/, SameSite=Lax.
+  var langLinks = document.querySelectorAll('.lang-switch a, .nav-overlay-lang a');
+  for (var i = 0; i < langLinks.length; i++) {
+    langLinks[i].addEventListener('click', function(e) {
+      var href = e.currentTarget.getAttribute('href');
+      var lang = href === '/en/' ? 'en' : 'fr';
+      var oneYear = 60 * 60 * 24 * 365;
+      document.cookie = 'pasola-lang=' + lang + '; max-age=' + oneYear + '; path=/; SameSite=Lax';
+    });
+  }
+
 })();
