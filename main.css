@@ -1644,7 +1644,8 @@ section {
 
 .footer-newsletter {
   margin-bottom: 40px; padding-bottom: 40px;
-  border-bottom: 0.5px solid rgba(250,248,244,0.15);
+  /* border-bottom retiré — remplacé par un .footer-rule HTML après le bloc
+     pour avoir un séparateur pleine largeur identique à celui du bas. */
   max-width: 640px; margin-left: auto; margin-right: auto;
   text-align: center;
 }
@@ -2332,21 +2333,25 @@ section {
     align-items: stretch;
     margin-top: 0;
   }
+  /* La cellule .vision-feature est mise en position relative + le contenu
+     (.vision-feature-frame) en absolute inset 0 → la cell prend la hauteur
+     déterminée par le body (cell sœur du grid), sans être tirée par
+     l'image source. La photo remplit la cell exactement à sa hauteur. */
   .vision-split .vision-feature {
-    height: 100%;
-    min-height: 0;            /* casse le default grid min-content */
+    position: relative;
+    min-height: 0;
     overflow: hidden;
   }
   .vision-split .vision-feature-frame {
-    height: 100%;
-    min-height: 0;            /* casse le default grid min-content */
+    position: absolute;
+    inset: 0;
     aspect-ratio: auto;
     overflow: hidden;
   }
   .vision-split .vision-feature-frame img {
     width: 100%;
     height: 100%;
-    object-fit: cover;        /* recadre l'image au format de la cell */
+    object-fit: cover;
     object-position: center;
   }
   .vision-split .vision-body {
@@ -2442,9 +2447,10 @@ section {
   .footer-contact {
     flex-direction: row; flex-wrap: wrap;
     align-items: center; gap: 32px;
+    justify-content: center;          /* contenu centré horizontalement */
   }
   .footer-contact-line { font-size: 20px; }
-  .footer-contact-all { margin: 0 0 0 auto; }
+  .footer-contact-all { margin: 0; }   /* retiré le margin-left auto qui poussait à droite */
 
   .footer-meta {
     flex-direction: row; justify-content: space-between; align-items: center;
