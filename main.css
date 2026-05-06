@@ -480,6 +480,14 @@ section {
 
 .container { max-width: 720px; margin: 0 auto; }
 
+/* Fix Bug #2 (audit 2026-05-06) : sur mobile/tablet (< 769px), les sections
+   .videos et .contact ont leur .container max-width: 720px + margin auto, ce
+   qui crée un centrage parasite à 768px → section-mark décalée à x=24 au lieu
+   de x=12. On force pleine largeur entre les paddings de la section parente. */
+.videos > .container, .contact > .container {
+  max-width: none; margin: 0;
+}
+
 .eyebrow {
   font-family: var(--font-functional);
   font-size: 11px; letter-spacing: 0.22em;
