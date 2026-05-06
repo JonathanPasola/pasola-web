@@ -346,6 +346,20 @@
     var EMAILJS_TEMPLATE = 'template_wc5vxrd';
     var EMAILJS_PUBLIC_KEY = 'e2XFcMgnmluDpaOFi';
 
+    // Messages localisés selon la langue de la page (lit <html lang="fr|en">)
+    var isEn = document.documentElement.lang === 'en';
+    var i18n = isEn ? {
+      sending:     'Sending…',
+      success:     'Thank you. Your request has reached us — we will get back to you within two business days.',
+      error:       'An error occurred. Please write to us directly at contact@pasola.fr.',
+      unavailable: 'Service is currently unavailable. Please try again.'
+    } : {
+      sending:     'Envoi en cours…',
+      success:     'Merci. Votre demande nous est parvenue, nous reviendrons vers vous sous deux jours ouvrés.',
+      error:       'Une erreur est survenue. Merci d\'écrire directement à contact@pasola.fr.',
+      unavailable: 'Service indisponible pour le moment. Merci de réessayer.'
+    };
+
     var emailjsReady = false;
     function initEmailJS() {
       if (emailjsReady || typeof emailjs === 'undefined') return;
@@ -360,7 +374,7 @@
       e.preventDefault();
       initEmailJS();
       if (!emailjsReady) {
-        feedback.textContent = 'Service indisponible pour le moment. Merci de réessayer.';
+        feedback.textContent = i18n.unavailable;
         feedback.className = 'form-feedback is-error';
         feedback.hidden = false;
         return;
@@ -368,13 +382,13 @@
       var submitBtn = contactForm.querySelector('.form-submit');
       var originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Envoi en cours…';
+      submitBtn.textContent = i18n.sending;
       feedback.hidden = true;
       feedback.className = 'form-feedback';
 
       emailjs.sendForm(EMAILJS_SERVICE, EMAILJS_TEMPLATE, contactForm).then(
         function() {
-          feedback.textContent = 'Merci. Votre demande nous est parvenue, nous reviendrons vers vous sous deux jours ouvrés.';
+          feedback.textContent = i18n.success;
           feedback.className = 'form-feedback is-success';
           feedback.hidden = false;
           contactForm.reset();
@@ -382,7 +396,7 @@
           submitBtn.textContent = originalLabel;
         },
         function(err) {
-          feedback.textContent = 'Une erreur est survenue. Merci d\'écrire directement à contact@pasola.fr.';
+          feedback.textContent = i18n.error;
           feedback.className = 'form-feedback is-error';
           feedback.hidden = false;
           submitBtn.disabled = false;
