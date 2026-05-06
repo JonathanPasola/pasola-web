@@ -337,6 +337,63 @@
     checkDarkBackground();
   }
 
+  // EmailJS — formulaire de contact (Section VII "Entamer la conversation")
+  // Service: pasola-contact / Template: Register Interest / Reception: contact@pasola.fr
+  var contactForm = document.getElementById('contact-form');
+  var feedback = document.getElementById('form-feedback');
+  if (contactForm && feedback) {
+    var EMAILJS_SERVICE = 'service_4auog2l';
+    var EMAILJS_TEMPLATE = 'template_wc5vxrd';
+    var EMAILJS_PUBLIC_KEY = 'e2XFcMgnmluDpaOFi';
+
+    var emailjsReady = false;
+    function initEmailJS() {
+      if (emailjsReady || typeof emailjs === 'undefined') return;
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      emailjsReady = true;
+    }
+    // Init dès que le script est chargé (defer, donc après DOMContentLoaded)
+    if (typeof emailjs !== 'undefined') initEmailJS();
+    else window.addEventListener('load', initEmailJS);
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      initEmailJS();
+      if (!emailjsReady) {
+        feedback.textContent = 'Service indisponible pour le moment. Merci de réessayer.';
+        feedback.className = 'form-feedback is-error';
+        feedback.hidden = false;
+        return;
+      }
+      var submitBtn = contactForm.querySelector('.form-submit');
+      var originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours…';
+      feedback.hidden = true;
+      feedback.className = 'form-feedback';
+
+      emailjs.sendForm(EMAILJS_SERVICE, EMAILJS_TEMPLATE, contactForm).then(
+        function() {
+          feedback.textContent = 'Merci. Votre demande nous est parvenue, nous reviendrons vers vous sous deux jours ouvrés.';
+          feedback.className = 'form-feedback is-success';
+          feedback.hidden = false;
+          contactForm.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        },
+        function(err) {
+          feedback.textContent = 'Une erreur est survenue. Merci d\'écrire directement à contact@pasola.fr.';
+          feedback.className = 'form-feedback is-error';
+          feedback.hidden = false;
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+          // eslint-disable-next-line no-console
+          console.error('EmailJS error', err);
+        }
+      );
+    });
+  }
+
   // Lang switch — poser un cookie quand l'utilisateur choisit manuellement
   // sa langue. Le middleware géo-IP (functions/_middleware.js) lit ce cookie
   // pour respecter le choix manuel et ne pas re-rediriger.
