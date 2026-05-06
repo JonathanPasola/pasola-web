@@ -1301,8 +1301,11 @@ section {
 }
 .vision-pullquote {
   margin: 32px 0;
-  padding: 0 0 0 32px;
-  border-left: 1.5px solid var(--terra);
+  padding-left: 40px !important;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-left: 1.5px solid var(--terra) !important;
 }
 .vision-pullquote p {
   font-family: var(--font-editorial);
@@ -2349,7 +2352,7 @@ section {
   }
   .vision-pullquote {
     margin: 28px 0;
-    padding-left: 32px;
+    padding-left: 48px !important;
   }
   .vision-pullquote p {
     font-size: clamp(18px, 1.6vw, 22px) !important;
