@@ -459,11 +459,14 @@
   }
 
   // Newsletter form (footer "Stay in touch" / "Rester en contact")
-  // Utilise EmailJS avec un template dédié newsletter (à créer côté dashboard).
+  // Plan gratuit EmailJS = pas d'auto-reply natif → on envoie 2 emails:
+  //  1. Notif à PASOLA (contact@pasola.fr) via template_newsletter
+  //  2. Welcome au visiteur via template_lm6a7jd
   var newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
     var NEWSLETTER_SERVICE = 'service_4auog2l';
-    var NEWSLETTER_TEMPLATE = 'template_newsletter';   // ⚠️ À créer dans EmailJS dashboard
+    var NEWSLETTER_TEMPLATE = 'template_newsletter';        // notif à PASOLA
+    var NEWSLETTER_WELCOME_TEMPLATE = 'template_lm6a7jd';   // welcome au visiteur
     var newsletterIsEn = document.documentElement.lang === 'en';
     var nlI18n = newsletterIsEn ? {
       sending: 'Subscribing…',
@@ -511,9 +514,16 @@
         source: 'newsletter-footer'
       };
 
+      // 1) Notif à PASOLA
       emailjs.send(NEWSLETTER_SERVICE, NEWSLETTER_TEMPLATE, nlParams).then(
         function() {
-          // Replace form contents with success message inline
+          // 2) Welcome au visiteur (best-effort, n'arrête pas le succès si ça échoue)
+          emailjs.send(NEWSLETTER_SERVICE, NEWSLETTER_WELCOME_TEMPLATE, nlParams)
+            .catch(function(err) {
+              // eslint-disable-next-line no-console
+              console.error('Newsletter welcome email error', err);
+            });
+          // Affichage success inline
           var feedbackEl = document.createElement('p');
           feedbackEl.className = 'newsletter-feedback';
           feedbackEl.textContent = nlI18n.success;
