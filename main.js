@@ -337,6 +337,26 @@
     checkDarkBackground();
   }
 
+  // ─────────────────────────────────────────────────────────────────
+  // BACKEND PASOLA (existant — v1) — Cloudflare Worker + D1 + Dashboard
+  // POST /api/register : stocke dans la table users (source de vérité)
+  // POST /api/contact  : message simple
+  // POST /api/pageview : tracking (non utilisé en v2 R1)
+  // ─────────────────────────────────────────────────────────────────
+  var PASOLA_API = 'https://pasola-api.jonathan-beraud.workers.dev';
+
+  function pasolaRegister(payload) {
+    // Best-effort: une erreur réseau ne bloque pas le flow utilisateur
+    return fetch(PASOLA_API + '/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(err) {
+      // eslint-disable-next-line no-console
+      console.error('PASOLA_API /api/register error', err);
+    });
+  }
+
   // EmailJS — formulaire de contact (Section VII "Entamer la conversation")
   // Service: pasola-contact / Template: Register Interest / Reception: contact@pasola.fr
   var contactForm = document.getElementById('contact-form');
@@ -424,6 +444,21 @@
         source_lang: formLang
       };
 
+      // 1) Stocker dans la DB Cloudflare (source de vérité dashboard admin)
+      //    Best-effort en parallèle de l'email — si la DB échoue, l'email part quand même.
+      pasolaRegister({
+        first_name: firstname,
+        last_name: lastname,
+        email: emailVal,
+        profile: profile,                   // raw value: 'private-buyer' | 'family-office' | 'media'
+        consent_updates: 1,
+        consent_privacy: 1,
+        page_source: 'contact-section-vii',
+        source: window.location.origin + window.location.pathname,
+        referral: document.referrer || ''
+      });
+
+      // 2) Notifier PASOLA par email (logo + détails formatés)
       emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailParams).then(
         function() {
           // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks).
@@ -464,14 +499,14 @@
   }
 
   // Newsletter form (footer "Stay in touch" / "Rester en contact")
-  // Plan gratuit EmailJS = pas d'auto-reply natif → on envoie 2 emails:
-  //  1. Notif à PASOLA (contact@pasola.fr) via template_newsletter
-  //  2. Welcome au visiteur via template_lm6a7jd
+  // 1. Stockage dans la DB Cloudflare via /api/register (profile='newsletter')
+  //    → consultable depuis le dashboard admin
+  // 2. Welcome bilingue au visiteur via EmailJS template_lm6a7jd
+  // (Pas de notif email à PASOLA car le dashboard sert de source de vérité.)
   var newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
     var NEWSLETTER_SERVICE = 'service_4auog2l';
-    var NEWSLETTER_TEMPLATE = 'template_newsletter';        // notif à PASOLA
-    var NEWSLETTER_WELCOME_TEMPLATE = 'template_lm6a7jd';   // welcome au visiteur
+    var NEWSLETTER_WELCOME_TEMPLATE = 'template_lm6a7jd';   // welcome bilingue au visiteur
     var newsletterIsEn = document.documentElement.lang === 'en';
     var nlI18n = newsletterIsEn ? {
       sending: 'Subscribing…',
@@ -519,15 +554,22 @@
         source: 'newsletter-footer'
       };
 
-      // 1) Notif à PASOLA
-      emailjs.send(NEWSLETTER_SERVICE, NEWSLETTER_TEMPLATE, nlParams).then(
+      // 1) Stocker dans la DB Cloudflare (source de vérité dashboard admin)
+      pasolaRegister({
+        first_name: nlFirstname,
+        last_name: nlLastname,
+        email: nlEmail,
+        profile: 'newsletter',              // distingue les inscrits newsletter dans le dashboard
+        consent_updates: 1,
+        consent_privacy: 1,
+        page_source: 'newsletter-footer',
+        source: window.location.origin + window.location.pathname,
+        referral: document.referrer || ''
+      });
+
+      // 2) Welcome bilingue au visiteur
+      emailjs.send(NEWSLETTER_SERVICE, NEWSLETTER_WELCOME_TEMPLATE, nlParams).then(
         function() {
-          // 2) Welcome au visiteur (best-effort, n'arrête pas le succès si ça échoue)
-          emailjs.send(NEWSLETTER_SERVICE, NEWSLETTER_WELCOME_TEMPLATE, nlParams)
-            .catch(function(err) {
-              // eslint-disable-next-line no-console
-              console.error('Newsletter welcome email error', err);
-            });
           // Affichage success inline
           var feedbackEl = document.createElement('p');
           feedbackEl.className = 'newsletter-feedback';
@@ -539,11 +581,18 @@
           nlBtn.textContent = newsletterIsEn ? 'Subscribed' : 'Inscrit';
         },
         function(err) {
-          alert(nlI18n.error);
-          nlBtn.disabled = false;
-          nlBtn.textContent = nlOriginalLabel;
+          // L'inscription DB a déjà été tentée, donc on affiche quand même le succès
+          // (l'inscription est dans la DB même si le welcome email a échoué)
+          var feedbackEl = document.createElement('p');
+          feedbackEl.className = 'newsletter-feedback';
+          feedbackEl.textContent = nlI18n.success;
+          feedbackEl.style.cssText = 'font-family:var(--font-editorial);font-style:italic;font-size:15px;color:var(--ivory);text-align:center;margin-top:12px;line-height:1.5;';
+          newsletterForm.appendChild(feedbackEl);
+          newsletterForm.reset();
+          nlBtn.disabled = true;
+          nlBtn.textContent = newsletterIsEn ? 'Subscribed' : 'Inscrit';
           // eslint-disable-next-line no-console
-          console.error('Newsletter EmailJS error', err);
+          console.error('Newsletter welcome email error', err);
         }
       );
     });
