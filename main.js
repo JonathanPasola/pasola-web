@@ -395,11 +395,19 @@
       var profile   = (contactForm.profile   && contactForm.profile.value   || '');
       var msg       = (contactForm.message   && contactForm.message.value   || '');
       var fullname  = (firstname + ' ' + lastname).trim();
-      var profileLabel = ({
+
+      // Labels traduits selon la langue de la page (FR ou EN)
+      var formIsEn = document.documentElement.lang === 'en';
+      var profileLabel = formIsEn ? ({
+        'private-buyer': 'Private buyer',
+        'family-office': 'Family office · Capital Partners',
+        'media': 'Press · Editorial'
+      })[profile] : ({
         'private-buyer': 'Acquéreur privé',
         'family-office': 'Family office · Capital Partners',
         'media': 'Presse · Éditorial'
-      })[profile] || profile;
+      })[profile];
+      profileLabel = profileLabel || profile;
 
       var emailParams = {
         // Variables originales
@@ -416,7 +424,17 @@
         user_email: emailVal,
         name: fullname,
         reply_to: emailVal,
-        to_email: 'contact@pasola.fr'
+        to_email: 'contact@pasola.fr',
+        // Localisation pour template adaptatif (notif à PASOLA)
+        lang: formIsEn ? 'en' : 'fr',
+        lang_eyebrow:        formIsEn ? 'Expression of interest' : 'Manifestation d\'intérêt',
+        lang_title_line1:    formIsEn ? 'A new request' : 'Une nouvelle demande',
+        lang_title_line2:    formIsEn ? 'has just come in.' : 'vient d\'être reçue.',
+        lang_label_profile:  formIsEn ? 'Profile' : 'Profil',
+        lang_label_name:     formIsEn ? 'Name' : 'Nom',
+        lang_label_email:    'Email',
+        lang_label_message:  'Message',
+        lang_copyright:      formIsEn ? 'PASOLA Signature Estate · Sumba, Indonesia' : 'PASOLA Signature Estate · Sumba, Indonésie'
       };
 
       emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailParams).then(
