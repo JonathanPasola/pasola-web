@@ -396,28 +396,23 @@
       var msg       = (contactForm.message   && contactForm.message.value   || '');
       var fullname  = (firstname + ' ' + lastname).trim();
 
-      // Labels traduits selon la langue de la page (FR ou EN)
-      var formIsEn = document.documentElement.lang === 'en';
-      var profileLabel = formIsEn ? ({
-        'private-buyer': 'Private buyer',
-        'family-office': 'Family office · Capital Partners',
-        'media': 'Press · Editorial'
-      })[profile] : ({
+      // Email à PASOLA = en français (Jonathan le reçoit, parle FR).
+      // L'origine de la demande (visiteur FR ou EN) est notée séparément.
+      var formLang = document.documentElement.lang === 'en' ? 'EN' : 'FR';
+      var profileLabel = ({
         'private-buyer': 'Acquéreur privé',
         'family-office': 'Family office · Capital Partners',
         'media': 'Presse · Éditorial'
-      })[profile];
-      profileLabel = profileLabel || profile;
+      })[profile] || profile;
 
       var emailParams = {
-        // Variables originales
         firstname: firstname,
         lastname: lastname,
         email: emailVal,
         profile: profileLabel,
         profile_value: profile,
         message: msg,
-        // Alias pour compat avec templates EmailJS standards
+        // Aliases pour compat templates EmailJS
         from_name: fullname,
         from_email: emailVal,
         user_name: fullname,
@@ -425,16 +420,8 @@
         name: fullname,
         reply_to: emailVal,
         to_email: 'contact@pasola.fr',
-        // Localisation pour template adaptatif (notif à PASOLA)
-        lang: formIsEn ? 'en' : 'fr',
-        lang_eyebrow:        formIsEn ? 'Expression of interest' : 'Manifestation d\'intérêt',
-        lang_title_line1:    formIsEn ? 'A new request' : 'Une nouvelle demande',
-        lang_title_line2:    formIsEn ? 'has just come in.' : 'vient d\'être reçue.',
-        lang_label_profile:  formIsEn ? 'Profile' : 'Profil',
-        lang_label_name:     formIsEn ? 'Name' : 'Nom',
-        lang_label_email:    'Email',
-        lang_label_message:  'Message',
-        lang_copyright:      formIsEn ? 'PASOLA Signature Estate · Sumba, Indonesia' : 'PASOLA Signature Estate · Sumba, Indonésie'
+        // Origine du visiteur (FR si depuis /, EN si depuis /en/)
+        source_lang: formLang
       };
 
       emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailParams).then(
