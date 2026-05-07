@@ -2857,3 +2857,45 @@ section {
   }
   .legal-close svg { width: 18px; height: 18px; }
 }
+
+/* ============================================================
+   COOKIES OPTION B — click-to-load embeds (RGPD compliance)
+   ============================================================ */
+
+/* Spotify click-to-load button (footer) — remplace l'iframe tant que
+   l'utilisateur n'a pas explicitement consenti à charger Spotify. */
+.spotify-load {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; min-height: 152px;
+  background: rgba(250, 248, 244, 0.04);
+  border: 0.5px solid rgba(250, 248, 244, 0.15);
+  border-radius: 4px;
+  padding: 24px 16px;
+  color: var(--ivory);
+  font-family: var(--font-functional);
+  cursor: pointer;
+  transition: background-color 200ms, border-color 200ms;
+}
+.spotify-load:hover, .spotify-load:focus {
+  background: rgba(250, 248, 244, 0.08);
+  border-color: rgba(250, 248, 244, 0.3);
+}
+.spotify-load svg {
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+.spotify-load-text {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.spotify-load-note {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(250, 248, 244, 0.55);
+  text-transform: none;
+  letter-spacing: 0;
+}

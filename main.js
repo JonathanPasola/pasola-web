@@ -544,6 +544,30 @@
     });
   }
 
+  // Spotify click-to-load (footer) — RGPD : on ne charge l'iframe que si
+  // l'utilisateur clique explicitement sur le bouton "Charger la playlist".
+  // Évite les cookies tiers Spotify au load.
+  var spotifyButton = document.querySelector('.spotify-load');
+  if (spotifyButton) {
+    spotifyButton.addEventListener('click', function() {
+      var wrapper = spotifyButton.closest('.footer-soundtrack-embed');
+      if (!wrapper) return;
+      var src = wrapper.getAttribute('data-spotify-src');
+      var title = wrapper.getAttribute('data-spotify-title') || 'Spotify playlist';
+      if (!src) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.width = '100%';
+      iframe.height = '152';
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('title', title);
+      iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+      iframe.setAttribute('loading', 'lazy');
+      wrapper.innerHTML = '';
+      wrapper.appendChild(iframe);
+    });
+  }
+
   // Lang switch — poser un cookie quand l'utilisateur choisit manuellement
   // sa langue. Le middleware géo-IP (functions/_middleware.js) lit ce cookie
   // pour respecter le choix manuel et ne pas re-rediriger.
