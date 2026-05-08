@@ -682,6 +682,31 @@
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       }).then(function() {
+        // Lot 5 — après stockage en DB, envoie 2 emails via EmailJS
+        // 1) Notif à PASOLA (contact@pasola.fr) : nouvelle signature NDA
+        // 2) Confirmation au signataire : récap signature + délai
+        if (typeof emailjs !== 'undefined') {
+          if (!window.__emailjsInit) {
+            emailjs.init({ publicKey: 'e2XFcMgnmluDpaOFi' });
+            window.__emailjsInit = true;
+          }
+          var cpEmailParams = {
+            firstname: firstname, lastname: lastname,
+            email: email, entity: entity, capacity: capacity, country: country,
+            message: message || '—', signed_name: signatureName,
+            signed_at: payload.signed_at, source_lang: cpIsEn ? 'EN' : 'FR',
+            from_name: firstname + ' ' + lastname, from_email: email,
+            user_name: firstname + ' ' + lastname, user_email: email,
+            name: firstname + ' ' + lastname, reply_to: email,
+            to_email: 'contact@pasola.fr'
+          };
+          // Notif à PASOLA
+          emailjs.send('service_4auog2l', 'template_cp_notif', cpEmailParams)
+            .catch(function(e) { console.error('CP notif email error', e); });
+          // Confirmation au signataire
+          emailjs.send('service_4auog2l', 'template_cp_confirm', cpEmailParams)
+            .catch(function(e) { console.error('CP confirm email error', e); });
+        }
         cpFeedback.textContent = cpI18n.success;
         cpFeedback.className = 'form-feedback is-success';
         cpFeedback.hidden = false;
