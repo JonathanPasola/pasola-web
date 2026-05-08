@@ -598,6 +598,108 @@
     });
   }
 
+  // Capital Partners — formulaire de signature NDA (/capital-partners/access/)
+  // POST /api/cp-request : enregistre la signature avec timestamp + IP, envoie
+  // un email de confirmation à l'investisseur + notif à PASOLA.
+  var cpForm = document.getElementById('cp-access-form');
+  var cpFeedback = document.getElementById('cp-access-feedback');
+  if (cpForm && cpFeedback) {
+    var cpIsEn = document.documentElement.lang === 'en';
+    var cpI18n = cpIsEn ? {
+      sending: 'Signing…',
+      success: 'Signature recorded. A confirmation has been sent to your email. We will review your request within two business days.',
+      error: 'An error occurred. Please try again or write to contact@pasola.fr.',
+      missingConsent: 'Please tick both consent boxes to proceed.',
+      mismatchSig: 'The signature must match your first and last name above.'
+    } : {
+      sending: 'Signature en cours…',
+      success: 'Signature enregistrée. Une confirmation vient de vous être envoyée par courriel. Votre demande sera examinée sous deux jours ouvrés.',
+      error: 'Une erreur est survenue. Merci de réessayer ou d\'écrire à contact@pasola.fr.',
+      missingConsent: 'Merci de cocher les deux cases de consentement pour continuer.',
+      mismatchSig: 'La signature doit correspondre à votre prénom et nom saisis ci-dessus.'
+    };
+
+    cpForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var firstname = (cpForm.firstname.value || '').trim();
+      var lastname = (cpForm.lastname.value || '').trim();
+      var email = (cpForm.email.value || '').trim();
+      var entity = (cpForm.entity.value || '').trim();
+      var capacity = (cpForm.capacity.value || '').trim();
+      var country = (cpForm.country.value || '').trim();
+      var message = (cpForm.message.value || '').trim();
+      var signatureName = (cpForm.signature_name.value || '').trim();
+      var consentRead = cpForm.querySelector('input[name="consent_read"]').checked;
+      var consentAuthority = cpForm.querySelector('input[name="consent_authority"]').checked;
+
+      cpFeedback.hidden = true;
+      cpFeedback.className = 'form-feedback';
+
+      if (!consentRead || !consentAuthority) {
+        cpFeedback.textContent = cpI18n.missingConsent;
+        cpFeedback.className = 'form-feedback is-error';
+        cpFeedback.hidden = false;
+        return;
+      }
+      // Validation : la signature texte doit matcher first+last (case-insensitive)
+      var expectedSig = (firstname + ' ' + lastname).toLowerCase().replace(/\s+/g, ' ').trim();
+      var providedSig = signatureName.toLowerCase().replace(/\s+/g, ' ').trim();
+      if (expectedSig !== providedSig) {
+        cpFeedback.textContent = cpI18n.mismatchSig;
+        cpFeedback.className = 'form-feedback is-error';
+        cpFeedback.hidden = false;
+        return;
+      }
+
+      var submitBtn = cpForm.querySelector('.cp-access-submit');
+      var originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = cpI18n.sending;
+
+      var payload = {
+        first_name: firstname,
+        last_name: lastname,
+        email: email,
+        entity: entity,
+        capacity: capacity,
+        country: country,
+        message: message,
+        signed_name: signatureName,
+        signed_at: new Date().toISOString(),
+        signed_user_agent: navigator.userAgent,
+        consent_read: 1,
+        consent_authority: 1,
+        source_lang: cpIsEn ? 'EN' : 'FR',
+        page_source: 'capital-partners-access'
+      };
+
+      fetch(PASOLA_API + '/api/cp-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function() {
+        cpFeedback.textContent = cpI18n.success;
+        cpFeedback.className = 'form-feedback is-success';
+        cpFeedback.hidden = false;
+        cpForm.reset();
+        submitBtn.disabled = true;
+        submitBtn.textContent = cpIsEn ? 'Submitted' : 'Envoyé';
+      }).catch(function(err) {
+        cpFeedback.textContent = cpI18n.error;
+        cpFeedback.className = 'form-feedback is-error';
+        cpFeedback.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+        // eslint-disable-next-line no-console
+        console.error('CP request error', err);
+      });
+    });
+  }
+
   // Spotify click-to-load (footer) — RGPD : on ne charge l'iframe que si
   // l'utilisateur clique explicitement sur le bouton "Charger la playlist".
   // Évite les cookies tiers Spotify au load.
