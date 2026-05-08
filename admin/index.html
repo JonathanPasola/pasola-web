@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#1A2C3D" />
+<title>PASOLA · Admin Dashboard</title>
+<meta name="robots" content="noindex,nofollow" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+<link rel="stylesheet" href="/assets/fonts/pasola-fonts.css" />
+
+<style>
+:root {
+  --indigo: #1A2C3D;
+  --ivory: #FAF8F4;
+  --terra: #C44A2C;
+  --sand: #C5BFB3;
+  --dusk: #5C6F7E;
+  --muted: #8B96A0;
+  --warm: #F2EEE7;
+  --shadow: 0 1px 2px rgba(26,44,61,0.06);
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-editorial: 'Cormorant Garamond', Georgia, serif;
+  --font-functional: 'Outfit', -apple-system, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: var(--ivory); color: var(--indigo); font-family: var(--font-editorial); -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; }
+a { color: var(--indigo); }
+
+/* HEADER */
+.adm-header {
+  background: var(--indigo);
+  color: var(--ivory);
+  padding: 18px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 10;
+  border-bottom: 0.5px solid rgba(250,248,244,0.15);
+}
+.adm-header-left { display: flex; align-items: center; gap: 14px; }
+.adm-emblem { width: 28px; height: 16px; color: var(--ivory); }
+.adm-brand {
+  font-family: var(--font-display);
+  font-size: 14px; letter-spacing: 0.3em; font-weight: 500;
+  padding-left: 0.3em;
+}
+.adm-brand-sub {
+  font-family: var(--font-editorial);
+  font-style: italic; font-size: 13px;
+  color: rgba(250,248,244,0.6); margin-left: 6px;
+}
+.adm-header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+  padding: 8px 14px; border: 0.5px solid rgba(250,248,244,0.25);
+  background: transparent; color: var(--ivory);
+  font-family: var(--font-functional); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+  border-radius: 2px; cursor: pointer;
+  transition: background 180ms, border-color 180ms, color 180ms;
+  text-decoration: none; display: inline-block;
+}
+.btn:hover, .btn:focus { background: rgba(250,248,244,0.08); border-color: rgba(250,248,244,0.5); }
+.btn-accent { background: var(--terra); border-color: var(--terra); color: var(--ivory); }
+.btn-accent:hover { background: #a83e26; border-color: #a83e26; }
+
+/* LOGIN */
+.adm-login-wrap {
+  min-height: calc(100vh - 80px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.adm-login {
+  max-width: 380px; width: 100%;
+  background: var(--ivory); padding: 48px 40px;
+  border: 0.5px solid rgba(26,44,61,0.15);
+}
+.adm-login svg.adm-emblem-big { width: 80px; height: 44px; color: var(--indigo); display: block; margin: 0 auto 24px; }
+.adm-login h1 {
+  font-family: var(--font-display); font-size: 16px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--indigo); text-align: center; margin-bottom: 8px;
+}
+.adm-login-sub {
+  font-family: var(--font-editorial); font-style: italic; font-size: 14px;
+  color: var(--dusk); text-align: center; margin-bottom: 32px;
+}
+.adm-login label {
+  font-family: var(--font-functional); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--dusk);
+  display: block; margin-bottom: 8px;
+}
+.adm-login input {
+  width: 100%; padding: 12px 14px;
+  font-family: var(--font-editorial); font-size: 16px;
+  border: 0; border-bottom: 0.5px solid rgba(26,44,61,0.3);
+  background: transparent; outline: none; color: var(--indigo);
+  margin-bottom: 24px;
+}
+.adm-login input:focus { border-bottom-color: var(--terra); }
+.adm-login button {
+  width: 100%; padding: 14px;
+  background: var(--indigo); color: var(--ivory); border: none;
+  font-family: var(--font-functional); font-size: 12px;
+  letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+  cursor: pointer;
+  transition: background 180ms;
+}
+.adm-login button:hover { background: var(--terra); }
+.adm-login-error {
+  font-family: var(--font-editorial); font-style: italic; font-size: 13px;
+  color: var(--terra); text-align: center; margin-top: 16px; min-height: 18px;
+}
+
+/* DASHBOARD */
+.adm-dash { padding: 24px; max-width: 1400px; margin: 0 auto; }
+
+/* STATS */
+.adm-stats {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 32px;
+}
+@media (min-width: 769px) { .adm-stats { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
+.adm-stat {
+  background: white; padding: 20px 18px;
+  border: 0.5px solid rgba(26,44,61,0.1); border-radius: 2px;
+}
+.adm-stat-num {
+  font-family: var(--font-display); font-size: 32px; font-weight: 500;
+  color: var(--indigo); letter-spacing: 0.04em; line-height: 1;
+}
+.adm-stat-num.terra { color: var(--terra); }
+.adm-stat-label {
+  font-family: var(--font-functional); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--dusk);
+  margin-top: 8px;
+}
+
+/* TABS */
+.adm-tabs {
+  display: flex; gap: 0; margin-bottom: 16px;
+  border-bottom: 0.5px solid rgba(26,44,61,0.15);
+  overflow-x: auto;
+}
+.adm-tab {
+  padding: 12px 20px;
+  font-family: var(--font-functional); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--dusk);
+  background: transparent; border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 180ms, border-color 180ms;
+}
+.adm-tab:hover { color: var(--indigo); }
+.adm-tab.is-active {
+  color: var(--indigo);
+  border-bottom-color: var(--terra);
+  font-weight: 500;
+}
+
+/* TABLE */
+.adm-pane { display: none; }
+.adm-pane.is-active { display: block; }
+.adm-table-actions {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px; gap: 12px; flex-wrap: wrap;
+}
+.adm-table-meta {
+  font-family: var(--font-editorial); font-style: italic; font-size: 13px;
+  color: var(--muted);
+}
+.btn-export {
+  background: var(--indigo); color: var(--ivory); border-color: var(--indigo);
+}
+.btn-export:hover { background: var(--terra); border-color: var(--terra); }
+
+.adm-table-wrap { overflow-x: auto; background: white; border: 0.5px solid rgba(26,44,61,0.1); border-radius: 2px; }
+.adm-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px; }
+.adm-table thead { background: rgba(26,44,61,0.04); }
+.adm-table th {
+  padding: 12px 14px; text-align: left;
+  font-family: var(--font-functional); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--dusk);
+  font-weight: 500;
+  border-bottom: 0.5px solid rgba(26,44,61,0.12);
+  white-space: nowrap;
+}
+.adm-table td {
+  padding: 12px 14px;
+  font-family: var(--font-editorial); font-size: 14px; color: var(--indigo);
+  border-bottom: 0.5px solid rgba(26,44,61,0.08);
+  vertical-align: top;
+}
+.adm-table tbody tr:hover { background: rgba(196,74,44,0.03); }
+.adm-table .empty { text-align: center; padding: 40px; color: var(--muted); font-style: italic; }
+.adm-table .badge {
+  display: inline-block; padding: 2px 8px; border-radius: 12px;
+  font-family: var(--font-functional); font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: rgba(26,44,61,0.06); color: var(--dusk);
+}
+.adm-table .badge.terra { background: rgba(196,74,44,0.1); color: var(--terra); }
+.adm-table .badge.indigo { background: var(--indigo); color: var(--ivory); }
+.adm-table a { color: var(--indigo); text-decoration: none; border-bottom: 0.5px solid var(--terra); padding-bottom: 1px; }
+.adm-table a:hover { color: var(--terra); }
+.adm-table .nowrap { white-space: nowrap; }
+.adm-table .small { font-size: 12px; color: var(--muted); }
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header class="adm-header" id="admHeader" style="display:none;">
+<div class="adm-header-left">
+<svg class="adm-emblem" viewBox="0 0 200 110" aria-hidden="true">
+<line x1="12" y1="92" x2="188" y2="92" stroke="currentColor" stroke-width="1.25" fill="none"/>
+<path fill="currentColor" d="M86 92 L90 48 L120 28 L128 92 Z"/>
+</svg>
+<div>
+<span class="adm-brand">PASOLA</span>
+<span class="adm-brand-sub">Admin</span>
+</div>
+</div>
+<div class="adm-header-actions">
+<button class="btn" onclick="loadAll()">Refresh</button>
+<button class="btn btn-accent" onclick="exportUsers()">Export Users</button>
+<button class="btn btn-accent" onclick="exportContacts()">Export Contacts</button>
+<button class="btn btn-accent" onclick="exportCp()">Export CP Requests</button>
+<button class="btn" onclick="logout()">Logout</button>
+</div>
+</header>
+
+<!-- LOGIN VIEW -->
+<div class="adm-login-wrap" id="loginView">
+<form class="adm-login" id="loginForm" autocomplete="off">
+<svg class="adm-emblem-big" viewBox="0 0 200 110" aria-hidden="true">
+<line x1="12" y1="92" x2="188" y2="92" stroke="currentColor" stroke-width="1.25" fill="none"/>
+<path fill="currentColor" d="M86 92 L90 48 L120 28 L128 92 Z"/>
+<rect fill="#FAF8F4" x="89" y="61" width="37" height="1.8"/>
+</svg>
+<h1>Admin</h1>
+<p class="adm-login-sub">PASOLA Signature Estate</p>
+
+<label for="adm-pwd">Password</label>
+<input type="password" id="adm-pwd" required autofocus />
+
+<button type="submit" id="loginBtn">Sign in</button>
+<p class="adm-login-error" id="loginError"></p>
+</form>
+</div>
+
+<!-- DASHBOARD VIEW -->
+<main class="adm-dash" id="dashView" style="display:none;">
+
+<section class="adm-stats" id="adm-stats-grid"></section>
+
+<nav class="adm-tabs" role="tablist">
+<button class="adm-tab is-active" data-pane="pane-users" role="tab">Users <span id="cnt-users"></span></button>
+<button class="adm-tab" data-pane="pane-contacts" role="tab">Contacts <span id="cnt-contacts"></span></button>
+<button class="adm-tab" data-pane="pane-cp" role="tab">CP Requests <span id="cnt-cp"></span></button>
+<button class="adm-tab" data-pane="pane-views" role="tab">Page Views <span id="cnt-views"></span></button>
+</nav>
+
+<div class="adm-pane is-active" id="pane-users">
+<div class="adm-table-actions">
+<span class="adm-table-meta" id="meta-users">—</span>
+<button class="btn btn-export" onclick="exportUsers()">Download CSV</button>
+</div>
+<div class="adm-table-wrap">
+<table class="adm-table"><thead><tr>
+<th>Date</th><th>Name</th><th>Email</th><th>Profile</th><th>Source</th><th>Device</th><th>Verified</th>
+</tr></thead><tbody id="tbl-users"></tbody></table>
+</div>
+</div>
+
+<div class="adm-pane" id="pane-contacts">
+<div class="adm-table-actions">
+<span class="adm-table-meta" id="meta-contacts">—</span>
+<button class="btn btn-export" onclick="exportContacts()">Download CSV</button>
+</div>
+<div class="adm-table-wrap">
+<table class="adm-table"><thead><tr>
+<th>Date</th><th>Email</th><th>Inquiry type</th><th>Message</th><th>Page source</th><th>Device</th>
+</tr></thead><tbody id="tbl-contacts"></tbody></table>
+</div>
+</div>
+
+<div class="adm-pane" id="pane-cp">
+<div class="adm-table-actions">
+<span class="adm-table-meta" id="meta-cp">—</span>
+<button class="btn btn-export" onclick="exportCp()">Download CSV</button>
+</div>
+<div class="adm-table-wrap">
+<table class="adm-table"><thead><tr>
+<th>Signed at</th><th>Name</th><th>Email</th><th>Entity</th><th>Capacity</th><th>Country</th><th>Status</th><th>IP</th>
+</tr></thead><tbody id="tbl-cp"></tbody></table>
+</div>
+</div>
+
+<div class="adm-pane" id="pane-views">
+<div class="adm-table-actions">
+<span class="adm-table-meta" id="meta-views">—</span>
+</div>
+<div class="adm-table-wrap">
+<table class="adm-table"><thead><tr>
+<th>Date</th><th>Page</th><th>Country</th><th>Device</th><th>Visitor ID</th><th>Registered</th>
+</tr></thead><tbody id="tbl-views"></tbody></table>
+</div>
+</div>
+
+</main>
+
+<script>
+var API = 'https://pasola-api.jonathan-beraud.workers.dev';
+var AUTH = sessionStorage.getItem('pasola_admin_auth') || '';
+
+var users = [], contacts = [], cpRequests = [], pageviews = [], stats = {};
+
+// LOGIN
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var pwd = document.getElementById('adm-pwd').value;
+  var auth = 'Basic ' + btoa('admin:' + pwd);
+  document.getElementById('loginError').textContent = '';
+  document.getElementById('loginBtn').textContent = 'Signing in…';
+  fetch(API + '/api/stats', { headers: { 'Authorization': auth } }).then(function(r) {
+    if (r.status === 401) throw new Error('Invalid password');
+    if (!r.ok) throw new Error('Server error');
+    return r.json();
+  }).then(function() {
+    AUTH = auth;
+    sessionStorage.setItem('pasola_admin_auth', AUTH);
+    showDashboard();
+  }).catch(function(err) {
+    document.getElementById('loginError').textContent = err.message || 'Sign-in failed';
+    document.getElementById('loginBtn').textContent = 'Sign in';
+  });
+});
+
+function logout() {
+  sessionStorage.removeItem('pasola_admin_auth');
+  AUTH = '';
+  document.getElementById('admHeader').style.display = 'none';
+  document.getElementById('dashView').style.display = 'none';
+  document.getElementById('loginView').style.display = 'flex';
+  document.getElementById('adm-pwd').value = '';
+}
+
+function showDashboard() {
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('admHeader').style.display = 'flex';
+  document.getElementById('dashView').style.display = 'block';
+  loadAll();
+}
+
+// LOAD DATA
+function loadAll() {
+  if (!AUTH) return;
+  var h = { 'Authorization': AUTH };
+  Promise.all([
+    fetch(API + '/api/stats', { headers: h }).then(r => r.json()).catch(() => ({})),
+    fetch(API + '/api/users', { headers: h }).then(r => r.json()).catch(() => []),
+    fetch(API + '/api/contacts-list', { headers: h }).then(r => r.json()).catch(() => []),
+    fetch(API + '/api/cp-requests-list', { headers: h }).then(r => r.json()).catch(() => []),
+    fetch(API + '/api/pageviews-list', { headers: h }).then(r => r.json()).catch(() => [])
+  ]).then(function(res) {
+    stats = res[0] || {};
+    users = Array.isArray(res[1]) ? res[1] : [];
+    contacts = Array.isArray(res[2]) ? res[2] : [];
+    cpRequests = Array.isArray(res[3]) ? res[3] : [];
+    pageviews = Array.isArray(res[4]) ? res[4] : [];
+    renderAll();
+  });
+}
+
+function renderAll() {
+  renderStats();
+  renderUsers();
+  renderContacts();
+  renderCp();
+  renderViews();
+}
+
+function renderStats() {
+  var grid = document.getElementById('adm-stats-grid');
+  grid.innerHTML =
+    statCard(stats.users || users.length || 0, 'Users') +
+    statCard(stats.this_week || 0, 'This week', 'terra') +
+    statCard(stats.contacts || contacts.length || 0, 'Contacts') +
+    statCard(cpRequests.length || 0, 'CP requests', 'terra');
+  document.getElementById('cnt-users').textContent = users.length ? '· ' + users.length : '';
+  document.getElementById('cnt-contacts').textContent = contacts.length ? '· ' + contacts.length : '';
+  document.getElementById('cnt-cp').textContent = cpRequests.length ? '· ' + cpRequests.length : '';
+  document.getElementById('cnt-views').textContent = pageviews.length ? '· ' + pageviews.length : '';
+}
+function statCard(num, label, cls) {
+  return '<div class="adm-stat"><div class="adm-stat-num ' + (cls || '') + '">' + (num || 0) + '</div><div class="adm-stat-label">' + label + '</div></div>';
+}
+
+function fmtDate(s) {
+  if (!s) return '—';
+  try {
+    var d = new Date(s);
+    return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  } catch (e) { return s; }
+}
+function esc(v) { return (v == null ? '' : String(v)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderUsers() {
+  var tbody = document.getElementById('tbl-users');
+  document.getElementById('meta-users').textContent = users.length + ' inscriptions';
+  if (!users.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty">Aucune inscription pour le moment.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = users.map(function(u) {
+    var profile = u.profile || '—';
+    var profileBadge = profile === 'newsletter' ? 'badge' : 'badge terra';
+    return '<tr>' +
+      '<td class="nowrap small">' + esc(fmtDate(u.created_at)) + '</td>' +
+      '<td>' + esc((u.first_name || '') + ' ' + (u.last_name || '')) + '</td>' +
+      '<td><a href="mailto:' + esc(u.email) + '">' + esc(u.email) + '</a></td>' +
+      '<td><span class="' + profileBadge + '">' + esc(profile) + '</span></td>' +
+      '<td class="small">' + esc(u.page_source || '—') + '</td>' +
+      '<td class="small">' + esc(u.device || '—') + '</td>' +
+      '<td>' + (u.verified ? '<span class="badge indigo">Verified</span>' : '<span class="badge">Pending</span>') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderContacts() {
+  var tbody = document.getElementById('tbl-contacts');
+  document.getElementById('meta-contacts').textContent = contacts.length + ' messages';
+  if (!contacts.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun message pour le moment.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = contacts.map(function(c) {
+    return '<tr>' +
+      '<td class="nowrap small">' + esc(fmtDate(c.created_at)) + '</td>' +
+      '<td><a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a></td>' +
+      '<td>' + esc(c.inquiry_type || '—') + '</td>' +
+      '<td>' + esc((c.message || '').slice(0, 200)) + '</td>' +
+      '<td class="small">' + esc(c.page_source || '—') + '</td>' +
+      '<td class="small">' + esc(c.device || '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderCp() {
+  var tbody = document.getElementById('tbl-cp');
+  document.getElementById('meta-cp').textContent = cpRequests.length + ' signatures NDA';
+  if (!cpRequests.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty">Aucune demande Capital Partners pour le moment.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = cpRequests.map(function(c) {
+    var statusBadge = c.status === 'approved' ? 'badge indigo' : 'badge terra';
+    return '<tr>' +
+      '<td class="nowrap small">' + esc(fmtDate(c.signed_at)) + '</td>' +
+      '<td>' + esc((c.first_name || '') + ' ' + (c.last_name || '')) + '<br><span class="small">' + esc(c.signed_name || '') + '</span></td>' +
+      '<td><a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a></td>' +
+      '<td>' + esc(c.entity || '—') + '</td>' +
+      '<td class="small">' + esc(c.capacity || '—') + '</td>' +
+      '<td class="small">' + esc(c.country || '—') + '</td>' +
+      '<td><span class="' + statusBadge + '">' + esc(c.status || 'pending') + '</span></td>' +
+      '<td class="small">' + esc(c.signed_ip || '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderViews() {
+  var tbody = document.getElementById('tbl-views');
+  document.getElementById('meta-views').textContent = pageviews.length + ' page views';
+  if (!pageviews.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun pageview pour le moment.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = pageviews.slice(0, 200).map(function(p) {
+    return '<tr>' +
+      '<td class="nowrap small">' + esc(fmtDate(p.created_at)) + '</td>' +
+      '<td>' + esc(p.page || p.url || '—') + '</td>' +
+      '<td>' + esc(p.country || '—') + '</td>' +
+      '<td class="small">' + esc(p.device || '—') + '</td>' +
+      '<td class="small">' + esc((p.visitor_id || '—').slice(0, 12)) + '</td>' +
+      '<td>' + (p.is_registered ? '<span class="badge indigo">Reg.</span>' : '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+// TABS
+document.querySelectorAll('.adm-tab').forEach(function(t) {
+  t.addEventListener('click', function() {
+    document.querySelectorAll('.adm-tab').forEach(function(x) { x.classList.remove('is-active'); });
+    document.querySelectorAll('.adm-pane').forEach(function(x) { x.classList.remove('is-active'); });
+    t.classList.add('is-active');
+    document.getElementById(t.dataset.pane).classList.add('is-active');
+  });
+});
+
+// EXPORTS — open in new window with auth header via fetch + blob trick
+function downloadCsv(path, filename) {
+  fetch(API + path, { headers: { 'Authorization': AUTH } })
+    .then(function(r) { return r.blob(); })
+    .then(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+      setTimeout(function() { URL.revokeObjectURL(url); a.remove(); }, 100);
+    });
+}
+function exportUsers()    { downloadCsv('/api/export', 'pasola-users-' + new Date().toISOString().slice(0,10) + '.csv'); }
+function exportContacts() { downloadCsv('/api/export-contacts', 'pasola-contacts-' + new Date().toISOString().slice(0,10) + '.csv'); }
+function exportCp()       { downloadCsv('/api/cp-export', 'pasola-cp-requests-' + new Date().toISOString().slice(0,10) + '.csv'); }
+
+// AUTO-LOGIN si auth déjà en sessionStorage
+if (AUTH) showDashboard();
+
+// Auto-refresh toutes les 60s si dashboard ouvert
+setInterval(function() { if (AUTH && document.getElementById('dashView').style.display !== 'none') loadAll(); }, 60000);
+</script>
+
+</body>
+</html>
