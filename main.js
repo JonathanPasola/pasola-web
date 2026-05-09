@@ -439,19 +439,36 @@
 
   // Newsletter form (footer "Stay in touch" / "Rester en contact")
   // POST /api/register au worker (profile='newsletter') → stockage DB + email
-  // de vérification au visiteur via Brevo. Source de vérité = dashboard admin.
+  // welcome bilingue au visiteur via Brevo. Source de vérité = dashboard admin.
   var newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
     var newsletterIsEn = document.documentElement.lang === 'en';
     var nlI18n = newsletterIsEn ? {
-      sending: 'Subscribing…',
-      success: 'Thank you. You will receive PASOLA news shortly.',
-      error:   'An error occurred. Please try again or write to contact@pasola.fr.'
+      sending:     'Subscribing…',
+      thanksTitle: 'Welcome to the PASOLA circle.',
+      thanksBody:  'You will hear from us when there is something true to say. Not before.'
     } : {
-      sending: 'Inscription…',
-      success: 'Merci. Vous recevrez prochainement les nouvelles de PASOLA.',
-      error:   'Une erreur est survenue. Merci de réessayer ou d\'écrire à contact@pasola.fr.'
+      sending:     'Inscription…',
+      thanksTitle: 'Bienvenue dans le cercle PASOLA.',
+      thanksBody:  'Vous aurez de nos nouvelles quand il y aura quelque chose de vrai à dire. Jamais avant.'
     };
+
+    function showNewsletterThanks() {
+      // Cache complètement le form et insère un bloc merci à la même place.
+      newsletterForm.style.display = 'none';
+      if (newsletterForm.parentNode.querySelector('.newsletter-thanks')) return; // évite doublon
+      var block = document.createElement('div');
+      block.className = 'newsletter-thanks';
+      block.style.cssText = 'text-align:center;padding:8px 0;color:var(--ivory);';
+      block.innerHTML =
+        '<div style="font-family:var(--font-display, \'Times New Roman\'),serif;font-size:22px;letter-spacing:0.04em;margin-bottom:12px;color:var(--ivory);">' +
+          escapeHtml(nlI18n.thanksTitle) +
+        '</div>' +
+        '<p style="font-family:var(--font-editorial, Georgia),serif;font-style:italic;font-size:14px;line-height:1.6;color:var(--ivory);opacity:0.85;margin:0 auto;max-width:380px;">' +
+          escapeHtml(nlI18n.thanksBody) +
+        '</p>';
+      newsletterForm.parentNode.insertBefore(block, newsletterForm.nextSibling);
+    }
 
     newsletterForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -464,17 +481,6 @@
       var nlLastname  = (newsletterForm.lastname  && newsletterForm.lastname.value  || '').trim();
       var nlEmail     = (newsletterForm.email     && newsletterForm.email.value     || '').trim();
 
-      function showSuccess() {
-        var feedbackEl = document.createElement('p');
-        feedbackEl.className = 'newsletter-feedback';
-        feedbackEl.textContent = nlI18n.success;
-        feedbackEl.style.cssText = 'font-family:var(--font-editorial);font-style:italic;font-size:15px;color:var(--ivory);text-align:center;margin-top:12px;line-height:1.5;';
-        newsletterForm.appendChild(feedbackEl);
-        newsletterForm.reset();
-        nlBtn.disabled = true;
-        nlBtn.textContent = newsletterIsEn ? 'Subscribed' : 'Inscrit';
-      }
-
       pasolaRegister({
         first_name: nlFirstname,
         last_name: nlLastname,
@@ -485,14 +491,20 @@
         page_source: 'newsletter-footer',
         source: window.location.origin + window.location.pathname,
         referral: document.referrer || ''
-      }).then(showSuccess).catch(function(err) {
+      }).then(showNewsletterThanks).catch(function(err) {
         // eslint-disable-next-line no-console
         console.error('Newsletter register error', err);
         // On affiche quand même le succès : l'utilisateur n'a pas à savoir
         // qu'un retry sera nécessaire côté ops.
-        showSuccess();
+        showNewsletterThanks();
       });
     });
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
   // Capital Partners — formulaire de signature NDA (/capital-partners/access/)
