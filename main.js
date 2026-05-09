@@ -642,13 +642,19 @@
         cpFeedback.hidden = false;
         return;
       }
-      // Validation : la signature texte doit matcher first+last (case-insensitive)
-      var expectedSig = (firstname + ' ' + lastname).toLowerCase().replace(/\s+/g, ' ').trim();
-      var providedSig = signatureName.toLowerCase().replace(/\s+/g, ' ').trim();
+      // Validation : la signature texte doit matcher first+last (case + accent insensitive).
+      // On normalise via NFD + suppression des diacritiques pour que "Béraud" === "Beraud".
+      function normSig(s) {
+        return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')
+          .toLowerCase().replace(/\s+/g, ' ').trim();
+      }
+      var expectedSig = normSig(firstname + ' ' + lastname);
+      var providedSig = normSig(signatureName);
       if (expectedSig !== providedSig) {
         cpFeedback.textContent = cpI18n.mismatchSig;
         cpFeedback.className = 'form-feedback is-error';
         cpFeedback.hidden = false;
+        cpFeedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
