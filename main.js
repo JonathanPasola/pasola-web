@@ -4,40 +4,42 @@
 (function() {
   'use strict';
 
-  // Mobile nav toggle
+  // Mobile nav toggle (présent uniquement sur les pages avec nav mobile complète)
   var toggle = document.querySelector('.nav-toggle');
   var overlay = document.getElementById('primary-nav');
   var backdrop = document.querySelector('.nav-backdrop');
   var closeBtn = overlay ? overlay.querySelector('.nav-close') : null;
   var body = document.body;
 
-  function setNavOpen(open) {
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
-    if (backdrop) backdrop.setAttribute('data-open', open ? 'true' : 'false');
-    body.classList.toggle('nav-open', open);
+  if (toggle && overlay) {
+    function setNavOpen(open) {
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (backdrop) backdrop.setAttribute('data-open', open ? 'true' : 'false');
+      body.classList.toggle('nav-open', open);
+    }
+
+    toggle.addEventListener('click', function() {
+      var open = toggle.getAttribute('aria-expanded') === 'true';
+      setNavOpen(!open);
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() { setNavOpen(false); });
+    }
+
+    if (backdrop) {
+      backdrop.addEventListener('click', function() { setNavOpen(false); });
+    }
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') setNavOpen(false);
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') setNavOpen(false);
+    });
   }
-
-  toggle.addEventListener('click', function() {
-    var open = toggle.getAttribute('aria-expanded') === 'true';
-    setNavOpen(!open);
-  });
-
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function() { setNavOpen(false); });
-  }
-
-  if (backdrop) {
-    backdrop.addEventListener('click', function() { setNavOpen(false); });
-  }
-
-  overlay.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A') setNavOpen(false);
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') setNavOpen(false);
-  });
 
   // Header progressif
   var header = document.querySelector('.site-header');
