@@ -348,59 +348,37 @@
   var PASOLA_API = 'https://pasola-api.jonathan-beraud.workers.dev';
 
   function pasolaRegister(payload) {
-    // Best-effort: une erreur réseau ne bloque pas le flow utilisateur
+    // Renvoie la promise du fetch — l'appelant gère succès/erreur via .then/.catch.
+    // Le worker stocke en DB ET envoie un email de vérification au visiteur via Brevo,
+    // ainsi qu'une notification à PASOLA selon l'endpoint utilisé.
     return fetch(PASOLA_API + '/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(function(err) {
-      // eslint-disable-next-line no-console
-      console.error('PASOLA_API /api/register error', err);
+    }).then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
     });
   }
 
-  // EmailJS — formulaire de contact (Section VII "Entamer la conversation")
-  // Service: pasola-contact / Template: Register Interest / Reception: contact@pasola.fr
+  // Formulaire de contact (Section VII "Entamer la conversation")
+  // POST /api/register au worker → stockage DB + email vérification (Brevo).
   var contactForm = document.getElementById('contact-form');
   var feedback = document.getElementById('form-feedback');
   if (contactForm && feedback) {
-    var EMAILJS_SERVICE = 'service_4auog2l';
-    var EMAILJS_TEMPLATE = 'template_wc5vxrd';
-    var EMAILJS_PUBLIC_KEY = 'e2XFcMgnmluDpaOFi';
-
-    // Messages localisés selon la langue de la page (lit <html lang="fr|en">)
     var isEn = document.documentElement.lang === 'en';
     var i18n = isEn ? {
-      sending:     'Sending…',
-      success:     'Thank you. Your request has reached us — we will get back to you within two business days.',
-      error:       'An error occurred. Please write to us directly at contact@pasola.fr.',
-      unavailable: 'Service is currently unavailable. Please try again.'
+      sending: 'Sending…',
+      success: 'Thank you. Your request has reached us — we will get back to you within two business days.',
+      error:   'An error occurred. Please write to us directly at contact@pasola.fr.'
     } : {
-      sending:     'Envoi en cours…',
-      success:     'Merci. Votre demande nous est parvenue, nous reviendrons vers vous sous deux jours ouvrés.',
-      error:       'Une erreur est survenue. Merci d\'écrire directement à contact@pasola.fr.',
-      unavailable: 'Service indisponible pour le moment. Merci de réessayer.'
+      sending: 'Envoi en cours…',
+      success: 'Merci. Votre demande nous est parvenue, nous reviendrons vers vous sous deux jours ouvrés.',
+      error:   'Une erreur est survenue. Merci d\'écrire directement à contact@pasola.fr.'
     };
-
-    var emailjsReady = false;
-    function initEmailJS() {
-      if (emailjsReady || typeof emailjs === 'undefined') return;
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      emailjsReady = true;
-    }
-    // Init dès que le script est chargé (defer, donc après DOMContentLoaded)
-    if (typeof emailjs !== 'undefined') initEmailJS();
-    else window.addEventListener('load', initEmailJS);
 
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      initEmailJS();
-      if (!emailjsReady) {
-        feedback.textContent = i18n.unavailable;
-        feedback.className = 'form-feedback is-error';
-        feedback.hidden = false;
-        return;
-      }
       var submitBtn = contactForm.querySelector('.form-submit');
       var originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
@@ -408,46 +386,12 @@
       feedback.hidden = true;
       feedback.className = 'form-feedback';
 
-      // Construction des paramètres avec ALIAS pour compatibilité avec
-      // n'importe quel schéma de variables côté template EmailJS
-      // ({{firstname}}, {{from_name}}, {{user_name}}, {{name}}, etc.)
       var firstname = (contactForm.firstname && contactForm.firstname.value || '').trim();
       var lastname  = (contactForm.lastname  && contactForm.lastname.value  || '').trim();
       var emailVal  = (contactForm.email     && contactForm.email.value     || '').trim();
       var profile   = (contactForm.profile   && contactForm.profile.value   || '');
       var msg       = (contactForm.message   && contactForm.message.value   || '');
-      var fullname  = (firstname + ' ' + lastname).trim();
 
-      // Email à PASOLA = en français (Jonathan le reçoit, parle FR).
-      // L'origine de la demande (visiteur FR ou EN) est notée séparément.
-      var formLang = document.documentElement.lang === 'en' ? 'EN' : 'FR';
-      var profileLabel = ({
-        'private-buyer': 'Acquéreur privé',
-        'family-office': 'Family office · Capital Partners',
-        'media': 'Presse · Éditorial'
-      })[profile] || profile;
-
-      var emailParams = {
-        firstname: firstname,
-        lastname: lastname,
-        email: emailVal,
-        profile: profileLabel,
-        profile_value: profile,
-        message: msg,
-        // Aliases pour compat templates EmailJS
-        from_name: fullname,
-        from_email: emailVal,
-        user_name: fullname,
-        user_email: emailVal,
-        name: fullname,
-        reply_to: emailVal,
-        to_email: 'contact@pasola.fr',
-        // Origine du visiteur (FR si depuis /, EN si depuis /en/)
-        source_lang: formLang
-      };
-
-      // 1) Stocker dans la DB Cloudflare (source de vérité dashboard admin)
-      //    Best-effort en parallèle de l'email — si la DB échoue, l'email part quand même.
       pasolaRegister({
         first_name: firstname,
         last_name: lastname,
@@ -457,58 +401,47 @@
         consent_privacy: 1,
         page_source: 'contact-section-vii',
         source: window.location.origin + window.location.pathname,
-        referral: document.referrer || ''
-      });
-
-      // 2) Notifier PASOLA par email (logo + détails formatés)
-      emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, emailParams).then(
-        function() {
-          // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks).
-          // On RETIRE le form du DOM (pas seulement hidden) car le CSS desktop
-          // force display: grid sur #contact-form qui override l'attribut hidden.
-          // On supprime AUSSI le petit emblème de signature (.contact-emblem) en
-          // haut, car le bloc thanks a déjà son propre emblème grand → évite le double.
-          var thanks = document.getElementById('contact-thanks');
-          if (thanks) {
-            contactForm.reset();
-            contactForm.remove();
-            var topEmblem = document.querySelector('.contact-grid > .contact-emblem');
-            if (topEmblem) topEmblem.remove();
-            thanks.hidden = false;
-            // Scroll doux vers le bloc merci pour qu'il soit visible
-            thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } else {
-            // Fallback : si .contact-thanks n'existe pas, message inline
-            feedback.textContent = i18n.success;
-            feedback.className = 'form-feedback is-success';
-            feedback.hidden = false;
-            contactForm.reset();
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalLabel;
-          }
-        },
-        function(err) {
-          feedback.textContent = i18n.error;
-          feedback.className = 'form-feedback is-error';
+        referral: document.referrer || '',
+        message: msg
+      }).then(function() {
+        // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks).
+        // On RETIRE le form du DOM (pas seulement hidden) car le CSS desktop
+        // force display: grid sur #contact-form qui override l'attribut hidden.
+        // On supprime AUSSI le petit emblème de signature (.contact-emblem) en
+        // haut, car le bloc thanks a déjà son propre emblème grand → évite le double.
+        var thanks = document.getElementById('contact-thanks');
+        if (thanks) {
+          contactForm.reset();
+          contactForm.remove();
+          var topEmblem = document.querySelector('.contact-grid > .contact-emblem');
+          if (topEmblem) topEmblem.remove();
+          thanks.hidden = false;
+          thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          feedback.textContent = i18n.success;
+          feedback.className = 'form-feedback is-success';
           feedback.hidden = false;
+          contactForm.reset();
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel;
-          // eslint-disable-next-line no-console
-          console.error('EmailJS error', err);
         }
-      );
+      }).catch(function(err) {
+        feedback.textContent = i18n.error;
+        feedback.className = 'form-feedback is-error';
+        feedback.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+        // eslint-disable-next-line no-console
+        console.error('PASOLA contact submit error', err);
+      });
     });
   }
 
   // Newsletter form (footer "Stay in touch" / "Rester en contact")
-  // 1. Stockage dans la DB Cloudflare via /api/register (profile='newsletter')
-  //    → consultable depuis le dashboard admin
-  // 2. Welcome bilingue au visiteur via EmailJS template_lm6a7jd
-  // (Pas de notif email à PASOLA car le dashboard sert de source de vérité.)
+  // POST /api/register au worker (profile='newsletter') → stockage DB + email
+  // de vérification au visiteur via Brevo. Source de vérité = dashboard admin.
   var newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
-    var NEWSLETTER_SERVICE = 'service_4auog2l';
-    var NEWSLETTER_WELCOME_TEMPLATE = 'template_lm6a7jd';   // welcome bilingue au visiteur
     var newsletterIsEn = document.documentElement.lang === 'en';
     var nlI18n = newsletterIsEn ? {
       sending: 'Subscribing…',
@@ -522,41 +455,26 @@
 
     newsletterForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      if (typeof emailjs === 'undefined') {
-        alert(nlI18n.error);
-        return;
-      }
-      // Init EmailJS si pas déjà fait (au cas où le contact form n'a pas été chargé)
-      if (!window.__emailjsInit) {
-        emailjs.init({ publicKey: 'e2XFcMgnmluDpaOFi' });
-        window.__emailjsInit = true;
-      }
 
       var nlBtn = newsletterForm.querySelector('.newsletter-submit');
-      var nlOriginalLabel = nlBtn.textContent;
       nlBtn.disabled = true;
       nlBtn.textContent = nlI18n.sending;
 
       var nlFirstname = (newsletterForm.firstname && newsletterForm.firstname.value || '').trim();
       var nlLastname  = (newsletterForm.lastname  && newsletterForm.lastname.value  || '').trim();
       var nlEmail     = (newsletterForm.email     && newsletterForm.email.value     || '').trim();
-      var nlFullname  = (nlFirstname + ' ' + nlLastname).trim();
 
-      var nlParams = {
-        firstname: nlFirstname,
-        lastname: nlLastname,
-        email: nlEmail,
-        from_name: nlFullname,
-        from_email: nlEmail,
-        user_name: nlFullname,
-        user_email: nlEmail,
-        name: nlFullname,
-        reply_to: nlEmail,
-        to_email: 'contact@pasola.fr',
-        source: 'newsletter-footer'
-      };
+      function showSuccess() {
+        var feedbackEl = document.createElement('p');
+        feedbackEl.className = 'newsletter-feedback';
+        feedbackEl.textContent = nlI18n.success;
+        feedbackEl.style.cssText = 'font-family:var(--font-editorial);font-style:italic;font-size:15px;color:var(--ivory);text-align:center;margin-top:12px;line-height:1.5;';
+        newsletterForm.appendChild(feedbackEl);
+        newsletterForm.reset();
+        nlBtn.disabled = true;
+        nlBtn.textContent = newsletterIsEn ? 'Subscribed' : 'Inscrit';
+      }
 
-      // 1) Stocker dans la DB Cloudflare (source de vérité dashboard admin)
       pasolaRegister({
         first_name: nlFirstname,
         last_name: nlLastname,
@@ -567,36 +485,13 @@
         page_source: 'newsletter-footer',
         source: window.location.origin + window.location.pathname,
         referral: document.referrer || ''
+      }).then(showSuccess).catch(function(err) {
+        // eslint-disable-next-line no-console
+        console.error('Newsletter register error', err);
+        // On affiche quand même le succès : l'utilisateur n'a pas à savoir
+        // qu'un retry sera nécessaire côté ops.
+        showSuccess();
       });
-
-      // 2) Welcome bilingue au visiteur
-      emailjs.send(NEWSLETTER_SERVICE, NEWSLETTER_WELCOME_TEMPLATE, nlParams).then(
-        function() {
-          // Affichage success inline
-          var feedbackEl = document.createElement('p');
-          feedbackEl.className = 'newsletter-feedback';
-          feedbackEl.textContent = nlI18n.success;
-          feedbackEl.style.cssText = 'font-family:var(--font-editorial);font-style:italic;font-size:15px;color:var(--ivory);text-align:center;margin-top:12px;line-height:1.5;';
-          newsletterForm.appendChild(feedbackEl);
-          newsletterForm.reset();
-          nlBtn.disabled = true;
-          nlBtn.textContent = newsletterIsEn ? 'Subscribed' : 'Inscrit';
-        },
-        function(err) {
-          // L'inscription DB a déjà été tentée, donc on affiche quand même le succès
-          // (l'inscription est dans la DB même si le welcome email a échoué)
-          var feedbackEl = document.createElement('p');
-          feedbackEl.className = 'newsletter-feedback';
-          feedbackEl.textContent = nlI18n.success;
-          feedbackEl.style.cssText = 'font-family:var(--font-editorial);font-style:italic;font-size:15px;color:var(--ivory);text-align:center;margin-top:12px;line-height:1.5;';
-          newsletterForm.appendChild(feedbackEl);
-          newsletterForm.reset();
-          nlBtn.disabled = true;
-          nlBtn.textContent = newsletterIsEn ? 'Subscribed' : 'Inscrit';
-          // eslint-disable-next-line no-console
-          console.error('Newsletter welcome email error', err);
-        }
-      );
     });
   }
 
@@ -690,31 +585,9 @@
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       }).then(function() {
-        // Lot 5 — après stockage en DB, envoie 2 emails via EmailJS
-        // 1) Notif à PASOLA (contact@pasola.fr) : nouvelle signature NDA
-        // 2) Confirmation au signataire : récap signature + délai
-        if (typeof emailjs !== 'undefined') {
-          if (!window.__emailjsInit) {
-            emailjs.init({ publicKey: 'e2XFcMgnmluDpaOFi' });
-            window.__emailjsInit = true;
-          }
-          var cpEmailParams = {
-            firstname: firstname, lastname: lastname,
-            email: email, entity: entity, capacity: capacity, country: country,
-            message: message || '—', signed_name: signatureName,
-            signed_at: payload.signed_at, source_lang: cpIsEn ? 'EN' : 'FR',
-            from_name: firstname + ' ' + lastname, from_email: email,
-            user_name: firstname + ' ' + lastname, user_email: email,
-            name: firstname + ' ' + lastname, reply_to: email,
-            to_email: 'contact@pasola.fr'
-          };
-          // Notif à PASOLA
-          emailjs.send('service_4auog2l', 'template_cp_notif', cpEmailParams)
-            .catch(function(e) { console.error('CP notif email error', e); });
-          // Confirmation au signataire
-          emailjs.send('service_4auog2l', 'template_cp_confirm', cpEmailParams)
-            .catch(function(e) { console.error('CP confirm email error', e); });
-        }
+        // Le worker /api/cp-request envoie déjà 2 emails via Brevo :
+        //   1) Notif admin à jonathan.beraud@pasola.fr
+        //   2) Accusé de réception au signataire
         cpFeedback.textContent = cpI18n.success;
         cpFeedback.className = 'form-feedback is-success';
         cpFeedback.hidden = false;
