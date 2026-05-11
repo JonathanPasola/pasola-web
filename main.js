@@ -656,4 +656,73 @@
     });
   }
 
+  // ─────────────────────────────────────────────────────────────────
+  // Liens email du footer : mailto: + copy au presse-papier en parallèle
+  // Pourquoi : sur Mac/Windows sans application mail par défaut configurée,
+  // le mailto: ne fait rien. En copiant aussi l'adresse au presse-papier
+  // et en affichant un toast de confirmation, l'utilisateur peut au pire
+  // coller l'adresse dans son webmail (Gmail, Outlook web, etc.).
+  // ─────────────────────────────────────────────────────────────────
+  var mailcopyIsEn = document.documentElement.lang === 'en';
+  var mailcopyMsg = mailcopyIsEn
+    ? 'Email address copied. Opening your mail app…'
+    : 'Adresse copiée. Ouverture de votre messagerie…';
+
+  document.querySelectorAll('a[data-mailcopy]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      var email = link.getAttribute('data-mailcopy');
+      if (!email) return;
+      // Tentative async de copie au presse-papier (best-effort, ne bloque pas le mailto:)
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).catch(function() {});
+      } else {
+        // Fallback execCommand pour les vieux navigateurs
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = email;
+          ta.setAttribute('readonly', '');
+          ta.style.cssText = 'position:absolute;left:-9999px;top:0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        } catch (_) {}
+      }
+      showMailToast(mailcopyMsg);
+      // Le mailto: continue son cours via le href (pas de e.preventDefault).
+    });
+  });
+
+  function showMailToast(msg) {
+    var existing = document.querySelector('.mailcopy-toast');
+    if (existing) existing.remove();
+    var t = document.createElement('div');
+    t.className = 'mailcopy-toast';
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    t.textContent = msg;
+    t.style.cssText = [
+      'position:fixed', 'bottom:28px', 'left:50%',
+      'transform:translateX(-50%) translateY(20px)',
+      'background:#1A2C3D', 'color:#FAF8F4',
+      'font-family:Georgia,serif', 'font-size:14px',
+      'letter-spacing:0.04em', 'padding:14px 24px',
+      'border-radius:2px',
+      'box-shadow:0 8px 24px rgba(0,0,0,0.18)',
+      'z-index:9999', 'opacity:0',
+      'transition:opacity 240ms ease, transform 240ms ease',
+      'max-width:90vw', 'text-align:center'
+    ].join(';');
+    document.body.appendChild(t);
+    requestAnimationFrame(function() {
+      t.style.opacity = '1';
+      t.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    setTimeout(function() {
+      t.style.opacity = '0';
+      t.style.transform = 'translateX(-50%) translateY(20px)';
+      setTimeout(function() { t.remove(); }, 260);
+    }, 2600);
+  }
+
 })();
