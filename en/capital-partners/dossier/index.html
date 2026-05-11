@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#FAF8F4" />
+<title>Capital Partners dossier · PASOLA</title>
+<meta name="description" content="Access to the confidential Capital Partners dossier — PASOLA Signature Estate." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="canonical" href="https://pasola.fr/en/capital-partners/dossier/" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+<link rel="stylesheet" href="/assets/fonts/pasola-fonts.css" />
+<link rel="stylesheet" href="/main.css" />
+
+<style>
+  .dossier-page { min-height: 100vh; background: var(--ivory, #FAF8F4); padding: 56px 12px 80px; }
+  @media (min-width: 769px) { .dossier-page { padding: 80px 24px 120px; } }
+  .dossier-inner { max-width: 640px; margin: 0 auto; }
+
+  .dossier-loading { text-align: center; padding: 80px 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: #5C6F7E; font-size: 16px; }
+  .dossier-loading::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #C44A2C; margin-right: 10px; animation: pulse 1.4s ease-in-out infinite; vertical-align: middle; }
+  @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  .dossier-head { margin-bottom: 48px; }
+  .dossier-eyebrow { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #C44A2C; margin: 0 0 14px; font-weight: 400; }
+  .dossier-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: #1A2C3D; margin: 0 0 12px; line-height: 1.15; }
+  @media (min-width: 769px) { .dossier-title { font-size: 40px; } }
+  .dossier-welcome { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.6; color: #1A2C3D; margin: 0; }
+  .dossier-expires { font-family: 'Outfit', sans-serif; font-size: 12px; letter-spacing: 0.04em; color: #5C6F7E; margin: 16px 0 0; }
+
+  .dossier-files { list-style: none; padding: 0; margin: 0; border-top: 1px solid rgba(26,44,61,0.12); }
+  .dossier-file { display: flex; align-items: center; justify-content: space-between; padding: 28px 4px; border-bottom: 1px solid rgba(26,44,61,0.12); gap: 16px; }
+  .dossier-file-meta { flex: 1; min-width: 0; }
+  .dossier-file-label { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: #1A2C3D; margin: 0; line-height: 1.2; }
+  .dossier-file-format { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6F7E; margin: 6px 0 0; font-weight: 400; }
+  .dossier-file-action { flex-shrink: 0; }
+  .dossier-download-btn { display: inline-block; padding: 12px 22px; background: #1A2C3D; color: #FAF8F4; font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s ease; }
+  .dossier-download-btn:hover { background: #2D4862; }
+  .dossier-download-btn[disabled] { opacity: 0.5; cursor: wait; }
+
+  .dossier-notice { margin-top: 48px; padding: 24px; background: #FFFFFF; border-left: 2px solid #C44A2C; }
+  .dossier-notice p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; line-height: 1.6; color: #5C6F7E; margin: 0; }
+
+  .dossier-error { text-align: center; padding: 80px 24px; }
+  .dossier-error h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: #C44A2C; margin: 0 0 16px; }
+  .dossier-error p { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.6; color: #1A2C3D; margin: 0 auto 24px; max-width: 480px; }
+  .dossier-error-link { display: inline-block; margin-top: 16px; font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6F7E; text-decoration: none; border-bottom: 1px solid rgba(92,111,126,0.4); padding-bottom: 2px; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header" role="banner">
+  <div class="header-left">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <a href="/capital-partners/dossier/">FR</a>
+      <span class="lang-switch-sep" aria-hidden="true">·</span>
+      <a href="/en/capital-partners/dossier/" aria-current="true">EN</a>
+    </div>
+  </div>
+  <a class="brand-lockup" href="/en/" aria-label="PASOLA Signature Estate, home">
+    <svg class="brand-emblem" width="32" height="18" viewBox="0 0 200 110" aria-hidden="true">
+      <line x1="12" y1="92" x2="188" y2="92" stroke="currentColor" stroke-width="1.25" fill="none" vector-effect="non-scaling-stroke"/>
+      <path fill="currentColor" d="M86 92 L90 48 L120 28 L128 92 Z"/>
+    </svg>
+    <span class="brand-wordmark">PASOLA</span>
+  </a>
+</header>
+
+<main id="main" class="dossier-page">
+  <div class="dossier-inner">
+
+    <div id="dossier-loading" class="dossier-loading">Verifying your access…</div>
+
+    <div id="dossier-content" style="display:none;">
+      <header class="dossier-head">
+        <p class="dossier-eyebrow">Capital Partners — Confidential dossier</p>
+        <h1 class="dossier-title" id="dossier-welcome-title">Welcome.</h1>
+        <p class="dossier-welcome">Below are the three documents that make up the complete PASOLA Signature Estate dossier.</p>
+        <p class="dossier-expires" id="dossier-expires">Access valid until —.</p>
+      </header>
+
+      <ul class="dossier-files" id="dossier-files"></ul>
+
+      <div class="dossier-notice">
+        <p>Every download is logged. This access link is strictly personal and nominative — please do not share it. For any question or if the link expires, write to us directly.</p>
+      </div>
+    </div>
+
+    <div id="dossier-error" class="dossier-error" style="display:none;">
+      <h1 id="dossier-error-title">Invalid or expired link.</h1>
+      <p id="dossier-error-message">This access link is no longer active. Please contact us to request a new one.</p>
+      <a class="dossier-error-link" href="/en/capital-partners/">Back to Capital Partners</a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <span>© 2026 PASOLA Signature Estate · Sumba, Indonesia</span>
+      <div class="footer-legal">
+        <a href="/en/legal/">Legal notice</a>
+        <span aria-hidden="true">·</span>
+        <a href="/en/privacy/">Privacy</a>
+        <span aria-hidden="true">·</span>
+        <a href="/en/cookies/">Cookies</a>
+      </div>
+      <div class="footer-language">
+        <a href="/capital-partners/dossier/">Français</a>
+        <span aria-hidden="true">·</span>
+        <a href="/en/capital-partners/dossier/" aria-current="true">English</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var PASOLA_API = 'https://pasola-api.jonathan-beraud.workers.dev';
+  var LANG = 'en';
+
+  var L = {
+    welcome: function (firstName) { return firstName ? ('Welcome, ' + firstName + '.') : 'Welcome.'; },
+    expires: function (dateStr) { return 'Access valid until ' + dateStr + '.'; },
+    format: 'PDF',
+    download: 'Download',
+    downloading: 'Downloading…',
+    errorExpired: { title: 'Link expired.', msg: 'This access link is no longer valid. Please contact us to request a new one.' },
+    errorRevoked: { title: 'Access revoked.', msg: 'Access to this dossier has been revoked. Please contact us for more information.' },
+    errorInvalid: { title: 'Invalid link.', msg: 'This link does not appear to be valid. Please verify you have copied the full URL from your email.' },
+    errorMissing: { title: 'Link missing.', msg: 'No access token was provided. Please check your PASOLA email for the complete link.' },
+    errorServer: { title: 'Server error.', msg: 'The service is temporarily unavailable. Please try again in a few moments.' }
+  };
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    try {
+      var d = new Date(iso);
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (e) { return iso; }
+  }
+
+  function showError(kind) {
+    document.getElementById('dossier-loading').style.display = 'none';
+    document.getElementById('dossier-content').style.display = 'none';
+    var err = document.getElementById('dossier-error');
+    err.style.display = 'block';
+    var data = L['error' + kind] || L.errorInvalid;
+    document.getElementById('dossier-error-title').textContent = data.title;
+    document.getElementById('dossier-error-message').textContent = data.msg;
+  }
+
+  function renderContent(data) {
+    document.getElementById('dossier-loading').style.display = 'none';
+    document.getElementById('dossier-content').style.display = 'block';
+
+    document.getElementById('dossier-welcome-title').textContent = L.welcome(data.first_name);
+    document.getElementById('dossier-expires').textContent = L.expires(fmtDate(data.expires_at));
+
+    var list = document.getElementById('dossier-files');
+    list.innerHTML = '';
+    (data.files || []).forEach(function (f) {
+      var li = document.createElement('li');
+      li.className = 'dossier-file';
+      li.innerHTML =
+        '<div class="dossier-file-meta">' +
+          '<p class="dossier-file-label"></p>' +
+          '<p class="dossier-file-format">' + L.format + '</p>' +
+        '</div>' +
+        '<div class="dossier-file-action">' +
+          '<button class="dossier-download-btn" type="button" data-file=""></button>' +
+        '</div>';
+      li.querySelector('.dossier-file-label').textContent = f.label;
+      var btn = li.querySelector('.dossier-download-btn');
+      btn.dataset.file = f.key;
+      btn.textContent = L.download;
+      list.appendChild(li);
+    });
+
+    list.addEventListener('click', function (e) {
+      var btn = e.target.closest('.dossier-download-btn');
+      if (!btn) return;
+      var key = btn.dataset.file;
+      var token = getToken();
+      if (!key || !token) return;
+      btn.setAttribute('disabled', 'disabled');
+      btn.textContent = L.downloading;
+      var url = PASOLA_API + '/api/dossier/download/' + encodeURIComponent(key) + '?token=' + encodeURIComponent(token);
+      window.location.href = url;
+      setTimeout(function () {
+        btn.removeAttribute('disabled');
+        btn.textContent = L.download;
+      }, 2500);
+    });
+  }
+
+  function getToken() {
+    var p = new URLSearchParams(window.location.search);
+    return p.get('token');
+  }
+
+  function verify() {
+    var token = getToken();
+    if (!token) { showError('Missing'); return; }
+
+    fetch(PASOLA_API + '/api/dossier/verify?token=' + encodeURIComponent(token), { method: 'GET' })
+      .then(function (res) {
+        return res.json().then(function (body) { return { status: res.status, body: body }; });
+      })
+      .then(function (r) {
+        if (r.body && r.body.valid) {
+          renderContent(r.body);
+        } else {
+          var reason = (r.body && r.body.reason) || 'invalid';
+          if (reason === 'invalid_or_expired') showError('Expired');
+          else if (reason === 'revoked') showError('Revoked');
+          else if (reason === 'missing_token') showError('Missing');
+          else if (reason === 'server_misconfigured') showError('Server');
+          else showError('Invalid');
+        }
+      })
+      .catch(function () { showError('Server'); });
+  }
+
+  document.addEventListener('DOMContentLoaded', verify);
+})();
+</script>
+
+</body>
+</html>
