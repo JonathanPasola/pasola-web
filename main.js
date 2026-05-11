@@ -657,72 +657,132 @@
   }
 
   // ─────────────────────────────────────────────────────────────────
-  // Liens email du footer : mailto: + copy au presse-papier en parallèle
-  // Pourquoi : sur Mac/Windows sans application mail par défaut configurée,
-  // le mailto: ne fait rien. En copiant aussi l'adresse au presse-papier
-  // et en affichant un toast de confirmation, l'utilisateur peut au pire
-  // coller l'adresse dans son webmail (Gmail, Outlook web, etc.).
+  // Liens email du footer : popover de choix (Mail app / Gmail / Outlook web)
+  // Pourquoi : le mailto: ne marche pas si l'utilisateur n'a pas d'app mail
+  // configurée comme handler par défaut (cas fréquent avec Gmail/Outlook web).
+  // On affiche un mini popover qui propose les 3 options + copie l'adresse
+  // au presse-papier en bonus. Marche partout, pas de friction.
   // ─────────────────────────────────────────────────────────────────
-  var mailcopyIsEn = document.documentElement.lang === 'en';
-  var mailcopyMsg = mailcopyIsEn
-    ? 'Email address copied. Opening your mail app…'
-    : 'Adresse copiée. Ouverture de votre messagerie…';
+  var mailpickIsEn = document.documentElement.lang === 'en';
+  var mailpickI18n = mailpickIsEn ? {
+    copied: 'Address copied',
+    openWith: 'Open with',
+    mailApp: 'Mail app',
+    gmail: 'Gmail',
+    outlook: 'Outlook',
+    close: 'Close'
+  } : {
+    copied: 'Adresse copiée',
+    openWith: 'Ouvrir avec',
+    mailApp: 'App mail',
+    gmail: 'Gmail',
+    outlook: 'Outlook',
+    close: 'Fermer'
+  };
 
   document.querySelectorAll('a[data-mailcopy]').forEach(function(link) {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function(e) {
+      e.preventDefault(); // on prend la main complètement
       var email = link.getAttribute('data-mailcopy');
       if (!email) return;
-      // Tentative async de copie au presse-papier (best-effort, ne bloque pas le mailto:)
+      // Copie au presse-papier (silencieux, best-effort)
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(email).catch(function() {});
       } else {
-        // Fallback execCommand pour les vieux navigateurs
         try {
           var ta = document.createElement('textarea');
-          ta.value = email;
-          ta.setAttribute('readonly', '');
+          ta.value = email; ta.setAttribute('readonly', '');
           ta.style.cssText = 'position:absolute;left:-9999px;top:0';
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
+          document.body.appendChild(ta); ta.select();
+          document.execCommand('copy'); document.body.removeChild(ta);
         } catch (_) {}
       }
-      showMailToast(mailcopyMsg);
-      // Le mailto: continue son cours via le href (pas de e.preventDefault).
+      // Récupère le subject éventuel du href
+      var subject = '';
+      var href = link.getAttribute('href') || '';
+      var m = href.match(/[?&]subject=([^&]+)/);
+      if (m) subject = decodeURIComponent(m[1]);
+      showMailPicker(email, subject, link);
     });
   });
 
-  function showMailToast(msg) {
-    var existing = document.querySelector('.mailcopy-toast');
-    if (existing) existing.remove();
-    var t = document.createElement('div');
-    t.className = 'mailcopy-toast';
-    t.setAttribute('role', 'status');
-    t.setAttribute('aria-live', 'polite');
-    t.textContent = msg;
-    t.style.cssText = [
-      'position:fixed', 'bottom:28px', 'left:50%',
-      'transform:translateX(-50%) translateY(20px)',
-      'background:#1A2C3D', 'color:#FAF8F4',
-      'font-family:Georgia,serif', 'font-size:14px',
-      'letter-spacing:0.04em', 'padding:14px 24px',
-      'border-radius:2px',
-      'box-shadow:0 8px 24px rgba(0,0,0,0.18)',
-      'z-index:9999', 'opacity:0',
-      'transition:opacity 240ms ease, transform 240ms ease',
-      'max-width:90vw', 'text-align:center'
+  function showMailPicker(email, subject, anchorEl) {
+    closeMailPicker();
+    var subj = encodeURIComponent(subject || '');
+    var mailtoUrl = 'mailto:' + email + (subject ? '?subject=' + subj : '');
+    var gmailUrl  = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email) + (subject ? '&su=' + subj : '');
+    var outlookUrl = 'https://outlook.office.com/mail/deeplink/compose?to=' + encodeURIComponent(email) + (subject ? '&subject=' + subj : '');
+
+    var backdrop = document.createElement('div');
+    backdrop.className = 'mailpick-backdrop';
+    backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(26,44,61,0.45);z-index:9998;opacity:0;transition:opacity 200ms;';
+    backdrop.addEventListener('click', closeMailPicker);
+
+    var card = document.createElement('div');
+    card.className = 'mailpick-card';
+    card.setAttribute('role', 'dialog');
+    card.setAttribute('aria-modal', 'true');
+    card.style.cssText = [
+      'position:fixed','left:50%','top:50%',
+      'transform:translate(-50%,-48%)',
+      'background:#FAF8F4','color:#1A2C3D',
+      'border:1px solid #E5DECD','border-radius:4px',
+      'padding:28px 32px','min-width:320px','max-width:90vw',
+      'box-shadow:0 24px 60px rgba(26,44,61,0.25)',
+      'font-family:Georgia,serif','z-index:9999',
+      'opacity:0','transition:opacity 200ms ease, transform 200ms ease'
     ].join(';');
-    document.body.appendChild(t);
-    requestAnimationFrame(function() {
-      t.style.opacity = '1';
-      t.style.transform = 'translateX(-50%) translateY(0)';
+
+    var btnStyle = 'display:block;width:100%;padding:12px 16px;margin-bottom:8px;background:#1A2C3D;color:#FAF8F4;border:0;border-radius:2px;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;cursor:pointer;transition:background 160ms;';
+    var altBtnStyle = btnStyle.replace('background:#1A2C3D', 'background:#FAF8F4').replace('color:#FAF8F4', 'color:#1A2C3D').replace('border:0', 'border:1px solid #1A2C3D');
+
+    card.innerHTML =
+      '<div style="font-family:\'Times New Roman\',serif;font-size:20px;color:#1A2C3D;margin-bottom:6px;text-align:center;">' + escapeHtmlMP(email) + '</div>' +
+      '<div style="font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#C44A2C;margin-bottom:20px;text-align:center;">✓ ' + mailpickI18n.copied + '</div>' +
+      '<div style="font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#5C6F7E;margin-bottom:10px;text-align:center;">' + mailpickI18n.openWith + '</div>' +
+      '<a href="' + mailtoUrl + '" style="' + btnStyle + '">' + mailpickI18n.mailApp + '</a>' +
+      '<a href="' + gmailUrl + '" target="_blank" rel="noopener noreferrer" style="' + altBtnStyle + '">' + mailpickI18n.gmail + '</a>' +
+      '<a href="' + outlookUrl + '" target="_blank" rel="noopener noreferrer" style="' + altBtnStyle + '">' + mailpickI18n.outlook + '</a>' +
+      '<button type="button" class="mailpick-close-btn" style="display:block;width:100%;margin-top:14px;padding:8px;background:transparent;border:0;color:#5C6F7E;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;">' + mailpickI18n.close + '</button>';
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(card);
+
+    // Fermeture via bouton + ESC + clic sur option
+    card.querySelector('.mailpick-close-btn').addEventListener('click', closeMailPicker);
+    card.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        // On laisse le browser faire le navigate, puis on ferme après un court délai
+        setTimeout(closeMailPicker, 300);
+      });
     });
-    setTimeout(function() {
-      t.style.opacity = '0';
-      t.style.transform = 'translateX(-50%) translateY(20px)';
-      setTimeout(function() { t.remove(); }, 260);
-    }, 2600);
+    document.addEventListener('keydown', mailpickEscHandler);
+
+    requestAnimationFrame(function() {
+      backdrop.style.opacity = '1';
+      card.style.opacity = '1';
+      card.style.transform = 'translate(-50%,-50%)';
+    });
+  }
+
+  function mailpickEscHandler(e) {
+    if (e.key === 'Escape') closeMailPicker();
+  }
+
+  function closeMailPicker() {
+    var c = document.querySelector('.mailpick-card');
+    var b = document.querySelector('.mailpick-backdrop');
+    document.removeEventListener('keydown', mailpickEscHandler);
+    [c, b].forEach(function(el) {
+      if (!el) return;
+      el.style.opacity = '0';
+      setTimeout(function() { el.remove(); }, 220);
+    });
+  }
+
+  function escapeHtmlMP(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
 })();
