@@ -138,8 +138,10 @@
     welcome: function (firstName) { return firstName ? ('Bienvenue, ' + firstName + '.') : 'Bienvenue.'; },
     expires: function (dateStr) { return 'Accès valable jusqu\'au ' + dateStr + '.'; },
     format: 'PDF',
+    formatHtml: 'Document HTML',
     download: 'Télécharger',
     downloading: 'Téléchargement…',
+    view: 'Visualiser',
     errorExpired: { title: 'Lien expiré.', msg: 'Ce lien d\'accès n\'est plus valide. Veuillez nous contacter pour en obtenir un nouveau.' },
     errorRevoked: { title: 'Accès révoqué.', msg: 'Cet accès au dossier a été révoqué. Veuillez nous contacter pour plus d\'informations.' },
     errorInvalid: { title: 'Lien invalide.', msg: 'Ce lien ne semble pas valide. Vérifiez que vous avez bien copié l\'URL complète depuis votre email.' },
@@ -175,20 +177,25 @@
     var list = document.getElementById('dossier-files');
     list.innerHTML = '';
     (data.files || []).forEach(function (f) {
+      var mode = f.mode || 'download';
       var li = document.createElement('li');
       li.className = 'dossier-file';
+      var formatLabel = (mode === 'view') ? L.formatHtml : L.format;
+      var btnLabel = (mode === 'view') ? L.view : L.download;
       li.innerHTML =
         '<div class="dossier-file-meta">' +
           '<p class="dossier-file-label"></p>' +
-          '<p class="dossier-file-format">' + L.format + '</p>' +
+          '<p class="dossier-file-format"></p>' +
         '</div>' +
         '<div class="dossier-file-action">' +
-          '<button class="dossier-download-btn" type="button" data-file=""></button>' +
+          '<button class="dossier-download-btn" type="button" data-file="" data-mode=""></button>' +
         '</div>';
       li.querySelector('.dossier-file-label').textContent = f.label;
+      li.querySelector('.dossier-file-format').textContent = formatLabel;
       var btn = li.querySelector('.dossier-download-btn');
       btn.dataset.file = f.key;
-      btn.textContent = L.download;
+      btn.dataset.mode = mode;
+      btn.textContent = btnLabel;
       list.appendChild(li);
     });
 
@@ -196,12 +203,18 @@
       var btn = e.target.closest('.dossier-download-btn');
       if (!btn) return;
       var key = btn.dataset.file;
+      var mode = btn.dataset.mode || 'download';
       var token = getToken();
       if (!key || !token) return;
+      if (mode === 'view') {
+        // Visualiser : ouvre dans un nouvel onglet, pas de download
+        var viewUrl = PASOLA_API + '/api/dossier/view/' + encodeURIComponent(key) + '?token=' + encodeURIComponent(token);
+        window.open(viewUrl, '_blank', 'noopener,noreferrer');
+        return;
+      }
       btn.setAttribute('disabled', 'disabled');
       btn.textContent = L.downloading;
       var url = PASOLA_API + '/api/dossier/download/' + encodeURIComponent(key) + '?token=' + encodeURIComponent(token);
-      // Trigger native download
       window.location.href = url;
       setTimeout(function () {
         btn.removeAttribute('disabled');
