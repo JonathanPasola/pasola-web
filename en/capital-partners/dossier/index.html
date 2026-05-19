@@ -55,6 +55,27 @@
   .dossier-error h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: #C44A2C; margin: 0 0 16px; }
   .dossier-error p { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.6; color: #1A2C3D; margin: 0 auto 24px; max-width: 480px; }
   .dossier-error-link { display: inline-block; margin-top: 16px; font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6F7E; text-decoration: none; border-bottom: 1px solid rgba(92,111,126,0.4); padding-bottom: 2px; }
+
+  /* Footer indigo canonique data room (référence cap-table.html) */
+  .doc-foot-indigo { background: #1A2C3D; color: #FAF8F4; padding: 28px var(--section-pad-x, 12px) 20px; margin-top: 56px; }
+  @media (min-width: 769px) { .doc-foot-indigo { padding: 36px var(--section-pad-x, 24px) 24px; } }
+  .doc-foot-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 769px) { .doc-foot-grid { grid-template-columns: 1fr 1fr 1fr; gap: 32px; } }
+  .doc-foot-grid > div:nth-child(1) { text-align: left; }
+  .doc-foot-grid > div:nth-child(2) { text-align: center; }
+  .doc-foot-grid > div:nth-child(3) { text-align: right; }
+  @media (max-width: 768px) { .doc-foot-grid > div:nth-child(2), .doc-foot-grid > div:nth-child(3) { text-align: left; } }
+  .doc-foot-col-label { font-family: 'Outfit', sans-serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #C7A574; margin: 0 0 6px; font-weight: 400; }
+  .doc-foot-col-body { font-family: 'Cormorant Garamond', serif; font-size: 12.5px; line-height: 1.55; color: rgba(250, 248, 244, 0.88); margin: 0; }
+  .doc-foot-col-body strong { color: #FAF8F4; font-weight: 500; }
+  .doc-foot-bottom { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(199, 165, 116, 0.15); display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
+  @media (min-width: 769px) { .doc-foot-bottom { flex-direction: row; justify-content: space-between; text-align: left; } }
+  .doc-foot-copy { font-family: 'Outfit', sans-serif; font-size: 9px; letter-spacing: 0.20em; text-transform: uppercase; color: rgba(250, 248, 244, 0.50); }
+  .doc-foot-utility { font-family: 'Outfit', sans-serif; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+  @media (min-width: 769px) { .doc-foot-utility { justify-content: flex-end; } }
+  .doc-foot-utility a { color: rgba(250, 248, 244, 0.78); text-decoration: none; transition: color 0.15s ease; }
+  .doc-foot-utility a:hover, .doc-foot-utility a:focus-visible { color: #C7A574; outline: none; }
+  .doc-foot-utility [aria-hidden="true"] { color: rgba(250, 248, 244, 0.30); }
 </style>
 </head>
 <body>
@@ -107,26 +128,36 @@
   </div>
 </main>
 
-<footer class="site-footer" role="contentinfo">
-  <div class="footer-inner">
-    <div class="footer-meta">
-      <span>© 2026 PASOLA Signature Estate · Sumba, Indonesia</span>
-      <div class="footer-contact">
-        <a href="mailto:contact@pasola.fr?subject=Capital%20Partners%20%E2%80%94%20Question%20on%20the%20dossier" data-mailcopy="contact@pasola.fr">contact@pasola.fr</a>
-      </div>
-      <div class="footer-legal">
-        <a href="/en/legal/">Legal notice</a>
-        <span aria-hidden="true">·</span>
-        <a href="/en/privacy/">Privacy</a>
-        <span aria-hidden="true">·</span>
-        <a href="/en/cookies/">Cookies</a>
-      </div>
-      <div class="footer-language">
-        <a href="/capital-partners/dossier/">Français</a>
-        <span aria-hidden="true">·</span>
-        <a href="/en/capital-partners/dossier/" aria-current="true">English</a>
-      </div>
+<footer class="doc-foot-indigo" role="contentinfo">
+  <div class="doc-foot-grid">
+    <div>
+      <p class="doc-foot-col-label">Document</p>
+      <p class="doc-foot-col-body"><strong>Capital Partners Dossier</strong> · v.20260519</p>
     </div>
+    <div>
+      <p class="doc-foot-col-label">Recipient</p>
+      <p class="doc-foot-col-body"><strong id="doc-foot-name">—</strong> · <span id="doc-foot-email">—</span></p>
+    </div>
+    <div>
+      <p class="doc-foot-col-label">Legal</p>
+      <p class="doc-foot-col-body">Indicative · non-binding · Subject to definitive documentation</p>
+    </div>
+  </div>
+  <div class="doc-foot-bottom">
+    <span class="doc-foot-copy">© 2026 PASOLA Signature Estate · Issued <span id="doc-foot-date">—</span></span>
+    <span class="doc-foot-utility">
+      <a href="mailto:contact@pasola.fr?subject=Capital%20Partners%20%E2%80%94%20Question%20on%20the%20dossier" data-mailcopy="contact@pasola.fr">contact@pasola.fr</a>
+      <span aria-hidden="true">·</span>
+      <a href="/en/legal/">Legal notice</a>
+      <span aria-hidden="true">·</span>
+      <a href="/en/privacy/">Privacy</a>
+      <span aria-hidden="true">·</span>
+      <a href="/en/cookies/">Cookies</a>
+      <span aria-hidden="true">·</span>
+      <a href="/capital-partners/dossier/">Français</a>
+      <span aria-hidden="true">·</span>
+      <a href="/en/capital-partners/dossier/" aria-current="true">English</a>
+    </span>
   </div>
 </footer>
 
@@ -176,6 +207,14 @@
 
     document.getElementById('dossier-welcome-title').textContent = L.welcome(data.first_name);
     document.getElementById('dossier-expires').textContent = L.expires(fmtDate(data.expires_at));
+
+    // Footer indigo — inject recipient + issue date
+    var footName = document.getElementById('doc-foot-name');
+    var footEmail = document.getElementById('doc-foot-email');
+    var footDate = document.getElementById('doc-foot-date');
+    if (footName) footName.textContent = data.name || '—';
+    if (footEmail) footEmail.textContent = data.email || '—';
+    if (footDate) footDate.textContent = new Date().toLocaleDateString(LANG === 'fr' ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
     var list = document.getElementById('dossier-files');
     list.innerHTML = '';
