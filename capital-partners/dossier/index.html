@@ -99,7 +99,7 @@
       <ul class="dossier-files" id="dossier-files"></ul>
 
       <div class="dossier-notice">
-        <p>Chaque téléchargement est tracé. Ce lien d'accès est strictement personnel et nominatif — merci de ne pas le partager. Pour toute question ou si le lien expire, <a href="mailto:contact@pasola.fr?subject=Capital%20Partners%20%E2%80%94%20Question%20sur%20le%20dossier" data-mailcopy="contact@pasola.fr" style="color:#C44A2C;text-decoration:underline;text-decoration-thickness:0.5px;text-underline-offset:3px;">écrivez-nous directement</a>.</p>
+        <p>Chaque téléchargement est tracé. Ce lien d'accès est strictement personnel et nominatif — merci de ne pas le partager. Pour toute question ou si le lien expire, écrivez-nous directement.</p>
       </div>
     </div>
 
@@ -116,6 +116,9 @@
   <div class="footer-inner">
     <div class="footer-meta">
       <span>© 2026 PASOLA Signature Estate · Sumba, Indonésie</span>
+      <div class="footer-contact">
+        <a href="mailto:contact@pasola.fr?subject=Capital%20Partners%20%E2%80%94%20Question%20sur%20le%20dossier" data-mailcopy="contact@pasola.fr">contact@pasola.fr</a>
+      </div>
       <div class="footer-legal">
         <a href="/legal/">Mentions légales</a>
         <span aria-hidden="true">·</span>
@@ -181,8 +184,19 @@
 
     var list = document.getElementById('dossier-files');
     list.innerHTML = '';
-    // Landing FR : filtrer pour n'afficher QUE les docs FR (clés se terminant par -fr.html)
-    var filtered = (data.files || []).filter(function (f) { return f.key.endsWith('-fr.html'); });
+    // Landing FR : 10 types de docs avec préférence FR + fallback EN
+    // Pour chaque doc EN, on regarde si la version FR existe (clé + '-fr.html')
+    // Si OUI → on prend la FR. Si NON → on garde la EN.
+    var allFiles = data.files || [];
+    var enDocs = allFiles.filter(function(f) { return !f.key.endsWith('-fr.html'); });
+    var frKeys = new Set(allFiles.filter(function(f) { return f.key.endsWith('-fr.html'); }).map(function(f) { return f.key; }));
+    var filtered = enDocs.map(function(en) {
+      var frKey = en.key.replace(/\.html$/, '-fr.html');
+      if (frKeys.has(frKey)) {
+        return allFiles.find(function(f) { return f.key === frKey; });
+      }
+      return en;
+    });
     filtered.forEach(function (f) {
       var mode = f.mode || 'download';
       var li = document.createElement('li');
