@@ -176,7 +176,9 @@
 
     var list = document.getElementById('dossier-files');
     list.innerHTML = '';
-    (data.files || []).forEach(function (f) {
+    // Landing EN : filter to show ONLY English docs (exclude -fr.html keys)
+    var filtered = (data.files || []).filter(function (f) { return !f.key.endsWith('-fr.html'); });
+    filtered.forEach(function (f) {
       var mode = f.mode || 'download';
       var li = document.createElement('li');
       li.className = 'dossier-file';

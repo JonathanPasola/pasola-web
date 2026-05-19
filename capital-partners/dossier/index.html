@@ -181,7 +181,9 @@
 
     var list = document.getElementById('dossier-files');
     list.innerHTML = '';
-    (data.files || []).forEach(function (f) {
+    // Landing FR : filtrer pour n'afficher QUE les docs FR (clés se terminant par -fr.html)
+    var filtered = (data.files || []).filter(function (f) { return f.key.endsWith('-fr.html'); });
+    filtered.forEach(function (f) {
       var mode = f.mode || 'download';
       var li = document.createElement('li');
       li.className = 'dossier-file';
