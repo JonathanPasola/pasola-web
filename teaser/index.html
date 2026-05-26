@@ -136,43 +136,64 @@ body {
   max-width: 460px;
 }
 
-/* CHAPTER (slides 2, INVITE) */
-.slide.chapter .slide-content {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 12vh 8vw 14vh;
+/* SPLIT-H CHAPTER (slide 2 ARRIVER — fidèle au pattern deck) */
+.slide.split-h-chapter {
+  background: var(--ivory);
+  flex-direction: column;
+  padding: 0;
 }
-.ch-num {
+.split-h-img {
+  position: relative;
+  height: 55vh;
+  height: 55dvh;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.split-h-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(26,44,61,0.05) 0%, rgba(26,44,61,0.30) 100%);
+}
+.split-h-text {
+  flex: 1;
+  background: var(--ivory);
+  padding: 8vh 8vw 6vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.split-h-eyebrow {
   font-family: var(--font-sans);
   font-size: clamp(9px, 2.2vw, 11px);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--terra);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
-.ch-name {
+.split-h-name {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(28px, 8vw, 56px);
-  letter-spacing: 0.24em;
-  color: var(--ivory);
-  margin-bottom: 24px;
-  padding-left: 0.24em;
+  font-size: clamp(24px, 7vw, 38px);
+  letter-spacing: 0.20em;
+  color: var(--indigo);
+  margin-bottom: 14px;
+  padding-left: 0.20em;
   line-height: 1.1;
 }
-.ch-divider {
-  width: 50px; height: 2px;
+.split-h-divider {
+  width: 44px; height: 2px;
   background: var(--terra);
-  margin: 0 auto 24px;
+  margin-bottom: 16px;
 }
-.ch-tagline {
+.split-h-tagline {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 300;
-  font-size: clamp(16px, 4.2vw, 22px);
-  line-height: 1.45;
-  color: rgba(250,248,244,0.90);
+  font-weight: 400;
+  font-size: clamp(14.5px, 3.6vw, 17.5px);
+  line-height: 1.5;
+  color: var(--dusk);
   max-width: 540px;
 }
 
@@ -436,7 +457,7 @@ body {
 
 <div class="topbar">
   <span class="topbar-brand">P A S O L A</span>
-  <span class="topbar-counter" id="counter">01 / 06</span>
+  <span class="topbar-counter" id="counter">01 / 05</span>
 </div>
 
 <div class="deck" id="deck">
@@ -457,14 +478,13 @@ body {
     <span class="scroll-hint">Glissez vers le haut</span>
   </section>
 
-  <section class="slide chapter" data-bg="dark">
-    <div class="slide-bg chapter" style="background-image:url('img/deck-image3.png');"></div>
-    <div class="slide-veil heavy"></div>
-    <div class="slide-content">
-      <p class="ch-num">Chapitre 1</p>
-      <h2 class="ch-name">A R R I V E R</h2>
-      <div class="ch-divider"></div>
-      <p class="ch-tagline">Vous atterrissez à Tambolaka. La route se déploie le long d'un littoral encore intact. Quelque chose se produit — vous le ressentez avant de le comprendre.</p>
+  <section class="slide split-h-chapter" data-bg="light">
+    <div class="split-h-img" style="background-image:url('img/deck-image3.png');"></div>
+    <div class="split-h-text">
+      <p class="split-h-eyebrow">Chapitre 1</p>
+      <h2 class="split-h-name">A R R I V E R</h2>
+      <div class="split-h-divider"></div>
+      <p class="split-h-tagline">Vous atterrissez à Tambolaka. La route se déploie le long d'un littoral encore intact. Quelque chose se produit — vous le ressentez avant de le comprendre.</p>
     </div>
   </section>
 
@@ -506,17 +526,6 @@ body {
         </div>
       </div>
       <p class="spirit-footer">Ces trois lignes guident les décisions architecturales avant qu'aucun plan ne soit tracé. Elles sont la raison pour laquelle PASOLA ne peut être bâti ailleurs, et pour laquelle cette île ne peut être répliquée.</p>
-    </div>
-  </section>
-
-  <section class="slide chapter" data-bg="dark">
-    <div class="slide-bg chapter" style="background-image:url('img/deck-48-meet.jpg');"></div>
-    <div class="slide-veil heavy"></div>
-    <div class="slide-content">
-      <p class="ch-num">Chapitre 7</p>
-      <h2 class="ch-name">I N V I T E R</h2>
-      <div class="ch-divider"></div>
-      <p class="ch-tagline">Retrouvons-nous sur la terre. Parcourir le littoral. Partager un repas. Les chiffres peuvent être envoyés. Le lieu doit être ressenti.</p>
     </div>
   </section>
 
