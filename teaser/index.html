@@ -136,14 +136,29 @@ body {
   max-width: 460px;
 }
 
-/* CHAPTER (slide 2 ARRIVER) */
-.slide.chapter .slide-content {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 12vh 8vw 14vh;
+/* SPLIT-H CHAPTER (slide 2 ARRIVER — verbatim deck : photo top + ivory bottom CENTERED) */
+.slide.split-h-chapter {
+  background: var(--ivory);
+  flex-direction: column;
+  padding: 0;
 }
-.ch-num {
+.split-h-img {
+  height: 60vh;
+  height: 60dvh;
+  background-size: cover;
+  background-position: center;
+}
+.split-h-text {
+  flex: 1;
+  background: var(--ivory);
+  padding: 5vh 7vw 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.split-h-eyebrow {
   font-family: var(--font-sans);
   font-size: clamp(9px, 2.2vw, 11px);
   letter-spacing: 0.32em;
@@ -151,29 +166,38 @@ body {
   color: var(--terra);
   margin-bottom: 14px;
 }
-.ch-name {
+.split-h-name {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(28px, 8vw, 56px);
+  font-size: clamp(26px, 8vw, 50px);
   letter-spacing: 0.24em;
-  color: var(--ivory);
-  margin-bottom: 24px;
+  color: var(--indigo);
+  margin-bottom: 16px;
   padding-left: 0.24em;
   line-height: 1.1;
 }
-.ch-divider {
+.split-h-divider {
   width: 50px; height: 2px;
   background: var(--terra);
-  margin: 0 auto 24px;
+  margin-bottom: 18px;
 }
-.ch-tagline {
+.split-h-tagline {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 300;
-  font-size: clamp(16px, 4.2vw, 22px);
-  line-height: 1.45;
-  color: rgba(250,248,244,0.90);
+  font-weight: 400;
+  font-size: clamp(14.5px, 3.6vw, 18px);
+  line-height: 1.5;
+  color: var(--dusk);
   max-width: 540px;
+  margin-bottom: 18px;
+}
+.split-h-progress {
+  font-family: var(--font-sans);
+  font-size: clamp(8.5px, 2.1vw, 10px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  opacity: 0.65;
 }
 
 /* ETYMOLOGY (slide 4) — dark indigo no photo */
@@ -570,14 +594,14 @@ body {
     <span class="scroll-hint">Glissez vers le haut</span>
   </section>
 
-  <section class="slide chapter" data-bg="dark">
-    <div class="slide-bg chapter" style="background-image:url('img/deck-image3.png');"></div>
-    <div class="slide-veil heavy"></div>
-    <div class="slide-content">
-      <p class="ch-num">Chapitre 1</p>
-      <h2 class="ch-name">A R R I V E R</h2>
-      <div class="ch-divider"></div>
-      <p class="ch-tagline">Vous atterrissez à Tambolaka. La route se déploie le long d'un littoral encore intact. Quelque chose se produit — vous le ressentez avant de le comprendre.</p>
+  <section class="slide split-h-chapter" data-bg="light">
+    <div class="split-h-img" style="background-image:url('img/deck-image3.png');"></div>
+    <div class="split-h-text">
+      <p class="split-h-eyebrow">Chapitre 1</p>
+      <h2 class="split-h-name">A R R I V E R</h2>
+      <div class="split-h-divider"></div>
+      <p class="split-h-tagline">Vous atterrissez à Tambolaka. La route se déploie le long d'un littoral encore intact. Quelque chose se produit — vous le ressentez avant de le comprendre.</p>
+      <p class="split-h-progress">Chapitre 1 sur 7</p>
     </div>
   </section>
 
