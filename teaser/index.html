@@ -136,64 +136,43 @@ body {
   max-width: 460px;
 }
 
-/* SPLIT-H CHAPTER (slide 2 ARRIVER — fidèle au pattern deck) */
-.slide.split-h-chapter {
-  background: var(--ivory);
-  flex-direction: column;
-  padding: 0;
-}
-.split-h-img {
-  position: relative;
-  height: 55vh;
-  height: 55dvh;
-  background-size: cover;
-  background-position: center;
-  z-index: 0;
-}
-.split-h-img::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(26,44,61,0.05) 0%, rgba(26,44,61,0.30) 100%);
-}
-.split-h-text {
-  flex: 1;
-  background: var(--ivory);
-  padding: 8vh 8vw 6vh;
-  display: flex;
-  flex-direction: column;
+/* CHAPTER (slide 2 ARRIVER) */
+.slide.chapter .slide-content {
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
+  text-align: center;
+  padding: 12vh 8vw 14vh;
 }
-.split-h-eyebrow {
+.ch-num {
   font-family: var(--font-sans);
   font-size: clamp(9px, 2.2vw, 11px);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--terra);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
-.split-h-name {
+.ch-name {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(24px, 7vw, 38px);
-  letter-spacing: 0.20em;
-  color: var(--indigo);
-  margin-bottom: 14px;
-  padding-left: 0.20em;
+  font-size: clamp(28px, 8vw, 56px);
+  letter-spacing: 0.24em;
+  color: var(--ivory);
+  margin-bottom: 24px;
+  padding-left: 0.24em;
   line-height: 1.1;
 }
-.split-h-divider {
-  width: 44px; height: 2px;
+.ch-divider {
+  width: 50px; height: 2px;
   background: var(--terra);
-  margin-bottom: 16px;
+  margin: 0 auto 24px;
 }
-.split-h-tagline {
+.ch-tagline {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 400;
-  font-size: clamp(14.5px, 3.6vw, 17.5px);
-  line-height: 1.5;
-  color: var(--dusk);
+  font-weight: 300;
+  font-size: clamp(16px, 4.2vw, 22px);
+  line-height: 1.45;
+  color: rgba(250,248,244,0.90);
   max-width: 540px;
 }
 
@@ -591,13 +570,14 @@ body {
     <span class="scroll-hint">Glissez vers le haut</span>
   </section>
 
-  <section class="slide split-h-chapter" data-bg="light">
-    <div class="split-h-img" style="background-image:url('img/deck-image3.png');"></div>
-    <div class="split-h-text">
-      <p class="split-h-eyebrow">Chapitre 1</p>
-      <h2 class="split-h-name">A R R I V E R</h2>
-      <div class="split-h-divider"></div>
-      <p class="split-h-tagline">Vous atterrissez à Tambolaka. La route se déploie le long d'un littoral encore intact. Quelque chose se produit — vous le ressentez avant de le comprendre.</p>
+  <section class="slide chapter" data-bg="dark">
+    <div class="slide-bg chapter" style="background-image:url('img/deck-image3.png');"></div>
+    <div class="slide-veil heavy"></div>
+    <div class="slide-content">
+      <p class="ch-num">Chapitre 1</p>
+      <h2 class="ch-name">A R R I V E R</h2>
+      <div class="ch-divider"></div>
+      <p class="ch-tagline">Vous atterrissez à Tambolaka. La route se déploie le long d'un littoral encore intact. Quelque chose se produit — vous le ressentez avant de le comprendre.</p>
     </div>
   </section>
 
@@ -680,7 +660,7 @@ body {
     <div class="slide-content">
       <p class="q-eyebrow">Chapitre 7 · Invitation</p>
       <p class="q-mark">&laquo;</p>
-      <p class="q-text">Les chiffres peuvent être envoyés. Le lieu doit être ressenti. Nous vous invitons à Sumba — pour parcourir le littoral, partager un repas, lire l'architecture contre la terre qui l'a façonnée.</p>
+      <p class="q-text">Les chiffres peuvent être envoyés — sous accord de confidentialité. Avant cela, un premier échange pour faire connaissance, et une présentation complète du projet.</p>
       <div class="q-rule"></div>
       <p class="q-signature">Jennifer Marquet-Béraud · Jonathan Béraud · Les fondateurs</p>
       <div class="q-footer">
