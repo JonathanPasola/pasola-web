@@ -261,7 +261,120 @@ body {
   color: rgba(250,248,244,0.50);
 }
 
-/* SPIRIT (slide 4) — auto height to allow internal scroll for 3 items */
+/* CARDS-OPTIONS (slide 4 — Le projet, verbatim deck slide 5) */
+.slide.cards-options {
+  background: var(--ivory);
+  height: auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.slide.cards-options .slide-content {
+  padding: 11vh 7vw 12vh;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.cards-eyebrow {
+  font-family: var(--font-sans);
+  font-size: clamp(9px, 2.2vw, 11px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 10px;
+}
+.cards-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(24px, 6vw, 32px);
+  line-height: 1.18;
+  color: var(--indigo);
+  margin-bottom: 12px;
+}
+.cards-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(14px, 3.4vw, 17px);
+  line-height: 1.55;
+  color: var(--dusk);
+  margin-bottom: 26px;
+  max-width: 580px;
+}
+.cards-grid-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+.card {
+  border-top: 1px solid rgba(196,74,44,0.30);
+  padding: 18px 0 4px;
+}
+.card-label {
+  font-family: var(--font-sans);
+  font-size: clamp(8.5px, 2.1vw, 10px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(20px, 5.4vw, 26px);
+  letter-spacing: 0.06em;
+  color: var(--indigo);
+  margin-bottom: 8px;
+  line-height: 1.18;
+}
+.card-total {
+  font-family: var(--font-serif);
+  font-size: clamp(14px, 3.4vw, 16px);
+  color: var(--indigo);
+  margin-bottom: 4px;
+}
+.card-total-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(13px, 3.2vw, 15px);
+  line-height: 1.45;
+  color: var(--dusk);
+  margin-bottom: 12px;
+}
+.card-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(26,44,61,0.08);
+}
+.card-metric-label {
+  font-family: var(--font-sans);
+  font-size: clamp(8.5px, 2vw, 10px);
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  margin-bottom: 4px;
+}
+.card-metric-value {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(14px, 3.4vw, 17px);
+  color: var(--indigo);
+  letter-spacing: 0.04em;
+}
+.cards-footer {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(12.5px, 3vw, 14px);
+  line-height: 1.5;
+  color: var(--dusk);
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(26,44,61,0.10);
+  max-width: 580px;
+}
+
+/* SPIRIT (slide 5) — auto height to allow internal scroll for 3 items */
 .slide.spirit {
   background: var(--ivory);
   height: auto;
@@ -457,7 +570,7 @@ body {
 
 <div class="topbar">
   <span class="topbar-brand">P A S O L A</span>
-  <span class="topbar-counter" id="counter">01 / 05</span>
+  <span class="topbar-counter" id="counter">01 / 06</span>
 </div>
 
 <div class="deck" id="deck">
@@ -497,6 +610,38 @@ body {
       <p class="ety-body">Un rituel qui traverse les siècles sur cette île. Chaque année, des cavaliers s'affrontent à travers les rizières, lances de bois en main — un rite mesuré, à la rencontre de la récolte et de la pluie. La fête précède les cartes coloniales et perdure aujourd'hui.</p>
       <p class="ety-line">Nous avons emprunté le nom, pas le rite. Le domaine honore ce qui l'a précédé — la retenue plutôt que le spectacle, la présence plutôt que la performance.</p>
       <p class="ety-foot">Sumba · Côte sud-ouest · XVIᵉ siècle → aujourd'hui</p>
+    </div>
+  </section>
+
+  <section class="slide cards-options" data-bg="light">
+    <div class="slide-content">
+      <p class="cards-eyebrow">En un cadre</p>
+      <h2 class="cards-title">Ce que PASOLA est.</h2>
+      <p class="cards-sub">Une plateforme capitalistique phasée sur 15,3 hectares de littoral titré à Sumba. Vingt-et-une résidences freehold en Phase 1, un boutique resort en Phase 2 — un actif intégré sur plusieurs décennies.</p>
+      <div class="cards-grid-3">
+        <div class="card">
+          <p class="card-label">Le foncier</p>
+          <h3 class="card-title">15,3 hectares</h3>
+          <p class="card-total">Une parcelle unique en bord de plage</p>
+          <p class="card-total-label">Côte sud-ouest de Sumba · HGB 80 ans</p>
+          <div class="card-metrics">
+            <div><p class="card-metric-label">Surface</p><p class="card-metric-value">152 783 m²</p></div>
+            <div><p class="card-metric-label">Titre</p><p class="card-metric-value">Sécurisé</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <p class="card-label">Phase 1</p>
+          <h3 class="card-title">21 résidences freehold</h3>
+          <p class="card-total">Deux zones nommées</p>
+          <p class="card-total-label">The Hill above the bay, The Private Bay along the coastline — un rythme architectural partagé sur l'estate.</p>
+        </div>
+        <div class="card">
+          <p class="card-label">Phase 2 · 2027+</p>
+          <h3 class="card-title">Resort + résidences signature</h3>
+          <p class="card-total">Horizon d'extension</p>
+          <p class="card-total-label">Boutique resort financé indépendamment — programme distinct à horizon 2027+.</p>
+        </div>
+      </div>
     </div>
   </section>
 
