@@ -3371,6 +3371,38 @@ section {
 .card-modal-body p:last-child { margin-bottom: 0; }
 body.modal-open { overflow: hidden; }
 
+/* Pending photo overlay (Private Bay : visual coming soon) */
+.aman-card-media-pending {
+  position: relative;
+}
+.aman-card-media-pending img {
+  filter: brightness(0.62) saturate(0.7);
+}
+.aman-card-media-pending::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(26,44,61,0.40) 0%, rgba(26,44,61,0.55) 100%);
+  pointer-events: none;
+}
+.aman-card-pending-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ivory);
+  padding: 8px 18px;
+  border: 1px solid rgba(250, 248, 244, 0.55);
+  background: rgba(26, 44, 61, 0.35);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  white-space: nowrap;
+}
+
 /* Zone modals — map figure */
 .card-modal-zone { max-width: 720px; }
 .card-modal-map {
