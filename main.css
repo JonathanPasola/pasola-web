@@ -411,6 +411,30 @@ p { overflow-wrap: break-word; }
 .nav-overlay-primary li a:hover,
 .nav-overlay-primary li a:focus { color: var(--terra); }
 
+/* Capital Partners — entrée privée différenciée */
+.nav-overlay-primary li.nav-private {
+  margin-top: 14px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(199, 165, 116, 0.30);
+}
+.nav-overlay-primary li.nav-private a {
+  color: var(--terra);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.nav-overlay-primary li.nav-private a:hover,
+.nav-overlay-primary li.nav-private a:focus { color: var(--indigo); }
+.nav-private-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  font-weight: 400;
+  display: block;
+}
+
 .nav-overlay-secondary {
   gap: 14px;
   padding-top: 32px;
