@@ -296,7 +296,7 @@ aria-hidden="true"
 <span class="aman-card-eyebrow">Pasola</span>
 <h3 class="aman-card-feature-title">La tradition équestre.</h3>
 <p class="aman-card-feature-desc">Tradition équestre ancestrale de la côte sud-ouest, tenue de génération en génération.</p>
-<a class="aman-card-link" href="#esprit">Découvrir</a>
+<a class="aman-card-link" href="#esprit" data-card-modal="pasola">Découvrir</a>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -306,7 +306,7 @@ aria-hidden="true"
 <span class="aman-card-eyebrow">Hinggi</span>
 <h3 class="aman-card-feature-title">Le geste tissé.</h3>
 <p class="aman-card-feature-desc">Coton teint à la racine, motifs et couleurs appartiennent à un lignage — chaque pièce porte la mémoire d'un clan.</p>
-<a class="aman-card-link" href="#esprit">Découvrir</a>
+<a class="aman-card-link" href="#esprit" data-card-modal="hinggi">Découvrir</a>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -316,7 +316,7 @@ aria-hidden="true"
 <span class="aman-card-eyebrow">Architecture</span>
 <h3 class="aman-card-feature-title">Les toitures coniques.</h3>
 <p class="aman-card-feature-desc">Les Uma Bokulu, signatures du paysage bâti sumbanais, élèvent leur silhouette pointue dans le ciel.</p>
-<a class="aman-card-link" href="#esprit">Découvrir</a>
+<a class="aman-card-link" href="#esprit" data-card-modal="architecture">Découvrir</a>
 </article>
 
 </div>
@@ -413,7 +413,7 @@ aria-hidden="true"
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Altitude</span><span class="aman-card-meta-value">60–100 m</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Exposition</span><span class="aman-card-meta-value">Sud</span></div>
 </div>
-<a class="aman-card-link" href="#residences">Découvrir la zone</a>
+<a class="aman-card-link" href="#residences" data-card-modal="zone-hill">Découvrir la zone</a>
 </article>
 
 <article class="aman-card">
@@ -428,7 +428,7 @@ aria-hidden="true"
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Altitude</span><span class="aman-card-meta-value">5–15 m</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Exposition</span><span class="aman-card-meta-value">Sud / SSO</span></div>
 </div>
-<a class="aman-card-link" href="#residences">Découvrir la zone</a>
+<a class="aman-card-link" href="#residences" data-card-modal="zone-beachfront">Découvrir la zone</a>
 </article>
 
 <article class="aman-card">
@@ -443,7 +443,7 @@ aria-hidden="true"
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Altitude</span><span class="aman-card-meta-value">30–60 m</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Exposition</span><span class="aman-card-meta-value">Sud-ouest</span></div>
 </div>
-<a class="aman-card-link" href="#residences">Découvrir la zone</a>
+<a class="aman-card-link" href="#residences" data-card-modal="zone-bay">Découvrir la zone</a>
 </article>
 
 </div>
@@ -810,6 +810,86 @@ aria-hidden="true"
    aria-label="Échangeons — prendre rendez-vous avec PASOLA">
 Échangeons <span class="arrow" aria-hidden="true">→</span>
 </a>
+
+<!-- Card modals — Esprit de Sumba + Résidences zones -->
+<div class="card-modal-backdrop" aria-hidden="true">
+
+  <div class="card-modal" data-modal-id="pasola" role="dialog" aria-modal="true" aria-labelledby="modal-pasola-title">
+    <button class="card-modal-close" aria-label="Fermer">×</button>
+    <p class="card-modal-eyebrow">Pasola · Le rite saisonnier</p>
+    <h2 class="card-modal-title" id="modal-pasola-title">La tradition équestre.</h2>
+    <div class="card-modal-divider"></div>
+    <div class="card-modal-body">
+      <p>Chaque année, sur la côte sud-ouest, la fête à laquelle le domaine emprunte son nom se déploie à la rencontre de la récolte et de la pluie. Des cavaliers s'affrontent à travers les rizières, lances de bois en main — un rite mesuré qui précède les cartes coloniales et perdure aujourd'hui.</p>
+      <p>Le domaine honore la cadence — mesurée, patiente, en saison — jamais le spectacle. Nous avons emprunté le nom, pas le rite : la retenue plutôt que la performance, la présence plutôt que la démonstration.</p>
+    </div>
+  </div>
+
+  <div class="card-modal" data-modal-id="hinggi" role="dialog" aria-modal="true" aria-labelledby="modal-hinggi-title">
+    <button class="card-modal-close" aria-label="Fermer">×</button>
+    <p class="card-modal-eyebrow">Hinggi · L'héritage tissé</p>
+    <h2 class="card-modal-title" id="modal-hinggi-title">Le geste tissé.</h2>
+    <div class="card-modal-divider"></div>
+    <div class="card-modal-body">
+      <p>Un langage textile transmis à la main, de génération en génération. Indigo sur coton, motifs de chevaux et de crocodiles, géométries inchangées depuis le XVIᵉ siècle. Chaque pièce appartient à un lignage — couleurs et motifs portent la mémoire d'un clan.</p>
+      <p>Chaque intérieur PASOLA en porte un — jamais comme ornement, toujours comme transmission. Le hinggi entre dans la résidence comme un héritage, non comme une décoration.</p>
+    </div>
+  </div>
+
+  <div class="card-modal" data-modal-id="architecture" role="dialog" aria-modal="true" aria-labelledby="modal-architecture-title">
+    <button class="card-modal-close" aria-label="Fermer">×</button>
+    <p class="card-modal-eyebrow">Architecture · Uma — le toit en pointe</p>
+    <h2 class="card-modal-title" id="modal-architecture-title">Les toitures coniques.</h2>
+    <div class="card-modal-divider"></div>
+    <div class="card-modal-body">
+      <p>La maison sumbanaise traditionnelle — l'Uma Bokulu — s'élève en chaume alang-alang vers une pointe centrale aiguë, ancrant les familles à travers les siècles. Sa silhouette est la signature du paysage bâti sumbanais.</p>
+      <p>L'architecture de PASOLA en étudie la silhouette et le geste, jamais la copie — la retenue plutôt que l'imitation. Le vocabulaire local informe chaque résidence sans devenir une citation.</p>
+    </div>
+  </div>
+
+  <div class="card-modal card-modal-zone" data-modal-id="zone-hill" role="dialog" aria-modal="true" aria-labelledby="modal-zone-hill-title">
+    <button class="card-modal-close" aria-label="Fermer">×</button>
+    <p class="card-modal-eyebrow">01 · Crête boisée</p>
+    <h2 class="card-modal-title" id="modal-zone-hill-title">The Hill</h2>
+    <div class="card-modal-divider"></div>
+    <figure class="card-modal-map">
+      <img src="/assets/pasola-map.jpg" alt="Plan du domaine PASOLA — The Hill (crête boisée)" loading="lazy" />
+      <figcaption>The Hill — crête boisée, inscrite dans la ligne des collines. Altitude 60–100 m, exposition sud.</figcaption>
+    </figure>
+    <div class="card-modal-body">
+      <p>Six résidences en belvédère sur la crête. Horizon marin ouvert, lumière basse de fin de journée, retrait volontaire.</p>
+    </div>
+  </div>
+
+  <div class="card-modal card-modal-zone" data-modal-id="zone-beachfront" role="dialog" aria-modal="true" aria-labelledby="modal-zone-beachfront-title">
+    <button class="card-modal-close" aria-label="Fermer">×</button>
+    <p class="card-modal-eyebrow">02 · Front de mer</p>
+    <h2 class="card-modal-title" id="modal-zone-beachfront-title">The Beachfront</h2>
+    <div class="card-modal-divider"></div>
+    <figure class="card-modal-map">
+      <img src="/assets/pasola-map.jpg" alt="Plan du domaine PASOLA — The Beachfront (front de mer)" loading="lazy" />
+      <figcaption>The Beachfront — distance mesurée du littoral, accès direct au rivage. Altitude 5–15 m, exposition sud / SSO.</figcaption>
+    </figure>
+    <div class="card-modal-body">
+      <p>Quatre résidences inscrites dans la rythmique de la côte. Horizon dégagé, lumière du matin.</p>
+    </div>
+  </div>
+
+  <div class="card-modal card-modal-zone" data-modal-id="zone-bay" role="dialog" aria-modal="true" aria-labelledby="modal-zone-bay-title">
+    <button class="card-modal-close" aria-label="Fermer">×</button>
+    <p class="card-modal-eyebrow">03 · Baie protégée</p>
+    <h2 class="card-modal-title" id="modal-zone-bay-title">The Private Bay</h2>
+    <div class="card-modal-divider"></div>
+    <figure class="card-modal-map">
+      <img src="/assets/pasola-map.jpg" alt="Plan du domaine PASOLA — The Private Bay (baie protégée)" loading="lazy" />
+      <figcaption>The Private Bay — position dominante sur le promontoire, surplombant la baie protégée. Altitude 30–60 m, exposition sud-ouest.</figcaption>
+    </figure>
+    <div class="card-modal-body">
+      <p>Onze résidences en acoustique retenue, lumière de fin d'après-midi, silence.</p>
+    </div>
+  </div>
+
+</div>
 
 <script src="/main.js" defer></script>
 

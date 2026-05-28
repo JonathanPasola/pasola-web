@@ -296,7 +296,7 @@ aria-hidden="true"
 <span class="aman-card-eyebrow">Pasola</span>
 <h3 class="aman-card-feature-title">The equestrian rite.</h3>
 <p class="aman-card-feature-desc">An ancestral equestrian tradition of the south-west coast, carried from generation to generation.</p>
-<a class="aman-card-link" href="#esprit">Discover</a>
+<a class="aman-card-link" href="#esprit" data-card-modal="pasola">Discover</a>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -306,7 +306,7 @@ aria-hidden="true"
 <span class="aman-card-eyebrow">Hinggi</span>
 <h3 class="aman-card-feature-title">The woven gesture.</h3>
 <p class="aman-card-feature-desc">Cotton dyed from the root, with motifs and colors that belong to a lineage — each piece carries the memory of a clan.</p>
-<a class="aman-card-link" href="#esprit">Discover</a>
+<a class="aman-card-link" href="#esprit" data-card-modal="hinggi">Discover</a>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -316,7 +316,7 @@ aria-hidden="true"
 <span class="aman-card-eyebrow">Architecture</span>
 <h3 class="aman-card-feature-title">The conical roofs.</h3>
 <p class="aman-card-feature-desc">The Uma Bokulu, signatures of Sumbanese built landscape, raise their pointed silhouettes into the sky.</p>
-<a class="aman-card-link" href="#esprit">Discover</a>
+<a class="aman-card-link" href="#esprit" data-card-modal="architecture">Discover</a>
 </article>
 
 </div>
@@ -413,7 +413,7 @@ aria-hidden="true"
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Elevation</span><span class="aman-card-meta-value">60–100 m</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Aspect</span><span class="aman-card-meta-value">South</span></div>
 </div>
-<a class="aman-card-link" href="#residences">Discover the zone</a>
+<a class="aman-card-link" href="#residences" data-card-modal="zone-hill">Discover the zone</a>
 </article>
 
 <article class="aman-card">
@@ -428,7 +428,7 @@ aria-hidden="true"
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Elevation</span><span class="aman-card-meta-value">5–15 m</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Aspect</span><span class="aman-card-meta-value">South / SSW</span></div>
 </div>
-<a class="aman-card-link" href="#residences">Discover the zone</a>
+<a class="aman-card-link" href="#residences" data-card-modal="zone-beachfront">Discover the zone</a>
 </article>
 
 <article class="aman-card">
@@ -443,7 +443,7 @@ aria-hidden="true"
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Elevation</span><span class="aman-card-meta-value">30–60 m</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Aspect</span><span class="aman-card-meta-value">South-west</span></div>
 </div>
-<a class="aman-card-link" href="#residences">Discover the zone</a>
+<a class="aman-card-link" href="#residences" data-card-modal="zone-bay">Discover the zone</a>
 </article>
 
 </div>
@@ -810,6 +810,86 @@ aria-hidden="true"
    aria-label="Let's talk — book a meeting with PASOLA">
 Let's talk <span class="arrow" aria-hidden="true">→</span>
 </a>
+
+<!-- Card modals — Esprit de Sumba + Residences zones -->
+<div class="card-modal-backdrop" aria-hidden="true">
+
+  <div class="card-modal" data-modal-id="pasola" role="dialog" aria-modal="true" aria-labelledby="modal-pasola-title">
+    <button class="card-modal-close" aria-label="Close">×</button>
+    <p class="card-modal-eyebrow">Pasola · The seasonal rite</p>
+    <h2 class="card-modal-title" id="modal-pasola-title">The equestrian rite.</h2>
+    <div class="card-modal-divider"></div>
+    <div class="card-modal-body">
+      <p>Each year, on the south-west coast, the festival from which the estate borrows its name unfolds at the meeting of harvest and rain. Riders on horseback face one another across the rice fields, wooden spears in hand — a measured rite that predates colonial maps and continues today.</p>
+      <p>The estate honours the cadence — measured, patient, in season — never the spectacle. We borrowed the name, not the rite : restraint over performance, presence over display.</p>
+    </div>
+  </div>
+
+  <div class="card-modal" data-modal-id="hinggi" role="dialog" aria-modal="true" aria-labelledby="modal-hinggi-title">
+    <button class="card-modal-close" aria-label="Close">×</button>
+    <p class="card-modal-eyebrow">Hinggi · The woven inheritance</p>
+    <h2 class="card-modal-title" id="modal-hinggi-title">The woven gesture.</h2>
+    <div class="card-modal-divider"></div>
+    <div class="card-modal-body">
+      <p>A textile language transmitted by hand across generations. Indigo on cotton, motifs of horses and crocodiles, geometries unchanged since the 16th century. Each piece belongs to a lineage — colors and patterns carry the memory of a clan.</p>
+      <p>Each PASOLA interior carries one — never as ornament, always as transmission. The hinggi enters the residence as an inheritance, not as decoration.</p>
+    </div>
+  </div>
+
+  <div class="card-modal" data-modal-id="architecture" role="dialog" aria-modal="true" aria-labelledby="modal-architecture-title">
+    <button class="card-modal-close" aria-label="Close">×</button>
+    <p class="card-modal-eyebrow">Architecture · Uma — the high-pitched roof</p>
+    <h2 class="card-modal-title" id="modal-architecture-title">The conical roofs.</h2>
+    <div class="card-modal-divider"></div>
+    <div class="card-modal-body">
+      <p>The traditional Sumbanese house — the Uma Bokulu — rises in alang-alang grass to a sharp central peak, anchoring families across centuries. Its silhouette is the signature of the Sumbanese built landscape.</p>
+      <p>PASOLA's architecture studies the silhouette and the gesture, never copies it — restraint over imitation. The local vocabulary informs each residence without becoming a quote.</p>
+    </div>
+  </div>
+
+  <div class="card-modal card-modal-zone" data-modal-id="zone-hill" role="dialog" aria-modal="true" aria-labelledby="modal-zone-hill-title">
+    <button class="card-modal-close" aria-label="Close">×</button>
+    <p class="card-modal-eyebrow">01 · Wooded ridge</p>
+    <h2 class="card-modal-title" id="modal-zone-hill-title">The Hill</h2>
+    <div class="card-modal-divider"></div>
+    <figure class="card-modal-map">
+      <img src="/assets/pasola-map.jpg" alt="PASOLA estate map — The Hill (wooded ridge)" loading="lazy" />
+      <figcaption>The Hill — wooded ridge, drawn into the line of the hills. Elevation 60–100 m, south aspect.</figcaption>
+    </figure>
+    <div class="card-modal-body">
+      <p>Six residences perched on the ridge. Open ocean horizon, the low light of late day, a deliberate retreat.</p>
+    </div>
+  </div>
+
+  <div class="card-modal card-modal-zone" data-modal-id="zone-beachfront" role="dialog" aria-modal="true" aria-labelledby="modal-zone-beachfront-title">
+    <button class="card-modal-close" aria-label="Close">×</button>
+    <p class="card-modal-eyebrow">02 · Oceanfront</p>
+    <h2 class="card-modal-title" id="modal-zone-beachfront-title">The Beachfront</h2>
+    <div class="card-modal-divider"></div>
+    <figure class="card-modal-map">
+      <img src="/assets/pasola-map.jpg" alt="PASOLA estate map — The Beachfront (oceanfront)" loading="lazy" />
+      <figcaption>The Beachfront — measured distance from the shore, direct access to the beach. Elevation 5–15 m, south / SSW aspect.</figcaption>
+    </figure>
+    <div class="card-modal-body">
+      <p>Four residences attuned to the cadence of the coast. Open horizon, morning light.</p>
+    </div>
+  </div>
+
+  <div class="card-modal card-modal-zone" data-modal-id="zone-bay" role="dialog" aria-modal="true" aria-labelledby="modal-zone-bay-title">
+    <button class="card-modal-close" aria-label="Close">×</button>
+    <p class="card-modal-eyebrow">03 · Sheltered cove</p>
+    <h2 class="card-modal-title" id="modal-zone-bay-title">The Private Bay</h2>
+    <div class="card-modal-divider"></div>
+    <figure class="card-modal-map">
+      <img src="/assets/pasola-map.jpg" alt="PASOLA estate map — The Private Bay (sheltered cove)" loading="lazy" />
+      <figcaption>The Private Bay — commanding position on the headland, overlooking the sheltered bay. Elevation 30–60 m, south-west aspect.</figcaption>
+    </figure>
+    <div class="card-modal-body">
+      <p>Eleven residences in held acoustics, late-afternoon light, silence.</p>
+    </div>
+  </div>
+
+</div>
 
 <script src="/main.js" defer></script>
 

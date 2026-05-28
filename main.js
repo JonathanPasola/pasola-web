@@ -785,4 +785,44 @@
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // ═══════════════════════════════════════════
+  // Card modals (Esprit de Sumba — Pasola/Hinggi/Architecture)
+  // ═══════════════════════════════════════════
+  (function initCardModals() {
+    var backdrop = document.querySelector('.card-modal-backdrop');
+    if (!backdrop) return;
+    var modals  = backdrop.querySelectorAll('.card-modal');
+    var triggers = document.querySelectorAll('[data-card-modal]');
+
+    function open(id) {
+      modals.forEach(function (m) {
+        m.classList.toggle('is-active', m.dataset.modalId === id);
+      });
+      backdrop.classList.add('is-open');
+      document.body.classList.add('modal-open');
+      backdrop.setAttribute('aria-hidden', 'false');
+    }
+    function close() {
+      backdrop.classList.remove('is-open');
+      document.body.classList.remove('modal-open');
+      backdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    triggers.forEach(function (t) {
+      t.addEventListener('click', function (e) {
+        e.preventDefault();
+        open(t.getAttribute('data-card-modal'));
+      });
+    });
+    backdrop.addEventListener('click', function (e) {
+      if (e.target === backdrop) close();
+    });
+    backdrop.querySelectorAll('.card-modal-close').forEach(function (b) {
+      b.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && backdrop.classList.contains('is-open')) close();
+    });
+  })();
+
 })();
