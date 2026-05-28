@@ -586,6 +586,54 @@ section {
   max-width: 100%;
 }
 
+/* Hero text BELOW video (Aman-style ivory block) */
+.hero-text-below {
+  background: var(--ivory);
+  color: var(--indigo);
+  padding: 48px var(--section-pad-x, 12px) 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+  text-align: left;
+}
+@media (min-width: 769px) {
+  .hero-text-below {
+    padding: 72px var(--section-pad-x, 24px) 56px;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+.hero-text-below .eyebrow {
+  font-family: var(--font-sans);
+  font-size: clamp(10px, 1vw, 11px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  font-weight: 400;
+}
+.hero-text-below .hero-title {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(30px, 5.2vw, 56px);
+  line-height: 1.12;
+  letter-spacing: 0.005em;
+  color: var(--indigo);
+  max-width: 900px;
+}
+.hero-text-below .hero-subline {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  font-size: clamp(15px, 1.6vw, 19px);
+  line-height: 1.55;
+  color: var(--dusk);
+  max-width: 640px;
+  margin-top: 4px;
+}
+
 .sound-toggle {
   position: absolute; bottom: 16px; right: 16px; z-index: 3;
   width: 38px; height: 38px; border-radius: 50%;
