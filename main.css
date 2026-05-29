@@ -526,7 +526,7 @@ section {
 }
 
 .hero {
-  padding: 78px 12px 22px;
+  padding: 58px 12px 22px;
   background: var(--ivory);
   display: flex; flex-direction: column;
   min-height: 100svh;
@@ -2240,7 +2240,7 @@ section {
     margin: 0 auto;
   }
 
-  .hero { padding: 100px 16px 28px; }
+  .hero { padding: 72px 16px 28px; }
   .hero-video-frame {
     aspect-ratio: 16 / 9;
     min-height: calc(100vh - 180px);
