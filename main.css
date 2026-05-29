@@ -590,7 +590,7 @@ section {
 .hero-text-below {
   background: var(--ivory);
   color: var(--indigo);
-  padding: 48px var(--section-pad-x) 32px;
+  padding: 24px var(--section-pad-x) 40px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -599,7 +599,7 @@ section {
 }
 @media (min-width: 769px) {
   .hero-text-below {
-    padding: 72px var(--section-pad-x) 56px;
+    padding: 32px var(--section-pad-x) 64px;
   }
 }
 .hero-text-below .eyebrow {
