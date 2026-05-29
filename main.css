@@ -586,11 +586,11 @@ section {
   max-width: 100%;
 }
 
-/* Hero text BELOW video (Aman-style ivory block) */
+/* Hero text BELOW video (Aman-style ivory block — left-aligned canonical 24px) */
 .hero-text-below {
   background: var(--ivory);
   color: var(--indigo);
-  padding: 48px var(--section-pad-x, 12px) 32px;
+  padding: 48px var(--section-pad-x) 32px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -599,11 +599,7 @@ section {
 }
 @media (min-width: 769px) {
   .hero-text-below {
-    padding: 72px var(--section-pad-x, 24px) 56px;
-    max-width: 1280px;
-    margin: 0 auto;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 72px var(--section-pad-x) 56px;
   }
 }
 .hero-text-below .eyebrow {
