@@ -29,6 +29,12 @@
 <link rel="stylesheet" href="/assets/fonts/pasola-fonts.css" />
 
 <link rel="stylesheet" href="/main.css" />
+
+<!-- Maison Cognac · override ciblé : neutralise le voile "spotlight" (.spirit .aman-card::after)
+     sur les cards du Cercle pour qu'elles soient toutes nettes. N'affecte que cette page. -->
+<style>
+#cercle .aman-card::after { display: none !important; }
+</style>
 </head>
 <body>
 
@@ -218,18 +224,18 @@
 
 <div class="filet-divider" aria-hidden="true"></div>
 
-<section class="zones-wrap reveal" id="cercle" aria-labelledby="cercle-title">
+<section class="spirit reveal" id="cercle" aria-labelledby="cercle-title">
 
-<div class="zones-mark">
+<div class="spirit-mark">
 <span class="section-mark">II · Le Cercle</span>
 </div>
 
-<div class="zones-intro">
+<div class="container">
 <h2 class="section-title" id="cercle-title">Ce que reçoit<br/>un fondateur.</h2>
 <p class="lede">Dix membres, avant l'ouverture. Pour 5 000 € en prévente de séjours, voici ce que reçoit chaque fondateur — cinq nuits dans la maison et le dîner des fondateurs.</p>
 </div>
 
-<div class="aman-carousel">
+<div class="aman-carousel" style="margin-top: 24px;">
 <div class="aman-carousel-track" id="cercle-track" style="--cols: 4">
 
 <article class="aman-card aman-card-feature">
