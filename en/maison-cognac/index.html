@@ -49,11 +49,16 @@
 @media (prefers-reduced-motion:reduce){
   .hero-video-frame .hero-video{animation:none}
 }
-/* Section I · La maison : image plus petite + colonne texte plus large, pour resserrer titre/texte et éviter le vide */
+/* Section I · La maison : photo portrait (3:4 natif) affichée ENTIÈRE, sans crop, taille maîtrisée, alignée à droite */
+#maison .lieu-media-frame{aspect-ratio:3/4}
 @media (min-width:769px){
-  #maison .lieu-split{grid-template-columns:1fr 1.35fr}
-  #maison .lieu-split-photo-first .lieu-media-frame{max-height:400px;align-self:start}
-  #maison .lieu-split-photo-first .lieu-media-caption{align-self:start;margin-top:4px}
+  #maison .lieu-split-photo-first .lieu-media-frame{
+    aspect-ratio:3/4;height:auto;width:100%;max-width:440px;
+    justify-self:end;align-self:start;
+  }
+  #maison .lieu-split-photo-first .lieu-media-caption{
+    justify-self:end;align-self:start;max-width:440px;text-align:left;margin-top:6px;
+  }
 }
 
 /* ── Popup "Bientôt" (Réserver une nuit) — scopé à cette page ── */
@@ -264,7 +269,7 @@
 <section class="spirit reveal" id="bien" aria-labelledby="bien-title">
 
 <div class="spirit-mark">
-<span class="section-mark">The property</span>
+<span class="section-mark">II · The property</span>
 </div>
 
 <div class="container">
@@ -286,7 +291,7 @@
 
 <section class="spirit reveal" id="comment-venir" aria-labelledby="comment-venir-title">
 <div class="spirit-mark">
-<span class="section-mark">Getting here</span>
+<span class="section-mark">III · Getting here</span>
 </div>
 <div class="container">
 <h2 class="section-title" id="comment-venir-title">A doorstep<br/>from Paris and Bordeaux.</h2>
@@ -305,7 +310,7 @@
 
 <section class="spirit reveal" id="activites" aria-labelledby="activites-title">
 <div class="spirit-mark">
-<span class="section-mark">Things to do</span>
+<span class="section-mark">IV · Things to do</span>
 </div>
 <div class="container">
 <h2 class="section-title" id="activites-title">Around<br/>the house.</h2>
@@ -325,7 +330,7 @@
 <section class="spirit reveal" id="cercle" aria-labelledby="cercle-title">
 
 <div class="spirit-mark">
-<span class="section-mark">II · The Circle</span>
+<span class="section-mark">V · The Circle</span>
 </div>
 
 <div class="container">
@@ -391,7 +396,7 @@
 <section class="spirit reveal" id="participation" aria-labelledby="participation-title">
 
 <div class="spirit-mark">
-<span class="section-mark">III · Membership</span>
+<span class="section-mark">VI · Membership</span>
 </div>
 
 <div class="container">
@@ -699,7 +704,7 @@ Join the Circle <span class="arrow" aria-hidden="true">→</span>
         'Message: ' + g('message')
       ];
       var subject = "Founders' Circle · " + g('firstname') + ' ' + g('lastname');
-      var mailto = 'mailto:jonathan.beraud@pasola.fr?subject=' +
+      var mailto = 'mailto:contact@pasola.fr?subject=' +
                    encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
       var body = joinModal.querySelector('.join-body');
       var confirm = joinModal.querySelector('.join-confirm');
