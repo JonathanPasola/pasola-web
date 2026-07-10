@@ -34,6 +34,66 @@
      sur les cards du Cercle pour qu'elles soient toutes nettes. N'affecte que cette page. -->
 <style>
 #cercle .aman-card::after { display: none !important; }
+
+/* ── Hero · effet cinématique à partir de la photo (zoom lent + léger travelling) ── */
+.hero-video-frame{overflow:hidden}
+@keyframes hero-kenburns{
+  0%{transform:scale(1.03) translate(0,0)}
+  100%{transform:scale(1.15) translate(-1.5%,-1.6%)}
+}
+.hero-video-frame .hero-video{
+  animation:hero-kenburns 22s ease-in-out infinite alternate;
+  transform-origin:60% 42%;
+  will-change:transform;
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-video-frame .hero-video{animation:none}
+}
+
+/* ── Popup "Bientôt" (Réserver une nuit) — scopé à cette page ── */
+.cs-modal{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+.cs-modal[aria-hidden="false"]{opacity:1;visibility:visible}
+.cs-modal-backdrop{position:absolute;inset:0;background:rgba(26,44,61,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.cs-modal-panel{position:relative;z-index:1;max-width:440px;width:100%;background:var(--ivory,#FAF8F4);border:1px solid rgba(26,44,61,.14);padding:48px 40px 40px;text-align:center;box-shadow:0 30px 80px rgba(26,44,61,.22);transform:translateY(12px);transition:transform .35s ease}
+.cs-modal[aria-hidden="false"] .cs-modal-panel{transform:none}
+.cs-modal-eyebrow{display:block;font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sand,#C7A574);margin-bottom:16px}
+.cs-modal-title{font-family:'Cinzel',serif;font-size:30px;font-weight:500;color:var(--indigo,#1A2C3D);margin:0 0 16px;letter-spacing:.01em}
+.cs-modal-text{font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.5;color:var(--dusk,#3D5675);margin:0 0 28px}
+.cs-modal-cta{display:inline-block;font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;background:var(--indigo,#1A2C3D);color:var(--ivory,#FAF8F4);border:none;padding:15px 26px;cursor:pointer;transition:opacity .2s ease}
+.cs-modal-cta:hover{opacity:.86}
+.cs-modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;background:none;border:none;cursor:pointer;color:var(--indigo,#1A2C3D);display:flex;align-items:center;justify-content:center;opacity:.55;transition:opacity .2s}
+.cs-modal-close:hover{opacity:1}
+.cs-modal-close svg{width:18px;height:18px}
+
+/* ── Parcours d'inscription au Cercle (800 € + 4 200 €) ── */
+.cercle-steps{margin:28px 0 4px;display:flex;flex-direction:column;gap:18px}
+.cercle-step{display:flex;gap:16px;align-items:flex-start}
+.cercle-step-num{flex:none;width:30px;height:30px;border:1px solid var(--sand,#C7A574);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:13px;color:var(--sand,#C7A574)}
+.cercle-step-title{font-family:'Outfit',sans-serif;font-size:14px;letter-spacing:.03em;color:var(--indigo,#1A2C3D);margin:3px 0 5px;font-weight:500}
+.cercle-step-desc{font-family:'Cormorant Garamond',serif;font-size:17px;line-height:1.45;color:var(--dusk,#3D5675);margin:0}
+.cercle-cta-row{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:26px}
+.cercle-cta-alt{font-family:'Outfit',sans-serif;font-size:13px;letter-spacing:.04em;color:var(--dusk,#3D5675);text-decoration:underline;text-underline-offset:4px}
+.cercle-cta-alt:hover{color:var(--indigo,#1A2C3D)}
+
+/* ── Formulaire d'adhésion (modal) ── */
+.cs-modal-panel--form{max-width:560px;text-align:left;padding:44px 40px 36px;max-height:88vh;overflow-y:auto}
+.cs-modal-panel--form .cs-modal-eyebrow,.cs-modal-panel--form .cs-modal-title{text-align:left}
+.cs-modal-text--form{text-align:left;font-size:18px;margin-bottom:22px}
+.join-form{display:flex;flex-direction:column;gap:14px}
+.join-row{display:flex;gap:16px;flex-wrap:wrap}
+.join-row .newsletter-field{flex:1;min-width:180px}
+.join-form textarea.newsletter-input{min-height:70px;resize:vertical;font-family:'Cormorant Garamond',serif}
+.join-note{font-family:'Outfit',sans-serif;font-size:12px;line-height:1.5;color:var(--dusk,#3D5675);opacity:.85;margin:12px 0 0;letter-spacing:.02em}
+.join-confirm{text-align:left}
+.join-confirm .cs-modal-cta{margin-top:6px}
+/* surcharge : les champs .newsletter-* sont pensés pour le footer indigo → on les repasse en lisible sur fond ivoire */
+.join-form .newsletter-label{color:var(--dusk,#3D5675)}
+.join-form .newsletter-input{color:var(--indigo,#1A2C3D);border-bottom:0.5px solid rgba(26,44,61,.28)}
+.join-form .newsletter-input:focus{border-bottom-color:var(--sand,#C7A574)}
+.join-form .newsletter-input::placeholder{color:rgba(26,44,61,.35)}
+.join-form .newsletter-consent{color:var(--dusk,#3D5675)}
+.join-form .newsletter-submit{color:var(--indigo,#1A2C3D);border-color:var(--indigo,#1A2C3D);--btn-mask:var(--ivory,#FAF8F4);width:auto;padding-left:28px;padding-right:28px}
+.join-form .newsletter-submit:hover,.join-form .newsletter-submit:focus{color:var(--sand,#C7A574);border-color:var(--sand,#C7A574)}
 </style>
 </head>
 <body>
@@ -125,8 +185,9 @@
 <li><a href="/maison-cognac/#maison" aria-current="page">La maison de Cognac</a></li>
 <li><a href="/maison-cognac/#comment-venir">Comment venir</a></li>
 <li><a href="/maison-cognac/#activites">Les activités</a></li>
+<li><a href="#" data-comingsoon>Réserver une nuit</a></li>
 <li class="nav-private">
-<a href="/maison-cognac/#participation"><span class="nav-private-eyebrow">Le Cercle des fondateurs</span>Réserver une nuit</a>
+<a href="#participation" data-join><span class="nav-private-eyebrow">Le Cercle des fondateurs</span>Rejoindre le Cercle</a>
 </li>
 </ul>
 
@@ -135,7 +196,7 @@
 </ul>
 
 <div class="nav-overlay-cta-group">
-<a class="nav-overlay-cta" href="/maison-cognac/#participation">Réserver une nuit</a>
+<a class="nav-overlay-cta" href="#participation" data-join>Rejoindre le Cercle</a>
 </div>
 
 </div>
@@ -183,11 +244,11 @@
 <div class="container">
 <h2 class="section-title" id="maison-title">Une demeure à quelques<br/>pas des grandes maisons.</h2>
 <div class="body">
-<p>Au cœur de Cognac, derrière un mur de pierre et une cour pavée, une demeure de caractère de 1850. Elle a gardé ses éléments d'époque — parquet, moulures, cheminées de marbre. PASOLA la restaure aux standards de l'hôtellerie de luxe : trois suites, une chambre enfant, un bureau, un espace sport &amp; bien-être, et un salon dédié aux spiritueux — l'univers du cognac. Près de 217 m² habitables. À 35 minutes de la gare d'Angoulême — Paris à 2h en TGV — et 1h40 de l'aéroport de Bordeaux.</p>
+<p>Au cœur de Cognac, derrière un mur de pierre et une cour pavée, une demeure de caractère de 1850. Elle a gardé ses éléments d'époque — parquet, moulures, cheminées de marbre. PASOLA la restaure aux standards de l'hôtellerie de luxe : trois suites, une chambre enfant, un bureau, un espace sport &amp; bien-être, et un salon dédié aux spiritueux — l'univers du cognac. Près de 217 m² habitables. Angoulême est à 40 minutes ; Paris à 1h45 de TGV jusqu'à Angoulême ; l'aéroport de Bordeaux à 1h35.</p>
 <p>À l'extérieur, un jardin clos d'environ 150 m² et une cour, avec une piscine à fond mobile qui préserve la surface du jardin. PASOLA en fait sa maison d'Europe : le lieu où l'on reçoit, autour de ce qui a fait naître le projet — le cognac, la gastronomie, le blues.</p>
 <p>La maison ouvre en soft opening au printemps 2027. Avant l'ouverture, dix personnes en feront partie — pas une de plus.</p>
 </div>
-<a class="section-cta" href="#participation">Rejoindre le Cercle</a>
+<a class="section-cta" href="#participation" data-join>Rejoindre le Cercle</a>
 </div>
 </div>
 
@@ -210,7 +271,7 @@
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Éléments d'époque</span><span class="aman-card-meta-value">Parquet · moulures · cheminées de marbre</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Extérieur</span><span class="aman-card-meta-value">Jardin clos ≈ 150 m² · cour · piscine à fond mobile</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">État</span><span class="aman-card-meta-value">Toiture neuve · rafraîchissement général, intérieur et extérieur</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">Accès</span><span class="aman-card-meta-value">Angoulême (TGV) 35 min · Paris–Angoulême 2h · Bordeaux 1h40</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">Accès</span><span class="aman-card-meta-value">Angoulême 40 min · Paris 1h45 en TGV (jusqu'à Angoulême) · aéroport de Bordeaux 1h35</span></div>
 </div>
 </div>
 </section>
@@ -225,10 +286,12 @@
 <h2 class="section-title" id="comment-venir-title">À une porte<br/>de Paris et Bordeaux.</h2>
 <p class="lede">Au cœur de Cognac, la maison est simple d'accès — en train, en avion ou en voiture.</p>
 <div class="aman-card-meta" style="margin-top: 8px;">
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">En train</span><span class="aman-card-meta-value">Gare d'Angoulême (TGV) à 35 min · Paris–Angoulême en ≈ 2h</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">En avion</span><span class="aman-card-meta-value">Aéroport de Bordeaux-Mérignac à 1h40</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">En voiture</span><span class="aman-card-meta-value">Bordeaux 1h40 · Angoulême 35 min · Paris 4h30</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">En train</span><span class="aman-card-meta-value">Paris Montparnasse → Angoulême en TGV 1h45 · puis Angoulême → Cognac en TER 40 min</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">Depuis Bordeaux</span><span class="aman-card-meta-value">Angoulême en TGV 37 min · puis TER 40 min</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">En voiture</span><span class="aman-card-meta-value">Bordeaux 1h30 (A10) · Angoulême 40 min (RN141) · Saintes 20 min · Paris 5h30</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">En avion</span><span class="aman-card-meta-value">Bordeaux-Mérignac 1h35 · Limoges-Bellegarde 1h50 · Angoulême-Brie, privé, 55 min</span></div>
 </div>
+<a class="cercle-cta-alt" href="https://www.google.com/maps/search/?api=1&amp;query=16+rue+de+Jarnac+16100+Cognac" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top: 22px;">Voir sur Google&nbsp;Maps →</a>
 </div>
 </section>
 
@@ -282,7 +345,7 @@
 </div>
 <span class="aman-card-eyebrow">02 · La table</span>
 <h3 class="aman-card-feature-title">Le dîner des fondateurs.</h3>
-<p class="aman-card-feature-desc">Chaque année, à l'occasion du festival Cognac Blues Passions, un dîner-apéro à la table des fondateurs, Jennifer & Jonathan — cognac, gastronomie, blues. Le premier en juillet 2027.</p>
+<p class="aman-card-feature-desc">Chaque année, à l'occasion du festival Cognac Blues Passions, un dîner à la table des fondateurs, Jennifer & Jonathan — cognac, gastronomie, blues. Le premier en juillet 2027.</p>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -327,19 +390,20 @@
 
 <div class="container">
 <h2 class="section-title" id="participation-title">Rejoindre<br/>le Cercle.</h2>
-<p class="lede">Dix places, par invitation. Rejoindre le Cercle, c'est réserver ses séjours en prévente — non une prise de participation — et retrouver chaque année les fondateurs, Jennifer & Jonathan, à la table de la maison. La pré-réservation de 800 € ouvre l'accès ; elle s'impute sur la participation.</p>
+<p class="lede">Dix places, par invitation. Rejoindre le Cercle, c'est réserver ses séjours en prévente — non une prise de participation — et retrouver chaque année les fondateurs, Jennifer & Jonathan, à la table de la maison. La participation est de 5 000 € : 800 € réglés en ligne à l'inscription, puis 4 200 € par virement après un échange avec les fondateurs.</p>
 <div class="aman-card-meta" style="margin-top: 8px;">
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Membres</span><span class="aman-card-meta-value">Dix fondateurs, par invitation</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Participation</span><span class="aman-card-meta-value">5 000 € — prévente de séjours, non une prise de participation</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">Pré-réservation</span><span class="aman-card-meta-value">800 € pour réserver sa place, à valoir sur la participation</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">À l'inscription</span><span class="aman-card-meta-value">800 € réglés en ligne — réserve la place</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">Le solde</span><span class="aman-card-meta-value">4 200 € par virement à PASOLA, après un échange avec les fondateurs</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Le séjour</span><span class="aman-card-meta-value">Cinq nuits à répartir sur 3 ans, la maison entière — jusqu'à huit hôtes</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">Le dîner</span><span class="aman-card-meta-value">Un dîner-apéro annuel avec les fondateurs, Jennifer & Jonathan, à l'occasion du festival Cognac Blues Passions</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">Le dîner</span><span class="aman-card-meta-value">Un dîner annuel à la table des fondateurs, Jennifer & Jonathan, à l'occasion du festival Cognac Blues Passions</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">La priorité</span><span class="aman-card-meta-value">Réservation prioritaire et tarif fondateur sur vos séjours — à vie</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Restauration</span><span class="aman-card-meta-value">Automne 2026 → hiver — la toiture, rafraîchissement intérieur et extérieur</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Soft opening</span><span class="aman-card-meta-value">Printemps 2027 · réservé aux fondateurs</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Ouverture officielle</span><span class="aman-card-meta-value">Juillet 2027 · pendant le festival Cognac Blues Passions</span></div>
 </div>
-<a class="section-cta" href="mailto:jonathan.beraud@pasola.fr?subject=Cercle%20des%20fondateurs%20%C2%B7%20Maison%20PASOLA%20Cognac">Nous rejoindre</a>
+<a class="section-cta" href="#participation" data-join>Rejoindre le Cercle</a>
 </div>
 </section>
 
@@ -400,7 +464,7 @@
 <li><a href="/maison-cognac/#maison">La maison, à Cognac</a></li>
 <li><a href="/maison-cognac/#cercle">Le Cercle des fondateurs</a></li>
 <li><a href="/maison-cognac/#participation">La participation</a></li>
-<li><a href="mailto:jonathan.beraud@pasola.fr?subject=Cercle%20des%20fondateurs%20%C2%B7%20Maison%20PASOLA%20Cognac">Nous rejoindre</a></li>
+<li><a href="#participation" data-join>Rejoindre le Cercle</a></li>
 </ul>
 </div>
 
@@ -500,10 +564,146 @@
 </footer>
 
 <a class="floating-cta"
-   href="mailto:jonathan.beraud@pasola.fr?subject=Cercle%20des%20fondateurs%20%C2%B7%20Maison%20PASOLA%20Cognac"
-   aria-label="Nous rejoindre au Cercle des fondateurs">
-Nous rejoindre <span class="arrow" aria-hidden="true">→</span>
+   href="#participation" data-join
+   aria-label="Rejoindre le Cercle des fondateurs">
+Rejoindre le Cercle <span class="arrow" aria-hidden="true">→</span>
 </a>
+
+<!-- ── Popup "Bientôt" (Réserver une nuit) ── -->
+<div class="cs-modal" id="cs-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cs-modal-title">
+<div class="cs-modal-backdrop" data-cs-close></div>
+<div class="cs-modal-panel" role="document">
+<button class="cs-modal-close" type="button" data-cs-close aria-label="Fermer">
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+</button>
+<span class="cs-modal-eyebrow">Ouverture · Juillet 2027</span>
+<h2 class="cs-modal-title" id="cs-modal-title">Bientôt.</h2>
+<p class="cs-modal-text">Les séjours à la maison ouvriront à l'ouverture officielle, en juillet 2027, pendant le festival Cognac Blues Passions. D'ici là, dix personnes peuvent en faire partie — le Cercle des fondateurs.</p>
+<button class="cs-modal-cta" type="button" data-join>Rejoindre le Cercle →</button>
+</div>
+</div>
+
+<!-- ── Formulaire d'adhésion au Cercle (800 € Indy + 4 200 € virement) ── -->
+<div class="cs-modal cs-modal--form" id="join-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="join-modal-title">
+<div class="cs-modal-backdrop" data-cs-close></div>
+<div class="cs-modal-panel cs-modal-panel--form" role="document">
+<button class="cs-modal-close" type="button" data-cs-close aria-label="Fermer">
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+</button>
+
+<div class="join-body">
+<span class="cs-modal-eyebrow">Le Cercle des fondateurs</span>
+<h2 class="cs-modal-title" id="join-modal-title">Rejoindre le Cercle.</h2>
+<p class="cs-modal-text cs-modal-text--form">Dix places, par invitation. Renseignez vos informations : la place est réservée par un premier versement de 800 € en ligne, puis le solde de 4 200 € par virement après un échange avec les fondateurs.</p>
+<form class="join-form" id="join-form" novalidate>
+<div class="join-row">
+<div class="newsletter-field"><label class="newsletter-label" for="jf-firstname">Prénom</label><input class="newsletter-input" type="text" id="jf-firstname" name="firstname" required autocomplete="given-name" /></div>
+<div class="newsletter-field"><label class="newsletter-label" for="jf-lastname">Nom</label><input class="newsletter-input" type="text" id="jf-lastname" name="lastname" required autocomplete="family-name" /></div>
+</div>
+<div class="newsletter-field"><label class="newsletter-label" for="jf-email">Email</label><input class="newsletter-input" type="email" id="jf-email" name="email" required autocomplete="email" /></div>
+<div class="join-row">
+<div class="newsletter-field"><label class="newsletter-label" for="jf-phone">Téléphone</label><input class="newsletter-input" type="tel" id="jf-phone" name="phone" autocomplete="tel" /></div>
+<div class="newsletter-field"><label class="newsletter-label" for="jf-birthdate">Date de naissance</label><input class="newsletter-input" type="date" id="jf-birthdate" name="birthdate" required /></div>
+</div>
+<div class="newsletter-field"><label class="newsletter-label" for="jf-location">Pays / région de résidence</label><input class="newsletter-input" type="text" id="jf-location" name="location" required autocomplete="country-name" /></div>
+<div class="newsletter-field"><label class="newsletter-label" for="jf-message">Un mot (optionnel)</label><textarea class="newsletter-input" id="jf-message" name="message" rows="2"></textarea></div>
+<label class="newsletter-consent"><input type="checkbox" name="consent" required /><span>J'accepte que ces informations soient utilisées par PASOLA pour traiter ma demande d'adhésion au Cercle des fondateurs.</span></label>
+<button class="newsletter-submit" type="submit">Continuer vers le paiement · 800 €</button>
+<p class="join-note">Paiement sécurisé via Indy. Le solde de 4 200 € se règle ensuite par virement, après un échange avec les fondateurs.</p>
+</form>
+</div>
+
+<div class="join-confirm" hidden>
+<span class="cs-modal-eyebrow">Dernière étape</span>
+<h2 class="cs-modal-title">Réserver ma place.</h2>
+<p class="cs-modal-text cs-modal-text--form">Votre demande vient de s'ouvrir dans votre messagerie — pensez à l'envoyer. Pour réserver définitivement l'une des dix places, réglez le premier versement de 800 €.</p>
+<!-- TODO INDY : remplacer href="#" par le lien de paiement Indy (800 €) -->
+<a class="cs-modal-cta" id="join-pay" href="#" target="_blank" rel="noopener noreferrer">Payer 800 € · Indy</a>
+<p class="join-note">Le solde de 4 200 € se règle ensuite par virement à PASOLA, après notre échange.</p>
+</div>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var csModal = document.getElementById('cs-modal');
+  var joinModal = document.getElementById('join-modal');
+  var nav = document.getElementById('primary-nav');
+  var htmlEl = document.documentElement;
+
+  function lock(){ htmlEl.style.overflow = 'hidden'; }
+  function unlock(){ htmlEl.style.overflow = ''; }
+  function anyOpen(){
+    return (csModal && csModal.getAttribute('aria-hidden') === 'false') ||
+           (joinModal && joinModal.getAttribute('aria-hidden') === 'false');
+  }
+  function closeNav(){
+    if(nav && nav.getAttribute('aria-hidden') === 'false'){
+      var nc = document.querySelector('.nav-close');
+      if(nc) nc.click();
+    }
+  }
+  function show(m){ if(!m) return; closeNav(); m.setAttribute('aria-hidden','false'); lock(); }
+  function hide(m){ if(!m) return; m.setAttribute('aria-hidden','true'); if(!anyOpen()) unlock(); }
+
+  function openComingSoon(){ hide(joinModal); show(csModal); }
+  function openJoin(){
+    hide(csModal);
+    var body = joinModal.querySelector('.join-body');
+    var confirm = joinModal.querySelector('.join-confirm');
+    if(body) body.hidden = false;
+    if(confirm) confirm.hidden = true;
+    show(joinModal);
+  }
+
+  document.querySelectorAll('[data-comingsoon]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openComingSoon(); });
+  });
+  document.querySelectorAll('[data-join]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.preventDefault(); openJoin(); });
+  });
+  [csModal, joinModal].forEach(function(m){
+    if(!m) return;
+    m.querySelectorAll('[data-cs-close]').forEach(function(el){
+      el.addEventListener('click', function(){ hide(m); });
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ hide(csModal); hide(joinModal); }
+  });
+
+  var form = document.getElementById('join-form');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!form.checkValidity()){ form.reportValidity(); return; }
+      var fd = new FormData(form);
+      function g(k){ return (fd.get(k) || '').toString().trim(); }
+      var lines = [
+        "Demande d'adhésion au Cercle des fondateurs — Maison PASOLA Cognac",
+        '',
+        'Prénom : ' + g('firstname'),
+        'Nom : ' + g('lastname'),
+        'Email : ' + g('email'),
+        'Téléphone : ' + g('phone'),
+        'Date de naissance : ' + g('birthdate'),
+        'Pays / région : ' + g('location'),
+        '',
+        'Message : ' + g('message')
+      ];
+      var subject = 'Cercle des fondateurs · ' + g('firstname') + ' ' + g('lastname');
+      var mailto = 'mailto:jonathan.beraud@pasola.fr?subject=' +
+                   encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+      var body = joinModal.querySelector('.join-body');
+      var confirm = joinModal.querySelector('.join-confirm');
+      if(body) body.hidden = true;
+      if(confirm) confirm.hidden = false;
+      window.location.href = mailto;
+    });
+  }
+})();
+</script>
 
 <script src="/main.js" defer></script>
 
