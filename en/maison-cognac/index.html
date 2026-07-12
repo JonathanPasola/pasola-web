@@ -49,17 +49,9 @@
 @media (prefers-reduced-motion:reduce){
   .hero-video-frame .hero-video{animation:none}
 }
-/* Section I · La maison : photo paysage (4:3 natif) affichée ENTIÈRE, sans crop, taille maîtrisée, alignée à droite */
-#maison .lieu-media-frame{aspect-ratio:4/3}
-@media (min-width:769px){
-  #maison .lieu-split-photo-first .lieu-media-frame{
-    aspect-ratio:4/3;height:auto;width:100%;max-width:760px;
-    justify-self:end;align-self:start;
-  }
-  #maison .lieu-split-photo-first .lieu-media-caption{
-    justify-self:end;align-self:start;max-width:760px;text-align:left;margin-top:6px;
-  }
-}
+/* Section I · La maison : photo terrasse (paysage) qui REMPLIT la colonne droite à la hauteur du texte
+   (haut calé sur le titre, bas au niveau du dernier paragraphe) — comportement charte par défaut.
+   Mobile : cadre 4:3 hérité de la charte (pas de crop). */
 
 /* ── Popup "Bientôt" (Réserver une nuit) — scopé à cette page ── */
 .cs-modal{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
