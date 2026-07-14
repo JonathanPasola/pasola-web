@@ -368,10 +368,16 @@
       };
       var endpoint = PASOLA_API + '/api/pageview';
       var body = JSON.stringify(payload);
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(endpoint, new Blob([body], { type: 'application/json' }));
-      } else {
-        fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function () {});
+      var sent = false;
+      try {
+        if (navigator.sendBeacon) {
+          // text/plain = requête "simple" → aucun preflight CORS → passe en cross-origin.
+          // Le worker fait request.json() qui parse le corps quel que soit le content-type.
+          sent = navigator.sendBeacon(endpoint, new Blob([body], { type: 'text/plain;charset=UTF-8' }));
+        }
+      } catch (e) { sent = false; }
+      if (!sent) {
+        fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body, keepalive: true, mode: 'cors' }).catch(function () {});
       }
     } catch (e) { /* silencieux — jamais bloquer la page */ }
   })();
