@@ -477,10 +477,35 @@ function renderViews() {
   var summaryEl = document.getElementById('views-summary');
   var chartEl = document.getElementById('views-chart');
   document.getElementById('meta-views').textContent = pageviews.length + ' page views';
+  // ── Graphe : vues par jour (30 derniers jours) — affiché même à zéro ──
+  if (chartEl) {
+    var perDay = {};
+    pageviews.forEach(function(p) {
+      var key = String(p.created_at || '').slice(0, 10);
+      if (key) perDay[key] = (perDay[key] || 0) + 1;
+    });
+    var days = [];
+    var base = new Date(); base.setHours(0, 0, 0, 0);
+    for (var i = 29; i >= 0; i--) {
+      var dt = new Date(base.getTime() - i * 86400000);
+      var k = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
+      days.push({ k: k, lbl: (dt.getMonth() + 1) + '/' + dt.getDate(), c: perDay[k] || 0 });
+    }
+    var maxC = 1;
+    days.forEach(function(d) { if (d.c > maxC) maxC = d.c; });
+    var bars = days.map(function(d, idx) {
+      var h = Math.round(d.c / maxC * 58);
+      var lbl = (idx % 5 === 0) ? '<div style="font-size:8px;color:#7c8a99;text-align:center;margin-top:2px;white-space:nowrap;">' + d.lbl + '</div>' : '';
+      return '<div title="' + d.k + ' : ' + d.c + ' vues" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;">' +
+        '<div style="width:68%;height:' + h + 'px;min-height:' + (d.c ? 2 : 0) + 'px;background:#1A2C3D;border-radius:2px 2px 0 0;"></div>' + lbl +
+      '</div>';
+    }).join('');
+    chartEl.innerHTML = '<div class="adm-table-meta" style="margin-bottom:6px;font-weight:600;">Vues par jour &middot; 30 jours &middot; max ' + maxC + '/j</div>' +
+      '<div style="display:flex;align-items:flex-end;gap:2px;height:74px;border-bottom:1px solid rgba(26,44,61,.15);">' + bars + '</div>';
+  }
   if (!pageviews.length) {
     if (summaryEl) summaryEl.innerHTML = '';
-    if (chartEl) chartEl.innerHTML = '';
-    tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun pageview pour le moment.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun pageview pour le moment (le graphe se remplira dès les premières visites).</td></tr>';
     return;
   }
   // ── Agrégations : vues par page, visiteurs uniques, sources de trafic ──
@@ -523,33 +548,6 @@ function renderViews() {
         '</div>' +
       '</div>';
   }
-  // ── Graphe : vues par jour (30 derniers jours) ──
-  if (chartEl) {
-    var perDay = {};
-    pageviews.forEach(function(p) {
-      var key = String(p.created_at || '').slice(0, 10); // "YYYY-MM-DD"
-      if (key) perDay[key] = (perDay[key] || 0) + 1;
-    });
-    var days = [];
-    var base = new Date(); base.setHours(0, 0, 0, 0);
-    for (var i = 29; i >= 0; i--) {
-      var dt = new Date(base.getTime() - i * 86400000);
-      var k = dt.getFullYear() + '-' + ('0' + (dt.getMonth() + 1)).slice(-2) + '-' + ('0' + dt.getDate()).slice(-2);
-      days.push({ k: k, lbl: (dt.getMonth() + 1) + '/' + dt.getDate(), c: perDay[k] || 0 });
-    }
-    var maxC = 1;
-    days.forEach(function(d) { if (d.c > maxC) maxC = d.c; });
-    var bars = days.map(function(d, idx) {
-      var h = Math.round(d.c / maxC * 58);
-      var lbl = (idx % 5 === 0) ? '<div style="font-size:8px;color:#7c8a99;text-align:center;margin-top:2px;white-space:nowrap;">' + d.lbl + '</div>' : '';
-      return '<div title="' + d.k + ' : ' + d.c + ' vues" style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;">' +
-        '<div style="width:68%;height:' + h + 'px;min-height:' + (d.c ? 2 : 0) + 'px;background:#1A2C3D;border-radius:2px 2px 0 0;"></div>' + lbl +
-      '</div>';
-    }).join('');
-    chartEl.innerHTML = '<div class="adm-table-meta" style="margin-bottom:6px;font-weight:600;">Vues par jour &middot; 30 jours &middot; max ' + maxC + '/j</div>' +
-      '<div style="display:flex;align-items:flex-end;gap:2px;height:74px;border-bottom:1px solid rgba(26,44,61,.15);">' + bars + '</div>';
-  }
-
   tbody.innerHTML = pageviews.slice(0, 200).map(function(p) {
     return '<tr>' +
       '<td class="nowrap small">' + esc(fmtDate(p.created_at)) + '</td>' +
