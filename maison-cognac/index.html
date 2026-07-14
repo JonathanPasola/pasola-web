@@ -30,10 +30,10 @@
 
 <link rel="stylesheet" href="/main.css" />
 
-<!-- Maison Cognac · override ciblé : neutralise le voile "spotlight" (.spirit .aman-card::after)
-     sur les cards du Cercle pour qu'elles soient toutes nettes. N'affecte que cette page. -->
+<!-- Maison Cognac · le Cercle reprend le voile "spotlight" de la section Esprit :
+     voile blanc uniquement sur la card partiellement visible (coupée par le scroll).
+     Effet piloté par l'observer scopé en bas de page (cercle-track), identique à esprit-track. -->
 <style>
-#cercle .aman-card::after { display: none !important; }
 
 /* ── Hero · effet cinématique à partir de la photo (zoom lent + léger travelling) ── */
 .hero-video-frame{overflow:hidden}
@@ -711,6 +711,27 @@ Rejoindre le Cercle <span class="arrow" aria-hidden="true">→</span>
       window.location.href = mailto;
     });
   }
+})();
+</script>
+
+<!-- Le Cercle · voile "spotlight" identique à la section II · L'esprit de Sumba :
+     seule la card < 95% visible (coupée par le scroll) garde le voile blanc. -->
+<script>
+(function(){
+  var track = document.getElementById('cercle-track');
+  if (!track) return;
+  var cards = track.querySelectorAll('.aman-card');
+  if (!cards.length) return;
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(cards, function(c){ c.classList.add('is-active'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      entry.target.classList.toggle('is-active', entry.intersectionRatio >= 0.95);
+    });
+  }, { root: track, threshold: [0, 0.5, 0.85, 0.95, 1] });
+  Array.prototype.forEach.call(cards, function(c){ observer.observe(c); });
 })();
 </script>
 
