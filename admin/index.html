@@ -302,6 +302,7 @@ a { color: var(--indigo); }
 <div class="adm-table-actions">
 <span class="adm-table-meta" id="meta-views">—</span>
 </div>
+<div id="views-summary" style="margin:6px 0 20px;"></div>
 <div class="adm-table-wrap">
 <table class="adm-table"><thead><tr>
 <th>Date</th><th>Page</th><th>Country</th><th>Device</th><th>Visitor ID</th><th>Registered</th>
@@ -472,10 +473,52 @@ function renderCp() {
 
 function renderViews() {
   var tbody = document.getElementById('tbl-views');
+  var summaryEl = document.getElementById('views-summary');
   document.getElementById('meta-views').textContent = pageviews.length + ' page views';
   if (!pageviews.length) {
+    if (summaryEl) summaryEl.innerHTML = '';
     tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun pageview pour le moment.</td></tr>';
     return;
+  }
+  // ── Agrégations : vues par page, visiteurs uniques, sources de trafic ──
+  var byPage = {}, byPageVis = {}, bySource = {}, allVis = {};
+  pageviews.forEach(function(p) {
+    var pg = p.page || p.url || '—';
+    byPage[pg] = (byPage[pg] || 0) + 1;
+    byPageVis[pg] = byPageVis[pg] || {};
+    if (p.visitor_id) { byPageVis[pg][p.visitor_id] = 1; allVis[p.visitor_id] = 1; }
+    var ref = (p.referrer || '').trim(), src = 'Accès direct';
+    if (ref) {
+      try { src = new URL(ref).hostname.replace(/^www\./, ''); } catch (e) { src = ref.slice(0, 40); }
+      if (/pasola\.fr|pasola-web\.pages\.dev/.test(src)) src = 'Navigation interne';
+    }
+    bySource[src] = (bySource[src] || 0) + 1;
+  });
+  var pages = Object.keys(byPage).sort(function(a, b) { return byPage[b] - byPage[a]; });
+  var sources = Object.keys(bySource).sort(function(a, b) { return bySource[b] - bySource[a]; });
+  var pageRows = pages.map(function(pg) {
+    return '<tr><td>' + esc(pg) + '</td><td style="text-align:right">' + byPage[pg] +
+      '</td><td style="text-align:right">' + Object.keys(byPageVis[pg]).length + '</td></tr>';
+  }).join('');
+  var srcRows = sources.slice(0, 12).map(function(s) {
+    return '<tr><td>' + esc(s) + '</td><td style="text-align:right">' + bySource[s] + '</td></tr>';
+  }).join('');
+  if (summaryEl) {
+    summaryEl.innerHTML =
+      '<div style="display:flex;gap:24px;flex-wrap:wrap;">' +
+        '<div style="flex:2;min-width:300px;">' +
+          '<div class="adm-table-meta" style="margin-bottom:6px;font-weight:600;">Vues par page &middot; ' +
+            pageviews.length + ' vues &middot; ' + Object.keys(allVis).length + ' visiteurs uniques</div>' +
+          '<table class="adm-table"><thead><tr><th>Page</th>' +
+            '<th style="text-align:right">Vues</th><th style="text-align:right">Visiteurs uniques</th></tr></thead>' +
+            '<tbody>' + pageRows + '</tbody></table>' +
+        '</div>' +
+        '<div style="flex:1;min-width:220px;">' +
+          '<div class="adm-table-meta" style="margin-bottom:6px;font-weight:600;">Sources de trafic</div>' +
+          '<table class="adm-table"><thead><tr><th>Source</th>' +
+            '<th style="text-align:right">Vues</th></tr></thead><tbody>' + srcRows + '</tbody></table>' +
+        '</div>' +
+      '</div>';
   }
   tbody.innerHTML = pageviews.slice(0, 200).map(function(p) {
     return '<tr>' +
