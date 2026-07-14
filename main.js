@@ -343,9 +343,38 @@
   // BACKEND PASOLA (existant — v1) — Cloudflare Worker + D1 + Dashboard
   // POST /api/register : stocke dans la table users (source de vérité)
   // POST /api/contact  : message simple
-  // POST /api/pageview : tracking (non utilisé en v2 R1)
+  // POST /api/pageview : tracking page par page (activé v2 — chaque page ex. /maison-cognac/ comptée à part)
   // ─────────────────────────────────────────────────────────────────
   var PASOLA_API = 'https://pasola-api.jonathan-beraud.workers.dev';
+
+  // ── Tracking pageview (une balise par chargement de page) ──────────
+  (function pasolaTrackPageview() {
+    try {
+      var VKEY = 'pasola_visitor_id';
+      var vid = '';
+      try { vid = localStorage.getItem(VKEY) || ''; } catch (e) {}
+      if (!vid) {
+        vid = 'v-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+        try { localStorage.setItem(VKEY, vid); } catch (e) {}
+      }
+      var isReg = false;
+      try { isReg = localStorage.getItem('pasola_registered') === '1'; } catch (e) {}
+      var payload = {
+        page: window.location.pathname,           // ex. "/", "/en/", "/maison-cognac/", "/en/maison-cognac/"
+        url: window.location.href,
+        referrer: document.referrer || '',
+        visitor_id: vid,
+        is_registered: isReg
+      };
+      var endpoint = PASOLA_API + '/api/pageview';
+      var body = JSON.stringify(payload);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(endpoint, new Blob([body], { type: 'application/json' }));
+      } else {
+        fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function () {});
+      }
+    } catch (e) { /* silencieux — jamais bloquer la page */ }
+  })();
 
   function pasolaRegister(payload) {
     // Renvoie la promise du fetch — l'appelant gère succès/erreur via .then/.catch.
@@ -404,6 +433,8 @@
         referral: document.referrer || '',
         message: msg
       }).then(function() {
+        // Marque le visiteur comme inscrit (enrichit la colonne "Registered" du tracking pageview)
+        try { localStorage.setItem('pasola_registered', '1'); } catch (e) {}
         // Pattern C : on remplace le form par le bloc remerciement (.contact-thanks).
         // On RETIRE le form du DOM (pas seulement hidden) car le CSS desktop
         // force display: grid sur #contact-form qui override l'attribut hidden.
