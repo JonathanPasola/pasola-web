@@ -364,7 +364,8 @@
         url: window.location.href,
         referrer: document.referrer || '',
         visitor_id: vid,
-        is_registered: isReg
+        is_registered: isReg,
+        language: navigator.language || navigator.userLanguage || ''
       };
       var endpoint = PASOLA_API + '/api/pageview';
       var body = JSON.stringify(payload);

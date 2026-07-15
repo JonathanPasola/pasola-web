@@ -325,9 +325,10 @@ html, body { overflow-x: hidden; }
 </div>
 <div id="views-chart" style="margin:6px 0 18px;"></div>
 <div id="views-summary" style="margin:6px 0 20px;"></div>
+<div id="views-journey" style="margin:6px 0 22px;"></div>
 <div class="adm-table-wrap">
 <table class="adm-table"><thead><tr>
-<th>Date</th><th>Page</th><th>Country</th><th>Device</th><th>Visitor ID</th><th>Registered</th>
+<th>Date</th><th>Page</th><th>Lieu</th><th>Appareil</th><th>Langue</th><th>Visiteur</th><th>Reg.</th>
 </tr></thead><tbody id="tbl-views"></tbody></table>
 </div>
 </div>
@@ -533,11 +534,24 @@ function sourceOf(p) {
   if (/pasola\.fr|pasola-web\.pages\.dev/.test(host)) return 'Navigation interne';
   return host;
 }
+function placeOf(p) {
+  var c = countryName(p.country);
+  if (p.city && c !== '—') return p.city + ', ' + c;
+  if (p.city) return p.city;
+  return c;
+}
+function deviceOf(p) {
+  var b = (p.browser && p.browser !== 'Autre') ? p.browser : '';
+  var o = (p.os && p.os !== 'Autre') ? p.os : '';
+  if (b && o) return b + ' · ' + o;
+  return b || o || (p.device || '—');
+}
 
 function renderViews() {
   var tbody = document.getElementById('tbl-views');
   var summaryEl = document.getElementById('views-summary');
   var chartEl = document.getElementById('views-chart');
+  var journeyEl = document.getElementById('views-journey');
   document.getElementById('meta-views').textContent = pageviews.length + ' page views';
   // ── Graphe : vues par jour (30 derniers jours) — affiché même à zéro ──
   if (chartEl) {
@@ -567,7 +581,8 @@ function renderViews() {
   }
   if (!pageviews.length) {
     if (summaryEl) summaryEl.innerHTML = '';
-    tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucun pageview pour le moment (le graphe se remplira dès les premières visites).</td></tr>';
+    if (journeyEl) journeyEl.innerHTML = '';
+    tbody.innerHTML = '<tr><td colspan="7" class="empty">Aucun pageview pour le moment (le graphe se remplira dès les premières visites).</td></tr>';
     return;
   }
   // ── Agrégations : vues par page, visiteurs uniques, sources de trafic ──
@@ -606,12 +621,46 @@ function renderViews() {
         '</div>' +
       '</div>';
   }
+  // ── Parcours par visiteur (pages vues, source, lieu, retour) ──
+  if (journeyEl) {
+    var byVis = {};
+    pageviews.forEach(function(p) {
+      var v = p.visitor_id || 'anon';
+      if (!byVis[v]) byVis[v] = { id: v, count: 0, pages: [], place: '', lang: '', last: '', reg: false, src: '' };
+      var o = byVis[v];
+      o.count++;
+      var pg = p.page || p.url || '';
+      if (pg && o.pages.indexOf(pg) < 0) o.pages.push(pg);
+      if (!o.place || o.place === '—') o.place = placeOf(p);
+      if (!o.lang) o.lang = p.language || '';
+      if (!o.src || o.src === 'Accès direct' || o.src === 'Navigation interne') { var s = sourceOf(p); if (s !== 'Navigation interne') o.src = s; }
+      if (!o.last || p.created_at > o.last) o.last = p.created_at;
+      if (p.is_registered) o.reg = true;
+    });
+    var vis = Object.keys(byVis).map(function(k) { return byVis[k]; }).sort(function(a, b) { return b.count - a.count; }).slice(0, 25);
+    var visRows = vis.map(function(o) {
+      return '<tr>' +
+        '<td class="small nowrap">' + esc((o.id || '—').slice(0, 10)) + (o.reg ? ' <span class="badge indigo">Reg.</span>' : '') + '</td>' +
+        '<td style="text-align:center">' + o.count + '</td>' +
+        '<td class="small">' + esc(o.pages.join('  →  ')) + '</td>' +
+        '<td class="small">' + esc(o.src || '—') + '</td>' +
+        '<td class="small">' + esc(o.place || '—') + '</td>' +
+        '<td class="small nowrap">' + esc(fmtDate(o.last)) + '</td>' +
+      '</tr>';
+    }).join('');
+    journeyEl.innerHTML = '<div class="adm-table-meta" style="margin:0 0 6px;font-weight:600;">Parcours visiteurs &middot; ' + Object.keys(byVis).length + ' visiteurs (top 25)</div>' +
+      '<div class="adm-table-wrap"><table class="adm-table"><thead><tr>' +
+        '<th>Visiteur</th><th style="text-align:center">Vues</th><th>Pages vues (parcours)</th><th>Source</th><th>Lieu</th><th>Dernière visite</th>' +
+      '</tr></thead><tbody>' + visRows + '</tbody></table></div>';
+  }
+
   tbody.innerHTML = pageviews.slice(0, 200).map(function(p) {
     return '<tr>' +
       '<td class="nowrap small">' + esc(fmtDate(p.created_at)) + '</td>' +
       '<td>' + esc(p.page || p.url || '—') + '</td>' +
-      '<td>' + esc(countryName(p.country)) + '</td>' +
-      '<td class="small">' + esc(p.device || '—') + '</td>' +
+      '<td class="small">' + esc(placeOf(p)) + '</td>' +
+      '<td class="small">' + esc(deviceOf(p)) + '</td>' +
+      '<td class="small">' + esc(p.language || '—') + '</td>' +
       '<td class="small">' + esc((p.visitor_id || '—').slice(0, 12)) + '</td>' +
       '<td>' + (p.is_registered ? '<span class="badge indigo">Reg.</span>' : '—') + '</td>' +
     '</tr>';
