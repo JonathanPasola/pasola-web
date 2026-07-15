@@ -424,12 +424,18 @@ function statCard(num, label, cls) {
   return '<div class="adm-stat"><div class="adm-stat-num ' + (cls || '') + '">' + (num || 0) + '</div><div class="adm-stat-label">' + label + '</div></div>';
 }
 
+function parseUTC(s) {
+  // Le worker stocke en UTC (datetime('now')) sans suffixe → on force l'interprétation UTC (…T…Z),
+  // puis toLocale* affiche dans le fuseau local du navigateur (Bangkok, Paris, Bali… selon où tu es).
+  if (!s) return null;
+  var iso = /Z|[+-]\d\d:?\d\d$/.test(s) ? s : (String(s).replace(' ', 'T') + 'Z');
+  var d = new Date(iso);
+  return isNaN(d.getTime()) ? null : d;
+}
 function fmtDate(s) {
-  if (!s) return '—';
-  try {
-    var d = new Date(s);
-    return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  } catch (e) { return s; }
+  var d = parseUTC(s);
+  if (!d) return s || '—';
+  return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 }
 function esc(v) { return (v == null ? '' : String(v)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -566,8 +572,10 @@ function renderViews() {
   if (chartEl) {
     var perDay = {};
     pageviews.forEach(function(p) {
-      var key = String(p.created_at || '').slice(0, 10);
-      if (key) perDay[key] = (perDay[key] || 0) + 1;
+      var dd = parseUTC(p.created_at);
+      if (!dd) return;
+      var key = dd.getFullYear() + '-' + ('0' + (dd.getMonth() + 1)).slice(-2) + '-' + ('0' + dd.getDate()).slice(-2);
+      perDay[key] = (perDay[key] || 0) + 1;
     });
     var days = [];
     var base = new Date(); base.setHours(0, 0, 0, 0);
