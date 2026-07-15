@@ -522,17 +522,24 @@ function sourceOf(p) {
   }
   // 2) referrer
   var ref = (p.referrer || '').trim();
-  if (!ref) return 'Accès direct';
-  var host = ref;
-  try { host = new URL(ref).hostname.replace(/^www\./, ''); } catch (e) {}
-  if (/instagram/.test(host)) return 'Instagram';
-  if (/facebook|fb\.com|fb\.me/.test(host)) return 'Facebook';
-  if (/linkedin|lnkd/.test(host)) return 'LinkedIn';
-  if (/whatsapp|wa\.me/.test(host)) return 'WhatsApp';
-  if (/t\.co|twitter|x\.com/.test(host)) return 'X / Twitter';
-  if (/google|bing|duckduckgo|yahoo|ecosia/.test(host)) return 'Recherche';
-  if (/pasola\.fr|pasola-web\.pages\.dev/.test(host)) return 'Navigation interne';
-  return host;
+  if (ref) {
+    var host = ref;
+    try { host = new URL(ref).hostname.replace(/^www\./, ''); } catch (e) {}
+    if (/instagram/.test(host)) return 'Instagram';
+    if (/facebook|fb\.com|fb\.me/.test(host)) return 'Facebook';
+    if (/linkedin|lnkd/.test(host)) return 'LinkedIn';
+    if (/whatsapp|wa\.me/.test(host)) return 'WhatsApp';
+    if (/t\.co|twitter|x\.com/.test(host)) return 'X / Twitter';
+    if (/google|bing|duckduckgo|yahoo|ecosia/.test(host)) return 'Recherche';
+    if (/pasola\.fr|pasola-web\.pages\.dev/.test(host)) return 'Navigation interne';
+    return host;
+  }
+  // 3) referrer vide → navigateur in-app (l'app Instagram/Facebook masque souvent le referrer)
+  var b = p.browser || '';
+  if (/Instagram/i.test(b)) return 'Instagram';
+  if (/Facebook/i.test(b)) return 'Facebook';
+  if (/LinkedIn/i.test(b)) return 'LinkedIn';
+  return 'Accès direct';
 }
 function placeOf(p) {
   var c = countryName(p.country);
