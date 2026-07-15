@@ -207,6 +207,11 @@ a { color: var(--indigo); }
 
 .hidden { display: none !important; }
 
+/* Anti-débordement horizontal (la page ne bouge plus gauche-droite) */
+html, body { overflow-x: hidden; }
+#views-summary .adm-table { min-width: 0; }
+#views-summary { max-width: 100%; }
+
 /* RESPONSIVE — tient sur une page, mobile inclus */
 @media (max-width: 640px) {
   .adm-header { padding: 12px 14px; }
