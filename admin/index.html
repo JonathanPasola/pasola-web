@@ -518,6 +518,8 @@ function sourceOf(p) {
     if (/face|fb/.test(v)) return 'Facebook';
     if (/linkedin/.test(v)) return 'LinkedIn';
     if (/whats/.test(v)) return 'WhatsApp';
+    if (/mcplaza|plaza/.test(v)) return 'MC Plaza';
+    if (/cercle/.test(v)) return 'Cercle · doc';
     return v.charAt(0).toUpperCase() + v.slice(1);
   }
   // 2) referrer
