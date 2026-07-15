@@ -117,9 +117,8 @@ a { color: var(--indigo); }
 
 /* STATS */
 .adm-stats {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 32px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 12px; margin-bottom: 28px;
 }
-@media (min-width: 769px) { .adm-stats { grid-template-columns: repeat(4, 1fr); gap: 18px; } }
 .adm-stat {
   background: white; padding: 20px 18px;
   border: 0.5px solid rgba(26,44,61,0.1); border-radius: 2px;
@@ -207,6 +206,22 @@ a { color: var(--indigo); }
 .adm-table .small { font-size: 12px; color: var(--muted); }
 
 .hidden { display: none !important; }
+
+/* RESPONSIVE — tient sur une page, mobile inclus */
+@media (max-width: 640px) {
+  .adm-header { padding: 12px 14px; }
+  .adm-brand { font-size: 12px; letter-spacing: 0.22em; }
+  .adm-brand-sub { display: none; }
+  .adm-header-actions { gap: 6px; }
+  .btn { padding: 7px 9px; font-size: 9.5px; letter-spacing: 0.08em; }
+  .adm-dash { padding: 14px; }
+  .adm-stats { gap: 10px; margin-bottom: 20px; }
+  .adm-stat { padding: 14px 12px; }
+  .adm-stat-num { font-size: 24px; }
+  .adm-tab { padding: 10px 13px; font-size: 10px; }
+  #views-summary > div { flex-direction: column !important; gap: 16px !important; }
+  #views-summary > div > div { min-width: 0 !important; }
+}
 </style>
 </head>
 <body>
@@ -387,10 +402,12 @@ function renderAll() {
 function renderStats() {
   var grid = document.getElementById('adm-stats-grid');
   grid.innerHTML =
-    statCard(stats.users || users.length || 0, 'Users') +
+    statCard(stats.total != null ? stats.total : (users.length || 0), 'Users') +
     statCard(stats.this_week || 0, 'This week', 'terra') +
-    statCard(stats.contacts || contacts.length || 0, 'Contacts') +
-    statCard(cpRequests.length || 0, 'CP requests', 'terra');
+    statCard(stats.contacts != null ? stats.contacts : (contacts.length || 0), 'Contacts') +
+    statCard(cpRequests.length || 0, 'CP requests', 'terra') +
+    statCard(stats.pageviews != null ? stats.pageviews : (pageviews.length || 0), 'Page views') +
+    statCard(stats.unique_visitors || 0, 'Visitors', 'terra');
   document.getElementById('cnt-users').textContent = users.length ? '· ' + users.length : '';
   document.getElementById('cnt-contacts').textContent = contacts.length ? '· ' + contacts.length : '';
   document.getElementById('cnt-cp').textContent = cpRequests.length ? '· ' + cpRequests.length : '';
