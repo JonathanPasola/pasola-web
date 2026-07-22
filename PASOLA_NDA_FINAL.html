@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pasola Signature Estate — Mutual Non-Disclosure &amp; Non-Circumvention Agreement</title>
+<title>Pasola Signature Estate, Mutual Non-Disclosure &amp; Non-Circumvention Agreement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
@@ -12,943 +12,943 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-  /* ═══════════════════════════════════════════════════
-     PASOLA SIGNATURE ESTATE — OFFICIAL COLOR IDENTITY
-     Ratio: 70% neutral / 20% primary / 10% gold accent
-     ═══════════════════════════════════════════════════ */
-
-  :root {
-    /* Palette PASOLA v2 — Night Indigo + Terra Rossa
-       (anciens noms de variables conservés pour ne pas casser les 60+ usages
-       à travers le fichier ; seules les valeurs sont remappées sur la v2) */
-    --deep-teal: #1A2C3D;          /* Night Indigo (ex deep-teal) */
-    --ocean-teal: #2D4862;          /* Indigo clair (ex ocean-teal, pour gradients) */
-    --golden-sand: #C44A2C;         /* Terra Rossa (ex golden-sand, pour accents) */
-    --warm-sandstone: #A35B43;      /* Terra chaud (ex warm-sandstone, pour secondaires) */
-    --silver-grey: #5C6F7E;         /* Subtext indigo doux (ex silver-grey) */
-    --charcoal-deep: #1A2C3D;       /* Texte principal = Night Indigo */
-    --white: #FFFFFF;
-    --ivory: #FAF8F4;               /* Ivoire chaud aligné sur les emails Brevo */
-    --ivory-warm: #F5F1EC;
-    --border: #E5DECD;
-    --border-light: #EEEBE7;
-    --error: #C0392B;
-    --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
-    --font-body: 'Outfit', -apple-system, sans-serif;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font-body);
-    background: var(--white);
-    color: var(--charcoal-deep);
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--deep-teal), var(--ocean-teal), var(--golden-sand));
-    z-index: 1000;
-  }
-
-  .page {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 64px 40px 80px;
-  }
-
-  /* ══════════════════════
-     HEADER
-     ══════════════════════ */
-  .header {
-    text-align: center;
-    margin-bottom: 56px;
-    animation: fadeInDown 0.8s ease-out;
-  }
-
-  .logo-container { margin-bottom: 28px; }
-  .logo-container img { max-width: 300px; width: 100%; height: auto; }
-
-  /* Header brand v2 — emblème + PASOLA Cinzel + sous-titre italique */
-  .brand-link {
-    display: block;
-    text-decoration: none;
-    text-align: center;
-    margin-bottom: 28px;
-  }
-  .brand-emblem-img {
-    display: block;
-    width: 96px;
-    height: auto;
-    margin: 0 auto 18px;
-  }
-  .brand-pasola {
-    font-family: 'Cinzel', 'Times New Roman', serif;
-    font-size: 28px;
-    letter-spacing: 0.32em;
-    color: var(--charcoal-deep);
-    font-weight: 500;
-    padding-left: 0.32em;
-  }
-  .brand-tagline {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-style: italic;
-    font-size: 14px;
-    letter-spacing: 0.05em;
-    color: var(--silver-grey);
-    margin-top: 6px;
-  }
-
-  .header-accent {
-    width: 48px; height: 2px;
-    background: var(--golden-sand);
-    margin: 0 auto 28px;
-  }
-
-  .header-title {
-    font-family: var(--font-display);
-    font-size: 22px; font-weight: 400;
-    color: var(--deep-teal);
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    line-height: 1.45;
-  }
-
-  .header-subtitle {
-    font-family: var(--font-body);
-    font-size: 11px; font-weight: 400;
-    color: var(--silver-grey);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-  }
-
-  /* ── Company Identity ── */
-  .company-identity {
-    text-align: center;
-    margin-bottom: 48px;
-    padding: 28px 32px;
-    background: var(--ivory);
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    animation: fadeIn 1s ease-out 0.15s both;
-  }
-
-  .company-identity .entity-name {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--deep-teal);
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-  }
-
-  .company-identity .entity-details {
-    font-size: 12.5px;
-    font-weight: 300;
-    color: var(--silver-grey);
-    line-height: 1.8;
-    letter-spacing: 0.3px;
-  }
-
-  .company-identity .entity-details span {
-    display: inline-block;
-    margin: 0 6px;
-    color: var(--golden-sand);
-  }
-
-  /* ── Introduction ── */
-  .intro {
-    text-align: center;
-    margin-bottom: 48px;
-    padding: 0 24px;
-    animation: fadeIn 1s ease-out 0.2s both;
-  }
-
-  .intro p {
-    font-family: var(--font-display);
-    font-size: 20px; font-weight: 300;
-    line-height: 1.75;
-    color: var(--silver-grey);
-    font-style: italic;
-  }
-
-  /* ══════════════════════
-     PARTIES SECTION
-     ══════════════════════ */
-  .parties-section {
-    margin-bottom: 40px;
-    padding: 32px 36px;
-    background: var(--ivory);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    animation: fadeIn 1s ease-out 0.3s both;
-  }
-
-  .parties-section .section-label { margin-bottom: 16px; }
-
-  .parties-text {
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.85;
-    color: var(--silver-grey);
-  }
-
-  .parties-text strong {
-    font-weight: 500;
-    color: var(--charcoal-deep);
-  }
-
-  .parties-text .party-label {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--deep-teal);
-    background: rgba(6, 94, 111, 0.06);
-    padding: 2px 8px;
-    border-radius: 3px;
-    margin-right: 6px;
-  }
-
-  /* ══════════════════════
-     NDA CONTENT
-     ══════════════════════ */
-  .nda-section {
-    background: var(--white);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 48px 44px;
-    margin-bottom: 44px;
-    position: relative;
-    animation: fadeIn 1s ease-out 0.4s both;
-  }
-
-  .nda-section::before {
-    content: '';
-    position: absolute;
-    top: -1px; left: 40px; right: 40px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--golden-sand), transparent);
-  }
-
-  .section-label {
-    font-family: var(--font-body);
-    font-size: 11px; font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--deep-teal);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-label::after {
-    content: ''; flex: 1;
-    height: 1px;
-    background: var(--border-light);
-  }
-
-  .nda-text {
-    font-family: var(--font-body);
-    font-size: 14.5px; font-weight: 300;
-    line-height: 1.9;
-    color: var(--silver-grey);
-  }
-
-  .nda-text p { margin-bottom: 18px; }
-  .nda-text p:last-child { margin-bottom: 0; }
-  .nda-text strong { font-weight: 500; color: var(--charcoal-deep); }
-
-  .nda-text ul {
-    list-style: none; padding: 0; margin: 14px 0;
-  }
-
-  .nda-text ul li {
-    position: relative; padding-left: 22px; margin-bottom: 10px;
-  }
-
-  .nda-text ul li::before {
-    content: ''; position: absolute;
-    left: 0; top: 10px;
-    width: 8px; height: 1.5px;
-    background: var(--golden-sand);
-  }
-
-  .article-title {
-    font-family: var(--font-display);
-    font-size: 17px; font-weight: 500;
-    color: var(--deep-teal);
-    margin: 32px 0 10px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-light);
-  }
-
-  .article-title:first-of-type {
-    margin-top: 0; padding-top: 0; border-top: none;
-  }
-
-  .clause-letter {
-    padding-left: 22px;
-    position: relative;
-  }
-
-  .clause-letter .letter {
-    color: var(--golden-sand);
-    font-weight: 500;
-    position: absolute;
-    left: 0;
-  }
-
-  /* ══════════════════════
-     FORM
-     ══════════════════════ */
-  .form-section { animation: fadeIn 1s ease-out 0.6s both; }
-  .form-section .section-label { margin-bottom: 32px; }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
-    margin-bottom: 36px;
-  }
-
-  .form-group { display: flex; flex-direction: column; }
-  .form-group.full-width { grid-column: 1 / -1; }
-
-  .form-label {
-    font-family: var(--font-body);
-    font-size: 11px; font-weight: 400;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--silver-grey);
-    margin-bottom: 8px;
-  }
-
-  .form-input {
-    font-family: var(--font-body);
-    font-size: 15px; font-weight: 300;
-    padding: 14px 18px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--white);
-    color: var(--charcoal-deep);
-    transition: all 0.3s ease;
-    outline: none;
-  }
-
-  .form-input::placeholder { color: var(--warm-sandstone); font-weight: 200; }
-
-  .form-input:focus {
-    border-color: var(--ocean-teal);
-    box-shadow: 0 0 0 3px rgba(10, 142, 154, 0.06);
-  }
-
-  .form-input.error {
-    border-color: var(--error);
-    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.05);
-  }
-
-  .error-message {
-    font-size: 12px; color: var(--error);
-    margin-top: 6px; display: none; font-weight: 400;
-  }
-
-  .error-message.visible { display: block; }
-
-  select.form-input {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239A9D9F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 18px center;
-    padding-right: 42px; cursor: pointer;
-  }
-
-  /* ── Checkbox ── */
-  .agreement-section {
-    background: var(--ivory);
-    border-radius: 8px;
-    padding: 26px 28px;
-    margin-bottom: 36px;
-    border: 1px solid var(--border-light);
-  }
-
-  .checkbox-group { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; }
-  .checkbox-group input[type="checkbox"] { display: none; }
-
-  .custom-checkbox {
-    width: 20px; height: 20px; min-width: 20px;
-    border: 1.5px solid var(--border);
-    border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.25s ease;
-    margin-top: 2px; background: var(--white);
-  }
-
-  .custom-checkbox svg { opacity: 0; transform: scale(0.5); transition: all 0.25s ease; }
-
-  .checkbox-group input:checked + .custom-checkbox {
-    background: var(--deep-teal); border-color: var(--deep-teal);
-  }
-
-  .checkbox-group input:checked + .custom-checkbox svg { opacity: 1; transform: scale(1); }
-  .checkbox-group.error .custom-checkbox { border-color: var(--error); }
-
-  .checkbox-label {
-    font-size: 13.5px; font-weight: 300;
-    line-height: 1.65; color: var(--silver-grey);
-  }
-
-  /* ── Signature ── */
-  .signature-section { margin-bottom: 36px; }
-
-  .signature-pad-container {
-    border: 1px dashed var(--border);
-    border-radius: 8px; padding: 4px;
-    background: var(--white);
-    transition: border-color 0.3s ease;
-  }
-
-  .signature-pad-container:hover,
-  .signature-pad-container.active { border-color: var(--ocean-teal); }
-  .signature-pad-container.error { border-color: var(--error); }
-
-  #signatureCanvas {
-    width: 100%; height: 280px; display: block;
-    border-radius: 6px; cursor: crosshair; touch-action: none;
-  }
-
-  .signature-actions {
-    display: flex; justify-content: space-between;
-    align-items: center; margin-top: 10px;
-  }
-
-  .signature-hint {
-    font-size: 11px; color: var(--warm-sandstone);
-    font-weight: 300; letter-spacing: 0.5px;
-  }
-
-  .btn-clear-sig {
-    font-family: var(--font-body);
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 1px; text-transform: uppercase;
-    color: var(--silver-grey); background: none;
-    border: none; cursor: pointer;
-    padding: 4px 10px; border-radius: 4px;
-    transition: all 0.2s ease;
-  }
-
-  .btn-clear-sig:hover { color: var(--deep-teal); background: var(--ivory-warm); }
-  /* ID Upload */
-  .id-upload-section { margin-bottom: 36px; }
-  .id-upload-area {
-    border: 1px dashed var(--border); border-radius: 8px; padding: 28px 20px;
-    text-align: center; background: var(--white); transition: all 0.3s ease;
-    cursor: pointer; position: relative;
-  }
-  .id-upload-area:hover, .id-upload-area.dragover { border-color: var(--ocean-teal); background: rgba(10,142,154,0.02); }
-  .id-upload-area.error { border-color: var(--error); }
-  .id-upload-area.has-file { border-color: var(--deep-teal); border-style: solid; background: rgba(6,94,111,0.03); }
-  .id-upload-icon { color: var(--warm-sandstone); margin-bottom: 10px; }
-  .id-upload-text { font-size: 13px; font-weight: 300; color: var(--silver-grey); line-height: 1.6; }
-  .id-upload-text strong { font-weight: 500; color: var(--charcoal-deep); }
-  .id-file-name { font-size: 13px; font-weight: 400; color: var(--deep-teal); margin-top: 8px; }
-  .id-upload-area input[type="file"] { position: absolute; top:0; left:0; right:0; bottom:0; width:100%; height:100%; opacity:0; cursor:pointer; }
-
-
-  /* ── Date ── */
-  .date-display {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 36px; padding-bottom: 36px;
-    border-bottom: 1px solid var(--border-light);
-  }
-
-  .date-display .form-label { margin-bottom: 0; white-space: nowrap; }
-
-  .date-value {
-    font-family: var(--font-body);
-    font-size: 15px; font-weight: 300;
-    color: var(--charcoal-deep);
-  }
-
-  /* ── Submit & Download Buttons ── */
-  .submit-btn {
-    font-family: var(--font-body);
-    width: 100%; padding: 18px 32px;
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 4px; text-transform: uppercase;
-    color: var(--white); background: var(--deep-teal);
-    border: none; border-radius: 6px;
-    cursor: pointer; transition: all 0.4s ease;
-  }
-
-  .submit-btn:hover {
-    background: var(--ocean-teal);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 28px rgba(6, 94, 111, 0.18);
-  }
-
-  .submit-btn:active { transform: translateY(0); }
-
-  .submit-btn:disabled {
-    background: var(--border); cursor: not-allowed;
-    transform: none; box-shadow: none;
-  }
-
-  /* ══════════════════════
-     SUCCESS OVERLAY
-     ══════════════════════ */
-  .success-overlay {
-    display: none; position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255,255,255,0.97);
-    z-index: 999; align-items: center; justify-content: center;
-  }
-
-  .success-overlay.visible { display: flex; animation: fadeIn 0.5s ease; }
-
-  .success-content {
-    text-align: center; padding: 60px;
-    animation: scaleIn 0.6s ease;
-    max-width: 520px;
-  }
-
-  .success-icon {
-    width: 60px; height: 60px;
-    border: 2px solid var(--golden-sand);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 32px;
-  }
-
-  .success-content h2 {
-    font-family: var(--font-display);
-    font-size: 34px; font-weight: 300;
-    color: var(--deep-teal);
-    margin-bottom: 12px; letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  .success-content p {
-    font-size: 15px; font-weight: 300;
-    color: var(--silver-grey); line-height: 1.7;
-    margin-bottom: 8px;
-  }
-
-  .success-content .accent-line {
-    width: 32px; height: 2px;
-    background: var(--golden-sand);
-    margin: 24px auto;
-  }
-
-  .btn-download-pdf {
-    display: inline-block;
-    font-family: var(--font-body);
-    padding: 14px 36px;
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--white); background: var(--deep-teal);
-    border: none; border-radius: 6px;
-    cursor: pointer; transition: all 0.3s ease;
-    margin-top: 8px;
-  }
-
-  .btn-download-pdf:hover {
-    background: var(--ocean-teal);
-    box-shadow: 0 4px 16px rgba(6, 94, 111, 0.2);
-  }
-
-  .success-note {
-    font-size: 12px !important;
-    color: var(--warm-sandstone) !important;
-    margin-top: 16px !important;
-    font-style: italic;
-  }
-
-  /* ══════════════════════
-     FOOTER
-     ══════════════════════ */
-  .footer {
-    text-align: center; margin-top: 56px;
-    padding-top: 28px;
-    border-top: 1px solid var(--border-light);
-    animation: fadeIn 1s ease-out 0.8s both;
-  }
-
-  .footer p {
-    font-size: 11px; font-weight: 300;
-    color: var(--warm-sandstone);
-    letter-spacing: 0.5px; line-height: 1.9;
-  }
-
-  .footer a { color: var(--ocean-teal); text-decoration: none; transition: color 0.2s ease; }
-  .footer a:hover { color: var(--deep-teal); }
-
-  /* ══════════════════════
-     ANIMATIONS
-     ══════════════════════ */
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes scaleIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .spinner {
-    display: inline-block; width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: white; border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    margin-right: 10px; vertical-align: middle;
-  }
-
-  /* ══════════════════════
-     RESPONSIVE
-     ══════════════════════ */
-  @media (max-width: 640px) {
-    .page { padding: 44px 20px 60px; }
-    .header-title { font-size: 16px; letter-spacing: 1.5px; }
-    .nda-section { padding: 32px 24px; }
-    .form-grid { grid-template-columns: 1fr; gap: 18px; }
-    .logo-container img { max-width: 220px; }
-    .intro p { font-size: 17px; }
-    .agreement-section { padding: 20px 22px; }
-    .success-content { padding: 40px 24px; }
-    .company-identity { padding: 22px 20px; }
-    .parties-section { padding: 24px 22px; }
-  }
-
-  /* ══════════════════════
-     PDF RENDERING AREA (hidden)
-     ══════════════════════ */
-  #pdfContent {
-    position: absolute;
-    left: -9999px;
-    top: 0;
-    width: 700px;
-    background: white;
-    font-family: 'Outfit', sans-serif;
-    padding: 28px 36px;
-    color: #082019;
-  }
-
-  #pdfContent h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    color: #065E6F;
-    text-align: center;
-    margin-bottom: 2px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  #pdfContent .pdf-subtitle {
-    font-size: 9px;
-    color: #9A9D9F;
-    text-align: center;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  #pdfContent .pdf-divider {
-    height: 1px;
-    background: #E5E0DA;
-    margin-bottom: 12px;
-  }
-
-  #pdfContent .pdf-section {
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #EEEBE7;
-  }
-
-  #pdfContent .pdf-section-title {
-    font-size: 8px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: #065E6F;
-    margin-bottom: 5px;
-  }
-
-  #pdfContent .pdf-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 3px;
-    font-size: 11px;
-  }
-
-  #pdfContent .pdf-label {
-    color: #9A9D9F;
-    font-weight: 400;
-    min-width: 85px;
-  }
-
-  #pdfContent .pdf-value {
-    color: #082019;
-    font-weight: 300;
-    flex: 1;
-  }
-
-  #pdfContent .pdf-sig-img {
-    max-height: 60px;
-    border: 1px solid #E5E0DA;
-    border-radius: 4px;
-    padding: 3px;
-    background: #FAF8F5;
-  }
-
-  #pdfContent .pdf-footer {
-    margin-top: 12px;
-    padding-top: 8px;
-    border-top: 1px solid #EEEBE7;
-    font-size: 8px;
-    color: #CAB59B;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  #pdfContent .pdf-logo {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  #pdfContent .pdf-logo img {
-    max-width: 160px;
-    height: auto;
-  }
-
-  #pdfContent h3 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #065E6F;
-    margin: 14px 0 6px;
-    padding-top: 10px;
-    border-top: 1px solid #EEEBE7;
-  }
-
-  #pdfContent h3:first-of-type {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-  }
-
-  #pdfContent p {
-    margin-bottom: 8px;
-  }
-
-  #pdfContent ul {
-    list-style: none;
-    padding: 0;
-    margin: 6px 0;
-  }
-
-  #pdfContent ul li {
-    position: relative;
-    padding-left: 16px;
-    margin-bottom: 5px;
-  }
-
-  #pdfContent ul li::before {
-    content: '\2014';
-    position: absolute;
-    left: 0;
-    color: #C7A574;
-    font-size: 10px;
-  }
-
-  #pdfContent .clause-letter {
-    padding-left: 16px;
-    position: relative;
-    margin-bottom: 5px;
-  }
-
-  #pdfContent .clause-letter .letter {
-    color: #C7A574;
-    font-weight: 500;
-    position: absolute;
-    left: 0;
-  }
-
-  #pdfContent strong {
-    font-weight: 500;
-    color: #082019;
-  }
-
-  /* ══════════════════════
-     REVIEW OVERLAY (Admin)
-     ══════════════════════ */
-  .review-overlay {
-    display: none; position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255,255,255,0.98);
-    z-index: 1001; overflow-y: auto;
-  }
-
-  .review-overlay.visible { display: block; animation: fadeIn 0.5s ease; }
-
-  .review-content {
-    max-width: 620px;
-    margin: 48px auto;
-    padding: 48px 40px;
-    animation: scaleIn 0.6s ease;
-  }
-
-  .review-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .review-header h2 {
-    font-family: var(--font-display);
-    font-size: 28px; font-weight: 300;
-    color: var(--deep-teal);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .review-header p {
-    font-size: 13px; font-weight: 300;
-    color: var(--silver-grey); line-height: 1.7;
-  }
-
-  .review-card {
-    background: var(--ivory);
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    padding: 28px 32px;
-    margin-bottom: 28px;
-  }
-
-  .review-card-title {
-    font-size: 10px; font-weight: 600;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--deep-teal);
-    margin-bottom: 16px;
-  }
-
-  .review-row {
-    display: flex; gap: 16px;
-    margin-bottom: 10px;
-    font-size: 14px;
-  }
-
-  .review-label {
-    color: var(--silver-grey);
-    font-weight: 400;
-    min-width: 100px;
-    font-size: 13px;
-  }
-
-  .review-value {
-    color: var(--charcoal-deep);
-    font-weight: 300;
-    flex: 1;
-  }
-
-  .review-sig-preview {
-    max-height: 80px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 6px;
-    background: var(--white);
-    margin-top: 8px;
-  }
-
-  .review-actions {
-    display: flex; gap: 16px;
-    margin-top: 36px;
-  }
-
-  .btn-accept, .btn-decline {
-    flex: 1;
-    font-family: var(--font-body);
-    padding: 16px 24px;
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 3px; text-transform: uppercase;
-    border: none; border-radius: 6px;
-    cursor: pointer; transition: all 0.3s ease;
-  }
-
-  .btn-accept {
-    color: var(--white);
-    background: var(--deep-teal);
-  }
-
-  .btn-accept:hover {
-    background: var(--ocean-teal);
-    box-shadow: 0 6px 24px rgba(6, 94, 111, 0.2);
-  }
-
-  .btn-decline {
-    color: var(--silver-grey);
-    background: var(--ivory-warm);
-    border: 1px solid var(--border);
-  }
-
-  .btn-decline:hover {
-    color: var(--error);
-    border-color: var(--error);
-    background: rgba(192,57,43,0.04);
-  }
-
-  .btn-accept:disabled, .btn-decline:disabled {
-    opacity: 0.5; cursor: not-allowed;
-    transform: none; box-shadow: none;
-  }
-
-  .countersign-section {
-    margin-top: 28px;
-    display: none;
-  }
-
-  .countersign-section.visible { display: block; animation: fadeIn 0.4s ease; }
-
-  .review-result-overlay {
-    display: none; position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255,255,255,0.97);
-    z-index: 1002; align-items: center; justify-content: center;
-  }
-
-  .review-result-overlay.visible { display: flex; animation: fadeIn 0.5s ease; }
-
-  .result-content {
-    text-align: center; padding: 60px;
-    animation: scaleIn 0.6s ease;
-    max-width: 520px;
-  }
-
-  .result-content h2 {
-    font-family: var(--font-display);
-    font-size: 30px; font-weight: 300;
-    color: var(--deep-teal);
-    margin-bottom: 12px; letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .result-content p {
-    font-size: 14px; font-weight: 300;
-    color: var(--silver-grey); line-height: 1.7;
-    margin-bottom: 8px;
-  }
-
-  @media (max-width: 640px) {
-    .review-content { padding: 32px 20px; margin: 24px auto; }
-    .review-actions { flex-direction: column; }
-    .review-card { padding: 20px 22px; }
-  }
+ /* ═══════════════════════════════════════════════════
+ PASOLA SIGNATURE ESTATE, OFFICIAL COLOR IDENTITY
+ Ratio: 70% neutral / 20% primary / 10% gold accent
+ ═══════════════════════════════════════════════════ */
+
+ :root {
+ /* Palette PASOLA v2, Night Indigo + Terra Rossa
+ (anciens noms de variables conservés pour ne pas casser les 60+ usages
+ à travers le fichier ; seules les valeurs sont remappées sur la v2) */
+ --deep-teal: #1A2C3D; /* Night Indigo (ex deep-teal) */
+ --ocean-teal: #2D4862; /* Indigo clair (ex ocean-teal, pour gradients) */
+ --golden-sand: #C44A2C; /* Terra Rossa (ex golden-sand, pour accents) */
+ --warm-sandstone: #A35B43; /* Terra chaud (ex warm-sandstone, pour secondaires) */
+ --silver-grey: #5C6F7E; /* Subtext indigo doux (ex silver-grey) */
+ --charcoal-deep: #1A2C3D; /* Texte principal = Night Indigo */
+ --white: #FFFFFF;
+ --ivory: #FAF8F4; /* Ivoire chaud aligné sur les emails Brevo */
+ --ivory-warm: #F5F1EC;
+ --border: #E5DECD;
+ --border-light: #EEEBE7;
+ --error: #C0392B;
+ --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+ --font-body: 'Outfit', -apple-system, sans-serif;
+ }
+
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ html { scroll-behavior: smooth; }
+
+ body {
+ font-family: var(--font-body);
+ background: var(--white);
+ color: var(--charcoal-deep);
+ min-height: 100vh;
+ -webkit-font-smoothing: antialiased;
+ overflow-x: hidden;
+ }
+
+ body::before {
+ content: '';
+ position: fixed;
+ top: 0; left: 0; right: 0;
+ height: 3px;
+ background: linear-gradient(90deg, var(--deep-teal), var(--ocean-teal), var(--golden-sand));
+ z-index: 1000;
+ }
+
+ .page {
+ max-width: 760px;
+ margin: 0 auto;
+ padding: 64px 40px 80px;
+ }
+
+ /* ══════════════════════
+ HEADER
+ ══════════════════════ */
+ .header {
+ text-align: center;
+ margin-bottom: 56px;
+ animation: fadeInDown 0.8s ease-out;
+ }
+
+ .logo-container { margin-bottom: 28px; }
+ .logo-container img { max-width: 300px; width: 100%; height: auto; }
+
+ /* Header brand v2, emblème + PASOLA Cinzel + sous-titre italique */
+ .brand-link {
+ display: block;
+ text-decoration: none;
+ text-align: center;
+ margin-bottom: 28px;
+ }
+ .brand-emblem-img {
+ display: block;
+ width: 96px;
+ height: auto;
+ margin: 0 auto 18px;
+ }
+ .brand-pasola {
+ font-family: 'Cinzel', 'Times New Roman', serif;
+ font-size: 28px;
+ letter-spacing: 0.32em;
+ color: var(--charcoal-deep);
+ font-weight: 500;
+ padding-left: 0.32em;
+ }
+ .brand-tagline {
+ font-family: 'Cormorant Garamond', Georgia, serif;
+ font-style: italic;
+ font-size: 14px;
+ letter-spacing: 0.05em;
+ color: var(--silver-grey);
+ margin-top: 6px;
+ }
+
+ .header-accent {
+ width: 48px; height: 2px;
+ background: var(--golden-sand);
+ margin: 0 auto 28px;
+ }
+
+ .header-title {
+ font-family: var(--font-display);
+ font-size: 22px; font-weight: 400;
+ color: var(--deep-teal);
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ margin-bottom: 8px;
+ line-height: 1.45;
+ }
+
+ .header-subtitle {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 400;
+ color: var(--silver-grey);
+ letter-spacing: 0.22em;
+ text-transform: uppercase;
+ }
+
+ /* ── Company Identity ── */
+ .company-identity {
+ text-align: center;
+ margin-bottom: 48px;
+ padding: 28px 32px;
+ background: var(--ivory);
+ border-radius: 8px;
+ border: 1px solid var(--border-light);
+ animation: fadeIn 1s ease-out 0.15s both;
+ }
+
+ .company-identity .entity-name {
+ font-family: var(--font-display);
+ font-size: 22px;
+ font-weight: 500;
+ color: var(--deep-teal);
+ letter-spacing: 2px;
+ margin-bottom: 8px;
+ }
+
+ .company-identity .entity-details {
+ font-size: 12.5px;
+ font-weight: 300;
+ color: var(--silver-grey);
+ line-height: 1.8;
+ letter-spacing: 0.3px;
+ }
+
+ .company-identity .entity-details span {
+ display: inline-block;
+ margin: 0 6px;
+ color: var(--golden-sand);
+ }
+
+ /* ── Introduction ── */
+ .intro {
+ text-align: center;
+ margin-bottom: 48px;
+ padding: 0 24px;
+ animation: fadeIn 1s ease-out 0.2s both;
+ }
+
+ .intro p {
+ font-family: var(--font-display);
+ font-size: 20px; font-weight: 300;
+ line-height: 1.75;
+ color: var(--silver-grey);
+ font-style: italic;
+ }
+
+ /* ══════════════════════
+ PARTIES SECTION
+ ══════════════════════ */
+ .parties-section {
+ margin-bottom: 40px;
+ padding: 32px 36px;
+ background: var(--ivory);
+ border: 1px solid var(--border-light);
+ border-radius: 8px;
+ animation: fadeIn 1s ease-out 0.3s both;
+ }
+
+ .parties-section .section-label { margin-bottom: 16px; }
+
+ .parties-text {
+ font-family: var(--font-body);
+ font-size: 14px;
+ font-weight: 300;
+ line-height: 1.85;
+ color: var(--silver-grey);
+ }
+
+ .parties-text strong {
+ font-weight: 500;
+ color: var(--charcoal-deep);
+ }
+
+ .parties-text .party-label {
+ display: inline-block;
+ font-size: 11px;
+ font-weight: 400;
+ letter-spacing: 0.22em;
+ text-transform: uppercase;
+ color: var(--deep-teal);
+ background: rgba(6, 94, 111, 0.06);
+ padding: 2px 8px;
+ border-radius: 3px;
+ margin-right: 6px;
+ }
+
+ /* ══════════════════════
+ NDA CONTENT
+ ══════════════════════ */
+ .nda-section {
+ background: var(--white);
+ border: 1px solid var(--border-light);
+ border-radius: 8px;
+ padding: 48px 44px;
+ margin-bottom: 44px;
+ position: relative;
+ animation: fadeIn 1s ease-out 0.4s both;
+ }
+
+ .nda-section::before {
+ content: '';
+ position: absolute;
+ top: -1px; left: 40px; right: 40px;
+ height: 2px;
+ background: linear-gradient(90deg, transparent, var(--golden-sand), transparent);
+ }
+
+ .section-label {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 400;
+ letter-spacing: 0.22em;
+ text-transform: uppercase;
+ color: var(--deep-teal);
+ margin-bottom: 24px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .section-label::after {
+ content: ''; flex: 1;
+ height: 1px;
+ background: var(--border-light);
+ }
+
+ .nda-text {
+ font-family: var(--font-body);
+ font-size: 14.5px; font-weight: 300;
+ line-height: 1.9;
+ color: var(--silver-grey);
+ }
+
+ .nda-text p { margin-bottom: 18px; }
+ .nda-text p:last-child { margin-bottom: 0; }
+ .nda-text strong { font-weight: 500; color: var(--charcoal-deep); }
+
+ .nda-text ul {
+ list-style: none; padding: 0; margin: 14px 0;
+ }
+
+ .nda-text ul li {
+ position: relative; padding-left: 22px; margin-bottom: 10px;
+ }
+
+ .nda-text ul li::before {
+ content: ''; position: absolute;
+ left: 0; top: 10px;
+ width: 8px; height: 1.5px;
+ background: var(--golden-sand);
+ }
+
+ .article-title {
+ font-family: var(--font-display);
+ font-size: 17px; font-weight: 500;
+ color: var(--deep-teal);
+ margin: 32px 0 10px;
+ padding-top: 20px;
+ border-top: 1px solid var(--border-light);
+ }
+
+ .article-title:first-of-type {
+ margin-top: 0; padding-top: 0; border-top: none;
+ }
+
+ .clause-letter {
+ padding-left: 22px;
+ position: relative;
+ }
+
+ .clause-letter .letter {
+ color: var(--golden-sand);
+ font-weight: 500;
+ position: absolute;
+ left: 0;
+ }
+
+ /* ══════════════════════
+ FORM
+ ══════════════════════ */
+ .form-section { animation: fadeIn 1s ease-out 0.6s both; }
+ .form-section .section-label { margin-bottom: 32px; }
+
+ .form-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 22px;
+ margin-bottom: 36px;
+ }
+
+ .form-group { display: flex; flex-direction: column; }
+ .form-group.full-width { grid-column: 1 / -1; }
+
+ .form-label {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 400;
+ letter-spacing: 0.22em; text-transform: uppercase;
+ color: var(--silver-grey);
+ margin-bottom: 8px;
+ }
+
+ .form-input {
+ font-family: var(--font-body);
+ font-size: 15px; font-weight: 300;
+ padding: 14px 18px;
+ border: 1px solid var(--border);
+ border-radius: 6px;
+ background: var(--white);
+ color: var(--charcoal-deep);
+ transition: all 0.3s ease;
+ outline: none;
+ }
+
+ .form-input::placeholder { color: var(--warm-sandstone); font-weight: 200; }
+
+ .form-input:focus {
+ border-color: var(--ocean-teal);
+ box-shadow: 0 0 0 3px rgba(10, 142, 154, 0.06);
+ }
+
+ .form-input.error {
+ border-color: var(--error);
+ box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.05);
+ }
+
+ .error-message {
+ font-size: 12px; color: var(--error);
+ margin-top: 6px; display: none; font-weight: 400;
+ }
+
+ .error-message.visible { display: block; }
+
+ select.form-input {
+ appearance: none;
+ background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239A9D9F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+ background-repeat: no-repeat;
+ background-position: right 18px center;
+ padding-right: 42px; cursor: pointer;
+ }
+
+ /* ── Checkbox ── */
+ .agreement-section {
+ background: var(--ivory);
+ border-radius: 8px;
+ padding: 26px 28px;
+ margin-bottom: 36px;
+ border: 1px solid var(--border-light);
+ }
+
+ .checkbox-group { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; }
+ .checkbox-group input[type="checkbox"] { display: none; }
+
+ .custom-checkbox {
+ width: 20px; height: 20px; min-width: 20px;
+ border: 1.5px solid var(--border);
+ border-radius: 4px;
+ display: flex; align-items: center; justify-content: center;
+ transition: all 0.25s ease;
+ margin-top: 2px; background: var(--white);
+ }
+
+ .custom-checkbox svg { opacity: 0; transform: scale(0.5); transition: all 0.25s ease; }
+
+ .checkbox-group input:checked + .custom-checkbox {
+ background: var(--deep-teal); border-color: var(--deep-teal);
+ }
+
+ .checkbox-group input:checked + .custom-checkbox svg { opacity: 1; transform: scale(1); }
+ .checkbox-group.error .custom-checkbox { border-color: var(--error); }
+
+ .checkbox-label {
+ font-size: 13.5px; font-weight: 300;
+ line-height: 1.65; color: var(--silver-grey);
+ }
+
+ /* ── Signature ── */
+ .signature-section { margin-bottom: 36px; }
+
+ .signature-pad-container {
+ border: 1px dashed var(--border);
+ border-radius: 8px; padding: 4px;
+ background: var(--white);
+ transition: border-color 0.3s ease;
+ }
+
+ .signature-pad-container:hover,
+ .signature-pad-container.active { border-color: var(--ocean-teal); }
+ .signature-pad-container.error { border-color: var(--error); }
+
+ #signatureCanvas {
+ width: 100%; height: 280px; display: block;
+ border-radius: 6px; cursor: crosshair; touch-action: none;
+ }
+
+ .signature-actions {
+ display: flex; justify-content: space-between;
+ align-items: center; margin-top: 10px;
+ }
+
+ .signature-hint {
+ font-size: 11px; color: var(--warm-sandstone);
+ font-weight: 300; letter-spacing: 0.5px;
+ }
+
+ .btn-clear-sig {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 500;
+ letter-spacing: 1px; text-transform: uppercase;
+ color: var(--silver-grey); background: none;
+ border: none; cursor: pointer;
+ padding: 4px 10px; border-radius: 4px;
+ transition: all 0.2s ease;
+ }
+
+ .btn-clear-sig:hover { color: var(--deep-teal); background: var(--ivory-warm); }
+ /* ID Upload */
+ .id-upload-section { margin-bottom: 36px; }
+ .id-upload-area {
+ border: 1px dashed var(--border); border-radius: 8px; padding: 28px 20px;
+ text-align: center; background: var(--white); transition: all 0.3s ease;
+ cursor: pointer; position: relative;
+ }
+ .id-upload-area:hover, .id-upload-area.dragover { border-color: var(--ocean-teal); background: rgba(10,142,154,0.02); }
+ .id-upload-area.error { border-color: var(--error); }
+ .id-upload-area.has-file { border-color: var(--deep-teal); border-style: solid; background: rgba(6,94,111,0.03); }
+ .id-upload-icon { color: var(--warm-sandstone); margin-bottom: 10px; }
+ .id-upload-text { font-size: 13px; font-weight: 300; color: var(--silver-grey); line-height: 1.6; }
+ .id-upload-text strong { font-weight: 500; color: var(--charcoal-deep); }
+ .id-file-name { font-size: 13px; font-weight: 400; color: var(--deep-teal); margin-top: 8px; }
+ .id-upload-area input[type="file"] { position: absolute; top:0; left:0; right:0; bottom:0; width:100%; height:100%; opacity:0; cursor:pointer; }
+
+
+ /* ── Date ── */
+ .date-display {
+ display: flex; align-items: center; gap: 12px;
+ margin-bottom: 36px; padding-bottom: 36px;
+ border-bottom: 1px solid var(--border-light);
+ }
+
+ .date-display .form-label { margin-bottom: 0; white-space: nowrap; }
+
+ .date-value {
+ font-family: var(--font-body);
+ font-size: 15px; font-weight: 300;
+ color: var(--charcoal-deep);
+ }
+
+ /* ── Submit & Download Buttons ── */
+ .submit-btn {
+ font-family: var(--font-body);
+ width: 100%; padding: 18px 32px;
+ font-size: 12px; font-weight: 500;
+ letter-spacing: 4px; text-transform: uppercase;
+ color: var(--white); background: var(--deep-teal);
+ border: none; border-radius: 6px;
+ cursor: pointer; transition: all 0.4s ease;
+ }
+
+ .submit-btn:hover {
+ background: var(--ocean-teal);
+ transform: translateY(-1px);
+ box-shadow: 0 8px 28px rgba(6, 94, 111, 0.18);
+ }
+
+ .submit-btn:active { transform: translateY(0); }
+
+ .submit-btn:disabled {
+ background: var(--border); cursor: not-allowed;
+ transform: none; box-shadow: none;
+ }
+
+ /* ══════════════════════
+ SUCCESS OVERLAY
+ ══════════════════════ */
+ .success-overlay {
+ display: none; position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(255,255,255,0.97);
+ z-index: 999; align-items: center; justify-content: center;
+ }
+
+ .success-overlay.visible { display: flex; animation: fadeIn 0.5s ease; }
+
+ .success-content {
+ text-align: center; padding: 60px;
+ animation: scaleIn 0.6s ease;
+ max-width: 520px;
+ }
+
+ .success-icon {
+ width: 60px; height: 60px;
+ border: 2px solid var(--golden-sand);
+ border-radius: 50%;
+ display: flex; align-items: center; justify-content: center;
+ margin: 0 auto 32px;
+ }
+
+ .success-content h2 {
+ font-family: var(--font-display);
+ font-size: 34px; font-weight: 300;
+ color: var(--deep-teal);
+ margin-bottom: 12px; letter-spacing: 3px;
+ text-transform: uppercase;
+ }
+
+ .success-content p {
+ font-size: 15px; font-weight: 300;
+ color: var(--silver-grey); line-height: 1.7;
+ margin-bottom: 8px;
+ }
+
+ .success-content .accent-line {
+ width: 32px; height: 2px;
+ background: var(--golden-sand);
+ margin: 24px auto;
+ }
+
+ .btn-download-pdf {
+ display: inline-block;
+ font-family: var(--font-body);
+ padding: 14px 36px;
+ font-size: 12px; font-weight: 500;
+ letter-spacing: 3px; text-transform: uppercase;
+ color: var(--white); background: var(--deep-teal);
+ border: none; border-radius: 6px;
+ cursor: pointer; transition: all 0.3s ease;
+ margin-top: 8px;
+ }
+
+ .btn-download-pdf:hover {
+ background: var(--ocean-teal);
+ box-shadow: 0 4px 16px rgba(6, 94, 111, 0.2);
+ }
+
+ .success-note {
+ font-size: 12px !important;
+ color: var(--warm-sandstone) !important;
+ margin-top: 16px !important;
+ font-style: italic;
+ }
+
+ /* ══════════════════════
+ FOOTER
+ ══════════════════════ */
+ .footer {
+ text-align: center; margin-top: 56px;
+ padding-top: 28px;
+ border-top: 1px solid var(--border-light);
+ animation: fadeIn 1s ease-out 0.8s both;
+ }
+
+ .footer p {
+ font-size: 11px; font-weight: 300;
+ color: var(--warm-sandstone);
+ letter-spacing: 0.5px; line-height: 1.9;
+ }
+
+ .footer a { color: var(--ocean-teal); text-decoration: none; transition: color 0.2s ease; }
+ .footer a:hover { color: var(--deep-teal); }
+
+ /* ══════════════════════
+ ANIMATIONS
+ ══════════════════════ */
+ @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+ @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+ @keyframes scaleIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+ @keyframes spin { to { transform: rotate(360deg); } }
+
+ .spinner {
+ display: inline-block; width: 14px; height: 14px;
+ border: 2px solid rgba(255,255,255,0.3);
+ border-top-color: white; border-radius: 50%;
+ animation: spin 0.6s linear infinite;
+ margin-right: 10px; vertical-align: middle;
+ }
+
+ /* ══════════════════════
+ RESPONSIVE
+ ══════════════════════ */
+ @media (max-width: 640px) {
+ .page { padding: 44px 20px 60px; }
+ .header-title { font-size: 16px; letter-spacing: 1.5px; }
+ .nda-section { padding: 32px 24px; }
+ .form-grid { grid-template-columns: 1fr; gap: 18px; }
+ .logo-container img { max-width: 220px; }
+ .intro p { font-size: 17px; }
+ .agreement-section { padding: 20px 22px; }
+ .success-content { padding: 40px 24px; }
+ .company-identity { padding: 22px 20px; }
+ .parties-section { padding: 24px 22px; }
+ }
+
+ /* ══════════════════════
+ PDF RENDERING AREA (hidden)
+ ══════════════════════ */
+ #pdfContent {
+ position: absolute;
+ left: -9999px;
+ top: 0;
+ width: 700px;
+ background: white;
+ font-family: 'Outfit', sans-serif;
+ padding: 28px 36px;
+ color: #082019;
+ }
+
+ #pdfContent h1 {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 15px;
+ color: #065E6F;
+ text-align: center;
+ margin-bottom: 2px;
+ letter-spacing: 3px;
+ text-transform: uppercase;
+ }
+
+ #pdfContent .pdf-subtitle {
+ font-size: 9px;
+ color: #9A9D9F;
+ text-align: center;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ }
+
+ #pdfContent .pdf-divider {
+ height: 1px;
+ background: #E5E0DA;
+ margin-bottom: 12px;
+ }
+
+ #pdfContent .pdf-section {
+ margin-bottom: 8px;
+ padding-bottom: 8px;
+ border-bottom: 1px solid #EEEBE7;
+ }
+
+ #pdfContent .pdf-section-title {
+ font-size: 8px;
+ font-weight: 600;
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ color: #065E6F;
+ margin-bottom: 5px;
+ }
+
+ #pdfContent .pdf-row {
+ display: flex;
+ gap: 10px;
+ margin-bottom: 3px;
+ font-size: 11px;
+ }
+
+ #pdfContent .pdf-label {
+ color: #9A9D9F;
+ font-weight: 400;
+ min-width: 85px;
+ }
+
+ #pdfContent .pdf-value {
+ color: #082019;
+ font-weight: 300;
+ flex: 1;
+ }
+
+ #pdfContent .pdf-sig-img {
+ max-height: 60px;
+ border: 1px solid #E5E0DA;
+ border-radius: 4px;
+ padding: 3px;
+ background: #FAF8F5;
+ }
+
+ #pdfContent .pdf-footer {
+ margin-top: 12px;
+ padding-top: 8px;
+ border-top: 1px solid #EEEBE7;
+ font-size: 8px;
+ color: #CAB59B;
+ text-align: center;
+ line-height: 1.5;
+ }
+
+ #pdfContent .pdf-logo {
+ text-align: center;
+ margin-bottom: 10px;
+ }
+
+ #pdfContent .pdf-logo img {
+ max-width: 160px;
+ height: auto;
+ }
+
+ #pdfContent h3 {
+ font-family: 'Cormorant Garamond', Georgia, serif;
+ font-size: 13px;
+ font-weight: 500;
+ color: #065E6F;
+ margin: 14px 0 6px;
+ padding-top: 10px;
+ border-top: 1px solid #EEEBE7;
+ }
+
+ #pdfContent h3:first-of-type {
+ margin-top: 0;
+ padding-top: 0;
+ border-top: none;
+ }
+
+ #pdfContent p {
+ margin-bottom: 8px;
+ }
+
+ #pdfContent ul {
+ list-style: none;
+ padding: 0;
+ margin: 6px 0;
+ }
+
+ #pdfContent ul li {
+ position: relative;
+ padding-left: 16px;
+ margin-bottom: 5px;
+ }
+
+ #pdfContent ul li::before {
+ content: '\2014';
+ position: absolute;
+ left: 0;
+ color: #C7A574;
+ font-size: 10px;
+ }
+
+ #pdfContent .clause-letter {
+ padding-left: 16px;
+ position: relative;
+ margin-bottom: 5px;
+ }
+
+ #pdfContent .clause-letter .letter {
+ color: #C7A574;
+ font-weight: 500;
+ position: absolute;
+ left: 0;
+ }
+
+ #pdfContent strong {
+ font-weight: 500;
+ color: #082019;
+ }
+
+ /* ══════════════════════
+ REVIEW OVERLAY (Admin)
+ ══════════════════════ */
+ .review-overlay {
+ display: none; position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(255,255,255,0.98);
+ z-index: 1001; overflow-y: auto;
+ }
+
+ .review-overlay.visible { display: block; animation: fadeIn 0.5s ease; }
+
+ .review-content {
+ max-width: 620px;
+ margin: 48px auto;
+ padding: 48px 40px;
+ animation: scaleIn 0.6s ease;
+ }
+
+ .review-header {
+ text-align: center;
+ margin-bottom: 40px;
+ }
+
+ .review-header h2 {
+ font-family: var(--font-display);
+ font-size: 28px; font-weight: 300;
+ color: var(--deep-teal);
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ margin-bottom: 8px;
+ }
+
+ .review-header p {
+ font-size: 13px; font-weight: 300;
+ color: var(--silver-grey); line-height: 1.7;
+ }
+
+ .review-card {
+ background: var(--ivory);
+ border: 1px solid var(--border-light);
+ border-radius: 8px;
+ padding: 28px 32px;
+ margin-bottom: 28px;
+ }
+
+ .review-card-title {
+ font-size: 10px; font-weight: 600;
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ color: var(--deep-teal);
+ margin-bottom: 16px;
+ }
+
+ .review-row {
+ display: flex; gap: 16px;
+ margin-bottom: 10px;
+ font-size: 14px;
+ }
+
+ .review-label {
+ color: var(--silver-grey);
+ font-weight: 400;
+ min-width: 100px;
+ font-size: 13px;
+ }
+
+ .review-value {
+ color: var(--charcoal-deep);
+ font-weight: 300;
+ flex: 1;
+ }
+
+ .review-sig-preview {
+ max-height: 80px;
+ border: 1px solid var(--border);
+ border-radius: 6px;
+ padding: 6px;
+ background: var(--white);
+ margin-top: 8px;
+ }
+
+ .review-actions {
+ display: flex; gap: 16px;
+ margin-top: 36px;
+ }
+
+ .btn-accept, .btn-decline {
+ flex: 1;
+ font-family: var(--font-body);
+ padding: 16px 24px;
+ font-size: 12px; font-weight: 500;
+ letter-spacing: 3px; text-transform: uppercase;
+ border: none; border-radius: 6px;
+ cursor: pointer; transition: all 0.3s ease;
+ }
+
+ .btn-accept {
+ color: var(--white);
+ background: var(--deep-teal);
+ }
+
+ .btn-accept:hover {
+ background: var(--ocean-teal);
+ box-shadow: 0 6px 24px rgba(6, 94, 111, 0.2);
+ }
+
+ .btn-decline {
+ color: var(--silver-grey);
+ background: var(--ivory-warm);
+ border: 1px solid var(--border);
+ }
+
+ .btn-decline:hover {
+ color: var(--error);
+ border-color: var(--error);
+ background: rgba(192,57,43,0.04);
+ }
+
+ .btn-accept:disabled, .btn-decline:disabled {
+ opacity: 0.5; cursor: not-allowed;
+ transform: none; box-shadow: none;
+ }
+
+ .countersign-section {
+ margin-top: 28px;
+ display: none;
+ }
+
+ .countersign-section.visible { display: block; animation: fadeIn 0.4s ease; }
+
+ .review-result-overlay {
+ display: none; position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(255,255,255,0.97);
+ z-index: 1002; align-items: center; justify-content: center;
+ }
+
+ .review-result-overlay.visible { display: flex; animation: fadeIn 0.5s ease; }
+
+ .result-content {
+ text-align: center; padding: 60px;
+ animation: scaleIn 0.6s ease;
+ max-width: 520px;
+ }
+
+ .result-content h2 {
+ font-family: var(--font-display);
+ font-size: 30px; font-weight: 300;
+ color: var(--deep-teal);
+ margin-bottom: 12px; letter-spacing: 2px;
+ text-transform: uppercase;
+ }
+
+ .result-content p {
+ font-size: 14px; font-weight: 300;
+ color: var(--silver-grey); line-height: 1.7;
+ margin-bottom: 8px;
+ }
+
+ @media (max-width: 640px) {
+ .review-content { padding: 32px 20px; margin: 24px auto; }
+ .review-actions { flex-direction: column; }
+ .review-card { padding: 20px 22px; }
+ }
 
 </style>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -958,993 +958,993 @@
 
 <div class="page">
 
-  <!-- ══ HEADER ══ -->
-  <header class="header">
-    <a href="https://pasola-web.pages.dev" class="brand-link">
-      <img src="email-emblem.png" alt="PASOLA" width="96" height="53" class="brand-emblem-img" />
-      <div class="brand-pasola">PASOLA</div>
-      <div class="brand-tagline">Signature Estate &middot; Sumba</div>
-    </a>
-    <div class="header-accent"></div>
-    <h1 class="header-title">Mutual Non-Disclosure &amp; Non-Circumvention Agreement</h1>
-    <p class="header-subtitle">Confidential &nbsp;·&nbsp; Legally Binding &nbsp;·&nbsp; Version 2 — 30 March 2026</p>
-  </header>
+ <!-- ══ HEADER ══ -->
+ <header class="header">
+ <a href="https://pasola-web.pages.dev" class="brand-link">
+ <img src="email-emblem.png" alt="PASOLA" width="96" height="53" class="brand-emblem-img" />
+ <div class="brand-pasola">PASOLA</div>
+ <div class="brand-tagline">Signature Estate &middot; Sumba</div>
+ </a>
+ <div class="header-accent"></div>
+ <h1 class="header-title">Mutual Non-Disclosure &amp; Non-Circumvention Agreement</h1>
+ <p class="header-subtitle">Confidential &nbsp;·&nbsp; Legally Binding &nbsp;·&nbsp; Version 2, 30 March 2026</p>
+ </header>
 
-  <!-- ══ COMPANY IDENTITY ══ -->
-  <div class="company-identity">
-    <div class="entity-name">PASOLA SAS</div>
-    <div class="entity-details">
-      Société par Actions Simplifiée — France
-      <span>·</span>
-      Pasola Signature Estate
-      <span>·</span>
-      Sumba Island, Indonesia
-    </div>
-  </div>
+ <!-- ══ COMPANY IDENTITY ══ -->
+ <div class="company-identity">
+ <div class="entity-name">PASOLA SAS</div>
+ <div class="entity-details">
+ Société par Actions Simplifiée, France
+ <span>·</span>
+ Pasola Signature Estate
+ <span>·</span>
+ Sumba Island, Indonesia
+ </div>
+ </div>
 
-  <!-- ══ INTRODUCTION ══ -->
-  <div class="intro">
-    <p>This Agreement establishes a framework of mutual trust, confidentiality and loyalty between the parties in connection with the Pasola Signature Estate project.</p>
-  </div>
+ <!-- ══ INTRODUCTION ══ -->
+ <div class="intro">
+ <p>This Agreement establishes a framework of mutual trust, confidentiality and loyalty between the parties in connection with the Pasola Signature Estate project.</p>
+ </div>
 
-  <!-- ══ PARTIES ══ -->
-  <div class="parties-section">
-    <div class="section-label">Parties to the Agreement</div>
-    <div class="parties-text">
-      <p>
-        <span class="party-label">Party A</span>
-        <strong>PASOLA SAS</strong>, a Société par Actions Simplifiée incorporated under French law, represented by its duly authorised representative, with registered offices in France, acting on behalf of the Pasola Signature Estate project, Sumba Island, Indonesia (hereinafter <strong>"Pasola"</strong> or the <strong>"Disclosing Party"</strong>).
-      </p>
-      <p style="margin-top:14px;">
-        <span class="party-label">Party B</span>
-        The individual or legal entity identified in the signature block below (hereinafter the <strong>"Receiving Party"</strong>), who by executing this Agreement acknowledges having read and accepted all terms herein.
-      </p>
-      <p style="margin-top:14px;">
-        Pasola and the Receiving Party are referred to individually as a <strong>"Party"</strong> and collectively as the <strong>"Parties"</strong>. This Agreement is entered into as of the date of electronic signature by the Receiving Party.
-      </p>
-    </div>
-  </div>
+ <!-- ══ PARTIES ══ -->
+ <div class="parties-section">
+ <div class="section-label">Parties to the Agreement</div>
+ <div class="parties-text">
+ <p>
+ <span class="party-label">Party A</span>
+ <strong>PASOLA SAS</strong>, a Société par Actions Simplifiée incorporated under French law, represented by its duly authorised representative, with registered offices in France, acting on behalf of the Pasola Signature Estate project, Sumba Island, Indonesia (hereinafter <strong>"Pasola"</strong> or the <strong>"Disclosing Party"</strong>).
+ </p>
+ <p style="margin-top:14px;">
+ <span class="party-label">Party B</span>
+ The individual or legal entity identified in the signature block below (hereinafter the <strong>"Receiving Party"</strong>), who by executing this Agreement acknowledges having read and accepted all terms herein.
+ </p>
+ <p style="margin-top:14px;">
+ Pasola and the Receiving Party are referred to individually as a <strong>"Party"</strong> and collectively as the <strong>"Parties"</strong>. This Agreement is entered into as of the date of electronic signature by the Receiving Party.
+ </p>
+ </div>
+ </div>
 
-  <!-- ══ NDA CONTENT ══ -->
-  <div class="nda-section">
-    <div class="section-label">Agreement Terms</div>
-    <div class="nda-text">
+ <!-- ══ NDA CONTENT ══ -->
+ <div class="nda-section">
+ <div class="section-label">Agreement Terms</div>
+ <div class="nda-text">
 
-      <!-- Article 1 -->
-      <h3 class="article-title">Article 1 — Purpose</h3>
-      <p>The purpose of this Mutual Non-Disclosure and Non-Circumvention Agreement (hereinafter the <strong>"Agreement"</strong>) is to define the conditions under which the Parties may exchange Confidential Information in connection with the development, financing, acquisition, construction, operation or any transaction related to the <strong>Pasola Signature Estate</strong> project located on Sumba Island, Indonesia (hereinafter the <strong>"Project"</strong>), and to protect the legitimate business interests of each Party by preventing circumvention, solicitation and unauthorised disclosure of such information.</p>
+ <!-- Article 1 -->
+ <h3 class="article-title">Article 1, Purpose</h3>
+ <p>The purpose of this Mutual Non-Disclosure and Non-Circumvention Agreement (hereinafter the <strong>"Agreement"</strong>) is to define the conditions under which the Parties may exchange Confidential Information in connection with the development, financing, acquisition, construction, operation or any transaction related to the <strong>Pasola Signature Estate</strong> project located on Sumba Island, Indonesia (hereinafter the <strong>"Project"</strong>), and to protect the legitimate business interests of each Party by preventing circumvention, solicitation and unauthorised disclosure of such information.</p>
 
-      <!-- Article 2 -->
-      <h3 class="article-title">Article 2 — Definitions</h3>
-      <p>For the purposes of this Agreement, the following definitions shall apply:</p>
-      <ul>
-        <li><strong>"Confidential Information"</strong> means all non-public information, data, know-how, trade secrets, financial projections, investor lists, business plans, architectural designs, land acquisition strategies, legal structures, partnership arrangements, pricing, and any other information disclosed by one Party to the other, whether in written, oral, electronic or any other form, that is designated as confidential or that reasonably should be understood to be confidential given the nature of the information and the circumstances of disclosure.</li>
-        <li><strong>"Business Contacts"</strong> means any investors, lenders, partners, advisors, contractors, suppliers, landowners, government officials, potential buyers or any other third party introduced by one Party to the other in connection with the Project.</li>
-        <li><strong>"Circumvention"</strong> means any direct or indirect action taken by a Party to bypass, exclude or replace the other Party from a business opportunity, transaction, or relationship arising from or connected to the Project or any information disclosed under this Agreement.</li>
-        <li><strong>"Representatives"</strong> means employees, directors, officers, agents, advisors, consultants and legal counsel of a Party.</li>
-      </ul>
+ <!-- Article 2 -->
+ <h3 class="article-title">Article 2, Definitions</h3>
+ <p>For the purposes of this Agreement, the following definitions shall apply:</p>
+ <ul>
+ <li><strong>"Confidential Information"</strong> means all non-public information, data, know-how, trade secrets, financial projections, investor lists, business plans, architectural designs, land acquisition strategies, legal structures, partnership arrangements, pricing, and any other information disclosed by one Party to the other, whether in written, oral, electronic or any other form, that is designated as confidential or that reasonably should be understood to be confidential given the nature of the information and the circumstances of disclosure.</li>
+ <li><strong>"Business Contacts"</strong> means any investors, lenders, partners, advisors, contractors, suppliers, landowners, government officials, potential buyers or any other third party introduced by one Party to the other in connection with the Project.</li>
+ <li><strong>"Circumvention"</strong> means any direct or indirect action taken by a Party to bypass, exclude or replace the other Party from a business opportunity, transaction, or relationship arising from or connected to the Project or any information disclosed under this Agreement.</li>
+ <li><strong>"Representatives"</strong> means employees, directors, officers, agents, advisors, consultants and legal counsel of a Party.</li>
+ </ul>
 
-      <!-- Article 3 -->
-      <h3 class="article-title">Article 3 — Non-Disclosure Obligations</h3>
-      <p>Each Party (as Receiving Party) undertakes, with respect to the Confidential Information received from the other Party (as Disclosing Party), to:</p>
-      <ul>
-        <li>Hold all Confidential Information in strict confidence and not disclose it to any third party without the prior written consent of the Disclosing Party;</li>
-        <li>Use the Confidential Information exclusively for the purpose of evaluating, negotiating or implementing the Project and for no other purpose whatsoever;</li>
-        <li>Limit access to Confidential Information to its Representatives who have a strict need to know and who are bound by confidentiality obligations no less restrictive than those set out herein;</li>
-        <li>Immediately notify the Disclosing Party in writing upon becoming aware of any actual or suspected unauthorised disclosure or use of Confidential Information;</li>
-        <li>Return or certifiably destroy all Confidential Information, together with all copies and derivatives thereof, upon the written request of the Disclosing Party or upon termination of this Agreement.</li>
-      </ul>
+ <!-- Article 3 -->
+ <h3 class="article-title">Article 3, Non-Disclosure Obligations</h3>
+ <p>Each Party (as Receiving Party) undertakes, with respect to the Confidential Information received from the other Party (as Disclosing Party), to:</p>
+ <ul>
+ <li>Hold all Confidential Information in strict confidence and not disclose it to any third party without the prior written consent of the Disclosing Party;</li>
+ <li>Use the Confidential Information exclusively for the purpose of evaluating, negotiating or implementing the Project and for no other purpose whatsoever;</li>
+ <li>Limit access to Confidential Information to its Representatives who have a strict need to know and who are bound by confidentiality obligations no less restrictive than those set out herein;</li>
+ <li>Immediately notify the Disclosing Party in writing upon becoming aware of any actual or suspected unauthorised disclosure or use of Confidential Information;</li>
+ <li>Return or certifiably destroy all Confidential Information, together with all copies and derivatives thereof, upon the written request of the Disclosing Party or upon termination of this Agreement.</li>
+ </ul>
 
-      <!-- Article 4 -->
-      <h3 class="article-title">Article 4 — Exceptions to Confidentiality</h3>
-      <p>The obligations set out in Article 3 shall not apply to information that the Receiving Party can demonstrate:</p>
-      <div class="clause-letter"><span class="letter">a)</span> Is or becomes publicly available through no act or omission of the Receiving Party;</div>
-      <div class="clause-letter"><span class="letter">b)</span> Was already known to the Receiving Party at the time of disclosure, as evidenced by written records pre-dating receipt;</div>
-      <div class="clause-letter"><span class="letter">c)</span> Is independently developed by the Receiving Party without use of or reference to the Confidential Information;</div>
-      <div class="clause-letter"><span class="letter">d)</span> Is required to be disclosed by applicable law, regulation or court order, provided that the Receiving Party: (i) gives the Disclosing Party prompt prior written notice, (ii) cooperates with the Disclosing Party in seeking a protective order, and (iii) discloses only the minimum information required.</div>
+ <!-- Article 4 -->
+ <h3 class="article-title">Article 4, Exceptions to Confidentiality</h3>
+ <p>The obligations set out in Article 3 shall not apply to information that the Receiving Party can demonstrate:</p>
+ <div class="clause-letter"><span class="letter">a)</span> Is or becomes publicly available through no act or omission of the Receiving Party;</div>
+ <div class="clause-letter"><span class="letter">b)</span> Was already known to the Receiving Party at the time of disclosure, as evidenced by written records pre-dating receipt;</div>
+ <div class="clause-letter"><span class="letter">c)</span> Is independently developed by the Receiving Party without use of or reference to the Confidential Information;</div>
+ <div class="clause-letter"><span class="letter">d)</span> Is required to be disclosed by applicable law, regulation or court order, provided that the Receiving Party: (i) gives the Disclosing Party prompt prior written notice, (ii) cooperates with the Disclosing Party in seeking a protective order, and (iii) discloses only the minimum information required.</div>
 
-      <!-- Article 5 -->
-      <h3 class="article-title">Article 5 — Duration</h3>
-      <p>This Agreement shall enter into force upon the date of signature by the Receiving Party and shall remain in full force and effect for a period of <strong>five (5) years</strong> from such date. The obligations of confidentiality and non-circumvention set out herein shall survive the expiry or termination of this Agreement for the full duration of five (5) years from the date of first disclosure of the relevant Confidential Information, regardless of any earlier termination of commercial discussions between the Parties.</p>
+ <!-- Article 5 -->
+ <h3 class="article-title">Article 5, Duration</h3>
+ <p>This Agreement shall enter into force upon the date of signature by the Receiving Party and shall remain in full force and effect for a period of <strong>five (5) years</strong> from such date. The obligations of confidentiality and non-circumvention set out herein shall survive the expiry or termination of this Agreement for the full duration of five (5) years from the date of first disclosure of the relevant Confidential Information, regardless of any earlier termination of commercial discussions between the Parties.</p>
 
-      <!-- Article 6 -->
-      <h3 class="article-title">Article 6 — Non-Circumvention</h3>
-      <p>Each Party expressly agrees and undertakes, for the duration of this Agreement and for a period of <strong>three (3) years</strong> following its expiry or termination, not to:</p>
-      <ul>
-        <li>Circumvent, bypass or replace the other Party in connection with any business opportunity, transaction, investment, financing, acquisition, or commercial relationship directly or indirectly arising from information disclosed under this Agreement;</li>
-        <li>Initiate or maintain, directly or through any affiliate, agent, or associate, any contact with Business Contacts introduced by the other Party, without the prior written consent of the introducing Party;</li>
-        <li>Use information received under this Agreement to negotiate, structure or conclude any transaction that would diminish, eliminate or substitute the economic benefit anticipated for the introducing Party;</li>
-        <li>Establish, participate in, or facilitate any arrangement designed to achieve indirectly what is prohibited directly under this Article.</li>
-      </ul>
-      <p>Any transaction, agreement or relationship entered into in breach of this Article shall be null and void as between the Parties, and the breaching Party shall be liable for damages as set forth in Article 7.</p>
+ <!-- Article 6 -->
+ <h3 class="article-title">Article 6, Non-Circumvention</h3>
+ <p>Each Party expressly agrees and undertakes, for the duration of this Agreement and for a period of <strong>three (3) years</strong> following its expiry or termination, not to:</p>
+ <ul>
+ <li>Circumvent, bypass or replace the other Party in connection with any business opportunity, transaction, investment, financing, acquisition, or commercial relationship directly or indirectly arising from information disclosed under this Agreement;</li>
+ <li>Initiate or maintain, directly or through any affiliate, agent, or associate, any contact with Business Contacts introduced by the other Party, without the prior written consent of the introducing Party;</li>
+ <li>Use information received under this Agreement to negotiate, structure or conclude any transaction that would diminish, eliminate or substitute the economic benefit anticipated for the introducing Party;</li>
+ <li>Establish, participate in, or facilitate any arrangement designed to achieve indirectly what is prohibited directly under this Article.</li>
+ </ul>
+ <p>Any transaction, agreement or relationship entered into in breach of this Article shall be null and void as between the Parties, and the breaching Party shall be liable for damages as set forth in Article 7.</p>
 
-      <!-- Article 7 -->
-      <h3 class="article-title">Article 7 — Remedies &amp; Liquidated Damages</h3>
-      <p>The Parties acknowledge that any breach of the confidentiality, non-circumvention or non-solicitation obligations set out in this Agreement would cause irreparable harm to the non-breaching Party for which monetary damages alone would be an inadequate remedy. Accordingly:</p>
-      <ul>
-        <li>The non-breaching Party shall be entitled to seek injunctive or other equitable relief from any court of competent jurisdiction, without the need to post a bond or other security;</li>
-        <li>In addition to any injunctive or other equitable relief, and without prejudice to claims for actual damages, the breaching Party shall pay to the non-breaching Party <strong>liquidated damages of fifty thousand euros (€50,000)</strong> per proven breach, which the Parties acknowledge represents a genuine pre-estimate of the minimum loss likely to be suffered;</li>
-        <li>The payment of liquidated damages shall not relieve the breaching Party of its continuing obligations under this Agreement;</li>
-        <li>The prevailing Party in any dispute arising under this Agreement shall be entitled to recover all reasonable legal costs and attorneys' fees from the non-prevailing Party.</li>
-      </ul>
+ <!-- Article 7 -->
+ <h3 class="article-title">Article 7, Remedies &amp; Liquidated Damages</h3>
+ <p>The Parties acknowledge that any breach of the confidentiality, non-circumvention or non-solicitation obligations set out in this Agreement would cause irreparable harm to the non-breaching Party for which monetary damages alone would be an inadequate remedy. Accordingly:</p>
+ <ul>
+ <li>The non-breaching Party shall be entitled to seek injunctive or other equitable relief from any court of competent jurisdiction, without the need to post a bond or other security;</li>
+ <li>In addition to any injunctive or other equitable relief, and without prejudice to claims for actual damages, the breaching Party shall pay to the non-breaching Party <strong>liquidated damages of fifty thousand euros (€50,000)</strong> per proven breach, which the Parties acknowledge represents a genuine pre-estimate of the minimum loss likely to be suffered;</li>
+ <li>The payment of liquidated damages shall not relieve the breaching Party of its continuing obligations under this Agreement;</li>
+ <li>The prevailing Party in any dispute arising under this Agreement shall be entitled to recover all reasonable legal costs and attorneys' fees from the non-prevailing Party.</li>
+ </ul>
 
-      <!-- Article 8 -->
-      <h3 class="article-title">Article 8 — Intellectual Property</h3>
-      <p>Nothing in this Agreement shall be construed as granting either Party any licence, right, title or interest in or to any patent, trademark, copyright, trade secret, know-how or other intellectual property right of the other Party. All Confidential Information shall remain the exclusive property of the Disclosing Party. No use of the Disclosing Party's name, trademarks, logos or branding shall be made by the Receiving Party without prior written authorisation.</p>
+ <!-- Article 8 -->
+ <h3 class="article-title">Article 8, Intellectual Property</h3>
+ <p>Nothing in this Agreement shall be construed as granting either Party any licence, right, title or interest in or to any patent, trademark, copyright, trade secret, know-how or other intellectual property right of the other Party. All Confidential Information shall remain the exclusive property of the Disclosing Party. No use of the Disclosing Party's name, trademarks, logos or branding shall be made by the Receiving Party without prior written authorisation.</p>
 
-      <!-- Article 9 -->
-      <h3 class="article-title">Article 9 — Representations &amp; Warranties</h3>
-      <p>Each Party represents and warrants to the other that:</p>
-      <div class="clause-letter"><span class="letter">a)</span> It has the full power, authority and capacity to enter into and perform its obligations under this Agreement;</div>
-      <div class="clause-letter"><span class="letter">b)</span> This Agreement has been duly authorised and constitutes a legal, valid and binding obligation enforceable against it in accordance with its terms;</div>
-      <div class="clause-letter"><span class="letter">c)</span> Its entry into and performance of this Agreement does not violate any applicable law, regulation, court order, or any obligation owed to any third party.</div>
+ <!-- Article 9 -->
+ <h3 class="article-title">Article 9, Representations &amp; Warranties</h3>
+ <p>Each Party represents and warrants to the other that:</p>
+ <div class="clause-letter"><span class="letter">a)</span> It has the full power, authority and capacity to enter into and perform its obligations under this Agreement;</div>
+ <div class="clause-letter"><span class="letter">b)</span> This Agreement has been duly authorised and constitutes a legal, valid and binding obligation enforceable against it in accordance with its terms;</div>
+ <div class="clause-letter"><span class="letter">c)</span> Its entry into and performance of this Agreement does not violate any applicable law, regulation, court order, or any obligation owed to any third party.</div>
 
-      <!-- Article 10 -->
-      <h3 class="article-title">Article 10 — Non-Solicitation</h3>
-      <p>For the duration of this Agreement and for a period of <strong>twelve (12) months</strong> following its expiry or termination, neither Party shall, directly or indirectly:</p>
-      <ul>
-        <li>Solicit, recruit, hire or engage any employee, contractor, consultant or advisor of the other Party who was involved in activities relating to the Project;</li>
-        <li>Induce or attempt to induce any such person to terminate their relationship with the other Party;</li>
-        <li>Solicit, divert or attempt to divert any Business Contact introduced by the other Party for any purpose not related to the Project or not consented to in writing by the introducing Party.</li>
-      </ul>
+ <!-- Article 10 -->
+ <h3 class="article-title">Article 10, Non-Solicitation</h3>
+ <p>For the duration of this Agreement and for a period of <strong>twelve (12) months</strong> following its expiry or termination, neither Party shall, directly or indirectly:</p>
+ <ul>
+ <li>Solicit, recruit, hire or engage any employee, contractor, consultant or advisor of the other Party who was involved in activities relating to the Project;</li>
+ <li>Induce or attempt to induce any such person to terminate their relationship with the other Party;</li>
+ <li>Solicit, divert or attempt to divert any Business Contact introduced by the other Party for any purpose not related to the Project or not consented to in writing by the introducing Party.</li>
+ </ul>
 
-      <!-- Article 11 -->
-      <h3 class="article-title">Article 11 — General Provisions</h3>
-      <p><strong>Entire Agreement.</strong> This Agreement constitutes the entire agreement between the Parties with respect to the subject matter hereof and supersedes all prior agreements, understandings, negotiations and discussions between the Parties, whether oral or written.</p>
-      <p><strong>Amendments.</strong> No amendment, modification or waiver of any provision of this Agreement shall be effective unless made in writing and signed by duly authorised representatives of both Parties.</p>
-      <p><strong>Severability.</strong> If any provision of this Agreement is held to be invalid, illegal or unenforceable, the remaining provisions shall continue in full force and effect, and the invalid provision shall be modified to the minimum extent necessary to make it enforceable.</p>
-      <p><strong>No Waiver.</strong> Failure or delay by either Party to enforce any provision of this Agreement shall not constitute a waiver of that Party's rights.</p>
-      <p><strong>Counterparts &amp; Electronic Execution.</strong> This Agreement may be executed in counterparts. An electronic signature shall have the same legal effect as a handwritten signature in accordance with applicable law, including Regulation (EU) No 910/2014 (eIDAS).</p>
+ <!-- Article 11 -->
+ <h3 class="article-title">Article 11, General Provisions</h3>
+ <p><strong>Entire Agreement.</strong> This Agreement constitutes the entire agreement between the Parties with respect to the subject matter hereof and supersedes all prior agreements, understandings, negotiations and discussions between the Parties, whether oral or written.</p>
+ <p><strong>Amendments.</strong> No amendment, modification or waiver of any provision of this Agreement shall be effective unless made in writing and signed by duly authorised representatives of both Parties.</p>
+ <p><strong>Severability.</strong> If any provision of this Agreement is held to be invalid, illegal or unenforceable, the remaining provisions shall continue in full force and effect, and the invalid provision shall be modified to the minimum extent necessary to make it enforceable.</p>
+ <p><strong>No Waiver.</strong> Failure or delay by either Party to enforce any provision of this Agreement shall not constitute a waiver of that Party's rights.</p>
+ <p><strong>Counterparts &amp; Electronic Execution.</strong> This Agreement may be executed in counterparts. An electronic signature shall have the same legal effect as a handwritten signature in accordance with applicable law, including Regulation (EU) No 910/2014 (eIDAS).</p>
 
-      <!-- Article 12 -->
-      <h3 class="article-title">Article 12 — Governing Law &amp; Jurisdiction</h3>
-      <p>This Agreement shall be governed by and construed in accordance with the laws of France, without regard to its conflict of law principles. The Parties irrevocably submit to the <strong>exclusive jurisdiction of the Commercial Court of Paris (Tribunal de Commerce de Paris)</strong> for the resolution of any dispute arising out of or in connection with this Agreement, including any question regarding its existence, validity, interpretation, performance or termination.</p>
-      <p>Notwithstanding the foregoing, either Party may seek interim or emergency relief from any court of competent jurisdiction to preserve its rights pending the resolution of any dispute.</p>
+ <!-- Article 12 -->
+ <h3 class="article-title">Article 12, Governing Law &amp; Jurisdiction</h3>
+ <p>This Agreement shall be governed by and construed in accordance with the laws of France, without regard to its conflict of law principles. The Parties irrevocably submit to the <strong>exclusive jurisdiction of the Commercial Court of Paris (Tribunal de Commerce de Paris)</strong> for the resolution of any dispute arising out of or in connection with this Agreement, including any question regarding its existence, validity, interpretation, performance or termination.</p>
+ <p>Notwithstanding the foregoing, either Party may seek interim or emergency relief from any court of competent jurisdiction to preserve its rights pending the resolution of any dispute.</p>
 
-      <!-- Article 13 -->
-      <h3 class="article-title">Article 13 — Notices</h3>
-      <p>All notices, requests, demands or other communications under this Agreement shall be in writing and shall be deemed duly given when: (i) delivered personally; (ii) sent by internationally recognised overnight courier with tracking; or (iii) transmitted by email with confirmed delivery receipt. Notices to Pasola shall be directed to the contact information provided upon request. Notices to the Receiving Party shall be directed to the email address provided in the signature block of this Agreement.</p>
+ <!-- Article 13 -->
+ <h3 class="article-title">Article 13, Notices</h3>
+ <p>All notices, requests, demands or other communications under this Agreement shall be in writing and shall be deemed duly given when: (i) delivered personally; (ii) sent by internationally recognised overnight courier with tracking; or (iii) transmitted by email with confirmed delivery receipt. Notices to Pasola shall be directed to the contact information provided upon request. Notices to the Receiving Party shall be directed to the email address provided in the signature block of this Agreement.</p>
 
-    </div>
-  </div>
+ </div>
+ </div>
 
-  <!-- ══ SIGNATURE FORM ══ -->
-  <div class="form-section">
-    <div class="section-label">Electronic Signature — Receiving Party</div>
+ <!-- ══ SIGNATURE FORM ══ -->
+ <div class="form-section">
+ <div class="section-label">Electronic Signature, Receiving Party</div>
 
-    <form id="ndaForm" autocomplete="off">
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label" for="firstName">First Name <span style="color:var(--error)">*</span></label>
-          <input class="form-input" type="text" id="firstName" placeholder="First name" autocomplete="given-name">
-          <span class="error-message" id="firstNameError">Please enter your first name.</span>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="lastName">Last Name <span style="color:var(--error)">*</span></label>
-          <input class="form-input" type="text" id="lastName" placeholder="Last name" autocomplete="family-name">
-          <span class="error-message" id="lastNameError">Please enter your last name.</span>
-        </div>
-        <div class="form-group full-width">
-          <label class="form-label" for="email">Email Address <span style="color:var(--error)">*</span></label>
-          <input class="form-input" type="email" id="email" placeholder="your@email.com" autocomplete="email">
-          <span class="error-message" id="emailError">Please enter a valid email address.</span>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="phone">Phone Number</label>
-          <input class="form-input" type="tel" id="phone" placeholder="+1 000 000 0000" autocomplete="tel">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="company">Company / Organisation</label>
-          <input class="form-input" type="text" id="company" placeholder="Company name (optional)" autocomplete="organization">
-        </div>
-        <div class="form-group full-width">
-          <label class="form-label" for="role">Relationship to Project</label>
-          <select class="form-input" id="role">
-            <option value="">Select your role…</option>
-            <option value="Investor">Investor</option>
-            <option value="Co-Developer">Co-Developer</option>
-            <option value="Advisor / Consultant">Advisor / Consultant</option>
-            <option value="Financial Partner">Financial Partner</option>
-            <option value="Legal Counsel">Legal Counsel</option>
-            <option value="Contractor / Supplier">Contractor / Supplier</option>
-            <option value="Potential Buyer">Potential Buyer</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-      </div>
+ <form id="ndaForm" autocomplete="off">
+ <div class="form-grid">
+ <div class="form-group">
+ <label class="form-label" for="firstName">First Name <span style="color:var(--error)">*</span></label>
+ <input class="form-input" type="text" id="firstName" placeholder="First name" autocomplete="given-name">
+ <span class="error-message" id="firstNameError">Please enter your first name.</span>
+ </div>
+ <div class="form-group">
+ <label class="form-label" for="lastName">Last Name <span style="color:var(--error)">*</span></label>
+ <input class="form-input" type="text" id="lastName" placeholder="Last name" autocomplete="family-name">
+ <span class="error-message" id="lastNameError">Please enter your last name.</span>
+ </div>
+ <div class="form-group full-width">
+ <label class="form-label" for="email">Email Address <span style="color:var(--error)">*</span></label>
+ <input class="form-input" type="email" id="email" placeholder="your@email.com" autocomplete="email">
+ <span class="error-message" id="emailError">Please enter a valid email address.</span>
+ </div>
+ <div class="form-group">
+ <label class="form-label" for="phone">Phone Number</label>
+ <input class="form-input" type="tel" id="phone" placeholder="+1 000 000 0000" autocomplete="tel">
+ </div>
+ <div class="form-group">
+ <label class="form-label" for="company">Company / Organisation</label>
+ <input class="form-input" type="text" id="company" placeholder="Company name (optional)" autocomplete="organization">
+ </div>
+ <div class="form-group full-width">
+ <label class="form-label" for="role">Relationship to Project</label>
+ <select class="form-input" id="role">
+ <option value="">Select your role…</option>
+ <option value="Investor">Investor</option>
+ <option value="Co-Developer">Co-Developer</option>
+ <option value="Advisor / Consultant">Advisor / Consultant</option>
+ <option value="Financial Partner">Financial Partner</option>
+ <option value="Legal Counsel">Legal Counsel</option>
+ <option value="Contractor / Supplier">Contractor / Supplier</option>
+ <option value="Potential Buyer">Potential Buyer</option>
+ <option value="Other">Other</option>
+ </select>
+ </div>
+ </div>
 
-      <!-- Agreement checkbox -->
-      <div class="agreement-section">
-        <label class="checkbox-group" id="agreeGroup">
-          <input type="checkbox" id="agreeCheckbox">
-          <span class="custom-checkbox">
-            <svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 4L4 7L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          <span class="checkbox-label">
-            I have read and fully understood all <strong>13 articles</strong> of this Mutual Non-Disclosure &amp; Non-Circumvention Agreement, including the obligations of non-disclosure (Art. 3), the duration of five (5) years (Art. 5), the liquidated damages of <strong>€50,000 per breach</strong> (Art. 7), the non-solicitation period of twelve (12) months (Art. 10), and the exclusive jurisdiction of the <strong>Commercial Court of Paris</strong> (Art. 12). I agree to be legally bound by all terms of this Agreement.
-          </span>
-        </label>
-        <span class="error-message" id="agreeError" style="margin-top:10px;">You must read and accept the Agreement to proceed.</span>
-      </div>
+ <!-- Agreement checkbox -->
+ <div class="agreement-section">
+ <label class="checkbox-group" id="agreeGroup">
+ <input type="checkbox" id="agreeCheckbox">
+ <span class="custom-checkbox">
+ <svg width="11" height="8" viewBox="0 0 11 8" fill="none"><path d="M1 4L4 7L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ </span>
+ <span class="checkbox-label">
+ I have read and fully understood all <strong>13 articles</strong> of this Mutual Non-Disclosure &amp; Non-Circumvention Agreement, including the obligations of non-disclosure (Art. 3), the duration of five (5) years (Art. 5), the liquidated damages of <strong>€50,000 per breach</strong> (Art. 7), the non-solicitation period of twelve (12) months (Art. 10), and the exclusive jurisdiction of the <strong>Commercial Court of Paris</strong> (Art. 12). I agree to be legally bound by all terms of this Agreement.
+ </span>
+ </label>
+ <span class="error-message" id="agreeError" style="margin-top:10px;">You must read and accept the Agreement to proceed.</span>
+ </div>
 
-      <!-- Signature pad -->
-      <div class="signature-section">
-        <label class="form-label">Handwritten Signature <span style="color:var(--error)">*</span></label>
-        <div class="signature-pad-container" id="signaturePadContainer">
-          <canvas id="signatureCanvas"></canvas>
-        </div>
-        <div class="signature-actions">
-          <span class="signature-hint">Draw your signature above using mouse or touch</span>
-          <button type="button" class="btn-clear-sig" id="clearSig">Clear</button>
-        </div>
-        <span class="error-message" id="signatureError">A handwritten signature is required.</span>
-      </div>
+ <!-- Signature pad -->
+ <div class="signature-section">
+ <label class="form-label">Handwritten Signature <span style="color:var(--error)">*</span></label>
+ <div class="signature-pad-container" id="signaturePadContainer">
+ <canvas id="signatureCanvas"></canvas>
+ </div>
+ <div class="signature-actions">
+ <span class="signature-hint">Draw your signature above using mouse or touch</span>
+ <button type="button" class="btn-clear-sig" id="clearSig">Clear</button>
+ </div>
+ <span class="error-message" id="signatureError">A handwritten signature is required.</span>
+ </div>
 
-      <!-- ID Document Upload -->
-      <div class="id-upload-section">
-        <label class="form-label">Proof of Identity (Passport or ID) <span style="color:var(--error)">*</span></label>
-        <div class="id-upload-area" id="idUploadArea">
-          <div class="id-upload-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-          <div class="id-upload-text"><strong>Click to upload</strong> or drag &amp; drop<br>PDF, JPG, PNG &middot; Max 10 MB</div>
-          <div class="id-file-name" id="idFileName" style="display:none;"></div>
-          <input type="file" id="idFileInput" accept=".pdf,.jpg,.jpeg,.png" />
-        </div>
-        <span class="error-message" id="idUploadError">A valid proof of identity is required to proceed.</span>
-      </div>
+ <!-- ID Document Upload -->
+ <div class="id-upload-section">
+ <label class="form-label">Proof of Identity (Passport or ID) <span style="color:var(--error)">*</span></label>
+ <div class="id-upload-area" id="idUploadArea">
+ <div class="id-upload-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+ <div class="id-upload-text"><strong>Click to upload</strong> or drag &amp; drop<br>PDF, JPG, PNG &middot; Max 10 MB</div>
+ <div class="id-file-name" id="idFileName" style="display:none;"></div>
+ <input type="file" id="idFileInput" accept=".pdf,.jpg,.jpeg,.png" />
+ </div>
+ <span class="error-message" id="idUploadError">A valid proof of identity is required to proceed.</span>
+ </div>
 
-      <!-- Date -->
-      <div class="date-display">
-        <span class="form-label">Date of Signature</span>
-        <span class="date-value" id="dateDisplay"></span>
-      </div>
+ <!-- Date -->
+ <div class="date-display">
+ <span class="form-label">Date of Signature</span>
+ <span class="date-value" id="dateDisplay"></span>
+ </div>
 
-      <!-- Submit -->
-      <button type="submit" class="submit-btn" id="submitBtn">
-        Sign &amp; Generate Agreement
-      </button>
+ <!-- Submit -->
+ <button type="submit" class="submit-btn" id="submitBtn">
+ Sign &amp; Generate Agreement
+ </button>
 
-    </form>
-  </div>
+ </form>
+ </div>
 
-  <!-- ══ FOOTER ══ -->
-  <footer class="footer">
-    <p>PASOLA SAS &nbsp;·&nbsp; Pasola Signature Estate, Sumba Island, Indonesia<br>
-    This document constitutes a legally binding agreement upon electronic signature by both parties.<br>
-    For any enquiries regarding this Agreement, please contact <a href="/cdn-cgi/l/email-protection#30535f5e44515344704051435f5c511e5642"><span class="__cf_email__" data-cfemail="83e0ecedf7e2e0f7c3f3e2f0ecefe2ade5f1">[email&#160;protected]</span></a></p>
-  </footer>
+ <!-- ══ FOOTER ══ -->
+ <footer class="footer">
+ <p>PASOLA SAS &nbsp;·&nbsp; Pasola Signature Estate, Sumba Island, Indonesia<br>
+ This document constitutes a legally binding agreement upon electronic signature by both parties.<br>
+ For any enquiries regarding this Agreement, please contact <a href="/cdn-cgi/l/email-protection#30535f5e44515344704051435f5c511e5642"><span class="__cf_email__" data-cfemail="83e0ecedf7e2e0f7c3f3e2f0ecefe2ade5f1">[email&#160;protected]</span></a></p>
+ </footer>
 
 </div><!-- /.page -->
 
 <!-- ══ SUCCESS OVERLAY (Receiving Party: Submission Confirmed) ══ -->
 <div class="success-overlay" id="successOverlay">
-  <div class="success-content">
-    <div class="success-icon">
-      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-        <path d="M2 8L8 14L20 2" stroke="#C7A574" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <h2>Submission Received</h2>
-    <div class="accent-line"></div>
-    <p>Thank you for signing the Mutual Non-Disclosure &amp; Non-Circumvention Agreement.</p>
-  </div>
+ <div class="success-content">
+ <div class="success-icon">
+ <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+ <path d="M2 8L8 14L20 2" stroke="#C7A574" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ </div>
+ <h2>Submission Received</h2>
+ <div class="accent-line"></div>
+ <p>Thank you for signing the Mutual Non-Disclosure &amp; Non-Circumvention Agreement.</p>
+ </div>
 </div>
 
 <!-- ══ ADMIN REVIEW OVERLAY ══ -->
 <div class="review-overlay" id="reviewOverlay">
-  <div class="review-content">
+ <div class="review-content">
 
-    <div class="review-header">
-      <h2>NDA Review</h2>
-      <p>A Receiving Party has signed the Mutual Non-Disclosure &amp; Non-Circumvention Agreement.<br>Please review the details below and accept or decline.</p>
-    </div>
+ <div class="review-header">
+ <h2>NDA Review</h2>
+ <p>A Receiving Party has signed the Mutual Non-Disclosure &amp; Non-Circumvention Agreement.<br>Please review the details below and accept or decline.</p>
+ </div>
 
-    <div class="review-card">
-      <div class="review-card-title">Receiving Party Details</div>
-      <div class="review-row"><span class="review-label">Full Name</span><span class="review-value" id="revName">—</span></div>
-      <div class="review-row"><span class="review-label">Email</span><span class="review-value" id="revEmail">—</span></div>
-      <div class="review-row"><span class="review-label">Phone</span><span class="review-value" id="revPhone">—</span></div>
-      <div class="review-row"><span class="review-label">Company</span><span class="review-value" id="revCompany">—</span></div>
-      <div class="review-row"><span class="review-label">Role</span><span class="review-value" id="revRole">—</span></div>
-      <div class="review-row"><span class="review-label">Signed on</span><span class="review-value" id="revDate">—</span></div>
-      <div class="review-row"><span class="review-label">Reference</span><span class="review-value" id="revRef">—</span></div>
-    </div>
+ <div class="review-card">
+ <div class="review-card-title">Receiving Party Details</div>
+ <div class="review-row"><span class="review-label">Full Name</span><span class="review-value" id="revName">, </span></div>
+ <div class="review-row"><span class="review-label">Email</span><span class="review-value" id="revEmail">, </span></div>
+ <div class="review-row"><span class="review-label">Phone</span><span class="review-value" id="revPhone">, </span></div>
+ <div class="review-row"><span class="review-label">Company</span><span class="review-value" id="revCompany">, </span></div>
+ <div class="review-row"><span class="review-label">Role</span><span class="review-value" id="revRole">, </span></div>
+ <div class="review-row"><span class="review-label">Signed on</span><span class="review-value" id="revDate">, </span></div>
+ <div class="review-row"><span class="review-label">Reference</span><span class="review-value" id="revRef">, </span></div>
+ </div>
 
-    <div class="review-card" id="revSigCard" style="display:none;">
-      <div class="review-card-title">Receiving Party Signature</div>
-      <img id="revSigImg" class="review-sig-preview" alt="Signature" />
-    </div>
+ <div class="review-card" id="revSigCard" style="display:none;">
+ <div class="review-card-title">Receiving Party Signature</div>
+ <img id="revSigImg" class="review-sig-preview" alt="Signature" />
+ </div>
 
-    <!-- Countersignature section (shown on Accept) -->
-    <div class="countersign-section" id="countersignSection">
-      <div class="review-card">
-        <div class="review-card-title">Your Countersignature — PASOLA SAS</div>
-        <div class="signature-pad-container" id="adminSigContainer">
-          <canvas id="adminSigCanvas" style="width:100%;height:120px;display:block;border-radius:6px;cursor:crosshair;touch-action:none;"></canvas>
-        </div>
-        <div class="signature-actions">
-          <span class="signature-hint">Draw your countersignature above</span>
-          <button type="button" class="btn-clear-sig" id="clearAdminSig">Clear</button>
-        </div>
-        <span class="error-message" id="adminSigError">A countersignature is required to accept.</span>
-      </div>
-    </div>
+ <!-- Countersignature section (shown on Accept) -->
+ <div class="countersign-section" id="countersignSection">
+ <div class="review-card">
+ <div class="review-card-title">Your Countersignature, PASOLA SAS</div>
+ <div class="signature-pad-container" id="adminSigContainer">
+ <canvas id="adminSigCanvas" style="width:100%;height:120px;display:block;border-radius:6px;cursor:crosshair;touch-action:none;"></canvas>
+ </div>
+ <div class="signature-actions">
+ <span class="signature-hint">Draw your countersignature above</span>
+ <button type="button" class="btn-clear-sig" id="clearAdminSig">Clear</button>
+ </div>
+ <span class="error-message" id="adminSigError">A countersignature is required to accept.</span>
+ </div>
+ </div>
 
-    <div class="review-actions">
-      <button class="btn-decline" id="btnDecline">Decline</button>
-      <button class="btn-accept" id="btnAccept">Accept &amp; Countersign</button>
-    </div>
+ <div class="review-actions">
+ <button class="btn-decline" id="btnDecline">Decline</button>
+ <button class="btn-accept" id="btnAccept">Accept &amp; Countersign</button>
+ </div>
 
-  </div>
+ </div>
 </div>
 
 <!-- ══ REVIEW RESULT OVERLAY ══ -->
 <div class="review-result-overlay" id="reviewResultOverlay">
-  <div class="result-content">
-    <div class="success-icon">
-      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-        <path d="M2 8L8 14L20 2" stroke="#C7A574" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <h2 id="resultTitle">Processing</h2>
-    <div class="accent-line"></div>
-    <p id="resultMessage">Please wait…</p>
-    <button class="btn-download-pdf" id="downloadFinalPdfBtn" style="display:none;">Download Fully Executed NDA</button>
-  </div>
+ <div class="result-content">
+ <div class="success-icon">
+ <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+ <path d="M2 8L8 14L20 2" stroke="#C7A574" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+ </svg>
+ </div>
+ <h2 id="resultTitle">Processing</h2>
+ <div class="accent-line"></div>
+ <p id="resultMessage">Please wait…</p>
+ <button class="btn-download-pdf" id="downloadFinalPdfBtn" style="display:none;">Download Fully Executed NDA</button>
+ </div>
 </div>
 
 <!-- ══ PDF RENDERING AREA (off-screen) ══ -->
 <div id="pdfContent"></div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  /* ══════════════════════
-     CONFIGURATION (MIS À JOUR)
-     ══════════════════════ */
-  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjgpwvdb';
-  var IMGBB_API_KEY = '22dc6bcbce832fb3b6a6bf6e17c0c4d4';
-
-  // Pre-registered PASOLA SAS countersignature (Jonathan Beraud)
-  var ADMIN_SIGNATURE = 'data:image/png;base64,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';
-
-  /* ══════════════════════
-     DATE DISPLAY
-     ══════════════════════ */
-  var now = new Date();
-  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var dateStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
-  document.getElementById('dateDisplay').textContent = dateStr;
-
-  /* ══════════════════════
-     SIGNATURE PAD – CORRIGÉ
-     ══════════════════════ */
-  var canvas = document.getElementById('signatureCanvas');
-  var container = document.getElementById('signaturePadContainer');
-  var ctx = canvas.getContext('2d');
-  var drawing = false;
-  var hasSigned = false;
-
-  function resizeCanvas() {
-    var dpr = window.devicePixelRatio || 1;
-    var rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    ctx.scale(dpr, dpr);
-    ctx.strokeStyle = '#082019';
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  function getPos(e) {
-    var rect = canvas.getBoundingClientRect();
-    if (e.touches && e.touches.length > 0) {
-      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
-    }
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  }
-
-  function startDraw(e) {
-    e.preventDefault();
-    drawing = true;
-    container.classList.add('active');
-    var pos = getPos(e);
-    ctx.beginPath();
-    ctx.moveTo(pos.x, pos.y);
-  }
-
-  function draw(e) {
-    e.preventDefault();
-    if (!drawing) return;
-    hasSigned = true;
-    container.classList.remove('error');
-    document.getElementById('signatureError').classList.remove('visible');
-    var pos = getPos(e);
-    ctx.lineTo(pos.x, pos.y);
-    ctx.stroke();
-  }
-
-  function stopDraw() {
-    drawing = false;
-    container.classList.remove('active');
-  }
-
-  canvas.addEventListener('mousedown', startDraw);
-  canvas.addEventListener('mousemove', draw);
-  canvas.addEventListener('mouseup', stopDraw);
-  canvas.addEventListener('mouseleave', stopDraw);
-  canvas.addEventListener('touchstart', startDraw, { passive: false });
-  canvas.addEventListener('touchmove', draw, { passive: false });
-  canvas.addEventListener('touchend', stopDraw);
-
-  document.getElementById('clearSig').addEventListener('click', function() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    hasSigned = false;
-  });
-
-  function getSignatureDataURL() {
-    return canvas.toDataURL('image/png');
-  }
-
-  /* ══════════════════════
-     LIVE VALIDATION
-     ══════════════════════ */
-  document.querySelectorAll('.form-input').forEach(function(input) {
-    input.addEventListener('input', function() {
-      this.classList.remove('error');
-      var err = document.getElementById(this.id + 'Error');
-      if (err) err.classList.remove('visible');
-    });
-  });
-
-  document.getElementById('agreeCheckbox').addEventListener('change', function() {
-    document.getElementById('agreeGroup').classList.remove('error');
-    document.getElementById('agreeError').classList.remove('visible');
-  });
-
-
-  /* ID UPLOAD */
-  var idFile = null;
-  var idUploadArea = document.getElementById('idUploadArea');
-  var idFileInput = document.getElementById('idFileInput');
-  var idFileName = document.getElementById('idFileName');
-  idFileInput.addEventListener('change', function() {
-    if (this.files && this.files[0]) {
-      var f = this.files[0];
-      var sizeMB = (f.size / 1024 / 1024).toFixed(1);
-      var ext = f.name.toLowerCase().split('.').pop();
-      if (f.size > 10 * 1024 * 1024) {
-        idFile = null; this.value = '';
-        idFileName.innerHTML = '<span style="color:#C0392B;font-weight:500;">\u2716 File too large (' + sizeMB + ' MB)</span><br><span style="color:#C0392B;font-size:12px;">Max 10 MB.</span>';
-        idFileName.style.display = 'block'; idUploadArea.classList.add('error'); idUploadArea.classList.remove('has-file');
-        return;
-      }
-      if (['pdf','jpg','jpeg','png'].indexOf(ext) === -1) {
-        idFile = null; this.value = '';
-        idFileName.innerHTML = '<span style="color:#C0392B;font-weight:500;">\u2716 Invalid format: .' + ext + '</span><br><span style="color:#C0392B;font-size:12px;">PDF, JPG, PNG only.</span>';
-        idFileName.style.display = 'block'; idUploadArea.classList.add('error'); idUploadArea.classList.remove('has-file');
-        return;
-      }
-      idFile = f;
-      idFileName.innerHTML = '<span style="color:#065E6F;font-weight:500;">\u2714 Uploaded successfully</span><br><span style="font-size:12px;color:#555;">' + f.name + ' (' + sizeMB + ' MB)</span>';
-      idFileName.style.display = 'block'; idUploadArea.classList.add('has-file'); idUploadArea.classList.remove('error');
-      document.getElementById('idUploadError').classList.remove('visible');
-      var ico = idUploadArea.querySelector('.id-upload-icon');
-      if (ico) ico.innerHTML = '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#065E6F" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
-      var txt = idUploadArea.querySelector('.id-upload-text'); if (txt) txt.style.display = 'none';
-    }
-  });
-  idUploadArea.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('dragover'); });
-  idUploadArea.addEventListener('dragleave', function() { this.classList.remove('dragover'); });
-  idUploadArea.addEventListener('drop', function(e) { e.preventDefault(); this.classList.remove('dragover'); if (e.dataTransfer.files && e.dataTransfer.files[0]) { idFileInput.files = e.dataTransfer.files; idFileInput.dispatchEvent(new Event('change')); } });
-
-  /* ══════════════════════
-     NOUVELLE CHAÎNE D’APPROBATION
-     ══════════════════════ */
-  var formData = {};
-
-  function uploadToImgBB(file) {
-    return new Promise(function(resolve, reject) {
-      // Only upload images, not PDFs
-      if (!file || !file.type.startsWith('image/')) {
-        resolve(null);
-        return;
-      }
-      // Compress image using canvas (max 800px wide, JPEG 0.6 quality)
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var img = new Image();
-        img.onload = function() {
-          var canvas = document.createElement('canvas');
-          var maxW = 800;
-          var w = img.width, h = img.height;
-          if (w > maxW) { h = h * maxW / w; w = maxW; }
-          canvas.width = w; canvas.height = h;
-          var ctx2 = canvas.getContext('2d');
-          ctx2.drawImage(img, 0, 0, w, h);
-          var base64 = canvas.toDataURL('image/jpeg', 0.6).split(',')[1];
-          // Upload to ImgBB
-          var fd = new FormData();
-          fd.append('key', IMGBB_API_KEY);
-          fd.append('image', base64);
-          fd.append('name', 'NDA_ID_' + Date.now());
-          fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-              if (data.success) {
-                resolve(data.data.display_url);
-              } else {
-                console.warn('[ImgBB] Upload failed:', data);
-                resolve(null);
-              }
-            })
-            .catch(function(err) { console.warn('[ImgBB] Error:', err); resolve(null); });
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function sendToPasola() {
-    var sigDataURL = getSignatureDataURL();
-    var ref = 'MNDNCA-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + (formData.lastName || '').toUpperCase().substring(0,4);
-
-    try { localStorage.setItem('pasola_nda_sig_' + ref, sigDataURL); } catch(e) {}
-
-    var pageURL = window.location.origin + window.location.pathname;
-    var acceptURL = pageURL + '#action=accept&ref=' + encodeURIComponent(ref) + '&email=' + encodeURIComponent(formData.email) + '&name=' + encodeURIComponent(formData.firstName + ' ' + formData.lastName) + '&phone=' + encodeURIComponent(formData.phone || '') + '&company=' + encodeURIComponent(formData.company || '') + '&role=' + encodeURIComponent(formData.role || '') + '&date=' + encodeURIComponent(dateStr);
-
-    // First upload ID to ImgBB, then send to Formspree
-    return uploadToImgBB(idFile).then(function(imgUrl) {
-      var payload = {
-        _subject: '[PASOLA NDA] Nouvelle signature \u2013 ' + formData.firstName + ' ' + formData.lastName,
-        _1_Reference: ref,
-        _2_Nom: formData.firstName + ' ' + formData.lastName,
-        _3_Email: formData.email,
-        _4_Telephone: formData.phone || 'Non renseigne',
-        _5_Societe: formData.company || 'Non renseigne',
-        _6_Role: formData.role || 'Non renseigne',
-        _7_Date: dateStr,
-        _8_ACCEPTER: acceptURL,
-        _9_ID_Fourni: idFile ? 'OUI - ' + idFile.name + ' (' + (idFile.size / 1024 / 1024).toFixed(1) + ' MB)' : 'NON'
-      };
-      if (imgUrl) {
-        payload._10_VOIR_ID = imgUrl;
-      }
-
-      return fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then(function(res) {
-        if (!res.ok) console.warn('[PASOLA NDA] Envoi echoue, status:', res.status);
-        else console.log('[PASOLA NDA] Email envoye avec succes');
-      });
-    }).catch(function(err) {
-      console.warn('[PASOLA NDA] Erreur:', err);
-    });
-  }
-
-  /* ══════════════════════
-     FORM SUBMIT
-     ══════════════════════ */
-  document.getElementById('ndaForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var valid = true;
-
-    var fn = document.getElementById('firstName');
-    if (!fn.value.trim()) { fn.classList.add('error'); document.getElementById('firstNameError').classList.add('visible'); valid = false; }
-
-    var ln = document.getElementById('lastName');
-    if (!ln.value.trim()) { ln.classList.add('error'); document.getElementById('lastNameError').classList.add('visible'); valid = false; }
-
-    var em = document.getElementById('email');
-    if (!em.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)) {
-      em.classList.add('error'); document.getElementById('emailError').classList.add('visible'); valid = false;
-    }
-
-    if (!document.getElementById('agreeCheckbox').checked) {
-      document.getElementById('agreeGroup').classList.add('error');
-      document.getElementById('agreeError').classList.add('visible'); valid = false;
-    }
-
-    if (!hasSigned) {
-      container.classList.add('error');
-      document.getElementById('signatureError').classList.add('visible'); valid = false;
-    }
-
-    if (!idFile) {
-      idUploadArea.classList.add('error');
-      document.getElementById('idUploadError').classList.add('visible'); valid = false;
-    }
-
-    if (!valid) {
-      document.querySelector('.form-input.error, .checkbox-group.error, .signature-pad-container.error').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-
-    formData = {
-      firstName: fn.value.trim(),
-      lastName: ln.value.trim(),
-      email: em.value.trim(),
-      phone: document.getElementById('phone').value.trim(),
-      company: document.getElementById('company').value.trim(),
-      role: document.getElementById('role').value || ''
-    };
-
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Submitting for review\u2026';
-
-    sendToPasola().then(function() {
-      document.getElementById('successOverlay').classList.add('visible');
-      document.body.style.overflow = 'hidden';
-      document.querySelector('.success-content p').innerHTML = 
-        'Thank you! Your signature has been submitted to the Pasola team for review.<br>' +
-        'You will be contacted shortly with either:<br>' +
-        '\u2022 The fully countersigned agreement (Accepted)<br>' +
-        '\u2022 A formal response (Declined)';
-    }).catch(function() {
-      document.getElementById('successOverlay').classList.add('visible');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  /* ══════════════════════
-     ACTION HANDLER (Accept/Decline from email)
-     ══════════════════════ */
-  (function() {
-    // Parse params from hash (#) first, then fallback to query (?)
-    // Hash works on SharePoint/OneDrive; query works on standard hosting
-    var paramStr = window.location.hash.substring(1) || window.location.search.substring(1);
-    if (!paramStr) return;
-    var p = new URLSearchParams(paramStr);
-    var action = p.get('action');
-    var rpEmail = p.get('email');
-    var rpName = p.get('name');
-    var rpRef = p.get('ref');
-    if (!action || !rpEmail) return;
-    console.log('[PASOLA NDA] Action mode:', action, 'for', rpName);
-
-    var rpPhone = p.get('phone') || '';
-    var rpCompany = p.get('company') || '';
-    var rpRole = p.get('role') || '';
-    var rpDate = p.get('date') || dateStr;
-    var adminEmail = 'contact@pasola.fr';
-
-    // Email signature (plain text for Outlook compose)
-    // Email signature handled by Outlook settings
-
-    // Helper: open Outlook Web compose (works from file:// protocol)
-    function openOutlookCompose(to, subject, body) {
-      var url = 'https://outlook.live.com/mail/0/deeplink/compose'
-        + '?to=' + encodeURIComponent(to)
-        + '&subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
-      window.open(url, '_blank');
-    }
-
-    // Hide main form page
-    var page = document.querySelector('.page');
-    if (page) page.style.display = 'none';
-
-    /* ── DECLINE ── */
-    if (action === 'decline') {
-      var dSubj = 'Pasola Signature Estate \u2013 Application Update \u2013 ' + rpRef;
-      var dBody = 'Dear ' + rpName + ',\n\nThank you for your interest in Pasola Signature Estate and for taking the time to engage with us.\n\nAfter careful consideration, we regret to inform you that we are unable to move forward with your application at this time.\n\nThis decision does not diminish the value of your enquiry, and we sincerely appreciate the time and effort you have invested.\n\nWe wish you every success in your future endeavours, and we hope our paths may cross again under different circumstances.';
-
-      document.getElementById('successOverlay').classList.add('visible');
-      document.body.style.overflow = 'hidden';
-      document.querySelector('.success-content h2').textContent = 'Decline \u2013 ' + rpName;
-      document.querySelector('.success-content p').innerHTML =
-        'Click below to send the decline notice to <strong>' + rpEmail + '</strong> and <strong>' + adminEmail + '</strong><br><br>' +
-        '<button id="directDeclineBtn" style="display:inline-block;padding:14px 36px;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#9A9D9F;border:none;border-radius:6px;cursor:pointer;">Open Email Client \u2013 Decline</button>';
-      document.getElementById('directDeclineBtn').addEventListener('click', function() {
-        openOutlookCompose(adminEmail + ',' + rpEmail, dSubj, dBody);
-      });
-      return;
-    }
-
-    /* ── ACCEPT ── */
-    if (action === 'accept') {
-      document.body.style.overflow = 'hidden';
-
-      // Populate review overlay
-      document.getElementById('revName').textContent = rpName;
-      document.getElementById('revEmail').textContent = rpEmail;
-      document.getElementById('revPhone').textContent = rpPhone || '\u2014';
-      document.getElementById('revCompany').textContent = rpCompany || '\u2014';
-      document.getElementById('revRole').textContent = rpRole || '\u2014';
-      document.getElementById('revDate').textContent = rpDate;
-      document.getElementById('revRef').textContent = rpRef;
-
-      // Try to load receiving party signature from localStorage
-      var rpSigURL = '';
-      try { rpSigURL = localStorage.getItem('pasola_nda_sig_' + rpRef) || ''; } catch(e) {}
-      if (rpSigURL) {
-        document.getElementById('revSigImg').src = rpSigURL;
-        document.getElementById('revSigCard').style.display = 'block';
-      }
-
-      // Hide countersign section (using pre-registered signature)
-      // document.getElementById('countersignSection') stays hidden
-
-      // Show review overlay
-      document.getElementById('reviewOverlay').classList.add('visible');
-
-      // Change Accept button text (no need to draw)
-      document.getElementById('btnAccept').textContent = 'Accept & Generate PDF';
-
-      // ACCEPT button
-      document.getElementById('btnAccept').addEventListener('click', function() {
-        var btn = this;
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner"></span>Generating PDF\u2026';
-        document.getElementById('btnDecline').disabled = true;
-
-        var adminSigURL = ADMIN_SIGNATURE; // Pre-registered signature
-        var adminNow = new Date();
-        var adminDateStr = months[adminNow.getMonth()] + ' ' + adminNow.getDate() + ', ' + adminNow.getFullYear();
-
-        // Build FULL NDA PDF with all 13 articles + both signatures
-        var pdfDiv = document.getElementById('pdfContent');
-        var sigSection = rpSigURL
-          ? '<img src="' + rpSigURL + '" class="pdf-sig-img" />'
-          : '<div style="height:50px;display:flex;align-items:center;color:#082019;font-style:italic;font-size:11px;">Signed electronically</div>';
-
-        // Get logo from page
-        var logoSrc = '';
-        var logoEl = document.querySelector('.logo-container img');
-        if (logoEl && logoEl.src) logoSrc = logoEl.src;
-
-        // Get the FULL NDA articles from the page DOM
-        var ndaTextHTML = '';
-        var ndaTextEl = document.querySelector('.nda-text');
-        if (ndaTextEl) ndaTextHTML = ndaTextEl.innerHTML;
-
-        // Inject break markers between articles for smart page breaks
-        var ndaHTML = ndaTextHTML.replace(/<h3 class="article-title">/g, '<div class="brk" style="height:1px;"></div><h3 class="article-title">');
-
-        pdfDiv.innerHTML = [
-          (logoSrc ? '<div class="pdf-logo"><img src="' + logoSrc + '" /></div>' : ''),
-          '<h1>PASOLA SAS</h1>',
-          '<div class="pdf-subtitle">Mutual Non-Disclosure &amp; Non-Circumvention Agreement</div>',
-          '<div class="pdf-divider"></div>',
-
-          // Parties
-          '<div class="pdf-section"><div class="pdf-section-title">Disclosing Party</div>',
-          '<div class="pdf-row"><span class="pdf-label">Entity</span><span class="pdf-value">PASOLA SAS \u2014 Soci\u00e9t\u00e9 par Actions Simplifi\u00e9e</span></div>',
-          '<div class="pdf-row"><span class="pdf-label">Project</span><span class="pdf-value">Pasola Signature Estate \u2014 Sumba Island, Indonesia</span></div>',
-          '<div class="pdf-row"><span class="pdf-label">Representative</span><span class="pdf-value">Jonathan B\u00c9RAUD \u2014 Chief Executive Officer</span></div></div>',
-          '<div class="pdf-section"><div class="pdf-section-title">Receiving Party</div>',
-          '<div class="pdf-row"><span class="pdf-label">Full Name</span><span class="pdf-value">' + rpName + '</span></div>',
-          '<div class="pdf-row"><span class="pdf-label">Email</span><span class="pdf-value">' + rpEmail + '</span></div>',
-          (rpPhone ? '<div class="pdf-row"><span class="pdf-label">Phone</span><span class="pdf-value">' + rpPhone + '</span></div>' : ''),
-          (rpCompany ? '<div class="pdf-row"><span class="pdf-label">Company</span><span class="pdf-value">' + rpCompany + '</span></div>' : ''),
-          (rpRole ? '<div class="pdf-row"><span class="pdf-label">Role</span><span class="pdf-value">' + rpRole + '</span></div>' : ''),
-          '</div>',
-
-          // Full NDA articles with break markers
-          '<div style="font-size:11px;line-height:1.7;color:#555;margin:12px 0;">' + ndaHTML + '</div>',
-
-          // Both signatures side by side (with break marker before)
-          '<div class="brk" style="height:1px;"></div>',
-          '<div style="display:flex;gap:24px;margin-top:12px;">',
-          '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
-          '<div class="pdf-section-title" style="margin-bottom:6px;">Signature \u2014 Receiving Party</div>',
-          sigSection,
-          '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Name</span><span class="pdf-value">' + rpName + '</span></div>',
-          '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + rpDate + '</span></div>',
-          '</div>',
-          '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
-          '<div class="pdf-section-title" style="margin-bottom:6px;">Countersignature \u2014 PASOLA SAS</div>',
-          '<img src="' + adminSigURL + '" class="pdf-sig-img" />',
-          '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Auth. Rep.</span><span class="pdf-value">PASOLA SAS</span></div>',
-          '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + adminDateStr + '</span></div>',
-          '</div></div>',
-
-          '<div class="pdf-footer">PASOLA SAS \u2014 Mutual Non-Disclosure &amp; Non-Circumvention Agreement<br>',
-          'This document has been fully executed and is legally binding. Ref: ' + rpRef + '</div>'
-        ].join('');
-
-        // Measure break marker positions BEFORE rendering
-        pdfDiv.style.left = '0';
-        pdfDiv.style.position = 'fixed';
-        pdfDiv.style.zIndex = '-1';
-
-        var markers = pdfDiv.querySelectorAll('.brk');
-        var breakYs = [0];
-        var dpr = window.devicePixelRatio || 1;
-        var renderScale = 2;
-        markers.forEach(function(m) {
-          breakYs.push(m.offsetTop * renderScale);
-        });
-
-        html2canvas(pdfDiv, { scale: renderScale, useCORS: true, allowTaint: true, backgroundColor: '#FFFFFF' }).then(function(canvasEl) {
-          pdfDiv.style.left = '-9999px';
-          pdfDiv.style.position = 'absolute';
-          pdfDiv.style.zIndex = '';
-
-          breakYs.push(canvasEl.height); // end
-
-          var pdf = new jspdf.jsPDF('p', 'mm', 'a4');
-          var pdfW = pdf.internal.pageSize.getWidth();
-          var pdfH = pdf.internal.pageSize.getHeight();
-          var scale = pdfW / canvasEl.width;
-          var usableH = (pdfH - 10) / scale; // 10mm for page number
-          var cW = canvasEl.width;
-
-          // Build pages: for each page, find the last break marker that fits
-          var pages = [];
-          var curStart = 0;
-
-          while (curStart < canvasEl.height - 10) {
-            var maxEnd = curStart + usableH;
-            // Find the last break point that fits on this page
-            var bestBreak = curStart + usableH; // fallback: hard cut
-            for (var bi = breakYs.length - 1; bi >= 0; bi--) {
-              if (breakYs[bi] > curStart + 50 && breakYs[bi] <= maxEnd) {
-                bestBreak = breakYs[bi];
-                break;
-              }
-            }
-            // If no marker found or last page
-            if (bestBreak >= canvasEl.height) bestBreak = canvasEl.height;
-            pages.push({ start: curStart, end: bestBreak });
-            curStart = bestBreak;
-            if (curStart >= canvasEl.height - 10) break;
-          }
-
-          var totalPages = pages.length;
-
-          for (var pg = 0; pg < totalPages; pg++) {
-            if (pg > 0) pdf.addPage();
-            var sY = pages[pg].start;
-            var eY = pages[pg].end;
-            var sH = eY - sY;
-
-            var sc = document.createElement('canvas');
-            sc.width = cW;
-            sc.height = sH;
-            var sctx = sc.getContext('2d');
-            sctx.fillStyle = '#FFFFFF';
-            sctx.fillRect(0, 0, cW, sH);
-            sctx.drawImage(canvasEl, 0, sY, cW, sH, 0, 0, cW, sH);
-
-            var sImg = sc.toDataURL('image/jpeg', 0.95);
-            pdf.addImage(sImg, 'JPEG', 0, 0, pdfW, sH * scale);
-
-            // Page number
-            pdf.setFontSize(8);
-            pdf.setTextColor(180, 180, 180);
-            pdf.text((pg + 1) + ' / ' + totalPages, pdfW / 2, pdfH - 4, { align: 'center' });
-          }
-
-          // === AUTO-DOWNLOAD: Full NDA with all articles (for email attachment) ===
-          var fullFileName = 'PASOLA_NDA_' + rpRef + '_FULL.pdf';
-          pdf.save(fullFileName);
-
-          // Store full PDF for the download button
-          window._fullPdf = pdf;
-          window._fullFileName = fullFileName;
-
-          // === GENERATE SUMMARY PDF (1-page, for Download button) ===
-          pdfDiv.innerHTML = [
-            (logoSrc ? '<div class="pdf-logo"><img src="' + logoSrc + '" /></div>' : ''),
-            '<h1>PASOLA SAS</h1>',
-            '<div class="pdf-subtitle">Mutual Non-Disclosure &amp; Non-Circumvention Agreement</div>',
-            '<div class="pdf-divider"></div>',
-            '<div class="pdf-section"><div class="pdf-section-title">Disclosing Party</div>',
-            '<div class="pdf-row"><span class="pdf-label">Entity</span><span class="pdf-value">PASOLA SAS \u2014 Soci\u00e9t\u00e9 par Actions Simplifi\u00e9e</span></div>',
-            '<div class="pdf-row"><span class="pdf-label">Project</span><span class="pdf-value">Pasola Signature Estate \u2014 Sumba Island, Indonesia</span></div>',
-          '<div class="pdf-row"><span class="pdf-label">Representative</span><span class="pdf-value">Jonathan B\u00c9RAUD \u2014 Chief Executive Officer</span></div></div>',
-            '<div class="pdf-section"><div class="pdf-section-title">Receiving Party</div>',
-            '<div class="pdf-row"><span class="pdf-label">Full Name</span><span class="pdf-value">' + rpName + '</span></div>',
-            '<div class="pdf-row"><span class="pdf-label">Email</span><span class="pdf-value">' + rpEmail + '</span></div>',
-            (rpPhone ? '<div class="pdf-row"><span class="pdf-label">Phone</span><span class="pdf-value">' + rpPhone + '</span></div>' : ''),
-            (rpCompany ? '<div class="pdf-row"><span class="pdf-label">Company</span><span class="pdf-value">' + rpCompany + '</span></div>' : ''),
-            (rpRole ? '<div class="pdf-row"><span class="pdf-label">Role</span><span class="pdf-value">' + rpRole + '</span></div>' : ''),
-            '</div>',
-            '<div class="pdf-section"><div class="pdf-section-title">Agreement</div>',
-            '<div style="font-size:10px;color:#6B7B86;line-height:1.45;">Both Parties acknowledge having read and accepted all 13 articles of the Mutual NDA &amp; Non-Circumvention Agreement, including non-disclosure (Art. 3), 5-year duration (Art. 5), \u20ac50,000 per breach (Art. 7), non-circumvention 3 years (Art. 6), non-solicitation 12 months (Art. 10), and jurisdiction of the Commercial Court of Paris (Art. 12).</div></div>',
-            '<div style="display:flex;gap:24px;margin-top:4px;">',
-            '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
-            '<div class="pdf-section-title" style="margin-bottom:6px;">Signature \u2014 Receiving Party</div>',
-            sigSection,
-            '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Name</span><span class="pdf-value">' + rpName + '</span></div>',
-            '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + rpDate + '</span></div></div>',
-            '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
-            '<div class="pdf-section-title" style="margin-bottom:6px;">Countersignature \u2014 PASOLA SAS</div>',
-            '<img src="' + adminSigURL + '" class="pdf-sig-img" />',
-            '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Auth. Rep.</span><span class="pdf-value">PASOLA SAS</span></div>',
-            '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + adminDateStr + '</span></div></div></div>',
-            '<div class="pdf-footer">PASOLA SAS \u2014 Mutual Non-Disclosure &amp; Non-Circumvention Agreement<br>',
-            'This document has been fully executed and is legally binding. Ref: ' + rpRef + '</div>'
-          ].join('');
-
-          pdfDiv.style.left = '0';
-          pdfDiv.style.position = 'fixed';
-          pdfDiv.style.zIndex = '-1';
-
-          html2canvas(pdfDiv, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#FFFFFF' }).then(function(summaryCanvas) {
-            pdfDiv.style.left = '-9999px';
-            pdfDiv.style.position = 'absolute';
-            pdfDiv.style.zIndex = '';
-
-            var sPdf = new jspdf.jsPDF('p', 'mm', 'a4');
-            var sW = sPdf.internal.pageSize.getWidth();
-            var sImgH = (summaryCanvas.height * sW) / summaryCanvas.width;
-            sPdf.addImage(summaryCanvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, sW, sImgH);
-
-            // Store summary PDF for download button
-            window._summaryPdf = sPdf;
-            window._summaryFileName = 'PASOLA_NDA_' + rpRef + '_EXECUTED.pdf';
-
-            // Store mailto URL globally for the button handler
-            var aSubj = 'Pasola Signature Estate \u2013 Fully Executed NDA \u2013 ' + rpRef;
-            var aBodyRP = 'Dear ' + rpName + ',\n\nWe are pleased to inform you that your Non-Disclosure & Non-Circumvention Agreement (Ref: ' + rpRef + ') has been reviewed, approved, and countersigned by PASOLA SAS.\n\nPlease find the fully executed agreement attached to this email. Kindly retain this document for your records.\n\nWe look forward to a productive and mutually beneficial collaboration.';
-            window._emailTo = adminEmail + ',' + rpEmail;
-            window._emailSubj = aSubj;
-            window._emailBody = aBodyRP;
-
-            // Show result overlay
-            document.getElementById('reviewOverlay').classList.remove('visible');
-            document.getElementById('resultTitle').textContent = 'NDA Accepted & Signed';
-            document.getElementById('resultMessage').innerHTML =
-              'The full NDA has been downloaded as <strong>' + fullFileName + '</strong>.<br><br>' +
-              'Click below to open Outlook and compose the email (the summary PDF will also download \u2014 <strong>attach it</strong>).<br><br>' +
-              '<button id="sendEmailBtn" style="display:inline-block;padding:14px 36px;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#065E6F;border:none;border-radius:6px;cursor:pointer;margin-bottom:12px;">Open Outlook \u2014 Email to both parties</button>';
-            document.getElementById('downloadFinalPdfBtn').style.display = 'inline-block';
-            document.getElementById('reviewResultOverlay').classList.add('visible');
-
-            // Attach click handler to email button
-            document.getElementById('sendEmailBtn').addEventListener('click', function() {
-              if (window._summaryPdf) window._summaryPdf.save(window._summaryFileName || 'PASOLA_NDA_EXECUTED.pdf');
-              setTimeout(function() {
-                openOutlookCompose(window._emailTo, window._emailSubj, window._emailBody);
-              }, 500);
-            });
-          });
-
-          // Clean up localStorage
-          try { localStorage.removeItem('pasola_nda_sig_' + rpRef); } catch(e) {}
-
-        }).catch(function(err) {
-          console.error('[PASOLA NDA] PDF error:', err);
-          document.getElementById('reviewOverlay').classList.remove('visible');
-          document.getElementById('resultTitle').textContent = 'Error';
-          document.getElementById('resultMessage').textContent = 'PDF generation failed. Please try again.';
-          document.getElementById('reviewResultOverlay').classList.add('visible');
-        });
-      });
-
-      // DECLINE button (from review overlay)
-      document.getElementById('btnDecline').addEventListener('click', function() {
-        if (!confirm('Are you sure you want to decline the NDA submission from ' + rpName + '?')) return;
-        var dSubj2 = 'Pasola Signature Estate \u2013 Application Update \u2013 ' + rpRef;
-        var dBody2 = 'Dear ' + rpName + ',\n\nThank you for your interest in Pasola Signature Estate and for taking the time to engage with us.\n\nAfter careful consideration, we regret to inform you that we are unable to move forward with your application at this time.\n\nWe wish you every success in your future endeavours.';
-
-        document.getElementById('reviewOverlay').classList.remove('visible');
-        document.getElementById('resultTitle').textContent = 'NDA Declined';
-        document.getElementById('resultMessage').innerHTML =
-          'Click below to send the decline notice to <strong>' + rpEmail + '</strong> and <strong>' + adminEmail + '</strong><br><br>' +
-          '<button id="sendDeclineBtn" style="display:inline-block;padding:14px 36px;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#9A9D9F;border:none;border-radius:6px;cursor:pointer;">Open Email Client \u2013 Decline</button>';
-        document.getElementById('reviewResultOverlay').classList.add('visible');
-        document.getElementById('sendDeclineBtn').addEventListener('click', function() {
-          openOutlookCompose(adminEmail + ',' + rpEmail, dSubj2, dBody2);
-              });
-      });
-    }
-  </script>
-  <script>
-  (function(){try{fetch("https://pasola-api.jonathan-beraud.workers.dev/api/pageview",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({page:document.title||location.pathname,url:location.href,referrer:document.referrer||""})}).catch(function(){});}catch(e){}})();
-  </script>
-  <!-- PASOLA Analytics — Supabase -->
+ /* ══════════════════════
+ CONFIGURATION (MIS À JOUR)
+ ══════════════════════ */
+ var FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjgpwvdb';
+ var IMGBB_API_KEY = '22dc6bcbce832fb3b6a6bf6e17c0c4d4';
+
+ // Pre-registered PASOLA SAS countersignature (Jonathan Beraud)
+ var ADMIN_SIGNATURE = 'data:image/png;base64,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';
+
+ /* ══════════════════════
+ DATE DISPLAY
+ ══════════════════════ */
+ var now = new Date();
+ var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+ var dateStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+ document.getElementById('dateDisplay').textContent = dateStr;
+
+ /* ══════════════════════
+ SIGNATURE PAD - CORRIGÉ
+ ══════════════════════ */
+ var canvas = document.getElementById('signatureCanvas');
+ var container = document.getElementById('signaturePadContainer');
+ var ctx = canvas.getContext('2d');
+ var drawing = false;
+ var hasSigned = false;
+
+ function resizeCanvas() {
+ var dpr = window.devicePixelRatio || 1;
+ var rect = canvas.getBoundingClientRect();
+ canvas.width = rect.width * dpr;
+ canvas.height = rect.height * dpr;
+ ctx.scale(dpr, dpr);
+ ctx.strokeStyle = '#082019';
+ ctx.lineWidth = 2;
+ ctx.lineCap = 'round';
+ ctx.lineJoin = 'round';
+ }
+ resizeCanvas();
+ window.addEventListener('resize', resizeCanvas);
+
+ function getPos(e) {
+ var rect = canvas.getBoundingClientRect();
+ if (e.touches && e.touches.length > 0) {
+ return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+ }
+ return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+ }
+
+ function startDraw(e) {
+ e.preventDefault();
+ drawing = true;
+ container.classList.add('active');
+ var pos = getPos(e);
+ ctx.beginPath();
+ ctx.moveTo(pos.x, pos.y);
+ }
+
+ function draw(e) {
+ e.preventDefault();
+ if (!drawing) return;
+ hasSigned = true;
+ container.classList.remove('error');
+ document.getElementById('signatureError').classList.remove('visible');
+ var pos = getPos(e);
+ ctx.lineTo(pos.x, pos.y);
+ ctx.stroke();
+ }
+
+ function stopDraw() {
+ drawing = false;
+ container.classList.remove('active');
+ }
+
+ canvas.addEventListener('mousedown', startDraw);
+ canvas.addEventListener('mousemove', draw);
+ canvas.addEventListener('mouseup', stopDraw);
+ canvas.addEventListener('mouseleave', stopDraw);
+ canvas.addEventListener('touchstart', startDraw, { passive: false });
+ canvas.addEventListener('touchmove', draw, { passive: false });
+ canvas.addEventListener('touchend', stopDraw);
+
+ document.getElementById('clearSig').addEventListener('click', function() {
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+ hasSigned = false;
+ });
+
+ function getSignatureDataURL() {
+ return canvas.toDataURL('image/png');
+ }
+
+ /* ══════════════════════
+ LIVE VALIDATION
+ ══════════════════════ */
+ document.querySelectorAll('.form-input').forEach(function(input) {
+ input.addEventListener('input', function() {
+ this.classList.remove('error');
+ var err = document.getElementById(this.id + 'Error');
+ if (err) err.classList.remove('visible');
+ });
+ });
+
+ document.getElementById('agreeCheckbox').addEventListener('change', function() {
+ document.getElementById('agreeGroup').classList.remove('error');
+ document.getElementById('agreeError').classList.remove('visible');
+ });
+
+
+ /* ID UPLOAD */
+ var idFile = null;
+ var idUploadArea = document.getElementById('idUploadArea');
+ var idFileInput = document.getElementById('idFileInput');
+ var idFileName = document.getElementById('idFileName');
+ idFileInput.addEventListener('change', function() {
+ if (this.files && this.files[0]) {
+ var f = this.files[0];
+ var sizeMB = (f.size / 1024 / 1024).toFixed(1);
+ var ext = f.name.toLowerCase().split('.').pop();
+ if (f.size > 10 * 1024 * 1024) {
+ idFile = null; this.value = '';
+ idFileName.innerHTML = '<span style="color:#C0392B;font-weight:500;">\u2716 File too large (' + sizeMB + ' MB)</span><br><span style="color:#C0392B;font-size:12px;">Max 10 MB.</span>';
+ idFileName.style.display = 'block'; idUploadArea.classList.add('error'); idUploadArea.classList.remove('has-file');
+ return;
+ }
+ if (['pdf','jpg','jpeg','png'].indexOf(ext) === -1) {
+ idFile = null; this.value = '';
+ idFileName.innerHTML = '<span style="color:#C0392B;font-weight:500;">\u2716 Invalid format: .' + ext + '</span><br><span style="color:#C0392B;font-size:12px;">PDF, JPG, PNG only.</span>';
+ idFileName.style.display = 'block'; idUploadArea.classList.add('error'); idUploadArea.classList.remove('has-file');
+ return;
+ }
+ idFile = f;
+ idFileName.innerHTML = '<span style="color:#065E6F;font-weight:500;">\u2714 Uploaded successfully</span><br><span style="font-size:12px;color:#555;">' + f.name + ' (' + sizeMB + ' MB)</span>';
+ idFileName.style.display = 'block'; idUploadArea.classList.add('has-file'); idUploadArea.classList.remove('error');
+ document.getElementById('idUploadError').classList.remove('visible');
+ var ico = idUploadArea.querySelector('.id-upload-icon');
+ if (ico) ico.innerHTML = '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#065E6F" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+ var txt = idUploadArea.querySelector('.id-upload-text'); if (txt) txt.style.display = 'none';
+ }
+ });
+ idUploadArea.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('dragover'); });
+ idUploadArea.addEventListener('dragleave', function() { this.classList.remove('dragover'); });
+ idUploadArea.addEventListener('drop', function(e) { e.preventDefault(); this.classList.remove('dragover'); if (e.dataTransfer.files && e.dataTransfer.files[0]) { idFileInput.files = e.dataTransfer.files; idFileInput.dispatchEvent(new Event('change')); } });
+
+ /* ══════════════════════
+ NOUVELLE CHAÎNE D’APPROBATION
+ ══════════════════════ */
+ var formData = {};
+
+ function uploadToImgBB(file) {
+ return new Promise(function(resolve, reject) {
+ // Only upload images, not PDFs
+ if (!file || !file.type.startsWith('image/')) {
+ resolve(null);
+ return;
+ }
+ // Compress image using canvas (max 800px wide, JPEG 0.6 quality)
+ var reader = new FileReader();
+ reader.onload = function(e) {
+ var img = new Image();
+ img.onload = function() {
+ var canvas = document.createElement('canvas');
+ var maxW = 800;
+ var w = img.width, h = img.height;
+ if (w > maxW) { h = h * maxW / w; w = maxW; }
+ canvas.width = w; canvas.height = h;
+ var ctx2 = canvas.getContext('2d');
+ ctx2.drawImage(img, 0, 0, w, h);
+ var base64 = canvas.toDataURL('image/jpeg', 0.6).split(',')[1];
+ // Upload to ImgBB
+ var fd = new FormData();
+ fd.append('key', IMGBB_API_KEY);
+ fd.append('image', base64);
+ fd.append('name', 'NDA_ID_' + Date.now());
+ fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd })
+ .then(function(r) { return r.json(); })
+ .then(function(data) {
+ if (data.success) {
+ resolve(data.data.display_url);
+ } else {
+ console.warn('[ImgBB] Upload failed:', data);
+ resolve(null);
+ }
+ })
+ .catch(function(err) { console.warn('[ImgBB] Error:', err); resolve(null); });
+ };
+ img.src = e.target.result;
+ };
+ reader.readAsDataURL(file);
+ });
+ }
+
+ function sendToPasola() {
+ var sigDataURL = getSignatureDataURL();
+ var ref = 'MNDNCA-' + now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + (formData.lastName || '').toUpperCase().substring(0,4);
+
+ try { localStorage.setItem('pasola_nda_sig_' + ref, sigDataURL); } catch(e) {}
+
+ var pageURL = window.location.origin + window.location.pathname;
+ var acceptURL = pageURL + '#action=accept&ref=' + encodeURIComponent(ref) + '&email=' + encodeURIComponent(formData.email) + '&name=' + encodeURIComponent(formData.firstName + ' ' + formData.lastName) + '&phone=' + encodeURIComponent(formData.phone || '') + '&company=' + encodeURIComponent(formData.company || '') + '&role=' + encodeURIComponent(formData.role || '') + '&date=' + encodeURIComponent(dateStr);
+
+ // First upload ID to ImgBB, then send to Formspree
+ return uploadToImgBB(idFile).then(function(imgUrl) {
+ var payload = {
+ _subject: '[PASOLA NDA] Nouvelle signature \u2013 ' + formData.firstName + ' ' + formData.lastName,
+ _1_Reference: ref,
+ _2_Nom: formData.firstName + ' ' + formData.lastName,
+ _3_Email: formData.email,
+ _4_Telephone: formData.phone || 'Non renseigne',
+ _5_Societe: formData.company || 'Non renseigne',
+ _6_Role: formData.role || 'Non renseigne',
+ _7_Date: dateStr,
+ _8_ACCEPTER: acceptURL,
+ _9_ID_Fourni: idFile ? 'OUI - ' + idFile.name + ' (' + (idFile.size / 1024 / 1024).toFixed(1) + ' MB)' : 'NON'
+ };
+ if (imgUrl) {
+ payload._10_VOIR_ID = imgUrl;
+ }
+
+ return fetch(FORMSPREE_ENDPOINT, {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+ body: JSON.stringify(payload)
+ }).then(function(res) {
+ if (!res.ok) console.warn('[PASOLA NDA] Envoi echoue, status:', res.status);
+ else console.log('[PASOLA NDA] Email envoye avec succes');
+ });
+ }).catch(function(err) {
+ console.warn('[PASOLA NDA] Erreur:', err);
+ });
+ }
+
+ /* ══════════════════════
+ FORM SUBMIT
+ ══════════════════════ */
+ document.getElementById('ndaForm').addEventListener('submit', function(e) {
+ e.preventDefault();
+ var valid = true;
+
+ var fn = document.getElementById('firstName');
+ if (!fn.value.trim()) { fn.classList.add('error'); document.getElementById('firstNameError').classList.add('visible'); valid = false; }
+
+ var ln = document.getElementById('lastName');
+ if (!ln.value.trim()) { ln.classList.add('error'); document.getElementById('lastNameError').classList.add('visible'); valid = false; }
+
+ var em = document.getElementById('email');
+ if (!em.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)) {
+ em.classList.add('error'); document.getElementById('emailError').classList.add('visible'); valid = false;
+ }
+
+ if (!document.getElementById('agreeCheckbox').checked) {
+ document.getElementById('agreeGroup').classList.add('error');
+ document.getElementById('agreeError').classList.add('visible'); valid = false;
+ }
+
+ if (!hasSigned) {
+ container.classList.add('error');
+ document.getElementById('signatureError').classList.add('visible'); valid = false;
+ }
+
+ if (!idFile) {
+ idUploadArea.classList.add('error');
+ document.getElementById('idUploadError').classList.add('visible'); valid = false;
+ }
+
+ if (!valid) {
+ document.querySelector('.form-input.error, .checkbox-group.error, .signature-pad-container.error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+ return;
+ }
+
+ formData = {
+ firstName: fn.value.trim(),
+ lastName: ln.value.trim(),
+ email: em.value.trim(),
+ phone: document.getElementById('phone').value.trim(),
+ company: document.getElementById('company').value.trim(),
+ role: document.getElementById('role').value || ''
+ };
+
+ var btn = document.getElementById('submitBtn');
+ btn.disabled = true;
+ btn.innerHTML = '<span class="spinner"></span>Submitting for review\u2026';
+
+ sendToPasola().then(function() {
+ document.getElementById('successOverlay').classList.add('visible');
+ document.body.style.overflow = 'hidden';
+ document.querySelector('.success-content p').innerHTML = 
+ 'Thank you! Your signature has been submitted to the Pasola team for review.<br>' +
+ 'You will be contacted shortly with either:<br>' +
+ '\u2022 The fully countersigned agreement (Accepted)<br>' +
+ '\u2022 A formal response (Declined)';
+ }).catch(function() {
+ document.getElementById('successOverlay').classList.add('visible');
+ document.body.style.overflow = 'hidden';
+ });
+ });
+
+ /* ══════════════════════
+ ACTION HANDLER (Accept/Decline from email)
+ ══════════════════════ */
+ (function() {
+ // Parse params from hash (#) first, then fallback to query (?)
+ // Hash works on SharePoint/OneDrive; query works on standard hosting
+ var paramStr = window.location.hash.substring(1) || window.location.search.substring(1);
+ if (!paramStr) return;
+ var p = new URLSearchParams(paramStr);
+ var action = p.get('action');
+ var rpEmail = p.get('email');
+ var rpName = p.get('name');
+ var rpRef = p.get('ref');
+ if (!action || !rpEmail) return;
+ console.log('[PASOLA NDA] Action mode:', action, 'for', rpName);
+
+ var rpPhone = p.get('phone') || '';
+ var rpCompany = p.get('company') || '';
+ var rpRole = p.get('role') || '';
+ var rpDate = p.get('date') || dateStr;
+ var adminEmail = 'contact@pasola.fr';
+
+ // Email signature (plain text for Outlook compose)
+ // Email signature handled by Outlook settings
+
+ // Helper: open Outlook Web compose (works from file:// protocol)
+ function openOutlookCompose(to, subject, body) {
+ var url = 'https://outlook.live.com/mail/0/deeplink/compose'
+ + '?to=' + encodeURIComponent(to)
+ + '&subject=' + encodeURIComponent(subject)
+ + '&body=' + encodeURIComponent(body);
+ window.open(url, '_blank');
+ }
+
+ // Hide main form page
+ var page = document.querySelector('.page');
+ if (page) page.style.display = 'none';
+
+ /* ── DECLINE ── */
+ if (action === 'decline') {
+ var dSubj = 'Pasola Signature Estate \u2013 Application Update \u2013 ' + rpRef;
+ var dBody = 'Dear ' + rpName + ',\n\nThank you for your interest in Pasola Signature Estate and for taking the time to engage with us.\n\nAfter careful consideration, we regret to inform you that we are unable to move forward with your application at this time.\n\nThis decision does not diminish the value of your enquiry, and we sincerely appreciate the time and effort you have invested.\n\nWe wish you every success in your future endeavours, and we hope our paths may cross again under different circumstances.';
+
+ document.getElementById('successOverlay').classList.add('visible');
+ document.body.style.overflow = 'hidden';
+ document.querySelector('.success-content h2').textContent = 'Decline \u2013 ' + rpName;
+ document.querySelector('.success-content p').innerHTML =
+ 'Click below to send the decline notice to <strong>' + rpEmail + '</strong> and <strong>' + adminEmail + '</strong><br><br>' +
+ '<button id="directDeclineBtn" style="display:inline-block;padding:14px 36px;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#9A9D9F;border:none;border-radius:6px;cursor:pointer;">Open Email Client \u2013 Decline</button>';
+ document.getElementById('directDeclineBtn').addEventListener('click', function() {
+ openOutlookCompose(adminEmail + ',' + rpEmail, dSubj, dBody);
+ });
+ return;
+ }
+
+ /* ── ACCEPT ── */
+ if (action === 'accept') {
+ document.body.style.overflow = 'hidden';
+
+ // Populate review overlay
+ document.getElementById('revName').textContent = rpName;
+ document.getElementById('revEmail').textContent = rpEmail;
+ document.getElementById('revPhone').textContent = rpPhone || '\u2014';
+ document.getElementById('revCompany').textContent = rpCompany || '\u2014';
+ document.getElementById('revRole').textContent = rpRole || '\u2014';
+ document.getElementById('revDate').textContent = rpDate;
+ document.getElementById('revRef').textContent = rpRef;
+
+ // Try to load receiving party signature from localStorage
+ var rpSigURL = '';
+ try { rpSigURL = localStorage.getItem('pasola_nda_sig_' + rpRef) || ''; } catch(e) {}
+ if (rpSigURL) {
+ document.getElementById('revSigImg').src = rpSigURL;
+ document.getElementById('revSigCard').style.display = 'block';
+ }
+
+ // Hide countersign section (using pre-registered signature)
+ // document.getElementById('countersignSection') stays hidden
+
+ // Show review overlay
+ document.getElementById('reviewOverlay').classList.add('visible');
+
+ // Change Accept button text (no need to draw)
+ document.getElementById('btnAccept').textContent = 'Accept & Generate PDF';
+
+ // ACCEPT button
+ document.getElementById('btnAccept').addEventListener('click', function() {
+ var btn = this;
+ btn.disabled = true;
+ btn.innerHTML = '<span class="spinner"></span>Generating PDF\u2026';
+ document.getElementById('btnDecline').disabled = true;
+
+ var adminSigURL = ADMIN_SIGNATURE; // Pre-registered signature
+ var adminNow = new Date();
+ var adminDateStr = months[adminNow.getMonth()] + ' ' + adminNow.getDate() + ', ' + adminNow.getFullYear();
+
+ // Build FULL NDA PDF with all 13 articles + both signatures
+ var pdfDiv = document.getElementById('pdfContent');
+ var sigSection = rpSigURL
+ ? '<img src="' + rpSigURL + '" class="pdf-sig-img" />'
+ : '<div style="height:50px;display:flex;align-items:center;color:#082019;font-style:italic;font-size:11px;">Signed electronically</div>';
+
+ // Get logo from page
+ var logoSrc = '';
+ var logoEl = document.querySelector('.logo-container img');
+ if (logoEl && logoEl.src) logoSrc = logoEl.src;
+
+ // Get the FULL NDA articles from the page DOM
+ var ndaTextHTML = '';
+ var ndaTextEl = document.querySelector('.nda-text');
+ if (ndaTextEl) ndaTextHTML = ndaTextEl.innerHTML;
+
+ // Inject break markers between articles for smart page breaks
+ var ndaHTML = ndaTextHTML.replace(/<h3 class="article-title">/g, '<div class="brk" style="height:1px;"></div><h3 class="article-title">');
+
+ pdfDiv.innerHTML = [
+ (logoSrc ? '<div class="pdf-logo"><img src="' + logoSrc + '" /></div>' : ''),
+ '<h1>PASOLA SAS</h1>',
+ '<div class="pdf-subtitle">Mutual Non-Disclosure &amp; Non-Circumvention Agreement</div>',
+ '<div class="pdf-divider"></div>',
+
+ // Parties
+ '<div class="pdf-section"><div class="pdf-section-title">Disclosing Party</div>',
+ '<div class="pdf-row"><span class="pdf-label">Entity</span><span class="pdf-value">PASOLA SAS \u2014 Soci\u00e9t\u00e9 par Actions Simplifi\u00e9e</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Project</span><span class="pdf-value">Pasola Signature Estate \u2014 Sumba Island, Indonesia</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Representative</span><span class="pdf-value">Jonathan B\u00c9RAUD \u2014 Chief Executive Officer</span></div></div>',
+ '<div class="pdf-section"><div class="pdf-section-title">Receiving Party</div>',
+ '<div class="pdf-row"><span class="pdf-label">Full Name</span><span class="pdf-value">' + rpName + '</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Email</span><span class="pdf-value">' + rpEmail + '</span></div>',
+ (rpPhone ? '<div class="pdf-row"><span class="pdf-label">Phone</span><span class="pdf-value">' + rpPhone + '</span></div>' : ''),
+ (rpCompany ? '<div class="pdf-row"><span class="pdf-label">Company</span><span class="pdf-value">' + rpCompany + '</span></div>' : ''),
+ (rpRole ? '<div class="pdf-row"><span class="pdf-label">Role</span><span class="pdf-value">' + rpRole + '</span></div>' : ''),
+ '</div>',
+
+ // Full NDA articles with break markers
+ '<div style="font-size:11px;line-height:1.7;color:#555;margin:12px 0;">' + ndaHTML + '</div>',
+
+ // Both signatures side by side (with break marker before)
+ '<div class="brk" style="height:1px;"></div>',
+ '<div style="display:flex;gap:24px;margin-top:12px;">',
+ '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
+ '<div class="pdf-section-title" style="margin-bottom:6px;">Signature \u2014 Receiving Party</div>',
+ sigSection,
+ '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Name</span><span class="pdf-value">' + rpName + '</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + rpDate + '</span></div>',
+ '</div>',
+ '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
+ '<div class="pdf-section-title" style="margin-bottom:6px;">Countersignature \u2014 PASOLA SAS</div>',
+ '<img src="' + adminSigURL + '" class="pdf-sig-img" />',
+ '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Auth. Rep.</span><span class="pdf-value">PASOLA SAS</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + adminDateStr + '</span></div>',
+ '</div></div>',
+
+ '<div class="pdf-footer">PASOLA SAS \u2014 Mutual Non-Disclosure &amp; Non-Circumvention Agreement<br>',
+ 'This document has been fully executed and is legally binding. Ref: ' + rpRef + '</div>'
+ ].join('');
+
+ // Measure break marker positions BEFORE rendering
+ pdfDiv.style.left = '0';
+ pdfDiv.style.position = 'fixed';
+ pdfDiv.style.zIndex = '-1';
+
+ var markers = pdfDiv.querySelectorAll('.brk');
+ var breakYs = [0];
+ var dpr = window.devicePixelRatio || 1;
+ var renderScale = 2;
+ markers.forEach(function(m) {
+ breakYs.push(m.offsetTop * renderScale);
+ });
+
+ html2canvas(pdfDiv, { scale: renderScale, useCORS: true, allowTaint: true, backgroundColor: '#FFFFFF' }).then(function(canvasEl) {
+ pdfDiv.style.left = '-9999px';
+ pdfDiv.style.position = 'absolute';
+ pdfDiv.style.zIndex = '';
+
+ breakYs.push(canvasEl.height); // end
+
+ var pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+ var pdfW = pdf.internal.pageSize.getWidth();
+ var pdfH = pdf.internal.pageSize.getHeight();
+ var scale = pdfW / canvasEl.width;
+ var usableH = (pdfH - 10) / scale; // 10mm for page number
+ var cW = canvasEl.width;
+
+ // Build pages: for each page, find the last break marker that fits
+ var pages = [];
+ var curStart = 0;
+
+ while (curStart < canvasEl.height - 10) {
+ var maxEnd = curStart + usableH;
+ // Find the last break point that fits on this page
+ var bestBreak = curStart + usableH; // fallback: hard cut
+ for (var bi = breakYs.length - 1; bi >= 0; bi--) {
+ if (breakYs[bi] > curStart + 50 && breakYs[bi] <= maxEnd) {
+ bestBreak = breakYs[bi];
+ break;
+ }
+ }
+ // If no marker found or last page
+ if (bestBreak >= canvasEl.height) bestBreak = canvasEl.height;
+ pages.push({ start: curStart, end: bestBreak });
+ curStart = bestBreak;
+ if (curStart >= canvasEl.height - 10) break;
+ }
+
+ var totalPages = pages.length;
+
+ for (var pg = 0; pg < totalPages; pg++) {
+ if (pg > 0) pdf.addPage();
+ var sY = pages[pg].start;
+ var eY = pages[pg].end;
+ var sH = eY - sY;
+
+ var sc = document.createElement('canvas');
+ sc.width = cW;
+ sc.height = sH;
+ var sctx = sc.getContext('2d');
+ sctx.fillStyle = '#FFFFFF';
+ sctx.fillRect(0, 0, cW, sH);
+ sctx.drawImage(canvasEl, 0, sY, cW, sH, 0, 0, cW, sH);
+
+ var sImg = sc.toDataURL('image/jpeg', 0.95);
+ pdf.addImage(sImg, 'JPEG', 0, 0, pdfW, sH * scale);
+
+ // Page number
+ pdf.setFontSize(8);
+ pdf.setTextColor(180, 180, 180);
+ pdf.text((pg + 1) + ' / ' + totalPages, pdfW / 2, pdfH - 4, { align: 'center' });
+ }
+
+ // === AUTO-DOWNLOAD: Full NDA with all articles (for email attachment) ===
+ var fullFileName = 'PASOLA_NDA_' + rpRef + '_FULL.pdf';
+ pdf.save(fullFileName);
+
+ // Store full PDF for the download button
+ window._fullPdf = pdf;
+ window._fullFileName = fullFileName;
+
+ // === GENERATE SUMMARY PDF (1-page, for Download button) ===
+ pdfDiv.innerHTML = [
+ (logoSrc ? '<div class="pdf-logo"><img src="' + logoSrc + '" /></div>' : ''),
+ '<h1>PASOLA SAS</h1>',
+ '<div class="pdf-subtitle">Mutual Non-Disclosure &amp; Non-Circumvention Agreement</div>',
+ '<div class="pdf-divider"></div>',
+ '<div class="pdf-section"><div class="pdf-section-title">Disclosing Party</div>',
+ '<div class="pdf-row"><span class="pdf-label">Entity</span><span class="pdf-value">PASOLA SAS \u2014 Soci\u00e9t\u00e9 par Actions Simplifi\u00e9e</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Project</span><span class="pdf-value">Pasola Signature Estate \u2014 Sumba Island, Indonesia</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Representative</span><span class="pdf-value">Jonathan B\u00c9RAUD \u2014 Chief Executive Officer</span></div></div>',
+ '<div class="pdf-section"><div class="pdf-section-title">Receiving Party</div>',
+ '<div class="pdf-row"><span class="pdf-label">Full Name</span><span class="pdf-value">' + rpName + '</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Email</span><span class="pdf-value">' + rpEmail + '</span></div>',
+ (rpPhone ? '<div class="pdf-row"><span class="pdf-label">Phone</span><span class="pdf-value">' + rpPhone + '</span></div>' : ''),
+ (rpCompany ? '<div class="pdf-row"><span class="pdf-label">Company</span><span class="pdf-value">' + rpCompany + '</span></div>' : ''),
+ (rpRole ? '<div class="pdf-row"><span class="pdf-label">Role</span><span class="pdf-value">' + rpRole + '</span></div>' : ''),
+ '</div>',
+ '<div class="pdf-section"><div class="pdf-section-title">Agreement</div>',
+ '<div style="font-size:10px;color:#6B7B86;line-height:1.45;">Both Parties acknowledge having read and accepted all 13 articles of the Mutual NDA &amp; Non-Circumvention Agreement, including non-disclosure (Art. 3), 5-year duration (Art. 5), \u20ac50,000 per breach (Art. 7), non-circumvention 3 years (Art. 6), non-solicitation 12 months (Art. 10), and jurisdiction of the Commercial Court of Paris (Art. 12).</div></div>',
+ '<div style="display:flex;gap:24px;margin-top:4px;">',
+ '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
+ '<div class="pdf-section-title" style="margin-bottom:6px;">Signature \u2014 Receiving Party</div>',
+ sigSection,
+ '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Name</span><span class="pdf-value">' + rpName + '</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + rpDate + '</span></div></div>',
+ '<div style="flex:1;padding:10px 14px;border:1px solid #EEEBE7;border-radius:6px;">',
+ '<div class="pdf-section-title" style="margin-bottom:6px;">Countersignature \u2014 PASOLA SAS</div>',
+ '<img src="' + adminSigURL + '" class="pdf-sig-img" />',
+ '<div class="pdf-row" style="margin-top:6px;"><span class="pdf-label">Auth. Rep.</span><span class="pdf-value">PASOLA SAS</span></div>',
+ '<div class="pdf-row"><span class="pdf-label">Date</span><span class="pdf-value">' + adminDateStr + '</span></div></div></div>',
+ '<div class="pdf-footer">PASOLA SAS \u2014 Mutual Non-Disclosure &amp; Non-Circumvention Agreement<br>',
+ 'This document has been fully executed and is legally binding. Ref: ' + rpRef + '</div>'
+ ].join('');
+
+ pdfDiv.style.left = '0';
+ pdfDiv.style.position = 'fixed';
+ pdfDiv.style.zIndex = '-1';
+
+ html2canvas(pdfDiv, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#FFFFFF' }).then(function(summaryCanvas) {
+ pdfDiv.style.left = '-9999px';
+ pdfDiv.style.position = 'absolute';
+ pdfDiv.style.zIndex = '';
+
+ var sPdf = new jspdf.jsPDF('p', 'mm', 'a4');
+ var sW = sPdf.internal.pageSize.getWidth();
+ var sImgH = (summaryCanvas.height * sW) / summaryCanvas.width;
+ sPdf.addImage(summaryCanvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, sW, sImgH);
+
+ // Store summary PDF for download button
+ window._summaryPdf = sPdf;
+ window._summaryFileName = 'PASOLA_NDA_' + rpRef + '_EXECUTED.pdf';
+
+ // Store mailto URL globally for the button handler
+ var aSubj = 'Pasola Signature Estate \u2013 Fully Executed NDA \u2013 ' + rpRef;
+ var aBodyRP = 'Dear ' + rpName + ',\n\nWe are pleased to inform you that your Non-Disclosure & Non-Circumvention Agreement (Ref: ' + rpRef + ') has been reviewed, approved, and countersigned by PASOLA SAS.\n\nPlease find the fully executed agreement attached to this email. Kindly retain this document for your records.\n\nWe look forward to a productive and mutually beneficial collaboration.';
+ window._emailTo = adminEmail + ',' + rpEmail;
+ window._emailSubj = aSubj;
+ window._emailBody = aBodyRP;
+
+ // Show result overlay
+ document.getElementById('reviewOverlay').classList.remove('visible');
+ document.getElementById('resultTitle').textContent = 'NDA Accepted & Signed';
+ document.getElementById('resultMessage').innerHTML =
+ 'The full NDA has been downloaded as <strong>' + fullFileName + '</strong>.<br><br>' +
+ 'Click below to open Outlook and compose the email (the summary PDF will also download \u2014 <strong>attach it</strong>).<br><br>' +
+ '<button id="sendEmailBtn" style="display:inline-block;padding:14px 36px;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#065E6F;border:none;border-radius:6px;cursor:pointer;margin-bottom:12px;">Open Outlook \u2014 Email to both parties</button>';
+ document.getElementById('downloadFinalPdfBtn').style.display = 'inline-block';
+ document.getElementById('reviewResultOverlay').classList.add('visible');
+
+ // Attach click handler to email button
+ document.getElementById('sendEmailBtn').addEventListener('click', function() {
+ if (window._summaryPdf) window._summaryPdf.save(window._summaryFileName || 'PASOLA_NDA_EXECUTED.pdf');
+ setTimeout(function() {
+ openOutlookCompose(window._emailTo, window._emailSubj, window._emailBody);
+ }, 500);
+ });
+ });
+
+ // Clean up localStorage
+ try { localStorage.removeItem('pasola_nda_sig_' + rpRef); } catch(e) {}
+
+ }).catch(function(err) {
+ console.error('[PASOLA NDA] PDF error:', err);
+ document.getElementById('reviewOverlay').classList.remove('visible');
+ document.getElementById('resultTitle').textContent = 'Error';
+ document.getElementById('resultMessage').textContent = 'PDF generation failed. Please try again.';
+ document.getElementById('reviewResultOverlay').classList.add('visible');
+ });
+ });
+
+ // DECLINE button (from review overlay)
+ document.getElementById('btnDecline').addEventListener('click', function() {
+ if (!confirm('Are you sure you want to decline the NDA submission from ' + rpName + '?')) return;
+ var dSubj2 = 'Pasola Signature Estate \u2013 Application Update \u2013 ' + rpRef;
+ var dBody2 = 'Dear ' + rpName + ',\n\nThank you for your interest in Pasola Signature Estate and for taking the time to engage with us.\n\nAfter careful consideration, we regret to inform you that we are unable to move forward with your application at this time.\n\nWe wish you every success in your future endeavours.';
+
+ document.getElementById('reviewOverlay').classList.remove('visible');
+ document.getElementById('resultTitle').textContent = 'NDA Declined';
+ document.getElementById('resultMessage').innerHTML =
+ 'Click below to send the decline notice to <strong>' + rpEmail + '</strong> and <strong>' + adminEmail + '</strong><br><br>' +
+ '<button id="sendDeclineBtn" style="display:inline-block;padding:14px 36px;font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#9A9D9F;border:none;border-radius:6px;cursor:pointer;">Open Email Client \u2013 Decline</button>';
+ document.getElementById('reviewResultOverlay').classList.add('visible');
+ document.getElementById('sendDeclineBtn').addEventListener('click', function() {
+ openOutlookCompose(adminEmail + ',' + rpEmail, dSubj2, dBody2);
+ });
+ });
+ }
+ </script>
+ <script>
+ (function(){try{fetch("https://pasola-api.jonathan-beraud.workers.dev/api/pageview",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({page:document.title||location.pathname,url:location.href,referrer:document.referrer||""})}).catch(function(){});}catch(e){}})();
+ </script>
+ <!-- PASOLA Analytics, Supabase -->
 <script>
-  window.PASOLA_SUPABASE_URL = 'https://gcodxiqznslerqfsywmb.supabase.co';
-  window.PASOLA_SUPABASE_ANON = 'sb_publishable_MR55QqNTDGrs_j0gV1xEJg_gk8ddJhz';
+ window.PASOLA_SUPABASE_URL = 'https://gcodxiqznslerqfsywmb.supabase.co';
+ window.PASOLA_SUPABASE_ANON = 'sb_publishable_MR55QqNTDGrs_j0gV1xEJg_gk8ddJhz';
 </script>
 <script src="pasola-tracker.js"></script>
 </body>
-  </html>
+ </html>

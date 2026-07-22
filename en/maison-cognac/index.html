@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#FAF8F4" />
 
 <title>Maison PASOLA · Cognac · The Founders' Circle</title>
-<meta name="description" content="An 1850 house of character, in the heart of Cognac — 217 m², ten rooms, walled garden. PASOLA's European home. Ten founders will be part of it before the opening." />
+<meta name="description" content="An 1850 house of character, in the heart of Cognac : 217 m², ten rooms, walled garden. PASOLA's European home. Ten founders will be part of it before the opening." />
 <link rel="canonical" href="https://pasola.fr/en/maison-cognac/" />
 
 <meta property="og:type" content="website" />
@@ -28,37 +28,37 @@
 
 <!-- Self-hosted fonts (RGPD : zéro requête vers fonts.gstatic.com / fonts.googleapis.com) -->
 <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="/assets/fonts/cormorantgaramond-co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtFmSqn7B6DxjY.woff2" />
+ href="/assets/fonts/cormorantgaramond-co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtFmSqn7B6DxjY.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="/assets/fonts/outfit-QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC1O4i0EwItq6fNIhnL.woff2" />
+ href="/assets/fonts/outfit-QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC1O4i0EwItq6fNIhnL.woff2" />
 <link rel="stylesheet" href="/assets/fonts/pasola-fonts.css" />
 
 <link rel="stylesheet" href="/main.css" />
 
 <!-- Maison Cognac · le Cercle reprend le voile "spotlight" de la section Esprit :
-     voile blanc uniquement sur la card partiellement visible (coupée par le scroll).
-     Effet piloté par l'observer scopé en bas de page (cercle-track), identique à esprit-track. -->
+ voile blanc uniquement sur la card partiellement visible (coupée par le scroll).
+ Effet piloté par l'observer scopé en bas de page (cercle-track), identique à esprit-track. -->
 <style>
 
 /* ── Hero · effet cinématique à partir de la photo (zoom lent + léger travelling) ── */
 .hero-video-frame{overflow:hidden}
 @keyframes hero-kenburns{
-  0%{transform:scale(1.03) translate(0,0)}
-  100%{transform:scale(1.15) translate(-1.5%,-1.6%)}
+ 0%{transform:scale(1.03) translate(0,0)}
+ 100%{transform:scale(1.15) translate(-1.5%,-1.6%)}
 }
 .hero-video-frame .hero-video{
-  animation:hero-kenburns 22s ease-in-out infinite alternate;
-  transform-origin:60% 42%;
-  will-change:transform;
+ animation:hero-kenburns 22s ease-in-out infinite alternate;
+ transform-origin:60% 42%;
+ will-change:transform;
 }
 @media (prefers-reduced-motion:reduce){
-  .hero-video-frame .hero-video{animation:none}
+ .hero-video-frame .hero-video{animation:none}
 }
 /* Section I · La maison : photo terrasse (paysage) qui REMPLIT la colonne droite à la hauteur du texte
-   (haut calé sur le titre, bas au niveau du dernier paragraphe) — comportement charte par défaut.
-   Mobile : cadre 4:3 hérité de la charte (pas de crop). */
+ (haut calé sur le titre, bas au niveau du dernier paragraphe), comportement charte par défaut.
+ Mobile : cadre 4:3 hérité de la charte (pas de crop). */
 
-/* ── Popup "Bientôt" (Réserver une nuit) — scopé à cette page ── */
+/* ── Popup "Bientôt" (Réserver une nuit), scopé à cette page ── */
 .cs-modal{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
 .cs-modal[aria-hidden="false"]{opacity:1;visibility:visible}
 .cs-modal-backdrop{position:absolute;inset:0;background:rgba(26,44,61,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
@@ -105,8 +105,8 @@
 
 /* Tableaux .aman-card-meta : sur petit écran uniquement, on empile le label AU-DESSUS de la valeur, le tout aligné à gauche (typo inchangée). Desktop / version Web strictement inchangés. */
 @media (max-width:768px){
-  #main .aman-card-meta-row{flex-direction:column;align-items:flex-start;gap:3px}
-  #main .aman-card-meta-value{text-align:left}
+ #main .aman-card-meta-row{flex-direction:column;align-items:flex-start;gap:3px}
+ #main .aman-card-meta-value{text-align:left}
 }
 </style>
 </head>
@@ -223,8 +223,8 @@
 
 <div class="hero-video-frame">
 <img class="hero-video"
-     src="/maison-cognac/cognac-facade.jpg"
-     alt="The paved courtyard and the façade — rue de Jarnac, Cognac" />
+ src="/maison-cognac/cognac-facade.jpg"
+ alt="The paved courtyard and the façade : rue de Jarnac, Cognac" />
 
 <button class="sound-toggle" type="button" id="sound-toggle" aria-pressed="false" aria-label="Turn on soundtrack">
 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -263,16 +263,16 @@
 <div class="lieu-media-frame">
 <img src="/maison-cognac/cognac-terrasse.jpg" alt="The terrace at dusk, garden side" loading="lazy" />
 </div>
-<p class="lieu-media-caption">The terrace at dusk — garden side.</p>
+<p class="lieu-media-caption">The terrace at dusk, garden side.</p>
 </div>
 
 <div class="lieu-text">
 <div class="container">
 <h2 class="section-title" id="maison-title">A house a stone's throw<br/>from the great maisons.</h2>
 <div class="body">
-<p>In the heart of Cognac, behind a stone wall and a paved courtyard, an 1850 house of character. It has kept its period features — parquet, mouldings, marble fireplaces. PASOLA is restoring it to the standards of luxury hospitality: three suites, a child's room, a study, a sport &amp; wellness space, and a room devoted to fine spirits — the world of cognac. Nearly 217 m² of living space. Angoulême is 40 minutes away; Paris 1h45 by TGV to Angoulême; Bordeaux airport 1h35.</p>
-<p>Outside, a walled garden of about 150 m² and a courtyard, with a movable-floor pool that preserves the garden's surface. PASOLA makes it its European home: the place where we welcome, around what gave birth to the project — cognac, gastronomy, the blues.</p>
-<p>The house opens in soft opening in spring 2027. Before the opening, ten people will be part of it — not one more.</p>
+<p>In the heart of Cognac, behind a stone wall and a paved courtyard, an 1850 house of character. It has kept its period features : parquet, mouldings, marble fireplaces. PASOLA is restoring it to the standards of luxury hospitality: three suites, a child's room, a study, a sport &amp; wellness space, and a room devoted to fine spirits, the world of cognac. Nearly 217 m² of living space. Angoulême is 40 minutes away; Paris 1h45 by TGV to Angoulême; Bordeaux airport 1h35.</p>
+<p>Outside, a walled garden of about 150 m² and a courtyard, with a movable-floor pool that preserves the garden's surface. PASOLA makes it its European home: the place where we welcome, around what gave birth to the project : cognac, gastronomy, the blues.</p>
+<p>The house opens in soft opening in spring 2027. Before the opening, ten people will be part of it, not one more.</p>
 </div>
 <a class="section-cta" href="#participation" data-join>Join the Circle</a>
 </div>
@@ -310,13 +310,13 @@
 </div>
 <div class="container">
 <h2 class="section-title" id="comment-venir-title">At the doorstep of Paris,<br/>London and Geneva.</h2>
-<p class="lede">In the heart of Cognac, the house is easy to reach — by train, by air or by car.</p>
+<p class="lede">In the heart of Cognac, the house is easy to reach : by train, by air or by car.</p>
 <div class="aman-card-meta" style="margin-top: 8px;">
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">By train</span><span class="aman-card-meta-value">Paris Montparnasse → Angoulême by TGV 1h45 · then Angoulême → Cognac by TER 40 min</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">From Bordeaux</span><span class="aman-card-meta-value">Angoulême by TGV 37 min · then TER 40 min</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">By car</span><span class="aman-card-meta-value">Bordeaux 1h30 (A10) · Angoulême 40 min (RN141) · Saintes 20 min · Paris 5h30</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">By air</span><span class="aman-card-meta-value">Bordeaux-Mérignac 1h35 · Limoges-Bellegarde 1h50 · Angoulême-Brie, private, 55 min</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">From Europe</span><span class="aman-card-meta-value">London &amp; Geneva — direct flight to Bordeaux (≈ 1h30), then 1h30 by road</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">From Europe</span><span class="aman-card-meta-value">London &amp; Geneva : direct flight to Bordeaux (≈ 1h30), then 1h30 by road</span></div>
 </div>
 <a class="cercle-cta-alt" href="https://www.google.com/maps/search/?api=1&amp;query=16+rue+de+Jarnac+16100+Cognac" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top: 22px;">View on Google&nbsp;Maps →</a>
 </div>
@@ -330,12 +330,12 @@
 </div>
 <div class="container">
 <h2 class="section-title" id="activites-title">Around<br/>the house.</h2>
-<p class="lede">The house as a starting point — the Charente by water, the Flow Vélo cycle route, and the great cognac houses.</p>
+<p class="lede">The house as a starting point : the Charente by water, the Flow Vélo cycle route, and the great cognac houses.</p>
 <div class="aman-card-meta" style="margin-top: 8px;">
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">On the water</span><span class="aman-card-meta-value">Boat hire · cruises &amp; stays on the Charente</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">By bike</span><span class="aman-card-meta-value">The Flow Vélo, along the Charente</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">The cognac houses</span><span class="aman-card-meta-value">Visits &amp; tastings at the great maisons</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">The festival</span><span class="aman-card-meta-value">Cognac Blues Passions, every summer — a few steps away</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">The festival</span><span class="aman-card-meta-value">Cognac Blues Passions, every summer, a few steps away</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">The table &amp; the old town</span><span class="aman-card-meta-value">Charentais terroir · market · Charente quays</span></div>
 </div>
 </div>
@@ -354,7 +354,7 @@
 
 <article class="aman-card aman-card-text">
 <h2 class="section-title" id="cercle-title">What a founder<br/>receives.</h2>
-<p class="lede">Ten members, before the opening. For €5,000 in a pre-purchase of stays, here is what each founder receives — five nights in the whole house, to spread over three years, and the founders' dinner, every year.</p>
+<p class="lede">Ten members, before the opening. For €5,000 in a pre-purchase of stays, here is what each founder receives : five nights in the whole house, to spread over three years, and the founders' dinner, every year.</p>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -363,7 +363,7 @@
 </div>
 <span class="aman-card-eyebrow">01 · The whole house</span>
 <h3 class="aman-card-feature-title">Five nights, the whole house.</h3>
-<p class="aman-card-feature-desc">Three suites, up to eight guests — five nights to spread over three years; breakfasts and housekeeping included.</p>
+<p class="aman-card-feature-desc">Three suites, up to eight guests, five nights to spread over three years; breakfasts and housekeeping included.</p>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -372,7 +372,7 @@
 </div>
 <span class="aman-card-eyebrow">02 · The table</span>
 <h3 class="aman-card-feature-title">The founders' dinner.</h3>
-<p class="aman-card-feature-desc">Each year, during the Cognac Blues Passions festival, a dinner at the founders' table, Jennifer & Jonathan — cognac, gastronomy, the blues. The first in July 2027.</p>
+<p class="aman-card-feature-desc">Each year, during the Cognac Blues Passions festival, a dinner at the founders' table, Jennifer & Jonathan : cognac, gastronomy, the blues. The first in July 2027.</p>
 </article>
 
 <article class="aman-card aman-card-feature">
@@ -399,7 +399,7 @@
 </div>
 
 <div class="container" style="margin-top: 40px;">
-<p class="lede"><em>« You are not investing. You are received — and your trust restores a house in Cognac. »</em></p>
+<p class="lede"><em>« You are not investing. You are received, and your trust restores a house in Cognac. »</em></p>
 </div>
 
 </section>
@@ -417,16 +417,16 @@
 
 <div class="container">
 <h2 class="section-title" id="participation-title">Join<br/>the Circle.</h2>
-<p class="lede">Ten places, by invitation. Joining the Circle means pre-purchasing your stays — not taking an equity stake — and gathering each year with the founders, Jennifer & Jonathan, at the house's table. Membership is €5,000: €800 paid online at sign-up, then €4,200 by bank transfer after a conversation with the founders.</p>
+<p class="lede">Ten places, by invitation. Joining the Circle means pre-purchasing your stays, not taking an equity stake, and gathering each year with the founders, Jennifer & Jonathan, at the house's table. Membership is €5,000: €800 paid online at sign-up, then €4,200 by bank transfer after a conversation with the founders.</p>
 <div class="aman-card-meta" style="margin-top: 8px;">
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Members</span><span class="aman-card-meta-value">Ten founders, by invitation</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">Membership</span><span class="aman-card-meta-value">€5,000 — a pre-purchase of stays, not an equity stake</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">At sign-up</span><span class="aman-card-meta-value">€800 paid online — secures the place</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">Membership</span><span class="aman-card-meta-value">€5,000 : a pre-purchase of stays, not an equity stake</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">At sign-up</span><span class="aman-card-meta-value">€800 paid online, secures the place</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">The balance</span><span class="aman-card-meta-value">€4,200 by bank transfer to PASOLA, after a conversation with the founders</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">The stay</span><span class="aman-card-meta-value">Five nights to spread over 3 years, the whole house — up to eight guests</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">The stay</span><span class="aman-card-meta-value">Five nights to spread over 3 years, the whole house, up to eight guests</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">The dinner</span><span class="aman-card-meta-value">A yearly dinner at the founders' table, Jennifer & Jonathan, during the Cognac Blues Passions festival</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">Priority</span><span class="aman-card-meta-value">Booking priority and a founder's rate on your stays — for life</span></div>
-<div class="aman-card-meta-row"><span class="aman-card-meta-label">Restoration</span><span class="aman-card-meta-value">Autumn 2026 → winter — the roof, interior and exterior refresh</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">Priority</span><span class="aman-card-meta-value">Booking priority and a founder's rate on your stays, for life</span></div>
+<div class="aman-card-meta-row"><span class="aman-card-meta-label">Restoration</span><span class="aman-card-meta-value">Autumn 2026 → winter : the roof, interior and exterior refresh</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Soft opening</span><span class="aman-card-meta-value">Spring 2027 · reserved for founders</span></div>
 <div class="aman-card-meta-row"><span class="aman-card-meta-label">Official opening</span><span class="aman-card-meta-value">July 2027 · during the Cognac Blues Passions festival</span></div>
 </div>
@@ -559,8 +559,8 @@
 <div class="footer-soundtrack">
 <span class="footer-soundtrack-label">The soundtrack · a playlist for the house's evenings</span>
 <div class="footer-soundtrack-embed"
-     data-spotify-src="https://open.spotify.com/embed/playlist/0tCtL6WcpeFjuboMDAF1ft?utm_source=generator&amp;theme=0"
-     data-spotify-title="PASOLA Signature Estate · The soundtrack">
+ data-spotify-src="https://open.spotify.com/embed/playlist/0tCtL6WcpeFjuboMDAF1ft?utm_source=generator&amp;theme=0"
+ data-spotify-title="PASOLA Signature Estate · The soundtrack">
 <button class="spotify-load" type="button" aria-label="Load the Spotify playlist (sets third-party cookies)">
 <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm4.59 14.41a.75.75 0 0 1-1.03.25c-2.82-1.72-6.36-2.11-10.55-1.15a.75.75 0 1 1-.34-1.46c4.55-1.04 8.49-.59 11.66 1.34a.75.75 0 0 1 .26 1.02zm1.23-2.74a.94.94 0 0 1-1.29.31c-3.23-1.99-8.16-2.57-11.97-1.41a.94.94 0 1 1-.55-1.79c4.38-1.34 9.85-.69 13.59 1.6a.94.94 0 0 1 .22 1.29zm.11-2.85c-3.87-2.3-10.27-2.51-13.97-1.39a1.13 1.13 0 1 1-.66-2.16c4.27-1.3 11.36-1.05 15.83 1.6a1.13 1.13 0 0 1-1.2 1.95z"/></svg>
 <span class="spotify-load-text">Load the Spotify playlist</span>
@@ -591,8 +591,8 @@
 </footer>
 
 <a class="floating-cta"
-   href="#participation" data-join
-   aria-label="Join the Founders' Circle">
+ href="#participation" data-join
+ aria-label="Join the Founders' Circle">
 Join the Circle <span class="arrow" aria-hidden="true">→</span>
 </a>
 
@@ -605,7 +605,7 @@ Join the Circle <span class="arrow" aria-hidden="true">→</span>
 </button>
 <span class="cs-modal-eyebrow">Opening · July 2027</span>
 <h2 class="cs-modal-title" id="cs-modal-title">Soon.</h2>
-<p class="cs-modal-text">Stays at the house will open at the official opening, in July 2027, during the Cognac Blues Passions festival. Until then, ten people can be part of it — the Founders' Circle.</p>
+<p class="cs-modal-text">Stays at the house will open at the official opening, in July 2027, during the Cognac Blues Passions festival. Until then, ten people can be part of it, the Founders' Circle.</p>
 <button class="cs-modal-cta" type="button" data-join>Join the Circle →</button>
 </div>
 </div>
@@ -643,7 +643,7 @@ Join the Circle <span class="arrow" aria-hidden="true">→</span>
 <div class="join-confirm" hidden>
 <span class="cs-modal-eyebrow">Final step</span>
 <h2 class="cs-modal-title">Secure my place.</h2>
-<p class="cs-modal-text cs-modal-text--form">Your request has just opened in your email — please send it. To definitively secure one of the ten places, make the first payment of €800.</p>
+<p class="cs-modal-text cs-modal-text--form">Your request has just opened in your email, please send it. To definitively secure one of the ten places, make the first payment of €800.</p>
 <a class="cs-modal-cta" id="join-pay" href="https://payment.swan.io/b7d05aa4-839d-4019-9253-277b56822df3?lang=en" target="_blank" rel="noopener noreferrer">Pay €800 · Indy</a>
 <p class="join-note">The €4,200 balance is then settled by bank transfer to PASOLA, after our conversation.</p>
 </div>
@@ -653,102 +653,102 @@ Join the Circle <span class="arrow" aria-hidden="true">→</span>
 
 <script>
 (function(){
-  var csModal = document.getElementById('cs-modal');
-  var joinModal = document.getElementById('join-modal');
-  var nav = document.getElementById('primary-nav');
-  var htmlEl = document.documentElement;
+ var csModal = document.getElementById('cs-modal');
+ var joinModal = document.getElementById('join-modal');
+ var nav = document.getElementById('primary-nav');
+ var htmlEl = document.documentElement;
 
-  function lock(){ htmlEl.style.overflow = 'hidden'; }
-  function unlock(){ htmlEl.style.overflow = ''; }
-  function anyOpen(){
-    return (csModal && csModal.getAttribute('aria-hidden') === 'false') ||
-           (joinModal && joinModal.getAttribute('aria-hidden') === 'false');
-  }
-  function closeNav(){
-    if(nav && nav.getAttribute('aria-hidden') === 'false'){
-      var nc = document.querySelector('.nav-close');
-      if(nc) nc.click();
-    }
-  }
-  function show(m){ if(!m) return; closeNav(); m.setAttribute('aria-hidden','false'); lock(); }
-  function hide(m){ if(!m) return; m.setAttribute('aria-hidden','true'); if(!anyOpen()) unlock(); }
+ function lock(){ htmlEl.style.overflow = 'hidden'; }
+ function unlock(){ htmlEl.style.overflow = ''; }
+ function anyOpen(){
+ return (csModal && csModal.getAttribute('aria-hidden') === 'false') ||
+ (joinModal && joinModal.getAttribute('aria-hidden') === 'false');
+ }
+ function closeNav(){
+ if(nav && nav.getAttribute('aria-hidden') === 'false'){
+ var nc = document.querySelector('.nav-close');
+ if(nc) nc.click();
+ }
+ }
+ function show(m){ if(!m) return; closeNav(); m.setAttribute('aria-hidden','false'); lock(); }
+ function hide(m){ if(!m) return; m.setAttribute('aria-hidden','true'); if(!anyOpen()) unlock(); }
 
-  function openComingSoon(){ hide(joinModal); show(csModal); }
-  function openJoin(){
-    hide(csModal);
-    var body = joinModal.querySelector('.join-body');
-    var confirm = joinModal.querySelector('.join-confirm');
-    if(body) body.hidden = false;
-    if(confirm) confirm.hidden = true;
-    show(joinModal);
-  }
+ function openComingSoon(){ hide(joinModal); show(csModal); }
+ function openJoin(){
+ hide(csModal);
+ var body = joinModal.querySelector('.join-body');
+ var confirm = joinModal.querySelector('.join-confirm');
+ if(body) body.hidden = false;
+ if(confirm) confirm.hidden = true;
+ show(joinModal);
+ }
 
-  document.querySelectorAll('[data-comingsoon]').forEach(function(el){
-    el.addEventListener('click', function(e){ e.preventDefault(); openComingSoon(); });
-  });
-  document.querySelectorAll('[data-join]').forEach(function(el){
-    el.addEventListener('click', function(e){ e.preventDefault(); openJoin(); });
-  });
-  [csModal, joinModal].forEach(function(m){
-    if(!m) return;
-    m.querySelectorAll('[data-cs-close]').forEach(function(el){
-      el.addEventListener('click', function(){ hide(m); });
-    });
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){ hide(csModal); hide(joinModal); }
-  });
+ document.querySelectorAll('[data-comingsoon]').forEach(function(el){
+ el.addEventListener('click', function(e){ e.preventDefault(); openComingSoon(); });
+ });
+ document.querySelectorAll('[data-join]').forEach(function(el){
+ el.addEventListener('click', function(e){ e.preventDefault(); openJoin(); });
+ });
+ [csModal, joinModal].forEach(function(m){
+ if(!m) return;
+ m.querySelectorAll('[data-cs-close]').forEach(function(el){
+ el.addEventListener('click', function(){ hide(m); });
+ });
+ });
+ document.addEventListener('keydown', function(e){
+ if(e.key === 'Escape'){ hide(csModal); hide(joinModal); }
+ });
 
-  var form = document.getElementById('join-form');
-  if(form){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      if(!form.checkValidity()){ form.reportValidity(); return; }
-      var fd = new FormData(form);
-      function g(k){ return (fd.get(k) || '').toString().trim(); }
-      var lines = [
-        "Application to the Founders' Circle — Maison PASOLA Cognac",
-        '',
-        'First name: ' + g('firstname'),
-        'Last name: ' + g('lastname'),
-        'Email: ' + g('email'),
-        'Phone: ' + g('phone'),
-        'Date of birth: ' + g('birthdate'),
-        'Country / region: ' + g('location'),
-        '',
-        'Message: ' + g('message')
-      ];
-      var subject = "Founders' Circle · " + g('firstname') + ' ' + g('lastname');
-      var mailto = 'mailto:contact@pasola.fr?subject=' +
-                   encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
-      var body = joinModal.querySelector('.join-body');
-      var confirm = joinModal.querySelector('.join-confirm');
-      if(body) body.hidden = true;
-      if(confirm) confirm.hidden = false;
-      window.location.href = mailto;
-    });
-  }
+ var form = document.getElementById('join-form');
+ if(form){
+ form.addEventListener('submit', function(e){
+ e.preventDefault();
+ if(!form.checkValidity()){ form.reportValidity(); return; }
+ var fd = new FormData(form);
+ function g(k){ return (fd.get(k) || '').toString().trim(); }
+ var lines = [
+ "Application to the Founders' Circle, Maison PASOLA Cognac",
+ '',
+ 'First name: ' + g('firstname'),
+ 'Last name: ' + g('lastname'),
+ 'Email: ' + g('email'),
+ 'Phone: ' + g('phone'),
+ 'Date of birth: ' + g('birthdate'),
+ 'Country / region: ' + g('location'),
+ '',
+ 'Message: ' + g('message')
+ ];
+ var subject = "Founders' Circle · " + g('firstname') + ' ' + g('lastname');
+ var mailto = 'mailto:contact@pasola.fr?subject=' +
+ encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+ var body = joinModal.querySelector('.join-body');
+ var confirm = joinModal.querySelector('.join-confirm');
+ if(body) body.hidden = true;
+ if(confirm) confirm.hidden = false;
+ window.location.href = mailto;
+ });
+ }
 })();
 </script>
 
 <!-- Le Cercle · voile "spotlight" identique à la section II · L'esprit de Sumba :
-     seule la card < 95% visible (coupée par le scroll) garde le voile blanc. -->
+ seule la card < 95% visible (coupée par le scroll) garde le voile blanc. -->
 <script>
 (function(){
-  var track = document.getElementById('cercle-track');
-  if (!track) return;
-  var cards = track.querySelectorAll('.aman-card');
-  if (!cards.length) return;
-  if (!('IntersectionObserver' in window)) {
-    Array.prototype.forEach.call(cards, function(c){ c.classList.add('is-active'); });
-    return;
-  }
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      entry.target.classList.toggle('is-active', entry.intersectionRatio >= 0.95);
-    });
-  }, { root: track, threshold: [0, 0.5, 0.85, 0.95, 1] });
-  Array.prototype.forEach.call(cards, function(c){ observer.observe(c); });
+ var track = document.getElementById('cercle-track');
+ if (!track) return;
+ var cards = track.querySelectorAll('.aman-card');
+ if (!cards.length) return;
+ if (!('IntersectionObserver' in window)) {
+ Array.prototype.forEach.call(cards, function(c){ c.classList.add('is-active'); });
+ return;
+ }
+ var observer = new IntersectionObserver(function(entries){
+ entries.forEach(function(entry){
+ entry.target.classList.toggle('is-active', entry.intersectionRatio >= 0.95);
+ });
+ }, { root: track, threshold: [0, 0.5, 0.85, 0.95, 1] });
+ Array.prototype.forEach.call(cards, function(c){ observer.observe(c); });
 })();
 </script>
 
