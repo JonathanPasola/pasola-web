@@ -22,6 +22,24 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- Maison PASOLA · Cognac (Le Cercle des fondateurs) -->
+  <url>
+    <loc>https://pasola.fr/maison-cognac/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/maison-cognac/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/maison-cognac/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/maison-cognac/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pasola.fr/en/maison-cognac/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/maison-cognac/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/maison-cognac/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/maison-cognac/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Coming-soon editorial pages R1 (real pages, not redirects) -->
   <url>
     <loc>https://pasola.fr/the-place/</loc>
