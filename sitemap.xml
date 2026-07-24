@@ -11,7 +11,6 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <!-- Homepage EN -->
   <url>
     <loc>https://pasola.fr/en/</loc>
@@ -40,127 +39,136 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Coming-soon editorial pages R1 (real pages, not redirects) -->
-  <url>
-    <loc>https://pasola.fr/the-place/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/the-place/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/the-place/" />
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pasola.fr/en/the-place/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://pasola.fr/residences/</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/residences/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/residences/" />
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pasola.fr/en/residences/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://pasola.fr/architecture/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pasola.fr/en/architecture/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://pasola.fr/library/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pasola.fr/en/library/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://pasola.fr/news/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://pasola.fr/en/news/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://pasola.fr/makers/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://pasola.fr/en/makers/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
   <!-- Capital Partners -->
   <url>
     <loc>https://pasola.fr/capital-partners/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/capital-partners/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/capital-partners/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/capital-partners/" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://pasola.fr/en/capital-partners/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/capital-partners/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/capital-partners/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/capital-partners/" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
-  <!-- Conversion -->
+  <!-- À propos / About -->
   <url>
-    <loc>https://pasola.fr/register-interest/</loc>
+    <loc>https://pasola.fr/a-propos/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/a-propos/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/a-propos/" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pasola.fr/en/register-interest/</loc>
+    <loc>https://pasola.fr/en/about/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/a-propos/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/a-propos/" />
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
 
+  <!-- Rejoindre / Register -->
   <url>
-    <loc>https://pasola.fr/contact/</loc>
+    <loc>https://pasola.fr/register/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/register/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/register/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/register/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pasola.fr/en/register/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/register/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/register/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/register/" />
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
+  <!-- Presse / Press -->
   <url>
-    <loc>https://pasola.fr/en/contact/</loc>
+    <loc>https://pasola.fr/presse/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/presse/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/press/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/presse/" />
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://pasola.fr/en/press/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/presse/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/press/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/presse/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Carrières / Careers -->
+  <url>
+    <loc>https://pasola.fr/carrieres/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/carrieres/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/careers/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/carrieres/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://pasola.fr/en/careers/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/carrieres/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/careers/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pasola.fr/carrieres/" />
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
 
   <!-- Légal -->
   <url>
-    <loc>https://pasola.fr/legal-notices/</loc>
+    <loc>https://pasola.fr/mentions-legales/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/mentions-legales/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/legal/" />
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://pasola.fr/privacy/</loc>
+    <loc>https://pasola.fr/en/legal/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/mentions-legales/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/legal/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://pasola.fr/confidentialite/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/confidentialite/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/privacy/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://pasola.fr/en/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/confidentialite/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/privacy/" />
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://pasola.fr/cookies/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/cookies/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/cookies/" />
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://pasola.fr/en/cookies/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://pasola.fr/cookies/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://pasola.fr/en/cookies/" />
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
