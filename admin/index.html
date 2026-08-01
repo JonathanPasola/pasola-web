@@ -281,6 +281,7 @@ html, body { overflow-x: hidden; }
 <button class="adm-tab" data-pane="pane-contacts" role="tab">Contacts <span id="cnt-contacts"></span></button>
 <button class="adm-tab" data-pane="pane-cp" role="tab">CP Requests <span id="cnt-cp"></span></button>
 <button class="adm-tab" data-pane="pane-views" role="tab">Page Views <span id="cnt-views"></span></button>
+<button class="adm-tab" data-pane="pane-affiliates" role="tab">Affiliés <span id="cnt-affiliates"></span></button>
 </nav>
 
 <div class="adm-pane is-active" id="pane-users">
@@ -333,6 +334,18 @@ html, body { overflow-x: hidden; }
 </div>
 </div>
 
+<div class="adm-pane" id="pane-affiliates">
+<div class="adm-table-actions">
+<span class="adm-table-meta" id="meta-affiliates">—</span>
+</div>
+<div id="aff-summary" style="margin:6px 0 20px;"></div>
+<div class="adm-table-wrap">
+<table class="adm-table"><thead><tr>
+<th>Date</th><th>Parrain (ref)</th><th>Nom</th><th>Email</th><th>Téléphone</th><th>Pays</th><th>Payé (800€)</th>
+</tr></thead><tbody id="tbl-affiliates"></tbody></table>
+</div>
+</div>
+
 </main>
 
 <script>
@@ -340,6 +353,7 @@ var API = 'https://pasola-api.jonathan-beraud.workers.dev';
 var AUTH = sessionStorage.getItem('pasola_admin_auth') || '';
 
 var users = [], contacts = [], cpRequests = [], pageviews = [], stats = {};
+var affiliates = { by_ref: [], leads: [], commission_eur: 150, total_due_eur: 0, total_paid: 0, total_leads: 0 };
 
 // LOGIN
 document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -387,13 +401,15 @@ function loadAll() {
     fetch(API + '/api/users', { headers: h }).then(r => r.json()).catch(() => []),
     fetch(API + '/api/contacts-list', { headers: h }).then(r => r.json()).catch(() => []),
     fetch(API + '/api/cp-requests-list', { headers: h }).then(r => r.json()).catch(() => []),
-    fetch(API + '/api/pageviews-list', { headers: h }).then(r => r.json()).catch(() => [])
+    fetch(API + '/api/pageviews-list', { headers: h }).then(r => r.json()).catch(() => []),
+    fetch(API + '/api/affiliate/list', { headers: h }).then(r => r.json()).catch(() => ({ by_ref: [], leads: [] }))
   ]).then(function(res) {
     stats = res[0] || {};
     users = Array.isArray(res[1]) ? res[1] : [];
     contacts = Array.isArray(res[2]) ? res[2] : [];
     cpRequests = Array.isArray(res[3]) ? res[3] : [];
     pageviews = Array.isArray(res[4]) ? res[4] : [];
+    affiliates = (res[5] && res[5].leads) ? res[5] : { by_ref: [], leads: [], commission_eur: 150, total_due_eur: 0, total_paid: 0, total_leads: 0 };
     renderAll();
   });
 }
@@ -404,6 +420,51 @@ function renderAll() {
   renderContacts();
   renderCp();
   renderViews();
+  renderAffiliates();
+}
+
+function affEsc(s){ return (s == null ? '' : String(s)).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function renderAffiliates() {
+  var leads = affiliates.leads || [];
+  var byRef = affiliates.by_ref || [];
+  var commission = affiliates.commission_eur || 150;
+  var cnt = document.getElementById('cnt-affiliates'); if (cnt) cnt.textContent = leads.length ? '(' + leads.length + ')' : '';
+  var meta = document.getElementById('meta-affiliates');
+  if (meta) meta.textContent = leads.length + ' lead(s) · ' + (affiliates.total_paid || 0) + ' payé(s) · ' + (affiliates.total_due_eur || 0) + ' € dû au total';
+  // Résumé par parrain
+  var sum = document.getElementById('aff-summary');
+  if (sum) {
+    if (!byRef.length) { sum.innerHTML = ''; }
+    else {
+      var rows = byRef.map(function(r){
+        return '<tr><td class="nowrap"><strong>' + affEsc(r.ref) + '</strong></td><td class="cell-num">' + r.leads + '</td><td class="cell-num">' + r.paid + '</td><td class="cell-num"><strong>' + r.due_eur + ' €</strong></td></tr>';
+      }).join('');
+      sum.innerHTML = '<div class="adm-table-wrap"><table class="adm-table" style="min-width:0"><thead><tr><th>Parrain</th><th>Leads</th><th>Fondateurs payés</th><th>€ dû (150 €/payé)</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+    }
+  }
+  // Détail des leads
+  var tb = document.getElementById('tbl-affiliates');
+  if (!tb) return;
+  if (!leads.length) { tb.innerHTML = '<tr><td colspan="7" class="empty">Aucun lead pour le moment.</td></tr>'; return; }
+  tb.innerHTML = leads.map(function(l){
+    var name = (affEsc(l.firstname) + ' ' + affEsc(l.lastname)).trim() || '—';
+    var d = (l.created_at || '').replace('T',' ').slice(0,16);
+    var refBadge = l.ref ? '<span class="badge terra">' + affEsc(l.ref) + '</span>' : '<span class="small">(direct)</span>';
+    var btn = l.paid
+      ? '<button class="btn" style="background:#2D8B5E;color:#fff" onclick="markPaid(' + l.id + ',0)">✓ Payé</button>'
+      : '<button class="btn btn-export" onclick="markPaid(' + l.id + ',1)">Marquer payé</button>';
+    return '<tr><td class="nowrap small">' + affEsc(d) + '</td><td>' + refBadge + '</td><td class="nowrap">' + name + '</td><td>' + affEsc(l.email) + '</td><td class="nowrap small">' + affEsc(l.phone) + '</td><td class="small">' + affEsc(l.location) + '</td><td class="nowrap">' + btn + '</td></tr>';
+  }).join('');
+}
+
+function markPaid(id, paid) {
+  if (!AUTH) return;
+  fetch(API + '/api/affiliate/mark-paid', {
+    method: 'POST',
+    headers: { 'Authorization': AUTH, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: id, paid: paid })
+  }).then(function(r){ return r.json(); }).then(function(){ loadAll(); }).catch(function(){ alert('Erreur, réessaie.'); });
 }
 
 function renderStats() {

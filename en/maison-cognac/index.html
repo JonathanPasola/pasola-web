@@ -685,6 +685,8 @@ Join the Circle <span class="arrow" aria-hidden="true">→</span>
 
 <script>
 (function(){
+ // Affiliation : mémorise le code parrain (?ref=CODE) pour survivre à la navigation
+ try { var _r = new URLSearchParams(location.search).get('ref'); if(_r) localStorage.setItem('pasola_ref', _r.replace(/[^a-zA-Z0-9_-]/g,'').slice(0,60)); } catch(e){}
  var csModal = document.getElementById('cs-modal');
  var joinModal = document.getElementById('join-modal');
  var nav = document.getElementById('primary-nav');
@@ -738,6 +740,19 @@ Join the Circle <span class="arrow" aria-hidden="true">→</span>
  if(!form.checkValidity()){ form.reportValidity(); return; }
  var fd = new FormData(form);
  function g(k){ return (fd.get(k) || '').toString().trim(); }
+ // Affiliation Cercle des fondateurs : envoi du lead + code parrain au worker (non bloquant)
+ try {
+ var AFF_REF = new URLSearchParams(location.search).get('ref') || localStorage.getItem('pasola_ref') || '';
+ fetch('https://pasola-api.jonathan-beraud.workers.dev/api/affiliate/track', {
+ method: 'POST', keepalive: true,
+ headers: { 'Content-Type': 'application/json' },
+ body: JSON.stringify({
+ ref: AFF_REF, firstname: g('firstname'), lastname: g('lastname'),
+ email: g('email'), phone: g('phone'), location: g('location'),
+ message: g('message'), page_source: 'maison-cognac-en'
+ })
+ }).catch(function(){});
+ } catch(e){}
  var lines = [
  "Application to the Founders' Circle, Maison PASOLA Cognac",
  '',
