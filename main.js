@@ -350,6 +350,14 @@
   // ── Tracking pageview (une balise par chargement de page) ──────────
   (function pasolaTrackPageview() {
     try {
+      // ── Exclusion owner : ne jamais tracer l'activité de Jonathan ──
+      // ?owner=1 tague ce navigateur · ?owner=0 le retire · la connexion admin le tague aussi.
+      try {
+        var _op = new URLSearchParams(window.location.search).get('owner');
+        if (_op === '1') localStorage.setItem('pasola_is_owner', '1');
+        if (_op === '0') localStorage.removeItem('pasola_is_owner');
+      } catch (e) {}
+      try { if (localStorage.getItem('pasola_is_owner') === '1') return; } catch (e) {}
       var VKEY = 'pasola_visitor_id';
       var vid = '';
       try { vid = localStorage.getItem(VKEY) || ''; } catch (e) {}

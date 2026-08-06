@@ -17,9 +17,10 @@
 :root {
   --indigo: #1A2C3D;
   --ivory: #FAF8F4;
-  --terra: #C44A2C;
+  --terra: #8B4A2E;   /* aligné pasola.fr (ex #C44A2C orange vif) */
+  --gold: #C7A574;    /* or — accents décoratifs, charte pasola.fr */
   --sand: #C5BFB3;
-  --dusk: #5C6F7E;
+  --dusk: #3D5675;    /* aligné pasola.fr (ex #5C6F7E) */
   --muted: #8B96A0;
   --warm: #F2EEE7;
   --shadow: 0 1px 2px rgba(26,44,61,0.06);
@@ -64,8 +65,8 @@ a { color: var(--indigo); }
   text-decoration: none; display: inline-block;
 }
 .btn:hover, .btn:focus { background: rgba(250,248,244,0.08); border-color: rgba(250,248,244,0.5); }
-.btn-accent { background: var(--terra); border-color: var(--terra); color: var(--ivory); }
-.btn-accent:hover { background: #a83e26; border-color: #a83e26; }
+.btn-accent { background: var(--gold); border-color: var(--gold); color: var(--indigo); }
+.btn-accent:hover { background: #b8945f; border-color: #b8945f; }
 
 /* LOGIN */
 .adm-login-wrap {
@@ -98,7 +99,7 @@ a { color: var(--indigo); }
   background: transparent; outline: none; color: var(--indigo);
   margin-bottom: 24px;
 }
-.adm-login input:focus { border-bottom-color: var(--terra); }
+.adm-login input:focus { border-bottom-color: var(--gold); }
 .adm-login button {
   width: 100%; padding: 14px;
   background: var(--indigo); color: var(--ivory); border: none;
@@ -107,7 +108,7 @@ a { color: var(--indigo); }
   cursor: pointer;
   transition: background 180ms;
 }
-.adm-login button:hover { background: var(--terra); }
+.adm-login button:hover { background: var(--gold); color: var(--indigo); }
 .adm-login-error {
   font-family: var(--font-editorial); font-style: italic; font-size: 13px;
   color: var(--terra); text-align: center; margin-top: 16px; min-height: 18px;
@@ -128,7 +129,7 @@ a { color: var(--indigo); }
   font-family: var(--font-display); font-size: 32px; font-weight: 500;
   color: var(--indigo); letter-spacing: 0.04em; line-height: 1;
 }
-.adm-stat-num.terra { color: var(--terra); }
+.adm-stat-num.terra { color: var(--dusk); }
 .adm-stat-label {
   font-family: var(--font-functional); font-size: 10px;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--dusk);
@@ -154,7 +155,7 @@ a { color: var(--indigo); }
 .adm-tab:hover { color: var(--indigo); }
 .adm-tab.is-active {
   color: var(--indigo);
-  border-bottom-color: var(--terra);
+  border-bottom-color: var(--gold);
   font-weight: 500;
 }
 
@@ -172,7 +173,7 @@ a { color: var(--indigo); }
 .btn-export {
   background: var(--indigo); color: var(--ivory); border-color: var(--indigo);
 }
-.btn-export:hover { background: var(--terra); border-color: var(--terra); }
+.btn-export:hover { background: var(--gold); border-color: var(--gold); color: var(--indigo); }
 
 .adm-table-wrap { overflow-x: auto; background: white; border: 0.5px solid rgba(26,44,61,0.1); border-radius: 2px; }
 .adm-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px; }
@@ -191,7 +192,7 @@ a { color: var(--indigo); }
   border-bottom: 0.5px solid rgba(26,44,61,0.08);
   vertical-align: top;
 }
-.adm-table tbody tr:hover { background: rgba(196,74,44,0.03); }
+.adm-table tbody tr:hover { background: rgba(61,86,117,0.04); }
 .adm-table .empty { text-align: center; padding: 40px; color: var(--muted); font-style: italic; }
 .adm-table .badge {
   display: inline-block; padding: 2px 8px; border-radius: 12px;
@@ -199,10 +200,10 @@ a { color: var(--indigo); }
   letter-spacing: 0.1em; text-transform: uppercase;
   background: rgba(26,44,61,0.06); color: var(--dusk);
 }
-.adm-table .badge.terra { background: rgba(196,74,44,0.1); color: var(--terra); }
+.adm-table .badge.terra { background: rgba(139,74,46,0.12); color: var(--terra); }
 .adm-table .badge.indigo { background: var(--indigo); color: var(--ivory); }
-.adm-table a { color: var(--indigo); text-decoration: none; border-bottom: 0.5px solid var(--terra); padding-bottom: 1px; }
-.adm-table a:hover { color: var(--terra); }
+.adm-table a { color: var(--indigo); text-decoration: none; border-bottom: 0.5px solid var(--gold); padding-bottom: 1px; }
+.adm-table a:hover { color: var(--dusk); }
 .adm-table .nowrap { white-space: nowrap; }
 .adm-table .small { font-size: 12px; color: var(--muted); }
 
@@ -316,7 +317,7 @@ html, body { overflow-x: hidden; }
 </div>
 <div class="adm-table-wrap">
 <table class="adm-table"><thead><tr>
-<th>Signed at</th><th>Name</th><th>Email</th><th>Entity</th><th>Capacity</th><th>Country</th><th>Status</th><th>IP</th>
+<th>Signé le</th><th>Signataire</th><th>Email</th><th>Entité / Qualité</th><th>Pays</th><th>Contexte</th><th>Source</th><th>Statut</th><th>Accès (lien)</th><th>IP</th>
 </tr></thead><tbody id="tbl-cp"></tbody></table>
 </div>
 </div>
@@ -381,6 +382,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   }).then(function() {
     AUTH = auth;
     sessionStorage.setItem('pasola_admin_auth', AUTH);
+    try { localStorage.setItem('pasola_is_owner', '1'); } catch (e) {} // exclut ta navigation des stats publiques
     showDashboard();
   }).catch(function(err) {
     document.getElementById('loginError').textContent = err.message || 'Sign-in failed';
@@ -556,23 +558,54 @@ function renderContacts() {
   }).join('');
 }
 
+function cpSource(ps) {
+  if (!ps) return '<span class="small">—</span>';
+  var m = String(ps).match(/ref:([^\s·]+)/i);
+  return m ? '<span class="badge terra">' + esc(m[1]) + '</span>' : '<span class="small">' + esc(ps) + '</span>';
+}
+function cpAccess(c) {
+  if (c.status === 'declined') return '<span class="small">Refusé</span>';
+  if (c.status !== 'approved') return '<span class="small">En attente d\'approbation</span>';
+  var opened = !!c.magic_first_used_at;
+  var exp = c.magic_expires_at ? parseUTC(c.magic_expires_at) : null;
+  var expired = exp && exp.getTime() < Date.now();
+  var badge, detail = [];
+  if (opened) {
+    badge = '<span class="badge" style="background:rgba(45,139,94,.12);color:#2D8B5E">✓ Ouvert</span>';
+  } else if (expired) {
+    badge = '<span class="badge terra">⚠ Expiré, non ouvert</span>';
+  } else {
+    badge = '<span class="badge" style="background:rgba(26,44,61,.06);color:var(--dusk)">Envoyé · pas encore ouvert</span>';
+  }
+  if (c.approved_at) detail.push('Envoyé ' + fmtDate(c.approved_at));
+  if (opened) detail.push('ouvert ' + fmtDate(c.magic_first_used_at));
+  if (exp) detail.push((expired ? 'expiré ' : 'expire ') + fmtDate(c.magic_expires_at));
+  return badge + (detail.length ? '<div class="small" style="margin-top:3px">' + esc(detail.join(' · ')) + '</div>' : '');
+}
 function renderCp() {
   var tbody = document.getElementById('tbl-cp');
-  document.getElementById('meta-cp').textContent = cpRequests.length + ' signatures NDA';
+  var approved = cpRequests.filter(function(c){ return c.status === 'approved'; }).length;
+  var pending = cpRequests.filter(function(c){ return c.status === 'pending'; }).length;
+  document.getElementById('meta-cp').textContent = cpRequests.length + ' signature(s) NDA · ' + pending + ' en attente · ' + approved + ' approuvée(s)';
   if (!cpRequests.length) {
-    tbody.innerHTML = '<tr><td colspan="8" class="empty">Aucune demande Capital Partners pour le moment.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" class="empty">Aucune demande Capital Partners pour le moment.</td></tr>';
     return;
   }
   tbody.innerHTML = cpRequests.map(function(c) {
-    var statusBadge = c.status === 'approved' ? 'badge indigo' : 'badge terra';
+    var statusBadge = c.status === 'approved' ? 'badge indigo' : (c.status === 'declined' ? 'badge' : 'badge terra');
+    var msg = c.message || '';
+    var msgCell = msg ? '<span class="small" title="' + esc(msg) + '">' + esc(msg.length > 60 ? msg.slice(0, 60) + '…' : msg) + '</span>' : '<span class="small">—</span>';
+    var entcap = esc(c.entity || '—') + (c.capacity ? '<br><span class="small">' + esc(c.capacity) + '</span>' : '');
     return '<tr>' +
       '<td class="nowrap small">' + esc(fmtDate(c.signed_at)) + '</td>' +
-      '<td>' + esc((c.first_name || '') + ' ' + (c.last_name || '')) + '<br><span class="small">' + esc(c.signed_name || '') + '</span></td>' +
+      '<td>' + esc((c.first_name || '') + ' ' + (c.last_name || '')) + '<br><span class="small">signé : ' + esc(c.signed_name || '') + '</span></td>' +
       '<td><a href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a></td>' +
-      '<td>' + esc(c.entity || '—') + '</td>' +
-      '<td class="small">' + esc(c.capacity || '—') + '</td>' +
+      '<td>' + entcap + '</td>' +
       '<td class="small">' + esc(c.country || '—') + '</td>' +
+      '<td>' + msgCell + '</td>' +
+      '<td>' + cpSource(c.page_source) + '</td>' +
       '<td><span class="' + statusBadge + '">' + esc(c.status || 'pending') + '</span></td>' +
+      '<td>' + cpAccess(c) + '</td>' +
       '<td class="small">' + esc(c.signed_ip || '—') + '</td>' +
     '</tr>';
   }).join('');
@@ -761,7 +794,7 @@ function renderViews() {
     var visRows = vis.map(function(o) {
       return '<tr>' +
         '<td class="small nowrap">' + esc((o.id || '—').slice(0, 10)) + (o.reg ? ' <span class="badge indigo">Reg.</span>' : '') + '</td>' +
-        '<td style="text-align:center">' + o.count + '</td>' +
+        '<td style="text-align:center" title="chargements de page par ce visiteur">' + o.count + '<div class="small" style="font-weight:400">' + o.pages.length + ' page' + (o.pages.length > 1 ? 's' : '') + '</div></td>' +
         '<td class="small">' + esc(o.pages.join('  →  ')) + '</td>' +
         '<td class="small">' + esc(o.src || '—') + '</td>' +
         '<td class="small">' + esc(o.place || '—') + '</td>' +
@@ -770,7 +803,7 @@ function renderViews() {
     }).join('');
     journeyEl.innerHTML = '<div class="adm-table-meta" style="margin:0 0 6px;font-weight:600;">Parcours visiteurs &middot; ' + Object.keys(byVis).length + ' visiteurs (top 25)</div>' +
       '<div class="adm-table-wrap"><table class="adm-table"><thead><tr>' +
-        '<th>Visiteur</th><th style="text-align:center">Vues</th><th>Pages vues (parcours)</th><th>Source</th><th>Lieu</th><th>Dernière visite</th>' +
+        '<th>Visiteur</th><th style="text-align:center">Vues / pages</th><th>Parcours (pages distinctes)</th><th>Source</th><th>Lieu</th><th>Dernière visite</th>' +
       '</tr></thead><tbody>' + visRows + '</tbody></table></div>';
   }
 
