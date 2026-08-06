@@ -551,6 +551,15 @@
   var cpForm = document.getElementById('cp-access-form');
   var cpFeedback = document.getElementById('cp-access-feedback');
   if (cpForm && cpFeedback) {
+    // Pré-remplissage nominatif via URL (?prenom=&nom=&ref=) — lien dédié tracé.
+    // La signature reste à saisir par le signataire (geste actif eIDAS).
+    var cpParams = new URLSearchParams(window.location.search);
+    var cpRef = (cpParams.get('ref') || '').trim();
+    var cpPrenom = (cpParams.get('prenom') || '').trim();
+    var cpNom = (cpParams.get('nom') || '').trim();
+    if (cpPrenom && cpForm.firstname) cpForm.firstname.value = cpPrenom;
+    if (cpNom && cpForm.lastname) cpForm.lastname.value = cpNom;
+
     var cpIsEn = document.documentElement.lang === 'en';
     var cpI18n = cpIsEn ? {
       sending: 'Signing…',
@@ -624,7 +633,7 @@
         consent_read: 1,
         consent_authority: 1,
         source_lang: cpIsEn ? 'EN' : 'FR',
-        page_source: 'capital-partners-access'
+        page_source: cpRef ? ('capital-partners-access · ref:' + cpRef) : 'capital-partners-access'
       };
 
       fetch(PASOLA_API + '/api/cp-request', {
