@@ -280,6 +280,7 @@ html, body { overflow-x: hidden; }
 <button class="adm-tab is-active" data-pane="pane-users" role="tab">Users <span id="cnt-users"></span></button>
 <button class="adm-tab" data-pane="pane-contacts" role="tab">Contacts <span id="cnt-contacts"></span></button>
 <button class="adm-tab" data-pane="pane-cp" role="tab">CP Requests <span id="cnt-cp"></span></button>
+<button class="adm-tab" data-pane="pane-activity" role="tab">Activité data room <span id="cnt-activity"></span></button>
 <button class="adm-tab" data-pane="pane-views" role="tab">Page Views <span id="cnt-views"></span></button>
 <button class="adm-tab" data-pane="pane-affiliates" role="tab">Affiliés <span id="cnt-affiliates"></span></button>
 </nav>
@@ -320,6 +321,17 @@ html, body { overflow-x: hidden; }
 </div>
 </div>
 
+<div class="adm-pane" id="pane-activity">
+<div class="adm-table-actions">
+<span class="adm-table-meta" id="meta-activity">—</span>
+</div>
+<div class="adm-table-wrap">
+<table class="adm-table"><thead><tr>
+<th>Date</th><th>Signataire</th><th>Email</th><th>Action</th><th>Document</th><th>IP</th>
+</tr></thead><tbody id="tbl-activity"></tbody></table>
+</div>
+</div>
+
 <div class="adm-pane" id="pane-views">
 <div class="adm-table-actions">
 <span class="adm-table-meta" id="meta-views">—</span>
@@ -352,7 +364,7 @@ html, body { overflow-x: hidden; }
 var API = 'https://pasola-api.jonathan-beraud.workers.dev';
 var AUTH = sessionStorage.getItem('pasola_admin_auth') || '';
 
-var users = [], contacts = [], cpRequests = [], pageviews = [], stats = {};
+var users = [], contacts = [], cpRequests = [], pageviews = [], stats = {}, activity = [];
 var affiliates = { by_ref: [], leads: [], commission_eur: 150, total_due_eur: 0, total_paid: 0, total_leads: 0 };
 
 // LOGIN
@@ -402,7 +414,8 @@ function loadAll() {
     fetch(API + '/api/contacts-list', { headers: h }).then(r => r.json()).catch(() => []),
     fetch(API + '/api/cp-requests-list', { headers: h }).then(r => r.json()).catch(() => []),
     fetch(API + '/api/pageviews-list', { headers: h }).then(r => r.json()).catch(() => []),
-    fetch(API + '/api/affiliate/list', { headers: h }).then(r => r.json()).catch(() => ({ by_ref: [], leads: [] }))
+    fetch(API + '/api/affiliate/list', { headers: h }).then(r => r.json()).catch(() => ({ by_ref: [], leads: [] })),
+    fetch(API + '/api/dossier-access-log', { headers: h }).then(r => r.json()).catch(() => [])
   ]).then(function(res) {
     stats = res[0] || {};
     users = Array.isArray(res[1]) ? res[1] : [];
@@ -410,6 +423,7 @@ function loadAll() {
     cpRequests = Array.isArray(res[3]) ? res[3] : [];
     pageviews = Array.isArray(res[4]) ? res[4] : [];
     affiliates = (res[5] && res[5].leads) ? res[5] : { by_ref: [], leads: [], commission_eur: 150, total_due_eur: 0, total_paid: 0, total_leads: 0 };
+    activity = Array.isArray(res[6]) ? res[6] : [];
     renderAll();
   });
 }
@@ -419,6 +433,7 @@ function renderAll() {
   renderUsers();
   renderContacts();
   renderCp();
+  renderActivity();
   renderViews();
   renderAffiliates();
 }
@@ -559,6 +574,33 @@ function renderCp() {
       '<td class="small">' + esc(c.country || '—') + '</td>' +
       '<td><span class="' + statusBadge + '">' + esc(c.status || 'pending') + '</span></td>' +
       '<td class="small">' + esc(c.signed_ip || '—') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+function renderActivity() {
+  var cnt = document.getElementById('cnt-activity');
+  if (cnt) cnt.textContent = activity.length ? '· ' + activity.length : '';
+  var meta = document.getElementById('meta-activity');
+  var tbody = document.getElementById('tbl-activity');
+  if (!tbody) return;
+  if (meta) meta.textContent = activity.length + ' événement' + (activity.length > 1 ? 's' : '') + ' · consultations, téléchargements, questions';
+  if (!activity.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">Aucune activité data room pour le moment.</td></tr>';
+    return;
+  }
+  var actLabel = { view: 'Consultation', download: 'Téléchargement', qa: 'Question', denied: 'Refusé', verify: 'Accès' };
+  var actBadge = { download: 'badge indigo', denied: 'badge terra' };
+  tbody.innerHTML = activity.map(function(a) {
+    var name = ((a.first_name || '') + ' ' + (a.last_name || '')).trim() || '—';
+    var badge = actBadge[a.action] || 'badge terra';
+    return '<tr>' +
+      '<td class="nowrap small">' + esc(fmtDate(a.created_at)) + '</td>' +
+      '<td>' + esc(name) + (a.entity ? '<br><span class="small">' + esc(a.entity) + '</span>' : '') + '</td>' +
+      '<td><a href="mailto:' + esc(a.email) + '">' + esc(a.email) + '</a></td>' +
+      '<td><span class="' + badge + '">' + esc(actLabel[a.action] || a.action || '—') + '</span></td>' +
+      '<td class="small">' + esc(a.file_label || '—') + '</td>' +
+      '<td class="small">' + esc(a.ip || '—') + '</td>' +
     '</tr>';
   }).join('');
 }
