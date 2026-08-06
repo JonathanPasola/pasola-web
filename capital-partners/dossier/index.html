@@ -23,43 +23,43 @@
  .dossier-inner { max-width: 1280px; margin: 0 auto; }
 
  /* Loading state */
- .dossier-loading { text-align: center; padding: 80px 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: #5C6F7E; font-size: 16px; }
- .dossier-loading::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #C44A2C; margin-right: 10px; animation: pulse 1.4s ease-in-out infinite; vertical-align: middle; }
+ .dossier-loading { text-align: center; padding: 80px 20px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: #3D5675; font-size: 16px; }
+ .dossier-loading::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #C7A574; margin-right: 10px; animation: pulse 1.4s ease-in-out infinite; vertical-align: middle; }
  @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
  /* Header bloc */
  .dossier-head { margin-bottom: 48px; }
- .dossier-eyebrow { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #C44A2C; margin: 0 0 14px; font-weight: 400; }
+ .dossier-eyebrow { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #3D5675; margin: 0 0 16px; font-weight: 400; }
  .dossier-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: #1A2C3D; margin: 0 0 12px; line-height: 1.15; }
  @media (min-width: 769px) { .dossier-title { font-size: 40px; } }
  .dossier-welcome { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.6; color: #1A2C3D; margin: 0; }
- .dossier-expires { font-family: 'Outfit', sans-serif; font-size: 12px; letter-spacing: 0.04em; color: #5C6F7E; margin: 16px 0 0; }
+ .dossier-expires { font-family: 'Outfit', sans-serif; font-size: 12px; letter-spacing: 0.04em; color: #3D5675; margin: 16px 0 0; }
 
  /* File grid, cards */
  .dossier-files { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 14px; }
  @media (min-width: 600px) { .dossier-files { grid-template-columns: 1fr 1fr; gap: 16px; } }
  @media (min-width: 980px) { .dossier-files { grid-template-columns: 1fr 1fr 1fr; gap: 18px; } }
- .dossier-file { background: #FFFFFF; border: 1px solid rgba(26,44,61,0.10); border-top: 3px solid #C44A2C; padding: 22px 22px 24px; display: flex; flex-direction: column; min-height: 220px; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+ .dossier-file { background: #FFFFFF; border: 1px solid rgba(26,44,61,0.10); border-top: 3px solid #C7A574; padding: 22px 22px 24px; display: flex; flex-direction: column; min-height: 220px; transition: transform 0.15s ease, box-shadow 0.15s ease; }
  .dossier-file:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 44, 61, 0.06); }
- .dossier-file-icon { font-family: 'Cinzel', serif; font-size: 26px; color: #C44A2C; line-height: 1; margin-bottom: 12px; }
+ .dossier-file-icon { font-family: 'Cinzel', serif; font-size: 26px; color: #C7A574; line-height: 1; margin-bottom: 12px; }
  .dossier-file-meta { flex: 1; min-width: 0; margin-bottom: 16px; }
  .dossier-file-label { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: #1A2C3D; margin: 0 0 8px; line-height: 1.25; }
- .dossier-file-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; line-height: 1.55; color: #5C6F7E; margin: 0 0 12px; }
- .dossier-file-format { font-family: 'Outfit', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6F7E; margin: 0; font-weight: 400; }
+ .dossier-file-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; line-height: 1.55; color: #3D5675; margin: 0 0 12px; }
+ .dossier-file-format { font-family: 'Outfit', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #3D5675; margin: 0; font-weight: 400; }
  .dossier-file-action { margin-top: auto; }
  .dossier-download-btn { display: block; width: 100%; padding: 12px 18px; background: #1A2C3D; color: #FAF8F4; font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; text-align: center; border: none; cursor: pointer; transition: background 0.2s ease; }
  .dossier-download-btn:hover { background: #2D4862; }
  .dossier-download-btn[disabled] { opacity: 0.5; cursor: wait; }
 
  /* Notice bloc */
- .dossier-notice { margin-top: 48px; padding: 24px; background: #FFFFFF; border-left: 2px solid #C44A2C; }
- .dossier-notice p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; line-height: 1.6; color: #5C6F7E; margin: 0; }
+ .dossier-notice { margin-top: 48px; padding: 24px; background: #FFFFFF; border-left: 2px solid #C7A574; }
+ .dossier-notice p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; line-height: 1.6; color: #3D5675; margin: 0; }
 
  /* Error state */
  .dossier-error { text-align: center; padding: 80px 24px; }
- .dossier-error h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: #C44A2C; margin: 0 0 16px; }
+ .dossier-error h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; color: #1A2C3D; margin: 0 0 16px; }
  .dossier-error p { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.6; color: #1A2C3D; margin: 0 auto 24px; max-width: 480px; }
- .dossier-error-link { display: inline-block; margin-top: 16px; font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #5C6F7E; text-decoration: none; border-bottom: 1px solid rgba(92,111,126,0.4); padding-bottom: 2px; }
+ .dossier-error-link { display: inline-block; margin-top: 16px; font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #3D5675; text-decoration: none; border-bottom: 1px solid rgba(92,111,126,0.4); padding-bottom: 2px; }
 
  /* Footer indigo canonique data room (référence cap-table.html) */
  .doc-foot-indigo { background: #1A2C3D; color: #FAF8F4; padding: 28px var(--section-pad-x, 12px) 20px; margin-top: 56px; }
