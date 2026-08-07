@@ -413,7 +413,7 @@ function viewContacts(){
     var sig=r.cp>0?'<span class="sig hot">'+(LANG=='en'?'Capital Partners':'Zone Capital Partners')+'</span>':'<span class="small">'+((r.pages&&r.pages.length)||1)+' '+(LANG=='en'?'pages':'pages')+'</span>';
     var status=r.status==='signed'?'<span class="pill st-signed">'+t('signed')+'</span>':(r.status==='wait'?'<span class="pill st-wait">'+t('waiting')+'</span>':'<span class="pill st-anon">'+t('notid')+'</span>');
     var tr='<tr class="clk" data-row="'+i+'"><td><div class="who2">'+av+'<div><div class="nm">'+esc(r.name)+'</div><div class="small">'+(r.email?esc(r.email):(r.id?esc(String(r.id).slice(0,14)):''))+'</div></div></div></td>'+
-      '<td>'+r.co+'</td><td>'+src+'</td><td>'+heatpill+'</td><td>'+sig+'</td><td class="small">'+esc(r.country)+'</td><td class="small">'+esc(fmtDay(r.last))+'</td><td>'+status+'</td></tr>';
+      '<td>'+r.co+'</td><td>'+src+'</td><td>'+heatpill+'</td><td>'+sig+'</td><td class="small" style="white-space:nowrap">'+flag(r.country)+'&nbsp; '+esc(cname(r.country))+'</td><td class="small">'+esc(fmtDay(r.last))+'</td><td>'+status+'</td></tr>';
     if(openRow===i){
       var tl='';
       if(r.pages){tl=r.pages.slice(0,8).map(function(p){return '<div class="tl-item d"><div class="tt">'+esc(p)+'</div></div>';}).join('');}
