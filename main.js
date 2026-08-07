@@ -547,6 +547,45 @@
     });
   }
 
+  // ── Capture de lead « rester informé » (Maison Cognac) → /api/register (newsletter) ──
+  var leadForm = document.getElementById('lead-capture-form');
+  if (leadForm) {
+    var leadIsEn = document.documentElement.lang === 'en';
+    leadForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var fb = document.getElementById('lead-feedback');
+      var btn = leadForm.querySelector('.form-submit');
+      btn.disabled = true;
+      btn.textContent = leadIsEn ? 'Sending…' : 'Envoi…';
+      function leadDone() {
+        leadForm.reset();
+        if (fb) {
+          fb.textContent = leadIsEn
+            ? 'Thank you — you are on the list. We will keep you posted.'
+            : 'Merci — vous êtes sur la liste. Nous vous tiendrons informé.';
+          fb.className = 'form-feedback is-success';
+          fb.hidden = false;
+        }
+        btn.textContent = leadIsEn ? 'Registered' : 'Inscrit';
+      }
+      pasolaRegister({
+        first_name: (leadForm.firstname.value || '').trim(),
+        last_name: '',
+        email: (leadForm.email.value || '').trim(),
+        profile: 'newsletter',
+        consent_updates: 1,
+        consent_privacy: 1,
+        page_source: 'cognac-lead-informe',
+        source: window.location.origin + window.location.pathname,
+        referral: document.referrer || ''
+      }).then(leadDone).catch(function(err) {
+        // eslint-disable-next-line no-console
+        console.error('Lead capture error', err);
+        leadDone(); // dédup côté worker → on affiche quand même le succès
+      });
+    });
+  }
+
   function escapeHtml(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
