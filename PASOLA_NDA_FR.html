@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accord de Confidentialité et de Non-Circonvention — PASOLA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- PDF Generation Libraries -->
+<style>
+ /* ═══════════════════════════════════════════════════
+ PASOLA SIGNATURE ESTATE, OFFICIAL COLOR IDENTITY
+ Ratio: 70% neutral / 20% primary / 10% gold accent
+ ═══════════════════════════════════════════════════ */
+
+ :root {
+ /* Palette PASOLA v2, Night Indigo + Terra Rossa
+ (anciens noms de variables conservés pour ne pas casser les 60+ usages
+ à travers le fichier ; seules les valeurs sont remappées sur la v2) */
+ --deep-teal: #1A2C3D; /* Night Indigo (ex deep-teal) */
+ --ocean-teal: #2D4862; /* Indigo clair (ex ocean-teal, pour gradients) */
+ --golden-sand: #C44A2C; /* Terra Rossa (ex golden-sand, pour accents) */
+ --warm-sandstone: #A35B43; /* Terra chaud (ex warm-sandstone, pour secondaires) */
+ --silver-grey: #5C6F7E; /* Subtext indigo doux (ex silver-grey) */
+ --charcoal-deep: #1A2C3D; /* Texte principal = Night Indigo */
+ --white: #FFFFFF;
+ --ivory: #FAF8F4; /* Ivoire chaud aligné sur les emails Brevo */
+ --ivory-warm: #F5F1EC;
+ --border: #E5DECD;
+ --border-light: #EEEBE7;
+ --error: #C0392B;
+ --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+ --font-body: 'Outfit', -apple-system, sans-serif;
+ }
+
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+ html { scroll-behavior: smooth; }
+
+ body {
+ font-family: var(--font-body);
+ background: var(--white);
+ color: var(--charcoal-deep);
+ min-height: 100vh;
+ -webkit-font-smoothing: antialiased;
+ overflow-x: hidden;
+ }
+
+ body::before {
+ content: '';
+ position: fixed;
+ top: 0; left: 0; right: 0;
+ height: 3px;
+ background: linear-gradient(90deg, var(--deep-teal), var(--ocean-teal), var(--golden-sand));
+ z-index: 1000;
+ }
+
+ .page {
+ max-width: 760px;
+ margin: 0 auto;
+ padding: 64px 40px 80px;
+ }
+
+ /* ══════════════════════
+ HEADER
+ ══════════════════════ */
+ .header {
+ text-align: center;
+ margin-bottom: 56px;
+ animation: fadeInDown 0.8s ease-out;
+ }
+
+ .logo-container { margin-bottom: 28px; }
+ .logo-container img { max-width: 300px; width: 100%; height: auto; }
+
+ /* Header brand v2, emblème + PASOLA Cinzel + sous-titre italique */
+ .brand-link {
+ display: block;
+ text-decoration: none;
+ text-align: center;
+ margin-bottom: 28px;
+ }
+ .brand-emblem-img {
+ display: block;
+ width: 96px;
+ height: auto;
+ margin: 0 auto 18px;
+ }
+ .brand-pasola {
+ font-family: 'Cinzel', 'Times New Roman', serif;
+ font-size: 28px;
+ letter-spacing: 0.32em;
+ color: var(--charcoal-deep);
+ font-weight: 500;
+ padding-left: 0.32em;
+ }
+ .brand-tagline {
+ font-family: 'Cormorant Garamond', Georgia, serif;
+ font-style: italic;
+ font-size: 14px;
+ letter-spacing: 0.05em;
+ color: var(--silver-grey);
+ margin-top: 6px;
+ }
+
+ .header-accent {
+ width: 48px; height: 2px;
+ background: var(--golden-sand);
+ margin: 0 auto 28px;
+ }
+
+ .header-title {
+ font-family: var(--font-display);
+ font-size: 22px; font-weight: 400;
+ color: var(--deep-teal);
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ margin-bottom: 8px;
+ line-height: 1.45;
+ }
+
+ .header-subtitle {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 400;
+ color: var(--silver-grey);
+ letter-spacing: 0.22em;
+ text-transform: uppercase;
+ }
+
+ /* ── Company Identity ── */
+ .company-identity {
+ text-align: center;
+ margin-bottom: 48px;
+ padding: 28px 32px;
+ background: var(--ivory);
+ border-radius: 8px;
+ border: 1px solid var(--border-light);
+ animation: fadeIn 1s ease-out 0.15s both;
+ }
+
+ .company-identity .entity-name {
+ font-family: var(--font-display);
+ font-size: 22px;
+ font-weight: 500;
+ color: var(--deep-teal);
+ letter-spacing: 2px;
+ margin-bottom: 8px;
+ }
+
+ .company-identity .entity-details {
+ font-size: 12.5px;
+ font-weight: 300;
+ color: var(--silver-grey);
+ line-height: 1.8;
+ letter-spacing: 0.3px;
+ }
+
+ .company-identity .entity-details span {
+ display: inline-block;
+ margin: 0 6px;
+ color: var(--golden-sand);
+ }
+
+ /* ── Introduction ── */
+ .intro {
+ text-align: center;
+ margin-bottom: 48px;
+ padding: 0 24px;
+ animation: fadeIn 1s ease-out 0.2s both;
+ }
+
+ .intro p {
+ font-family: var(--font-display);
+ font-size: 20px; font-weight: 300;
+ line-height: 1.75;
+ color: var(--silver-grey);
+ font-style: italic;
+ }
+
+ /* ══════════════════════
+ PARTIES SECTION
+ ══════════════════════ */
+ .parties-section {
+ margin-bottom: 40px;
+ padding: 32px 36px;
+ background: var(--ivory);
+ border: 1px solid var(--border-light);
+ border-radius: 8px;
+ animation: fadeIn 1s ease-out 0.3s both;
+ }
+
+ .parties-section .section-label { margin-bottom: 16px; }
+
+ .parties-text {
+ font-family: var(--font-body);
+ font-size: 14px;
+ font-weight: 300;
+ line-height: 1.85;
+ color: var(--silver-grey);
+ }
+
+ .parties-text strong {
+ font-weight: 500;
+ color: var(--charcoal-deep);
+ }
+
+ .parties-text .party-label {
+ display: inline-block;
+ font-size: 11px;
+ font-weight: 400;
+ letter-spacing: 0.22em;
+ text-transform: uppercase;
+ color: var(--deep-teal);
+ background: rgba(6, 94, 111, 0.06);
+ padding: 2px 8px;
+ border-radius: 3px;
+ margin-right: 6px;
+ }
+
+ /* ══════════════════════
+ NDA CONTENT
+ ══════════════════════ */
+ .nda-section {
+ background: var(--white);
+ border: 1px solid var(--border-light);
+ border-radius: 8px;
+ padding: 48px 44px;
+ margin-bottom: 44px;
+ position: relative;
+ animation: fadeIn 1s ease-out 0.4s both;
+ }
+
+ .nda-section::before {
+ content: '';
+ position: absolute;
+ top: -1px; left: 40px; right: 40px;
+ height: 2px;
+ background: linear-gradient(90deg, transparent, var(--golden-sand), transparent);
+ }
+
+ .section-label {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 400;
+ letter-spacing: 0.22em;
+ text-transform: uppercase;
+ color: var(--deep-teal);
+ margin-bottom: 24px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .section-label::after {
+ content: ''; flex: 1;
+ height: 1px;
+ background: var(--border-light);
+ }
+
+ .nda-text {
+ font-family: var(--font-body);
+ font-size: 14.5px; font-weight: 300;
+ line-height: 1.9;
+ color: var(--silver-grey);
+ }
+
+ .nda-text p { margin-bottom: 18px; }
+ .nda-text p:last-child { margin-bottom: 0; }
+ .nda-text strong { font-weight: 500; color: var(--charcoal-deep); }
+
+ .nda-text ul {
+ list-style: none; padding: 0; margin: 14px 0;
+ }
+
+ .nda-text ul li {
+ position: relative; padding-left: 22px; margin-bottom: 10px;
+ }
+
+ .nda-text ul li::before {
+ content: ''; position: absolute;
+ left: 0; top: 10px;
+ width: 8px; height: 1.5px;
+ background: var(--golden-sand);
+ }
+
+ .article-title {
+ font-family: var(--font-display);
+ font-size: 17px; font-weight: 500;
+ color: var(--deep-teal);
+ margin: 32px 0 10px;
+ padding-top: 20px;
+ border-top: 1px solid var(--border-light);
+ }
+
+ .article-title:first-of-type {
+ margin-top: 0; padding-top: 0; border-top: none;
+ }
+
+ .clause-letter {
+ padding-left: 22px;
+ position: relative;
+ }
+
+ .clause-letter .letter {
+ color: var(--golden-sand);
+ font-weight: 500;
+ position: absolute;
+ left: 0;
+ }
+
+ /* ══════════════════════
+ FORM
+ ══════════════════════ */
+ .form-section { animation: fadeIn 1s ease-out 0.6s both; }
+ .form-section .section-label { margin-bottom: 32px; }
+
+ .form-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 22px;
+ margin-bottom: 36px;
+ }
+
+ .form-group { display: flex; flex-direction: column; }
+ .form-group.full-width { grid-column: 1 / -1; }
+
+ .form-label {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 400;
+ letter-spacing: 0.22em; text-transform: uppercase;
+ color: var(--silver-grey);
+ margin-bottom: 8px;
+ }
+
+ .form-input {
+ font-family: var(--font-body);
+ font-size: 15px; font-weight: 300;
+ padding: 14px 18px;
+ border: 1px solid var(--border);
+ border-radius: 6px;
+ background: var(--white);
+ color: var(--charcoal-deep);
+ transition: all 0.3s ease;
+ outline: none;
+ }
+
+ .form-input::placeholder { color: var(--warm-sandstone); font-weight: 200; }
+
+ .form-input:focus {
+ border-color: var(--ocean-teal);
+ box-shadow: 0 0 0 3px rgba(10, 142, 154, 0.06);
+ }
+
+ .form-input.error {
+ border-color: var(--error);
+ box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.05);
+ }
+
+ .error-message {
+ font-size: 12px; color: var(--error);
+ margin-top: 6px; display: none; font-weight: 400;
+ }
+
+ .error-message.visible { display: block; }
+
+ select.form-input {
+ appearance: none;
+ background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239A9D9F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+ background-repeat: no-repeat;
+ background-position: right 18px center;
+ padding-right: 42px; cursor: pointer;
+ }
+
+ /* ── Checkbox ── */
+ .agreement-section {
+ background: var(--ivory);
+ border-radius: 8px;
+ padding: 26px 28px;
+ margin-bottom: 36px;
+ border: 1px solid var(--border-light);
+ }
+
+ .checkbox-group { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; }
+ .checkbox-group input[type="checkbox"] { display: none; }
+
+ .custom-checkbox {
+ width: 20px; height: 20px; min-width: 20px;
+ border: 1.5px solid var(--border);
+ border-radius: 4px;
+ display: flex; align-items: center; justify-content: center;
+ transition: all 0.25s ease;
+ margin-top: 2px; background: var(--white);
+ }
+
+ .custom-checkbox svg { opacity: 0; transform: scale(0.5); transition: all 0.25s ease; }
+
+ .checkbox-group input:checked + .custom-checkbox {
+ background: var(--deep-teal); border-color: var(--deep-teal);
+ }
+
+ .checkbox-group input:checked + .custom-checkbox svg { opacity: 1; transform: scale(1); }
+ .checkbox-group.error .custom-checkbox { border-color: var(--error); }
+
+ .checkbox-label {
+ font-size: 13.5px; font-weight: 300;
+ line-height: 1.65; color: var(--silver-grey);
+ }
+
+ /* ── Signature ── */
+ .signature-section { margin-bottom: 36px; }
+
+ .signature-pad-container {
+ border: 1px dashed var(--border);
+ border-radius: 8px; padding: 4px;
+ background: var(--white);
+ transition: border-color 0.3s ease;
+ }
+
+ .signature-pad-container:hover,
+ .signature-pad-container.active { border-color: var(--ocean-teal); }
+ .signature-pad-container.error { border-color: var(--error); }
+
+ #signatureCanvas {
+ width: 100%; height: 280px; display: block;
+ border-radius: 6px; cursor: crosshair; touch-action: none;
+ }
+
+ .signature-actions {
+ display: flex; justify-content: space-between;
+ align-items: center; margin-top: 10px;
+ }
+
+ .signature-hint {
+ font-size: 11px; color: var(--warm-sandstone);
+ font-weight: 300; letter-spacing: 0.5px;
+ }
+
+ .btn-clear-sig {
+ font-family: var(--font-body);
+ font-size: 11px; font-weight: 500;
+ letter-spacing: 1px; text-transform: uppercase;
+ color: var(--silver-grey); background: none;
+ border: none; cursor: pointer;
+ padding: 4px 10px; border-radius: 4px;
+ transition: all 0.2s ease;
+ }
+
+ .btn-clear-sig:hover { color: var(--deep-teal); background: var(--ivory-warm); }
+ /* ID Upload */
+ .id-upload-section { margin-bottom: 36px; }
+ .id-upload-area {
+ border: 1px dashed var(--border); border-radius: 8px; padding: 28px 20px;
+ text-align: center; background: var(--white); transition: all 0.3s ease;
+ cursor: pointer; position: relative;
+ }
+ .id-upload-area:hover, .id-upload-area.dragover { border-color: var(--ocean-teal); background: rgba(10,142,154,0.02); }
+ .id-upload-area.error { border-color: var(--error); }
+ .id-upload-area.has-file { border-color: var(--deep-teal); border-style: solid; background: rgba(6,94,111,0.03); }
+ .id-upload-icon { color: var(--warm-sandstone); margin-bottom: 10px; }
+ .id-upload-text { font-size: 13px; font-weight: 300; color: var(--silver-grey); line-height: 1.6; }
+ .id-upload-text strong { font-weight: 500; color: var(--charcoal-deep); }
+ .id-file-name { font-size: 13px; font-weight: 400; color: var(--deep-teal); margin-top: 8px; }
+ .id-upload-area input[type="file"] { position: absolute; top:0; left:0; right:0; bottom:0; width:100%; height:100%; opacity:0; cursor:pointer; }
+
+
+ /* ── Date ── */
+ .date-display {
+ display: flex; align-items: center; gap: 12px;
+ margin-bottom: 36px; padding-bottom: 36px;
+ border-bottom: 1px solid var(--border-light);
+ }
+
+ .date-display .form-label { margin-bottom: 0; white-space: nowrap; }
+
+ .date-value {
+ font-family: var(--font-body);
+ font-size: 15px; font-weight: 300;
+ color: var(--charcoal-deep);
+ }
+
+ /* ── Submit & Download Buttons ── */
+ .submit-btn {
+ font-family: var(--font-body);
+ width: 100%; padding: 18px 32px;
+ font-size: 12px; font-weight: 500;
+ letter-spacing: 4px; text-transform: uppercase;
+ color: var(--white); background: var(--deep-teal);
+ border: none; border-radius: 6px;
+ cursor: pointer; transition: all 0.4s ease;
+ }
+
+ .submit-btn:hover {
+ background: var(--ocean-teal);
+ transform: translateY(-1px);
+ box-shadow: 0 8px 28px rgba(6, 94, 111, 0.18);
+ }
+
+ .submit-btn:active { transform: translateY(0); }
+
+ .submit-btn:disabled {
+ background: var(--border); cursor: not-allowed;
+ transform: none; box-shadow: none;
+ }
+
+ /* ══════════════════════
+ SUCCESS OVERLAY
+ ══════════════════════ */
+ .success-overlay {
+ display: none; position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(255,255,255,0.97);
+ z-index: 999; align-items: center; justify-content: center;
+ }
+
+ .success-overlay.visible { display: flex; animation: fadeIn 0.5s ease; }
+
+ .success-content {
+ text-align: center; padding: 60px;
+ animation: scaleIn 0.6s ease;
+ max-width: 520px;
+ }
+
+ .success-icon {
+ width: 60px; height: 60px;
+ border: 2px solid var(--golden-sand);
+ border-radius: 50%;
+ display: flex; align-items: center; justify-content: center;
+ margin: 0 auto 32px;
+ }
+
+ .success-content h2 {
+ font-family: var(--font-display);
+ font-size: 34px; font-weight: 300;
+ color: var(--deep-teal);
+ margin-bottom: 12px; letter-spacing: 3px;
+ text-transform: uppercase;
+ }
+
+ .success-content p {
+ font-size: 15px; font-weight: 300;
+ color: var(--silver-grey); line-height: 1.7;
+ margin-bottom: 8px;
+ }
+
+ .success-content .accent-line {
+ width: 32px; height: 2px;
+ background: var(--golden-sand);
+ margin: 24px auto;
+ }
+
+ .btn-download-pdf {
+ display: inline-block;
+ font-family: var(--font-body);
+ padding: 14px 36px;
+ font-size: 12px; font-weight: 500;
+ letter-spacing: 3px; text-transform: uppercase;
+ color: var(--white); background: var(--deep-teal);
+ border: none; border-radius: 6px;
+ cursor: pointer; transition: all 0.3s ease;
+ margin-top: 8px;
+ }
+
+ .btn-download-pdf:hover {
+ background: var(--ocean-teal);
+ box-shadow: 0 4px 16px rgba(6, 94, 111, 0.2);
+ }
+
+ .success-note {
+ font-size: 12px !important;
+ color: var(--warm-sandstone) !important;
+ margin-top: 16px !important;
+ font-style: italic;
+ }
+
+ /* ══════════════════════
+ FOOTER
+ ══════════════════════ */
+ .footer {
+ text-align: center; margin-top: 56px;
+ padding-top: 28px;
+ border-top: 1px solid var(--border-light);
+ animation: fadeIn 1s ease-out 0.8s both;
+ }
+
+ .footer p {
+ font-size: 11px; font-weight: 300;
+ color: var(--warm-sandstone);
+ letter-spacing: 0.5px; line-height: 1.9;
+ }
+
+ .footer a { color: var(--ocean-teal); text-decoration: none; transition: color 0.2s ease; }
+ .footer a:hover { color: var(--deep-teal); }
+
+ /* ══════════════════════
+ ANIMATIONS
+ ══════════════════════ */
+ @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+ @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+ @keyframes scaleIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+ @keyframes spin { to { transform: rotate(360deg); } }
+
+ .spinner {
+ display: inline-block; width: 14px; height: 14px;
+ border: 2px solid rgba(255,255,255,0.3);
+ border-top-color: white; border-radius: 50%;
+ animation: spin 0.6s linear infinite;
+ margin-right: 10px; vertical-align: middle;
+ }
+
+ /* ══════════════════════
+ RESPONSIVE
+ ══════════════════════ */
+ @media (max-width: 640px) {
+ .page { padding: 44px 20px 60px; }
+ .header-title { font-size: 16px; letter-spacing: 1.5px; }
+ .nda-section { padding: 32px 24px; }
+ .form-grid { grid-template-columns: 1fr; gap: 18px; }
+ .logo-container img { max-width: 220px; }
+ .intro p { font-size: 17px; }
+ .agreement-section { padding: 20px 22px; }
+ .success-content { padding: 40px 24px; }
+ .company-identity { padding: 22px 20px; }
+ .parties-section { padding: 24px 22px; }
+ }
+
+ /* ══════════════════════
+ PDF RENDERING AREA (hidden)
+ ══════════════════════ */
+ #pdfContent {
+ position: absolute;
+ left: -9999px;
+ top: 0;
+ width: 700px;
+ background: white;
+ font-family: 'Outfit', sans-serif;
+ padding: 28px 36px;
+ color: #082019;
+ }
+
+ #pdfContent h1 {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 15px;
+ color: #065E6F;
+ text-align: center;
+ margin-bottom: 2px;
+ letter-spacing: 3px;
+ text-transform: uppercase;
+ }
+
+ #pdfContent .pdf-subtitle {
+ font-size: 9px;
+ color: #9A9D9F;
+ text-align: center;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ margin-bottom: 10px;
+ }
+
+ #pdfContent .pdf-divider {
+ height: 1px;
+ background: #E5E0DA;
+ margin-bottom: 12px;
+ }
+
+ #pdfContent .pdf-section {
+ margin-bottom: 8px;
+ padding-bottom: 8px;
+ border-bottom: 1px solid #EEEBE7;
+ }
+
+ #pdfContent .pdf-section-title {
+ font-size: 8px;
+ font-weight: 600;
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ color: #065E6F;
+ margin-bottom: 5px;
+ }
+
+ #pdfContent .pdf-row {
+ display: flex;
+ gap: 10px;
+ margin-bottom: 3px;
+ font-size: 11px;
+ }
+
+ #pdfContent .pdf-label {
+ color: #9A9D9F;
+ font-weight: 400;
+ min-width: 85px;
+ }
+
+ #pdfContent .pdf-value {
+ color: #082019;
+ font-weight: 300;
+ flex: 1;
+ }
+
+ #pdfContent .pdf-sig-img {
+ max-height: 60px;
+ border: 1px solid #E5E0DA;
+ border-radius: 4px;
+ padding: 3px;
+ background: #FAF8F5;
+ }
+
+ #pdfContent .pdf-footer {
+ margin-top: 12px;
+ padding-top: 8px;
+ border-top: 1px solid #EEEBE7;
+ font-size: 8px;
+ color: #CAB59B;
+ text-align: center;
+ line-height: 1.5;
+ }
+
+ #pdfContent .pdf-logo {
+ text-align: center;
+ margin-bottom: 10px;
+ }
+
+ #pdfContent .pdf-logo img {
+ max-width: 160px;
+ height: auto;
+ }
+
+ #pdfContent h3 {
+ font-family: 'Cormorant Garamond', Georgia, serif;
+ font-size: 13px;
+ font-weight: 500;
+ color: #065E6F;
+ margin: 14px 0 6px;
+ padding-top: 10px;
+ border-top: 1px solid #EEEBE7;
+ }
+
+ #pdfContent h3:first-of-type {
+ margin-top: 0;
+ padding-top: 0;
+ border-top: none;
+ }
+
+ #pdfContent p {
+ margin-bottom: 8px;
+ }
+
+ #pdfContent ul {
+ list-style: none;
+ padding: 0;
+ margin: 6px 0;
+ }
+
+ #pdfContent ul li {
+ position: relative;
+ padding-left: 16px;
+ margin-bottom: 5px;
+ }
+
+ #pdfContent ul li::before {
+ content: '\2014';
+ position: absolute;
+ left: 0;
+ color: #C7A574;
+ font-size: 10px;
+ }
+
+ #pdfContent .clause-letter {
+ padding-left: 16px;
+ position: relative;
+ margin-bottom: 5px;
+ }
+
+ #pdfContent .clause-letter .letter {
+ color: #C7A574;
+ font-weight: 500;
+ position: absolute;
+ left: 0;
+ }
+
+ #pdfContent strong {
+ font-weight: 500;
+ color: #082019;
+ }
+
+ /* ══════════════════════
+ REVIEW OVERLAY (Admin)
+ ══════════════════════ */
+ .review-overlay {
+ display: none; position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(255,255,255,0.98);
+ z-index: 1001; overflow-y: auto;
+ }
+
+ .review-overlay.visible { display: block; animation: fadeIn 0.5s ease; }
+
+ .review-content {
+ max-width: 620px;
+ margin: 48px auto;
+ padding: 48px 40px;
+ animation: scaleIn 0.6s ease;
+ }
+
+ .review-header {
+ text-align: center;
+ margin-bottom: 40px;
+ }
+
+ .review-header h2 {
+ font-family: var(--font-display);
+ font-size: 28px; font-weight: 300;
+ color: var(--deep-teal);
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ margin-bottom: 8px;
+ }
+
+ .review-header p {
+ font-size: 13px; font-weight: 300;
+ color: var(--silver-grey); line-height: 1.7;
+ }
+
+ .review-card {
+ background: var(--ivory);
+ border: 1px solid var(--border-light);
+ border-radius: 8px;
+ padding: 28px 32px;
+ margin-bottom: 28px;
+ }
+
+ .review-card-title {
+ font-size: 10px; font-weight: 600;
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ color: var(--deep-teal);
+ margin-bottom: 16px;
+ }
+
+ .review-row {
+ display: flex; gap: 16px;
+ margin-bottom: 10px;
+ font-size: 14px;
+ }
+
+ .review-label {
+ color: var(--silver-grey);
+ font-weight: 400;
+ min-width: 100px;
+ font-size: 13px;
+ }
+
+ .review-value {
+ color: var(--charcoal-deep);
+ font-weight: 300;
+ flex: 1;
+ }
+
+ .review-sig-preview {
+ max-height: 80px;
+ border: 1px solid var(--border);
+ border-radius: 6px;
+ padding: 6px;
+ background: var(--white);
+ margin-top: 8px;
+ }
+
+ .review-actions {
+ display: flex; gap: 16px;
+ margin-top: 36px;
+ }
+
+ .btn-accept, .btn-decline {
+ flex: 1;
+ font-family: var(--font-body);
+ padding: 16px 24px;
+ font-size: 12px; font-weight: 500;
+ letter-spacing: 3px; text-transform: uppercase;
+ border: none; border-radius: 6px;
+ cursor: pointer; transition: all 0.3s ease;
+ }
+
+ .btn-accept {
+ color: var(--white);
+ background: var(--deep-teal);
+ }
+
+ .btn-accept:hover {
+ background: var(--ocean-teal);
+ box-shadow: 0 6px 24px rgba(6, 94, 111, 0.2);
+ }
+
+ .btn-decline {
+ color: var(--silver-grey);
+ background: var(--ivory-warm);
+ border: 1px solid var(--border);
+ }
+
+ .btn-decline:hover {
+ color: var(--error);
+ border-color: var(--error);
+ background: rgba(192,57,43,0.04);
+ }
+
+ .btn-accept:disabled, .btn-decline:disabled {
+ opacity: 0.5; cursor: not-allowed;
+ transform: none; box-shadow: none;
+ }
+
+ .countersign-section {
+ margin-top: 28px;
+ display: none;
+ }
+
+ .countersign-section.visible { display: block; animation: fadeIn 0.4s ease; }
+
+ .review-result-overlay {
+ display: none; position: fixed;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: rgba(255,255,255,0.97);
+ z-index: 1002; align-items: center; justify-content: center;
+ }
+
+ .review-result-overlay.visible { display: flex; animation: fadeIn 0.5s ease; }
+
+ .result-content {
+ text-align: center; padding: 60px;
+ animation: scaleIn 0.6s ease;
+ max-width: 520px;
+ }
+
+ .result-content h2 {
+ font-family: var(--font-display);
+ font-size: 30px; font-weight: 300;
+ color: var(--deep-teal);
+ margin-bottom: 12px; letter-spacing: 2px;
+ text-transform: uppercase;
+ }
+
+ .result-content p {
+ font-size: 14px; font-weight: 300;
+ color: var(--silver-grey); line-height: 1.7;
+ margin-bottom: 8px;
+ }
+
+ @media (max-width: 640px) {
+ .review-content { padding: 32px 20px; margin: 24px auto; }
+ .review-actions { flex-direction: column; }
+ .review-card { padding: 20px 22px; }
+ }
+
+</style>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+
+<div class="page">
+
+ <!-- ══ HEADER ══ -->
+ <header class="header">
+ <a href="https://pasola-web.pages.dev" class="brand-link">
+ <img src="email-emblem.png" alt="PASOLA" width="96" height="53" class="brand-emblem-img" />
+ <div class="brand-pasola">PASOLA</div>
+ <div class="brand-tagline">Signature Estate &middot; Sumba</div>
+ </a>
+ <div class="header-accent"></div>
+ <h1 class="header-title">Accord de Confidentialité et de Non-Circonvention Mutuel</h1>
+ <p class="header-subtitle">Confidentiel &nbsp;·&nbsp; Juridiquement contraignant &nbsp;·&nbsp; Version FR 1</p>
+ </header>
+
+ <!-- ══ COMPANY IDENTITY ══ -->
+ <div class="company-identity">
+ <div class="entity-name">PASOLA SAS</div>
+ <div class="entity-details">
+ Société par Actions Simplifiée, France
+ <span>·</span>
+ Pasola Signature Estate
+ <span>·</span>
+ Sumba Island, Indonesia
+ </div>
+ </div>
+
+ <!-- ══ INTRODUCTION ══ -->
+ <div class="intro">
+ <p>Le présent Accord établit un cadre de confiance mutuelle, de confidentialité et de loyauté entre les Parties dans le cadre du projet Pasola Signature Estate.</p>
+ </div>
+
+ <!-- ══ PARTIES ══ -->
+ <div class="parties-section">
+ <div class="section-label">Parties à l'accord</div>
+ <div class="parties-text">
+ <p>
+ <span class="party-label">Partie A</span>
+ <strong>PASOLA SAS</strong>, Société par Actions Simplifiée de droit français, représentée par son représentant dûment habilité, dont le siège est en France, agissant pour le projet Pasola Signature Estate, île de Sumba, Indonésie (ci-après <strong>«&nbsp;Pasola&nbsp;»</strong> ou la <strong>«&nbsp;Partie Divulgatrice&nbsp;»</strong>).
+ </p>
+ <p style="margin-top:14px;">
+ <span class="party-label">Partie B</span>
+ La personne physique ou morale identifiée lors du processus de signature électronique sur la page d'accès sécurisée (ci-après la <strong>«&nbsp;Partie Réceptrice&nbsp;»</strong>), qui, en signant le présent Accord, reconnaît avoir lu et accepté l'ensemble de ses termes.
+ </p>
+ <p style="margin-top:14px;">
+ Pasola et la Partie Réceptrice sont désignées individuellement une <strong>«&nbsp;Partie&nbsp;»</strong> et collectivement les <strong>«&nbsp;Parties&nbsp;»</strong>. Le présent Accord est conclu à la date de sa signature électronique par la Partie Réceptrice.
+ </p>
+ </div>
+ </div>
+
+ <!-- ══ NDA CONTENT ══ -->
+ <div class="nda-section">
+ <div class="section-label">Termes de l'accord</div>
+ <div class="nda-text">
+
+ <h3 class="article-title">Article 1, Objet</h3>
+ <p>Le présent Accord de Confidentialité et de Non-Circonvention Mutuel (ci-après l'<strong>«&nbsp;Accord&nbsp;»</strong>) a pour objet de définir les conditions dans lesquelles les Parties peuvent échanger des Informations Confidentielles en vue du développement, du financement, de l'acquisition, de la construction, de l'exploitation ou de toute opération liée au projet <strong>Pasola Signature Estate</strong> situé sur l'île de Sumba, Indonésie (ci-après le <strong>«&nbsp;Projet&nbsp;»</strong>), et de protéger les intérêts légitimes de chaque Partie contre la circonvention, la sollicitation et la divulgation non autorisée.</p>
+
+ <h3 class="article-title">Article 2, Définitions</h3>
+ <p>Aux fins du présent Accord&nbsp;:</p>
+ <ul>
+ <li><strong>«&nbsp;Informations Confidentielles&nbsp;»</strong> désigne toute information non publique communiquée par une Partie à l'autre (listes d'investisseurs, projections financières, business plans, plans architecturaux, stratégies d'acquisition foncière, structures juridiques, accords de partenariat, prix, savoir-faire et toute autre information), sous forme écrite, orale, électronique ou autre, désignée comme confidentielle ou dont le caractère confidentiel résulte raisonnablement de sa nature ou des circonstances de sa divulgation.</li>
+ <li><strong>«&nbsp;Contacts d'Affaires&nbsp;»</strong> désigne les investisseurs, prêteurs, partenaires, conseils, prestataires, propriétaires fonciers, autorités, acquéreurs potentiels ou tout autre tiers <strong>spécifiquement présenté par une Partie à l'autre en lien avec le Projet</strong>.</li>
+ <li><strong>«&nbsp;Circonvention&nbsp;»</strong> désigne toute action, directe ou indirecte, visant à contourner, exclure ou remplacer l'autre Partie dans une opportunité, une opération ou une relation d'affaires née du Projet ou d'une information divulguée au titre du présent Accord.</li>
+ <li><strong>«&nbsp;Représentants&nbsp;»</strong> désigne les salariés, dirigeants, mandataires sociaux, agents, conseils, consultants et avocats d'une Partie.</li>
+ </ul>
+
+ <h3 class="article-title">Article 3, Obligations de confidentialité</h3>
+ <p>Chaque Partie, en tant que Partie Réceptrice, s'engage, s'agissant des Informations Confidentielles reçues de l'autre Partie (Partie Divulgatrice), à&nbsp;:</p>
+ <ul>
+ <li>Conserver les Informations Confidentielles dans la plus stricte confidentialité et ne les divulguer à aucun tiers sans l'accord écrit préalable de la Partie Divulgatrice&nbsp;;</li>
+ <li>Utiliser les Informations Confidentielles exclusivement aux fins d'évaluer, de négocier ou de mettre en œuvre le Projet, à l'exclusion de toute autre fin&nbsp;;</li>
+ <li>Limiter l'accès aux Informations Confidentielles à ses Représentants ayant strictement besoin d'en connaître et tenus par des obligations de confidentialité au moins équivalentes&nbsp;;</li>
+ <li>Notifier sans délai et par écrit la Partie Divulgatrice de toute divulgation ou utilisation non autorisée, avérée ou suspectée&nbsp;;</li>
+ <li>Restituer ou détruire de manière certifiée l'ensemble des Informations Confidentielles, ainsi que leurs copies, à la demande écrite de la Partie Divulgatrice ou au terme du présent Accord.</li>
+ </ul>
+
+ <h3 class="article-title">Article 4, Exceptions</h3>
+ <p>Les obligations de l'Article 3 ne s'appliquent pas aux informations dont la Partie Réceptrice peut démontrer qu'elles&nbsp;:</p>
+ <div class="clause-letter"><span class="letter">a)</span> Sont ou deviennent publiques sans fait ou omission de sa part&nbsp;;</div>
+ <div class="clause-letter"><span class="letter">b)</span> Étaient déjà connues d'elle au moment de la divulgation, sur preuve écrite antérieure à la réception&nbsp;;</div>
+ <div class="clause-letter"><span class="letter">c)</span> Ont été développées de manière indépendante, sans usage ni référence aux Informations Confidentielles&nbsp;;</div>
+ <div class="clause-letter"><span class="letter">d)</span> Doivent être divulguées en vertu d'une loi, d'un règlement ou d'une décision de justice, sous réserve que la Partie Réceptrice&nbsp;: (i) en informe préalablement la Partie Divulgatrice, (ii) coopère à toute mesure de protection, et (iii) ne divulgue que le strict minimum requis.</div>
+
+ <h3 class="article-title">Article 5, Durée</h3>
+ <p>Le présent Accord entre en vigueur à la date de signature par la Partie Réceptrice et demeure en vigueur pour une durée de <strong>trois (3) ans</strong>. Les obligations de confidentialité et de non-circonvention survivent à l'expiration ou à la résiliation de l'Accord pour une durée de <strong>trois (3) ans</strong> à compter de la dernière divulgation des Informations Confidentielles concernées, nonobstant toute interruption antérieure des discussions commerciales entre les Parties.</p>
+
+ <h3 class="article-title">Article 6, Non-circonvention</h3>
+ <p>Chaque Partie s'engage expressément, pendant la durée de l'Accord et pendant une durée de <strong>deux (2) ans</strong> après son expiration ou sa résiliation, à ne pas&nbsp;:</p>
+ <ul>
+ <li>Contourner, court-circuiter ou remplacer l'autre Partie dans toute opportunité, opération, investissement, financement ou relation commerciale née, directement ou indirectement, d'une information divulguée au titre du présent Accord&nbsp;;</li>
+ <li>Initier ou entretenir, directement ou par l'intermédiaire d'un affilié ou d'un agent, un contact avec les Contacts d'Affaires présentés par l'autre Partie en lien avec le Projet, sans l'accord écrit préalable de la Partie les ayant présentés&nbsp;;</li>
+ <li>Utiliser les informations reçues pour négocier ou conclure une opération privant la Partie ayant procédé à la présentation du bénéfice économique escompté.</li>
+ </ul>
+ <p><strong>Réserve expresse.</strong> Ne sont pas visées par le présent Article les relations, contacts ou activités que la Partie Réceptrice peut démontrer avoir entretenus <strong>antérieurement et indépendamment du Projet</strong>.</p>
+
+ <h3 class="article-title">Article 7, Recours</h3>
+ <p>Les Parties reconnaissent que toute violation des obligations de confidentialité, de non-circonvention ou de non-sollicitation causerait à la Partie lésée un préjudice difficilement réparable. En conséquence&nbsp;:</p>
+ <ul>
+ <li>La Partie lésée pourra solliciter de toute juridiction compétente des mesures conservatoires et une injonction, sans avoir à constituer de garantie&nbsp;;</li>
+ <li>La Partie défaillante sera tenue de réparer le <strong>préjudice réel dûment prouvé</strong> subi par la Partie lésée&nbsp;;</li>
+ <li>La Partie qui succombe supportera les frais de justice et honoraires d'avocat raisonnables de la Partie gagnante.</li>
+ </ul>
+
+ <h3 class="article-title">Article 8, Propriété intellectuelle</h3>
+ <p>Rien dans le présent Accord ne saurait être interprété comme conférant à une Partie une licence ou un droit sur les brevets, marques, droits d'auteur, secrets d'affaires, savoir-faire ou autres droits de propriété intellectuelle de l'autre Partie. Les Informations Confidentielles demeurent la propriété exclusive de la Partie Divulgatrice. Aucun usage du nom, des marques ou logos de l'autre Partie ne pourra être fait sans autorisation écrite préalable.</p>
+
+ <h3 class="article-title">Article 9, Déclarations et garanties</h3>
+ <p>Chaque Partie déclare et garantit à l'autre que&nbsp;:</p>
+ <div class="clause-letter"><span class="letter">a)</span> Elle dispose de la pleine capacité et du pouvoir de conclure et d'exécuter le présent Accord&nbsp;;</div>
+ <div class="clause-letter"><span class="letter">b)</span> Le présent Accord constitue une obligation légale, valable et contraignante à son égard&nbsp;;</div>
+ <div class="clause-letter"><span class="letter">c)</span> Sa conclusion et son exécution ne violent aucune loi ni aucune obligation envers un tiers.</div>
+
+ <h3 class="article-title">Article 10, Non-sollicitation</h3>
+ <p>Pendant la durée de l'Accord et pendant <strong>douze (12) mois</strong> après son expiration ou sa résiliation, aucune Partie ne pourra, directement ou indirectement, solliciter, recruter ou engager un salarié, prestataire ou consultant de l'autre Partie ayant participé aux activités liées au Projet, ni l'inciter à cesser sa relation avec l'autre Partie.</p>
+
+ <h3 class="article-title">Article 11, Dispositions générales</h3>
+ <p><strong>Intégralité.</strong> Le présent Accord constitue l'intégralité de l'accord entre les Parties sur son objet et remplace tout accord ou discussion antérieurs.</p>
+ <p><strong>Modifications.</strong> Toute modification doit faire l'objet d'un écrit signé par les représentants dûment habilités des deux Parties.</p>
+ <p><strong>Divisibilité.</strong> Si une stipulation est jugée invalide, les autres demeurent en vigueur, la stipulation concernée étant réputée modifiée dans la mesure minimale nécessaire à sa validité.</p>
+ <p><strong>Absence de renonciation.</strong> Le fait pour une Partie de ne pas se prévaloir d'une stipulation ne vaut pas renonciation.</p>
+ <p><strong>Signature électronique.</strong> Le présent Accord peut être signé par voie électronique. La signature électronique a la même valeur juridique qu'une signature manuscrite, conformément au Règlement (UE) n°&nbsp;910/2014 (eIDAS).</p>
+
+ <h3 class="article-title">Article 12, Droit applicable et juridiction</h3>
+ <p>Le présent Accord est régi par le <strong>droit français</strong>. Les Parties conviennent de la compétence exclusive du <strong>Tribunal de Commerce de Paris</strong> pour tout litige né du présent Accord ou en lien avec celui-ci, y compris toute question relative à son existence, sa validité, son interprétation, son exécution ou sa résiliation. Nonobstant ce qui précède, chaque Partie peut solliciter des mesures d'urgence auprès de toute juridiction compétente.</p>
+
+ <h3 class="article-title">Article 13, Notifications</h3>
+ <p>Toute notification au titre du présent Accord sera faite par écrit et réputée valablement remise&nbsp;: (i) en main propre&nbsp;; (ii) par courrier suivi&nbsp;; ou (iii) par email avec accusé de réception. Les notifications à la Partie Réceptrice seront adressées à l'adresse email fournie lors du processus de signature électronique sur la page d'accès sécurisée.</p>
+
+ </div>
+ </div>
+
+ <!-- ══ SIGN (redirige vers la vraie page de signature) ══ -->
+ <div class="form-section" style="text-align:center;">
+ <div class="section-label">Signer l'accord</div>
+ <p style="margin:16px auto 24px;max-width:520px;color:#5C6F7E;line-height:1.7;">Pour signer cet accord par voie électronique et accéder au dossier confidentiel, rendez-vous sur la page de signature sécurisée.</p>
+ <a href="/capital-partners/access/" style="display:inline-block;padding:15px 34px;background:#1A2C3D;color:#FAF8F4;text-decoration:none;border-radius:4px;letter-spacing:.16em;text-transform:uppercase;font-size:12px;font-weight:600;">Signer &amp; demander l'accès →</a>
+ </div>
+
+ <!-- ══ FOOTER ══ -->
+ <footer class="footer">
+ <p>PASOLA SAS &nbsp;·&nbsp; Pasola Signature Estate, Sumba Island, Indonesia<br>
+ Ce document constitue un accord juridiquement contraignant dès sa signature électronique par les Parties.<br>
+ Pour toute question relative au présent Accord, veuillez contacter <a href="/cdn-cgi/l/email-protection#30535f5e44515344704051435f5c511e5642"><span class="__cf_email__" data-cfemail="83e0ecedf7e2e0f7c3f3e2f0ecefe2ade5f1">[email&#160;protected]</span></a></p>
+ </footer>
+
+</div><!-- /.page -->
+
+<script>
+ (function(){try{fetch("https://pasola-api.jonathan-beraud.workers.dev/api/pageview",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({page:document.title||location.pathname,url:location.href,referrer:document.referrer||""})}).catch(function(){});}catch(e){}})();
+ </script>
+</body>
+ </html>
