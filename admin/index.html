@@ -206,7 +206,7 @@ button{font-family:inherit}
       <nav class="topnav" id="nav"></nav>
       <div style="display:flex;align-items:center;gap:14px">
         <div class="langsw"><button data-lang="fr" class="on">FR</button><span>·</span><button data-lang="en">EN</button></div>
-        <div class="usr"><div class="who"><b id="me-name">—</b><br><small id="me-role">—</small></div><button class="out" id="logoutBtn">Logout</button></div>
+        <div class="usr"><button class="out" id="refreshBtn" title="Actualiser les données">↻ Actualiser</button><div class="who"><b id="me-name">—</b><br><small id="me-role">—</small></div><button class="out" id="logoutBtn">Logout</button></div>
       </div>
     </div>
   </div>
@@ -292,6 +292,8 @@ document.getElementById('logoutBtn').addEventListener('click',function(){
   sessionStorage.removeItem('pasola_crm_auth');sessionStorage.removeItem('pasola_crm_me');AUTH='';ME=null;
   document.getElementById('app').classList.add('hidden');document.getElementById('loginView').classList.remove('hidden');
 });
+document.getElementById('refreshBtn').addEventListener('click',function(){
+  var rb=this;rb.textContent='…';rb.disabled=true;loadAll();});
 document.querySelectorAll('.langsw button').forEach(function(b){b.addEventListener('click',function(){
   LANG=b.dataset.lang;localStorage.setItem('pasola_crm_lang',LANG);
   document.querySelectorAll('.langsw button').forEach(function(x){x.classList.toggle('on',x.dataset.lang===LANG);});
@@ -365,7 +367,9 @@ function render(){
   else if(VIEW==='sources')el.innerHTML=viewSources();
   else if(VIEW==='team')el.innerHTML=viewTeam();
   wire();
-  document.getElementById('foot').innerHTML='PASOLA CRM · '+esc(ME?ME.email:'')+' ('+esc(ME?ME.role:'')+') · '+(D.pv.length)+' pageviews · '+(new Date()).toLocaleDateString(LANG=='en'?'en-GB':'fr-FR');
+  var _now=new Date(), _loc=LANG=='en'?'en-GB':'fr-FR';
+  var _rb=document.getElementById('refreshBtn'); if(_rb){_rb.textContent='↻ Actualiser';_rb.disabled=false;}
+  document.getElementById('foot').innerHTML='PASOLA CRM · '+esc(ME?ME.email:'')+' ('+esc(ME?ME.role:'')+') · '+(D.pv.length)+' pageviews · '+(LANG=='en'?'updated ':'maj ')+_now.toLocaleDateString(_loc)+' '+_now.toLocaleTimeString(_loc,{hour:'2-digit',minute:'2-digit'});
 }
 function kcard(n,cls,l,tr){return '<div class="kpi"><div class="n '+cls+'">'+n+'</div><div class="l">'+l+'</div><div class="tr">'+tr+'</div></div>';}
 function kpiRow(m){var wk=weekVisitors();var EN=LANG=='en';return '<div class="kpis">'+
