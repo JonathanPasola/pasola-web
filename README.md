@@ -1,158 +1,119 @@
-# PASOLA Signature Estate · pasola.fr
+# PASOLA — Site web (`pasola-web`)
 
-Production repo for the PASOLA Signature Estate website.
+Site institutionnel de **PASOLA Signature Estate** (Sumba, Indonésie) et de **Maison Pasola** (Cognac), avec un espace **Capital Partners** (accès investisseurs sur signature d'un NDA) et un **back-office / CRM** interne.
 
-## Stack
+Production : **https://pasola.fr**
 
-- **Static HTML / CSS / vanilla JS** — no build step required for R1
-- **Cloudflare Pages** — hosting + DDoS + edge SSL + global CDN
-- **Cloudinary** — video + image CDN with on-the-fly transforms
-- **EmailJS** — form submissions to inbox (no backend, R1)
-- **Cloudflare Workers + R2 + D1** — data room natif (R2)
-- **Schema.org JSON-LD** — institutional SEO
+> Ce README décrit l'état **réel** du dépôt (mis à jour août 2026). Aucune étape de build : les fichiers sont servis tels quels.
 
-Mobile-first. Desktop overrides via `min-width: 769px`. Chrome-only.
+---
 
-## URL convention · validated
+## 1. Stack technique
 
-All URLs in English regardless of language. Language signaled by `/en/` prefix only.
+| Élément | Techno |
+|---|---|
+| Front | HTML / CSS / JavaScript **statiques** (pas de framework, pas de build) |
+| Hébergement | **Cloudflare Pages** — déploiement auto à chaque `git push` sur `main` |
+| Routage langue | **Cloudflare Pages Function** (`functions/_middleware.js`) |
+| API / back-end | **Cloudflare Worker** `pasola-api` — **dépôt séparé** `pasola-backend` |
+| Base de données | Cloudflare **D1** (`pasola-users`) |
+| Stockage documents | Cloudflare **R2** (`pasola-dossier-prive`) |
+| Emails | **Brevo** (transactionnel, `noreply@pasola.fr`) |
+| Vidéo hero | **Cloudinary** (CDN) |
 
-```
-/                               Homepage FR (canonical)
-/en/                            Homepage EN
+---
 
-/the-place/                     FR · The Place
-/en/the-place/                  EN
-
-/residences/                    FR & EN
-/architecture/                  FR & EN
-/makers/                        FR & EN
-/library/                       FR & EN
-/news/                          FR & EN
-/contact/                       FR & EN
-/register-interest/             FR & EN
-
-/capital-partners/              FR & EN — header + footer
-/capital-partners/data-room/    NDA-gated R2 (CF Workers native)
-
-/legal-notices/, /privacy/, /cookies/   FR & EN
-```
-
-## Structure
+## 2. Structure du dépôt
 
 ```
-/
-├── index.html                  Homepage FR (canonical)
-├── en/index.html               Homepage EN (R1)
-├── the-place/                  R1 coming-soon · R2 full
-├── residences/                 R1 coming-soon · R2 full
-├── architecture/               R1 coming-soon · R2 full
-├── makers/                     R1 coming-soon · R3 full
-├── library/                    R1 coming-soon · R2 full
-├── news/                       R1 coming-soon · R3 full
-├── contact/                    R1 live
-├── register-interest/          R1 live
-├── capital-partners/
-│   ├── index.html              R1 landing public
-│   ├── thesis/                 R2
-│   └── data-room/              R2 · Workers + R2 storage + D1 logs
-├── legal-notices/, privacy/, cookies/
-├── styles/main.css             Mobile-first
-├── scripts/main.js             Vanilla JS
-├── assets/                     Favicons, og-image
-├── workers/                    CF Workers source (R2)
-├── sitemap.xml + robots.txt
-└── .gitignore + README.md
+/                     Home FR (index.html) + pages FR
+/en/                  Miroir anglais (mêmes pages, contenu traduit)
+/assets/              Images + polices (assets/fonts/pasola-fonts.css)
+/capital-partners/    Espace investisseurs (FR)
+   access/            Page de signature du NDA (formulaire)
+   dossier/           Data room (accès par token JWT)
+/maison-cognac/       Projet Cognac (FR) — Cercle des fondateurs
+/admin/               Back-office / CRM interne (connexion mot de passe)
+/functions/
+   _middleware.js     Redirection de langue par géo-IP
+main.js               JS global (formulaires, tracking, sélecteur de langue)
+main.css              CSS global
+PASOLA_NDA_FINAL.html Texte intégral du NDA — EN, lecture seule
+PASOLA_NDA_FR.html    Texte intégral du NDA — FR allégé, lecture seule
+404.html              Page « introuvable » brandée
+og-image.jpg          Image de partage (Open Graph, 1200×630)
 ```
 
-## Coming-soon strategy (R1)
+**Bilingue** : chaque page FR a son miroir sous `/en/`, reliés par les balises `hreflang`.
 
-Pages declared but not yet developed (Vision, The Place, Residences, Architecture, Library, News, Makers) ship in R1 as **real editorial coming-soon pages**, not redirects. Each:
-- Same chrome (header, nav, footer) as homepage
-- Brief editorial intro of what's coming (1-2 paragraphs in PASOLA voice)
-- Register-interest CTA inline
-- Footer with legal + language switch
+---
 
-Decision rationale: maintains brand register on every URL hit, keeps Google indexing meaningful, gives prospects a complete experience even on incomplete pages.
+## 3. Mécanismes clés
 
-## Capital Partners surface
+### Routage de langue — `functions/_middleware.js`
+- Ne s'applique qu'à la racine `/`.
+- Cookie `pasola-lang` présent → on respecte le choix manuel (posé par `main.js` au clic sur le sélecteur de langue).
+- Sinon, selon `CF-IPCountry` : **FR → home française**, tout autre pays → redirection `302` vers `/en/`.
 
-Per validated decision: CP visible **in both header (discrete, last item)** and **footer**. Header link in same Outfit 11px tracking 0.22em as nav, with subtle "→" indicator marking institutional track.
-
-## Data room · Cloudflare Workers native (R2)
-
-**Architecture:**
-- `/capital-partners/access-request/` — public form for NDA + access request
-- Worker receives form, emails Jonathan for manual validation
-- On approval, Worker generates JWT magic-link (7-day validity)
-- Email sent to prospect with magic-link
-- Worker validates JWT, sets HttpOnly cookie, serves data room
-- Documents in **R2** object storage (IM, financials, contracts, hi-res photos)
-- Access logs in **D1** SQL (who/what/when/IP)
-
-**Cost:** ~5 EUR/month for the volume expected. No subscription lock-in.
-
-**Trade-off accepted:** No native page-by-page tracking. If becomes critical mid-fundraising, add Cloudflare Web Analytics + custom event tracking (~2 days).
-
-## Local development
-
-```sh
-# R1 static
-python3 -m http.server 8000
-
-# R2 with Workers
-npm install -g wrangler
-wrangler dev
-```
-
-## Deploy
-
-```sh
-git add .
-git commit -m "Update copy"
-git push origin main
-```
-
-Cloudflare project settings:
-- Framework: None
-- Build command: empty (R1)
-- Build output: `/`
-
-## Assets pipeline
-
-**Video.** Cloudinary `cloud_name=ds85vc2ul`. Hero URL:
-```
-https://res.cloudinary.com/ds85vc2ul/video/upload/q_auto,f_auto,w_1920/PASOLA_Sumba_Teaser_2MB_1_zdla86.mp4
-```
-
-**Audio.** `bg-music.mp3` currently served from `pasola.fr/bg-music.mp3`. To internalize: copy to `/assets/bg-music.mp3`.
-
-**Photos.** Spirit/Vision served from `pasola.fr/*.jpg`. Same internalization recommendation.
-
-**Favicons.** Interim v2 (biseau 22°). Substitute on illustrator delivery per `pasola-interim-emblem-system-v2.html` checklist.
-
-## Brand discipline (per brand-book-v1.1)
-
-- No "villa" — use "résidence"
-- No price disclosure publicly
-- No adjective stacks
-- No "Marapu" (cultural interdiction)
-- Tonal family: Aman / Mareterra / Singita
-- Anti-pattern: Rinjani Bay
-
-## Roadmap
-
-| Wave | Timing | Scope |
+### Formulaires → Worker `pasola-api`
+Gérés dans `main.js`, tous en `POST` :
+| Formulaire | Page | Endpoint |
 |---|---|---|
-| **R1** | 2-3 weeks | Homepage FR + EN, capital-partners landing, register-interest, contact, coming-soon × 7, legal, admin login skeleton |
-| **R2** | 4-6 weeks post-R1 | Full pages Vision/The Place/Residences (+ 3 zones)/Architecture/Library, **data room CF native**, admin dashboard |
-| **R3** | 2-3 months post-R2 | Makers, Facts & Figures, booklets soft-gate, news archive, NDA gallery, illustrator emblem swap |
+| Contact | Home | `/api/contact` |
+| Newsletter | Home, Maison Cognac | `/api/register` |
+| Affiliation (Cercle des fondateurs) | Maison Cognac | `/api/affiliate/track` |
+| Signature NDA | `/capital-partners/access/` | `/api/cp-request` |
 
-## Versioning
+### Parcours Capital Partners (NDA → data room)
+1. Signature du NDA sur `/capital-partners/access/` → `POST /api/cp-request` (signature « click-wrap » eIDAS : nom + horodatage + IP).
+2. Email à l'admin avec boutons **Approuver / Refuser**.
+3. À l'approbation → **lien magique** (JWT, 7 jours) envoyé au prospect.
+4. `/capital-partners/dossier/` valide le token et sert les documents depuis R2.
 
-- `main` → production (pasola.fr)
-- `develop` → preview (develop.pasola-web.pages.dev)
+### Tracking
+`main.js` envoie un pageview **anonyme** à `/api/pageview` (ni IP ni email stockés). L'activité de l'admin est exclue via `localStorage` (`pasola_is_owner`).
 
-## License
+---
 
-All rights reserved · PASOLA Signature Estate · Jonathan Beraud + Jennifer Beraud · 2026.
+## 4. Back-office / CRM — `/admin/`
+- Connexion **email + mot de passe** (multi-utilisateurs : rôles Owner / Éditeur / Lecture seule).
+- Vue orientée contacts (type CRM) : entonnoir Capital Partners, activité data room, affiliés, gestion d'équipe.
+- Alimenté par les endpoints admin du Worker (`/api/admin-*`, `/api/cp-requests-list`…), protégés côté serveur.
+
+---
+
+## 5. Déploiement
+
+**Front (ce dépôt)** — automatique :
+```bash
+git push origin main        # Cloudflare Pages déploie
+```
+
+**Back-end** (dépôt `pasola-backend`) :
+```bash
+cd pasola-backend && npx wrangler deploy
+```
+
+**Dev local** :
+```bash
+python3 -m http.server 8000   # front statique
+```
+
+Réglages Cloudflare Pages : Framework = None · Build command = vide · Output = `/`.
+
+---
+
+## 6. Discipline de marque (brand-book)
+- Pas de « villa » → utiliser « résidence ».
+- Pas de prix public.
+- Pas de « Marapu » (interdiction culturelle).
+- Registre tonal : Aman / Mareterra / Singita.
+
+---
+
+## 7. Notes reprise / IT
+- **Aucune dépendance** à installer côté front (statique).
+- Les **secrets** (JWT, clés Brevo, mot de passe admin) sont côté **Worker** (`pasola-backend`), jamais dans ce dépôt.
+- ⚠️ Ce dépôt est **public** : ne jamais y committer de secret.
+
+_All rights reserved · PASOLA · 2026._
