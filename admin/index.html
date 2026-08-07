@@ -76,6 +76,7 @@ button{font-family:inherit}
 .kpi .n.g{color:var(--green)} .kpi .n.d{color:var(--dusk)} .kpi .n.t{color:var(--terra)}
 .kpi .l{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:9px}
 .kpi .tr{font-size:11px;color:var(--muted);margin-top:5px}
+.kpi .tr b{color:var(--green);font-weight:700}
 
 /* PANEL */
 .panel{background:var(--card);border:.5px solid var(--line);border-radius:4px;box-shadow:var(--shadow)}
@@ -368,7 +369,7 @@ function render(){
 }
 function kcard(n,cls,l,tr){return '<div class="kpi"><div class="n '+cls+'">'+n+'</div><div class="l">'+l+'</div><div class="tr">'+tr+'</div></div>';}
 function kpiRow(m){var wk=weekVisitors();var EN=LANG=='en';return '<div class="kpis">'+
-  kcard(m.uniq,'',t('k_vis'),'30 j · +'+wk+' '+(EN?'this week':'cette semaine'))+
+  kcard(m.uniq,'',t('k_vis'),'30 j · <b>+'+wk+'</b> '+(EN?'this week':'cette semaine'))+
   kcard(m.eng,'d',t('k_eng'),EN?'opened the confidential zone':'a ouvert la zone confidentielle')+
   kcard(m.wait,'t',t('k_wait'),m.wait?(EN?'awaiting approval':'en attente d\'approbation'):(EN?'none pending':'aucune en attente'))+
   kcard(m.signed,'g',t('k_sign'),EN?'excl. owner':'hors owner')+
@@ -434,19 +435,31 @@ function railSources(m){
   // pages by project
   function pagesByProj(proj){var by={};D.pv.forEach(function(p){var pg=p.page||p.url||'';if(projectOf(pg)!==proj)return;by[pg]=(by[pg]||0)+1;});var arr=Object.keys(by).map(function(k){return[k,by[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,5);var mx=arr.length?arr[0][1]:1;return arr;}
   function countriesByProj(proj){var by={};D.pv.forEach(function(p){var pg=p.page||p.url||'';if(projectOf(pg)!==proj)return;var c=p.country||'?';by[c]=(by[c]||0)+1;});return Object.keys(by).map(function(k){return[k,by[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,5);}
-  function block(title,rows,ctry){var mx=rows.length?rows[0][1]:1;return '<div class="mini-h">'+title+'</div>'+(rows.length?rows.map(function(r){var lab=ctry?(flag(r[0])+'&nbsp; '+esc(cname(r[0]))):esc(r[0]);return '<div class="mini-row"><span class="ml">'+lab+'</span><span class="track"><i class="'+(ctry?'d':'')+'" style="width:'+Math.round(r[1]/mx*100)+'%"></i></span><span class="mv tnum">'+r[1]+'</span></div>';}).join(''):'<div class="mini-row"><span class="small">—</span></div>');}
+  // barre du haut (max) en INDIGO = highlight ; le reste en OR (comme l'artifact)
+  function block(title,rows,ctry){var mx=rows.length?rows[0][1]:1;return '<div class="mini-h">'+title+'</div>'+(rows.length?rows.map(function(r,idx){var lab=ctry?(flag(r[0])+'&nbsp; '+esc(cname(r[0]))):esc(r[0]);return '<div class="mini-row"><span class="ml">'+lab+'</span><span class="track"><i class="'+(idx===0?'d':'')+'" style="width:'+Math.round(r[1]/mx*100)+'%"></i></span><span class="mv tnum">'+r[1]+'</span></div>';}).join(''):'<div class="mini-row"><span class="small">—</span></div>');}
   var EN=LANG=='en',todo=[];
   D.cp.filter(function(c){return c.status==='pending';}).forEach(function(c){todo.push('<span class="badge gold" style="margin-right:6px">'+(EN?'Approve':'Approuver')+'</span>'+esc((c.first_name||'')+' '+(c.last_name||'')));});
   if(m.eng>0)todo.push('<span class="pill heat-warm" style="margin-right:6px"><span class="dot"></span></span>'+m.eng+' '+(EN?'visitor(s) saw the Capital Partners zone':'visiteur(s) ont vu la zone Capital Partners'));
   if(!todo.length)todo.push('<span class="small">'+(EN?'Nothing to action right now.':'Rien à traiter pour le moment.')+'</span>');
+  // Data room mini
+  var dr=D.act.length?D.act.slice(0,4).map(function(a){var n=((a.first_name||'')+' '+(a.last_name||'')).trim()||a.email;return '<div class="mini-row"><span class="ml">'+esc(n)+'</span><span class="small">'+esc(a.file_label||a.action||'')+'</span></div>';}).join(''):'<div class="mini-row"><span class="small">'+t('dr_none')+'</span></div>';
+  // Affiliés mini
+  var leads=D.aff.leads||[];var paid=leads.filter(function(l){return l.paid;}).length;var due=(leads.length-paid)*150;
+  var af='<div class="mini-row"><span class="ml">'+t('af_leads')+'</span><span class="mv tnum">'+leads.length+'</span></div><div class="mini-row"><span class="ml">'+t('af_paid')+'</span><span class="mv tnum">'+paid+'</span></div><div class="mini-row"><span class="ml">'+t('af_due')+'</span><span class="mv tnum">'+due+' €</span></div>';
+  // Équipe mini (owner only)
+  var team='';
+  if(ME&&ME.role==='owner'){var us=D.team||[];team='<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+t('team')+' &amp; '+(EN?'access':'accès')+'</span><span class="sub">'+us.length+'</span></div><div class="mini">'+us.slice(0,4).map(function(u){return '<div class="mini-row"><div class="av'+(u.role==='owner'?' k':'')+'" style="width:26px;height:26px;font-size:10px">'+esc((u.name||u.email||'?').slice(0,2).toUpperCase())+'</div><span class="ml">'+esc(u.name||u.email)+'</span><span class="role-pill'+(u.role==='owner'?' owner':'')+'">'+t('tm_'+u.role)+'</span></div>';}).join('')+'<div style="padding:9px 18px"><button class="chip-btn gold" data-goteam="1" style="width:100%">+ '+t('tm_new')+'</button></div></div></div>';}
   return '<div>'+
    '<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+t('pages')+'</span></div><div class="mini">'+
      block('1 · '+t('sumba'),pagesByProj('sumba'),false)+block('2 · '+t('cognac'),pagesByProj('cognac'),false)+'</div></div>'+
    '<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+t('countries')+'</span></div><div class="mini">'+
      block('1 · '+t('sumba'),countriesByProj('sumba'),true)+block('2 · '+t('cognac'),countriesByProj('cognac'),true)+
      '<div class="insight"><b>Insight :</b> '+m.bots+' '+t('bots_note')+'</div></div></div>'+
-   '<div class="panel"><div class="panel-h"><span class="t">'+(EN?'To action':'À traiter')+'</span></div><div class="mini">'+
-     todo.map(function(i){return '<div class="mini-row"><span class="ml">'+i+'</span></div>';}).join('')+'</div></div></div>';
+   '<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+(EN?'To action':'À traiter')+'</span></div><div class="mini">'+
+     todo.map(function(i){return '<div class="mini-row"><span class="ml">'+i+'</span></div>';}).join('')+'</div></div>'+
+   '<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+t('dr_title')+'</span><span class="sub">'+D.act.length+'</span></div><div class="mini">'+dr+'</div></div>'+
+   '<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+t('af_title')+'</span></div><div class="mini">'+af+'</div></div>'+
+   team+'</div>';
 }
 
 function viewSources(){
@@ -502,6 +515,7 @@ function wire(){
   document.querySelectorAll('[data-row]').forEach(function(tr){tr.onclick=function(){var i=+tr.dataset.row;openRow=(openRow===i?null:i);render();};});
   document.querySelectorAll('[data-seg]').forEach(function(b){b.onclick=function(){segment=b.dataset.seg;openRow=null;render();};});
   var exp=document.getElementById('expCsv');if(exp)exp.onclick=exportCsv;
+  document.querySelectorAll('[data-goteam]').forEach(function(b){b.onclick=function(){VIEW='team';openRow=null;buildNav();render();};});
   var q=document.getElementById('q');if(q)q.oninput=function(){var v=q.value.toLowerCase();document.querySelectorAll('#panes tbody tr[data-row]').forEach(function(tr){tr.style.display=tr.textContent.toLowerCase().indexOf(v)>=0?'':'none';});};
   document.querySelectorAll('[data-paid]').forEach(function(b){b.onclick=function(){fetch(API+'/api/affiliate/mark-paid',{method:'POST',headers:{'Authorization':AUTH,'Content-Type':'application/json'},body:JSON.stringify({id:+b.dataset.paid,paid:+b.dataset.to})}).then(function(){loadAll();});};});
   document.querySelectorAll('[data-uid]').forEach(function(b){b.onclick=function(){fetch(API+'/api/admin-user-toggle',{method:'POST',headers:{'Authorization':AUTH,'Content-Type':'application/json'},body:JSON.stringify({id:+b.dataset.uid,active:+b.dataset.to})}).then(function(){loadAll();});};});
