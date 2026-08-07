@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#FAF8F4" />
+<title>Page introuvable — PASOLA</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="stylesheet" href="/assets/fonts/pasola-fonts.css" />
+<style>
+:root{ --indigo:#1A2C3D; --ivory:#FAF8F4; --gold:#C7A574; --dusk:#3D5675; --muted:#7C8A99;
+  --f-display:'Cinzel',Georgia,serif; --f-edit:'Cormorant Garamond',Georgia,serif; --f-ui:'Outfit',system-ui,sans-serif; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ivory);color:var(--indigo);font-family:var(--f-ui);min-height:100vh;
+  display:flex;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:520px;text-align:center}
+.emblem{width:56px;height:31px;color:var(--indigo);margin:0 auto 26px;display:block}
+.code{font-family:var(--f-display);font-size:15px;letter-spacing:.36em;color:var(--gold);text-transform:uppercase;font-weight:600}
+h1{font-family:var(--f-display);font-size:26px;letter-spacing:.05em;margin:16px 0 6px;font-weight:500;text-wrap:balance}
+h1 .en{display:block;font-family:var(--f-edit);font-style:italic;font-size:19px;color:var(--dusk);letter-spacing:0;margin-top:4px}
+p{font-family:var(--f-edit);font-size:17px;line-height:1.6;color:var(--muted);margin:14px auto 30px;max-width:420px}
+.rule{width:38px;height:1px;background:var(--gold);margin:22px auto}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 26px;font-family:var(--f-ui);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;font-weight:600;text-decoration:none;border-radius:4px;transition:background .2s,color .2s}
+.btn-p{background:var(--indigo);color:var(--ivory)} .btn-p:hover{background:var(--gold);color:var(--indigo)}
+.btn-s{border:.5px solid rgba(26,44,61,.25);color:var(--indigo)} .btn-s:hover{border-color:var(--gold);color:var(--dusk)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<svg class="emblem" viewBox="0 0 200 110" aria-hidden="true"><line x1="12" y1="92" x2="188" y2="92" stroke="currentColor" stroke-width="3" fill="none"/><path fill="currentColor" d="M86 92 L90 48 L120 28 L128 92 Z"/></svg>
+<div class="code">Erreur 404</div>
+<h1>Cette page est introuvable.<span class="en">This page could not be found.</span></h1>
+<div class="rule"></div>
+<p>La page que vous cherchez a peut-être été déplacée ou n'existe plus. / The page you are looking for may have moved or no longer exists.</p>
+<div class="actions">
+<a class="btn btn-p" href="/">Accueil</a>
+<a class="btn btn-s" href="/en/">English home</a>
+</div>
+</div>
+</body>
+</html>
