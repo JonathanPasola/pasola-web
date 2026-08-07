@@ -265,6 +265,10 @@ function fmtDate(s){var d=parseUTC(s);if(!d)return s||'—';return d.toLocaleDat
 function fmtDay(s){var d=parseUTC(s);if(!d)return s||'—';return d.toLocaleDateString(LANG=='en'?'en-GB':'fr-FR');}
 function projectOf(p){p=(p||'').toLowerCase();return p.indexOf('maison-cognac')>=0?'cognac':'sumba';}
 function isCP(p){p=(p||'').toLowerCase();return p.indexOf('capital')>=0||p.indexOf('dossier')>=0||p.indexOf('access')>=0;}
+var CC={US:{fr:'États-Unis',en:'United States'},FR:{fr:'France',en:'France'},IE:{fr:'Irlande',en:'Ireland'},DE:{fr:'Allemagne',en:'Germany'},SE:{fr:'Suède',en:'Sweden'},ID:{fr:'Indonésie',en:'Indonesia'},GB:{fr:'Royaume-Uni',en:'United Kingdom'},SG:{fr:'Singapour',en:'Singapore'},CH:{fr:'Suisse',en:'Switzerland'},BE:{fr:'Belgique',en:'Belgium'},NL:{fr:'Pays-Bas',en:'Netherlands'},ES:{fr:'Espagne',en:'Spain'},IT:{fr:'Italie',en:'Italy'},CA:{fr:'Canada',en:'Canada'},AU:{fr:'Australie',en:'Australia'},AE:{fr:'Émirats',en:'UAE'},TH:{fr:'Thaïlande',en:'Thailand'},HK:{fr:'Hong Kong',en:'Hong Kong'},JP:{fr:'Japon',en:'Japan'},PT:{fr:'Portugal',en:'Portugal'},IN:{fr:'Inde',en:'India'}};
+function flag(cc){if(!cc||cc.length!==2)return'🏳️';try{return String.fromCodePoint.apply(null,[].map.call(cc.toUpperCase(),function(c){return 127397+c.charCodeAt(0);}));}catch(e){return'🏳️';}}
+function cname(cc){if(!cc)return'—';var c=CC[cc.toUpperCase()];return c?(c[LANG]||c.fr):cc;}
+function weekVisitors(){var wk=Date.now()-7*864e5;var s={};D.pv.forEach(function(p){var d=parseUTC(p.created_at);if(d&&d.getTime()>=wk&&p.visitor_id)s[p.visitor_id]=1;});return Object.keys(s).length;}
 function sourceOf(pv){var m=(pv.url||'').match(/[?&]ref=([^&#]+)/i);if(m)return decodeURIComponent(m[1]);var r=(pv.referrer||'').trim();if(r){try{var h=new URL(r).hostname.replace(/^www\./,'');if(/instagram/.test(h))return'Instagram';if(/facebook|fb\./.test(h))return'Facebook';if(/linkedin|lnkd/.test(h))return'LinkedIn';if(/google|bing|duckduck/.test(h))return LANG=='en'?'Search':'Recherche';if(/pasola/.test(h))return LANG=='en'?'Internal':'Navigation interne';return h;}catch(e){}}var b=pv.browser||'';if(/Instagram/i.test(b))return'Instagram';if(/Facebook/i.test(b))return'Facebook';return LANG=='en'?'Direct':'Accès direct';}
 
 /* ---------- auth ---------- */
@@ -362,12 +366,13 @@ function render(){
   wire();
   document.getElementById('foot').innerHTML='PASOLA CRM · '+esc(ME?ME.email:'')+' ('+esc(ME?ME.role:'')+') · '+(D.pv.length)+' pageviews · '+(new Date()).toLocaleDateString(LANG=='en'?'en-GB':'fr-FR');
 }
-function kpiRow(m){return '<div class="kpis">'+
-  '<div class="kpi"><div class="n">'+m.uniq+'</div><div class="l">'+t('k_vis')+'</div></div>'+
-  '<div class="kpi"><div class="n d">'+m.eng+'</div><div class="l">'+t('k_eng')+'</div></div>'+
-  '<div class="kpi"><div class="n t">'+m.wait+'</div><div class="l">'+t('k_wait')+'</div></div>'+
-  '<div class="kpi"><div class="n g">'+m.signed+'</div><div class="l">'+t('k_sign')+'</div></div>'+
-  '<div class="kpi"><div class="n">'+m.bots+'</div><div class="l">'+t('k_bots')+'</div></div></div>';}
+function kcard(n,cls,l,tr){return '<div class="kpi"><div class="n '+cls+'">'+n+'</div><div class="l">'+l+'</div><div class="tr">'+tr+'</div></div>';}
+function kpiRow(m){var wk=weekVisitors();var EN=LANG=='en';return '<div class="kpis">'+
+  kcard(m.uniq,'',t('k_vis'),'30 j · +'+wk+' '+(EN?'this week':'cette semaine'))+
+  kcard(m.eng,'d',t('k_eng'),EN?'opened the confidential zone':'a ouvert la zone confidentielle')+
+  kcard(m.wait,'t',t('k_wait'),m.wait?(EN?'awaiting approval':'en attente d\'approbation'):(EN?'none pending':'aucune en attente'))+
+  kcard(m.signed,'g',t('k_sign'),EN?'excl. owner':'hors owner')+
+  kcard(m.bots,'',t('k_bots'),EN?'single-view US excluded':'US « une vue » exclus')+'</div>';}
 function funnel(m){return '<div class="panel"><div class="panel-h"><span class="t">'+t('f_title')+'</span></div><div class="funnel">'+
   stage('',m.uniq,t('f_vis'),100)+stage('',m.eng,t('f_cp'),m.uniq?Math.max(6,m.eng/m.uniq*100):4)+
   stage('warm',m.pageNDA,t('f_nda'),m.uniq?Math.max(4,m.pageNDA/m.uniq*100):3)+
@@ -429,13 +434,19 @@ function railSources(m){
   // pages by project
   function pagesByProj(proj){var by={};D.pv.forEach(function(p){var pg=p.page||p.url||'';if(projectOf(pg)!==proj)return;by[pg]=(by[pg]||0)+1;});var arr=Object.keys(by).map(function(k){return[k,by[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,5);var mx=arr.length?arr[0][1]:1;return arr;}
   function countriesByProj(proj){var by={};D.pv.forEach(function(p){var pg=p.page||p.url||'';if(projectOf(pg)!==proj)return;var c=p.country||'?';by[c]=(by[c]||0)+1;});return Object.keys(by).map(function(k){return[k,by[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,5);}
-  function block(title,rows){var mx=rows.length?rows[0][1]:1;return '<div class="mini-h">'+title+'</div>'+(rows.length?rows.map(function(r){return '<div class="mini-row"><span class="ml">'+esc(r[0])+'</span><span class="track"><i style="width:'+Math.round(r[1]/mx*100)+'%"></i></span><span class="mv tnum">'+r[1]+'</span></div>';}).join(''):'<div class="mini-row"><span class="small">—</span></div>');}
+  function block(title,rows,ctry){var mx=rows.length?rows[0][1]:1;return '<div class="mini-h">'+title+'</div>'+(rows.length?rows.map(function(r){var lab=ctry?(flag(r[0])+'&nbsp; '+esc(cname(r[0]))):esc(r[0]);return '<div class="mini-row"><span class="ml">'+lab+'</span><span class="track"><i class="'+(ctry?'d':'')+'" style="width:'+Math.round(r[1]/mx*100)+'%"></i></span><span class="mv tnum">'+r[1]+'</span></div>';}).join(''):'<div class="mini-row"><span class="small">—</span></div>');}
+  var EN=LANG=='en',todo=[];
+  D.cp.filter(function(c){return c.status==='pending';}).forEach(function(c){todo.push('<span class="badge gold" style="margin-right:6px">'+(EN?'Approve':'Approuver')+'</span>'+esc((c.first_name||'')+' '+(c.last_name||'')));});
+  if(m.eng>0)todo.push('<span class="pill heat-warm" style="margin-right:6px"><span class="dot"></span></span>'+m.eng+' '+(EN?'visitor(s) saw the Capital Partners zone':'visiteur(s) ont vu la zone Capital Partners'));
+  if(!todo.length)todo.push('<span class="small">'+(EN?'Nothing to action right now.':'Rien à traiter pour le moment.')+'</span>');
   return '<div>'+
    '<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+t('pages')+'</span></div><div class="mini">'+
-     block('1 · '+t('sumba'),pagesByProj('sumba'))+block('2 · '+t('cognac'),pagesByProj('cognac'))+'</div></div>'+
-   '<div class="panel"><div class="panel-h"><span class="t">'+t('countries')+'</span></div><div class="mini">'+
-     block('1 · '+t('sumba'),countriesByProj('sumba'))+block('2 · '+t('cognac'),countriesByProj('cognac'))+
-     '<div class="insight"><b>Insight :</b> '+m.bots+' '+t('bots_note')+'</div></div></div></div>';
+     block('1 · '+t('sumba'),pagesByProj('sumba'),false)+block('2 · '+t('cognac'),pagesByProj('cognac'),false)+'</div></div>'+
+   '<div class="panel" style="margin-bottom:16px"><div class="panel-h"><span class="t">'+t('countries')+'</span></div><div class="mini">'+
+     block('1 · '+t('sumba'),countriesByProj('sumba'),true)+block('2 · '+t('cognac'),countriesByProj('cognac'),true)+
+     '<div class="insight"><b>Insight :</b> '+m.bots+' '+t('bots_note')+'</div></div></div>'+
+   '<div class="panel"><div class="panel-h"><span class="t">'+(EN?'To action':'À traiter')+'</span></div><div class="mini">'+
+     todo.map(function(i){return '<div class="mini-row"><span class="ml">'+i+'</span></div>';}).join('')+'</div></div></div>';
 }
 
 function viewSources(){
