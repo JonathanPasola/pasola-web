@@ -298,7 +298,22 @@
  .catch(function () { showError('Server'); });
  }
 
- document.addEventListener('DOMContentLoaded', verify);
+ // Le sélecteur de langue doit conserver le token : sans lui, basculer FR/EN
+ // affiche « lien invalide » et oblige le signataire à rouvrir son email.
+ function keepTokenOnLangSwitch() {
+ var token = getToken();
+ if (!token) return;
+ var links = document.querySelectorAll('.lang-switch a[href]');
+ for (var i = 0; i < links.length; i++) {
+ var base = links[i].getAttribute('href').split('?')[0];
+ links[i].setAttribute('href', base + '?token=' + encodeURIComponent(token));
+ }
+ }
+
+ document.addEventListener('DOMContentLoaded', function () {
+ keepTokenOnLangSwitch();
+ verify();
+ });
 })();
 </script>
 
