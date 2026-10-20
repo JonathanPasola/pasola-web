@@ -832,12 +832,12 @@
 
     card.innerHTML =
       '<div style="font-family:\'Times New Roman\',serif;font-size:20px;color:#1A2C3D;margin-bottom:6px;text-align:center;">' + escapeHtmlMP(email) + '</div>' +
-      '<div style="font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#C44A2C;margin-bottom:20px;text-align:center;">✓ ' + mailpickI18n.copied + '</div>' +
-      '<div style="font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#5C6F7E;margin-bottom:10px;text-align:center;">' + mailpickI18n.openWith + '</div>' +
+      '<div style="font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#8B4A2E;margin-bottom:20px;text-align:center;">✓ ' + mailpickI18n.copied + '</div>' +
+      '<div style="font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#3D5675;margin-bottom:10px;text-align:center;">' + mailpickI18n.openWith + '</div>' +
       '<a href="' + mailtoUrl + '" style="' + btnStyle + '">' + mailpickI18n.mailApp + '</a>' +
       '<a href="' + gmailUrl + '" target="_blank" rel="noopener noreferrer" style="' + altBtnStyle + '">' + mailpickI18n.gmail + '</a>' +
       '<a href="' + outlookUrl + '" target="_blank" rel="noopener noreferrer" style="' + altBtnStyle + '">' + mailpickI18n.outlook + '</a>' +
-      '<button type="button" class="mailpick-close-btn" style="display:block;width:100%;margin-top:14px;padding:8px;background:transparent;border:0;color:#5C6F7E;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;">' + mailpickI18n.close + '</button>';
+      '<button type="button" class="mailpick-close-btn" style="display:block;width:100%;margin-top:14px;padding:8px;background:transparent;border:0;color:#3D5675;font-family:Arial,sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;">' + mailpickI18n.close + '</button>';
 
     document.body.appendChild(backdrop);
     document.body.appendChild(card);
