@@ -26,10 +26,7 @@
  --charcoal-deep: #1A2C3D; /* Texte principal = Night Indigo */
  --white: #FFFFFF;
  --ivory: #FAF8F4; /* Ivoire chaud aligné sur les emails Brevo */
- --ivory-warm: #F5F1EC;
- --border: rgba(26, 44, 61, 0.18);
  --border-light: rgba(26, 44, 61, 0.10);
- --error: #C0392B;  /* rouge d'alerte : exception sémantique assumée, aucun rouge dans main.css */
  --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
  --font-body: 'Outfit', -apple-system, sans-serif;
  }
@@ -69,9 +66,6 @@
  margin-bottom: 56px;
  animation: fadeInDown 0.8s ease-out;
  }
-
- .logo-container { margin-bottom: 28px; }
- .logo-container img { max-width: 300px; width: 100%; height: auto; }
 
  /* Header brand v2, emblème + PASOLA Cinzel + sous-titre italique */
  .brand-link {
@@ -313,103 +307,6 @@
  .form-section { animation: fadeIn 1s ease-out 0.6s both; }
  .form-section .section-label { margin-bottom: 32px; }
 
- select.form-input {
- appearance: none;
- background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239A9D9F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
- background-repeat: no-repeat;
- background-position: right 18px center;
- padding-right: 42px; cursor: pointer;
- }
-
- /* ── Checkbox ── */
- .agreement-section {
- background: var(--ivory);
- border-radius: 8px;
- padding: 26px 28px;
- margin-bottom: 36px;
- border: 1px solid var(--border-light);
- }
-
- /* ── Signature ── */
- .signature-section { margin-bottom: 36px; }
-
- .signature-actions {
- display: flex; justify-content: space-between;
- align-items: center; margin-top: 10px;
- }
-
- .signature-hint {
- font-size: 11px; color: var(--warm-sandstone);
- font-weight: 300; letter-spacing: 0.5px;
- }
-
- .btn-clear-sig {
- font-family: var(--font-body);
- font-size: 11px; font-weight: 500;
- letter-spacing: 1px; text-transform: uppercase;
- color: var(--silver-grey); background: none;
- border: none; cursor: pointer;
- padding: 4px 10px; border-radius: 4px;
- transition: all 0.2s ease;
- }
-
- .btn-clear-sig:hover { color: var(--deep-teal); background: var(--ivory-warm); }
- /* ID Upload */
- .id-file-name { font-size: 13px; font-weight: 400; color: var(--deep-teal); margin-top: 8px; }
-
- /* ── Date ── */
- .date-display {
- display: flex; align-items: center; gap: 12px;
- margin-bottom: 36px; padding-bottom: 36px;
- border-bottom: 1px solid var(--border-light);
- }
-
- .date-display .form-label { margin-bottom: 0; white-space: nowrap; }
-
- .date-value {
- font-family: var(--font-body);
- font-size: 15px; font-weight: 300;
- color: var(--charcoal-deep);
- }
-
- /* ── Submit & Download Buttons ── */
-
- /* ══════════════════════
- SUCCESS OVERLAY
- ══════════════════════ */
-
- .success-icon {
- width: 60px; height: 60px;
- border: 2px solid var(--golden-sand);
- border-radius: 50%;
- display: flex; align-items: center; justify-content: center;
- margin: 0 auto 32px;
- }
-
- .btn-download-pdf {
- display: inline-block;
- font-family: var(--font-body);
- padding: 14px 36px;
- font-size: 12px; font-weight: 500;
- letter-spacing: 3px; text-transform: uppercase;
- color: var(--white); background: var(--deep-teal);
- border: none; border-radius: 6px;
- cursor: pointer; transition: all 0.3s ease;
- margin-top: 8px;
- }
-
- .btn-download-pdf:hover {
- background: var(--ocean-teal);
- box-shadow: 0 4px 16px rgba(6, 94, 111, 0.2);
- }
-
- .success-note {
- font-size: 12px !important;
- color: var(--warm-sandstone) !important;
- margin-top: 16px !important;
- font-style: italic;
- }
-
  /* ══════════════════════
  FOOTER
  ══════════════════════ */
@@ -434,16 +331,6 @@
  ══════════════════════ */
  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
- @keyframes scaleIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
- @keyframes spin { to { transform: rotate(360deg); } }
-
- .spinner {
- display: inline-block; width: 14px; height: 14px;
- border: 2px solid rgba(255,255,255,0.3);
- border-top-color: white; border-radius: 50%;
- animation: spin 0.6s linear infinite;
- margin-right: 10px; vertical-align: middle;
- }
 
  /* ══════════════════════
  RESPONSIVE
@@ -457,150 +344,6 @@
  .agreement-section { padding: 20px 22px; }
  .company-identity { padding: 22px 20px; }
  .parties-section { padding: 24px 22px; }
- }
-
- /* ══════════════════════
- PDF RENDERING AREA (hidden)
- ══════════════════════ */
-
- /* ══════════════════════
- REVIEW OVERLAY (Admin)
- ══════════════════════ */
- .review-overlay {
- display: none; position: fixed;
- top: 0; left: 0; right: 0; bottom: 0;
- background: rgba(255,255,255,0.98);
- z-index: 1001; overflow-y: auto;
- }
-
- .review-overlay.visible { display: block; animation: fadeIn 0.5s ease; }
-
- .review-content {
- max-width: 620px;
- margin: 48px auto;
- padding: 48px 40px;
- animation: scaleIn 0.6s ease;
- }
-
- .review-header {
- text-align: center;
- margin-bottom: 40px;
- }
-
- .review-header h2 {
- font-family: var(--font-display);
- font-size: 28px; font-weight: 300;
- color: var(--deep-teal);
- letter-spacing: 2px;
- text-transform: uppercase;
- margin-bottom: 8px;
- }
-
- .review-header p {
- font-size: 13px; font-weight: 300;
- color: var(--silver-grey); line-height: 1.7;
- }
-
- .review-row {
- display: flex; gap: 16px;
- margin-bottom: 10px;
- font-size: 14px;
- }
-
- .review-label {
- color: var(--silver-grey);
- font-weight: 400;
- min-width: 100px;
- font-size: 13px;
- }
-
- .review-value {
- color: var(--charcoal-deep);
- font-weight: 300;
- flex: 1;
- }
-
- .review-actions {
- display: flex; gap: 16px;
- margin-top: 36px;
- }
-
- .btn-accept, .btn-decline {
- flex: 1;
- font-family: var(--font-body);
- padding: 16px 24px;
- font-size: 12px; font-weight: 500;
- letter-spacing: 3px; text-transform: uppercase;
- border: none; border-radius: 6px;
- cursor: pointer; transition: all 0.3s ease;
- }
-
- .btn-accept {
- color: var(--white);
- background: var(--deep-teal);
- }
-
- .btn-accept:hover {
- background: var(--ocean-teal);
- box-shadow: 0 6px 24px rgba(6, 94, 111, 0.2);
- }
-
- .btn-decline {
- color: var(--silver-grey);
- background: var(--ivory-warm);
- border: 1px solid var(--border);
- }
-
- .btn-decline:hover {
- color: var(--error);
- border-color: var(--error);
- background: rgba(192,57,43,0.04);
- }
-
- .btn-accept:disabled, .btn-decline:disabled {
- opacity: 0.5; cursor: not-allowed;
- transform: none; box-shadow: none;
- }
-
- .countersign-section {
- margin-top: 28px;
- display: none;
- }
-
- .countersign-section.visible { display: block; animation: fadeIn 0.4s ease; }
-
- .review-result-overlay {
- display: none; position: fixed;
- top: 0; left: 0; right: 0; bottom: 0;
- background: rgba(255,255,255,0.97);
- z-index: 1002; align-items: center; justify-content: center;
- }
-
- .review-result-overlay.visible { display: flex; animation: fadeIn 0.5s ease; }
-
- .result-content {
- text-align: center; padding: 60px;
- animation: scaleIn 0.6s ease;
- max-width: 520px;
- }
-
- .result-content h2 {
- font-family: var(--font-display);
- font-size: 30px; font-weight: 300;
- color: var(--deep-teal);
- margin-bottom: 12px; letter-spacing: 2px;
- text-transform: uppercase;
- }
-
- .result-content p {
- font-size: 14px; font-weight: 300;
- color: var(--silver-grey); line-height: 1.7;
- margin-bottom: 8px;
- }
-
- @media (max-width: 640px) {
- .review-content { padding: 32px 20px; margin: 24px auto; }
- .review-actions { flex-direction: column; }
  }
 
 </style>
